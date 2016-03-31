@@ -1,0 +1,22 @@
+# Read about the gemrc format at http://docs.rubygems.org/read/chapter/11
+
+# --user-install is used to install to $HOME/.gem/ by default since we want to separate
+#                pacman installed gems and gem installed gems
+gem: --no-ri --no-rdoc --platform ruby
+:gem: --no-ri --no-rdoc --platform ruby
+:install: --no-ri --no-rdoc --platform ruby
+install: --no-ri --no-rdoc --platform ruby
+:update: --no-ri --no-rdoc --platform ruby
+update: --no-ri --no-rdoc --platform ruby
+:benchmark: false
+:verbose: true
+:update_sources: true
+:bulk_threshold: 1000
+:backtrace: false
+:sources: 
+- http://gems.rubyforge.org/
+- http://rubygems.org/
+
+# HTTP Proxy options
+# # http-proxy: http://example.com:80
+
