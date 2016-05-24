@@ -69,8 +69,9 @@ zstyle ':completion:*' group-name ''
 zstyle ':completion:*' verbose yes
 
 # Use caching so that commands like apt and dpkg complete are useable
+zstyle ':completion:*' accept-exact '*(N)'
 zstyle ':completion::complete:*' use-cache 1
-zstyle ':completion::complete:*' cache-path "$HOME/.zsh/cache/"
+zstyle ':completion::complete:*' cache-path "$HOME/.zsh/cache"
 
 # Key bindings
 # Emacs mode
@@ -151,6 +152,7 @@ zplug "plugins/ubuntu",   from:oh-my-zsh, if:"which apt"
 zplug "plugins/systemd", from:oh-my-zsh, if:"which systemctl"
 
 zplug "plugins/git",   from:oh-my-zsh, if:"which git"
+zplug "plugins/gitfast",   from:oh-my-zsh, if:"which git"
 zplug "plugins/git-extras", from:oh-my-zsh, if:"which git-extras"
 
 zplug "plugins/npm",   from:oh-my-zsh, if:"which npm"
@@ -190,7 +192,7 @@ zplug "zsh-users/zsh-syntax-highlighting", \
     nice:11
 
 # Set Theme
-zplug "themes/bira", from:oh-my-zsh
+zplug "denysdovhan/spaceship-zsh-theme"
 
 # And load
 # Install plugins if there are plugins that have not been installed
