@@ -93,13 +93,9 @@ function urlencode {
 }
 
 # Zenmate Chef Environment Switchs
-alias knife_stage="CHEF_ENV=staging bundle exec knife"
+alias knife_stage="export CHEF_ENV=staging; bundle exec knife"
 
-alias knife_prod="CHEF_ENV=production bundle exec knife"
-
-alias knife="bundle exec knife"
-
-alias librarian-chef="bundle exec librarian-chef"
+alias knife_prod="export CHEF_ENV=production; bundle exec knife"
 
 # Git tool
 alias gitlog="git log --oneline --all --graph --decorate -n 30"
