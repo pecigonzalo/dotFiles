@@ -3,7 +3,7 @@
 # /home/gonzalop/.zplug/bin:/home/gonzalop/.zplug/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
 
 # User Bin
-# export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 
 # Golang
 export GOPATH="$HOME/Workspace/Go"
