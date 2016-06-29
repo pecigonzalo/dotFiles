@@ -34,8 +34,8 @@ setopt hist_reduce_blanks # Remove extra blanks from each command line being add
 setopt hist_verify # don't execute, just expand history
 setopt share_history # imports new commands and appends typed commands to history
 
-# ===== Completion 
-setopt always_to_end # When completing from the middle of a word, move the cursor to the end of the word    
+# ===== Completion
+setopt always_to_end # When completing from the middle of a word, move the cursor to the end of the word
 setopt auto_menu # show completion menu on successive tab press. needs unsetop menu_complete to work
 setopt auto_name_dirs # any parameter that is set to the absolute name of a directory immediately becomes a name for that directory
 setopt complete_in_word # Allow completion from within a word/phrase
@@ -43,8 +43,8 @@ setopt auto_list           # Automatically list choices on ambiguous completion.
 unsetopt menu_complete # do not autoselect the first completion entry
 
 # ===== Correction
-setopt correct # spelling correction for commands
-setopt correct_all # spelling correction for arguments  
+#setopt correct # spelling correction for commands
+#setopt correct_all # spelling correction for arguments
 
 # ===== Prompt
 setopt prompt_subst # Enable parameter expansion, command substitution, and arithmetic expansion in the prompt
@@ -102,18 +102,6 @@ alias gitlog="git log --oneline --all --graph --decorate -n 30"
 
 ############################################################################################
 
-# The following lines were added by compinstall
-
-# zstyle ':completion:*' completer _complete _ignored _approximate
-# zstyle ':completion:*' matcher-list '' '' '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}'
-# zstyle :compinstall filename '/home/gonzalop/.zshrc'
-
-# autoload -Uz compinit
-# compinit
-# End of lines added by compinstall
-
-############################################################################################
-
 ## START Zplug config
 zstyle :omz:plugins:ssh-agent identities id_rsa Github_pecigonzalo
 
@@ -145,27 +133,33 @@ zplug "plugins/tmuxinator", from:oh-my-zsh
 
 zplug "plugins/dnf",   from:oh-my-zsh, if:"which dnf"
 zplug "plugins/ubuntu",   from:oh-my-zsh, if:"which apt"
+zplug "plugins/archlinux", from:oh-my-zsh, if:"which pacman"
 zplug "plugins/systemd", from:oh-my-zsh, if:"which systemctl"
 
-zplug "plugins/git",   from:oh-my-zsh, if:"which git"
-zplug "plugins/gitfast",   from:oh-my-zsh, if:"which git"
+zplug "plugins/git",   from:oh-my-zsh, if:"which git", \
+	nice:11
+zplug "plugins/gitfast",   from:oh-my-zsh, if:"which git", \
+	nice:11
 zplug "plugins/git-extras", from:oh-my-zsh, if:"which git-extras"
 
 zplug "plugins/npm",   from:oh-my-zsh, if:"which npm"
 
 zplug "plugins/ruby",   from:oh-my-zsh, if:"which ruby"
 zplug "plugins/gem",   from:oh-my-zsh, if:"which gem"
-zplug "plugins/chruby",   from:oh-my-zsh, if:"which chruby-exec"
-zplug "plugins/bundler", from:oh-my-zsh, if:"which bundle"
-#zplug "rhysd/zsh-bundle-exec", if:"which bundle"
+zplug "plugins/chruby",   from:oh-my-zsh, if:"which chruby-exec", \
+	nice:11
+zplug "plugins/bundler", from:oh-my-zsh, \
+	nice:12
 
 zplug "plugins/vagrant",   from:oh-my-zsh, if:"which vagrant"
 zplug "plugins/docker",   from:oh-my-zsh, if:"which docker"
 
 zplug "plugins/sublime",   from:oh-my-zsh
 
-zplug "plugins/go",   from:oh-my-zsh, if:"which go"
-zplug "plugins/golang",   from:oh-my-zsh, if:"which go"
+zplug "plugins/go",   from:oh-my-zsh, if:"which go", \
+	nice:11
+zplug "plugins/golang",   from:oh-my-zsh, if:"which go", \
+	nice:11
 
 zplug "plugins/python",   from:oh-my-zsh, if:"which python"
 zplug "plugins/pip",   from:oh-my-zsh, if:"which pip"
@@ -173,20 +167,22 @@ zplug "plugins/virtualenv",   from:oh-my-zsh, if:"which virtualenv"
 zplug "plugins/virtualenvwrapper",   from:oh-my-zsh, if:"which virtualenvwrapper.sh"
 
 zplug "plugins/knife",   from:oh-my-zsh
-zplug "plugins/knife_ssh",   from:oh-my-zsh
+zplug "plugins/knife_ssh",   from:oh-my-zsh, \
+	nice:11
 zplug "plugins/kitchen",   from:oh-my-zsh
 
+zplug "plugins/z",   from:oh-my-zsh
 zplug "rimraf/k", from:github, as:plugin
 zplug "Russell91/sshrc", from:github, as:command, use:"sshrc"
 
-zplug "zsh-users/zsh-history-substring-search"
-zplug "zsh-users/zsh-completions", \
-    nice:11
-# zplug "zsh-users/zsh-autosuggestions", \
-#    nice:-1
 # zsh-syntax-highlighting must be loaded after executing compinit command and sourcing other plugins
 zplug "zsh-users/zsh-syntax-highlighting", \
-    nice:11
+    nice:12
+zplug "zsh-users/zsh-history-substring-search"
+zplug "zsh-users/zsh-completions", \
+    nice:12
+# zplug "zsh-users/zsh-autosuggestions", \
+#    nice:-1
 
 # Set Theme
 zplug "denysdovhan/spaceship-zsh-theme"
@@ -204,4 +200,3 @@ fi
 zplug load
 
 ## FINISH Zplug config
-
