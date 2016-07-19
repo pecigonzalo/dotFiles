@@ -3,6 +3,8 @@
 ## Base config
 limit coredumpsize 0
 
+source ~/src/python2.7/bin/activate
+
 # Exit if called from vim
 [[ -n $VIMRUNTIME ]] && return
 
@@ -99,6 +101,7 @@ alias knife_prod="export CHEF_ENV=production; bundle exec knife"
 
 # Git tool
 alias gitlog="git log --oneline --all --graph --decorate -n 30"
+alias gitclean="git branch --merged | grep -v "\*" | grep -v master | xargs -n1 git branch -d"
 
 ############################################################################################
 
