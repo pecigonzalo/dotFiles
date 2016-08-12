@@ -9,10 +9,10 @@ export GOPATH="$HOME/Workspace/Go"
 export PATH="$GOPATH/bin:$PATH"
 
 # Editor
-export EDITOR=atom
-export CVSEDITOR="${EDITOR}"
-export SVN_EDITOR="${EDITOR}"
-export GIT_EDITOR="${EDITOR}"
+export EDITOR="vim"
+export CVSEDITOR="vim"
+export SVN_EDITOR="vim"
+export GIT_EDITOR="vim"
 
 # Load shared aliases
 [[ -f $HOME/.aliases ]] && source $HOME/.aliases

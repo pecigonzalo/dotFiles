@@ -14,12 +14,17 @@ alias gitg="gitg >> /dev/null 2>&1"
 alias glances="docker run -v /var/run/docker.sock:/var/run/docker.sock:ro --pid host -it docker.io/nicolargo/glances"
 # Git tool
 alias gitlog="git log --oneline --all --graph --decorate -n 30"
-alias gitclean="git branch --merged | grep -v "\*" | grep -v master | xargs -n1 git branch -d"
+function gitclean {
+ git branch --merged | grep -v "\*" | grep -v master | xargs -n1 git branch -d
+}
 
 # urlencode text
 function urlencode {
   print "${${(j: :)@}//(#b)(?)/%$[[##16]##${match[1]}]}"
 }
+
+# Remove entry from hosts
+func remove_from_hosts() {sed -i "$($arg1)d" ~/.ssh/known_hosts}
 
 HISTFILE=~/.histfile
 HISTSIZE=100000
