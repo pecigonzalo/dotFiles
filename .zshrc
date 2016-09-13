@@ -65,7 +65,7 @@ setopt auto_menu          # show completion menu on successive tab press. needs 
 setopt auto_name_dirs     # any parameter that is set to the absolute name of a directory immediately becomes a name for that directory
 setopt complete_in_word   # allow completion from within a word/phrase
 setopt auto_list          # automatically list choices on ambiguous completion.
-setopt complete_aliases   # an alias of a command should complete to the command completion
+unsetopt complete_aliases   # an alias of a command should complete to the command completion
 unsetopt menu_complete    # do not autoselect the first completion entry
 unsetopt flowcontrol      # do not freezes output to the terminal until you type ^q
 
@@ -136,6 +136,7 @@ zplug "robbyrussell/oh-my-zsh", use:"lib/*.zsh", nice:-19
 zplug "plugins/common-aliases", from:oh-my-zsh
 zplug "plugins/gnu-utils", from:oh-my-zsh
 zplug "plugins/sudo",   from:oh-my-zsh
+zplug "plugins/colored-man-pages",   from:oh-my-zsh
 zplug "plugins/ssh-agent",   from:oh-my-zsh, if:"which ssh-agent"
 zplug "plugins/tmuxinator", from:oh-my-zsh
 
@@ -158,6 +159,9 @@ zplug "plugins/chruby",   from:oh-my-zsh, if:"which chruby-exec", \
 	nice:11
 zplug "plugins/bundler", from:oh-my-zsh, \
 	nice:12
+
+zplug "plugins/nvm", from:oh-my-zsh, \
+	nice:11
 
 zplug "plugins/vagrant",   from:oh-my-zsh, if:"which vagrant"
 zplug "plugins/docker",   from:oh-my-zsh, if:"which docker"
