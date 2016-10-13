@@ -11,7 +11,7 @@ alias less="less -R"
 # gitg no output
 alias gitg="gitg >> /dev/null 2>&1"
 # Run glances in a container
-alias glances="docker run -v /var/run/docker.sock:/var/run/docker.sock:ro --pid host -it docker.io/nicolargo/glances"
+alias glances="docker run --rm -v /var/run/docker.sock:/var/run/docker.sock:ro --pid host -it docker.io/nicolargo/glances"
 # Git tool
 alias gitlog="git log --oneline --all --graph --decorate -n 30"
 function gitclean {
@@ -127,7 +127,7 @@ COMPLETION_WAITING_DOTS="true"
 }
 
 # Load ZPLUG
-source ~/.zplug/zplug
+source ~/.zplug/init.zsh
 
 # Oh My ZSH Workaround
 zplug "robbyrussell/oh-my-zsh", use:"lib/*.zsh", nice:-19
@@ -208,5 +208,7 @@ fi
 
 # Then, source plugins and add commands to $PATH
 zplug load
-
 ## FINISH Zplug config
+
+# Load default virtualenv
+workon 2.7

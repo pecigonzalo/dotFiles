@@ -17,5 +17,3 @@ export GIT_EDITOR="vim"
 # Load shared aliases
 [[ -f $HOME/.aliases ]] && source $HOME/.aliases
 
-# Load default virtualenv
-[[ -f $HOME/src/python2.7/bin/activate ]] && source $HOME/src/python2.7/bin/activate
