@@ -3,8 +3,18 @@
 ## Base config
 limit coredumpsize 0
 
+# Load default virtualenv
+source /usr/bin/virtualenvwrapper.sh
+workon 2.7
+# Load default chruby
+source /usr/local/share/chruby/chruby.sh
+chruby ruby-2.2.5 
+
 # Exit if called from vim
 [[ -n $VIMRUNTIME ]] && return
+
+# Exit if called from atom
+[[ -n $ATOM_HOME ]] && return
 
 # make less accept color codes and re-output them
 alias less="less -R"
@@ -210,5 +220,3 @@ fi
 zplug load
 ## FINISH Zplug config
 
-# Load default virtualenv
-workon 2.7

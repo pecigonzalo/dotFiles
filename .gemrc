@@ -2,11 +2,7 @@
 
 # --user-install is used to install to $HOME/.gem/ by default since we want to separate
 #                pacman installed gems and gem installed gems
-gem: --no-ri --no-rdoc --platform ruby
-:gem: --no-ri --no-rdoc --platform ruby
-:install: --no-ri --no-rdoc --platform ruby
 install: --no-ri --no-rdoc --platform ruby
-:update: --no-ri --no-rdoc --platform ruby
 update: --no-ri --no-rdoc --platform ruby
 :benchmark: false
 :verbose: true
