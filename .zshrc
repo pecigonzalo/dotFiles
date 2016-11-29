@@ -2,6 +2,7 @@
 
 ## Base config
 limit coredumpsize 0
+export VIRTUAL_ENV_DISABLE_PROMPT=1
 
 # Load default virtualenv
 source /usr/bin/virtualenvwrapper.sh
