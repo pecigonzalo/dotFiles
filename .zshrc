@@ -9,7 +9,7 @@ source /usr/bin/virtualenvwrapper.sh
 workon 2.7
 # Load default chruby
 source /usr/local/share/chruby/chruby.sh
-chruby ruby-2.2.5 
+chruby ruby-2.2.5
 
 # Exit if called from vim
 [[ -n $VIMRUNTIME ]] && return
@@ -118,6 +118,9 @@ bindkey -e
 # Bind ctrl-left / ctrl-right
 bindkey "\e[1;5D" backward-word
 bindkey "\e[1;5C" forward-word
+# Bind home / end
+bindkey  "^[[H"   beginning-of-line
+bindkey  "^[[F"   end-of-line
 
 ############################################################################################
 
@@ -131,79 +134,102 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Uncomment the following line to display red dots whilst waiting for completion.
 COMPLETION_WAITING_DOTS="true"
 
+# zsh-syntax-highlighting
+export ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
+
+# z
+export _Z_NO_RESOLVE_SYMLINKS=1
+export _Z_NO_COMPLETE_CD=1
+
 # Check if zplug is installed
-[[ -d ~/.zplug ]] || {
+if [[ ! -f ~/.zplug/init.zsh ]]; then
   git clone https://github.com/b4b4r07/zplug ~/.zplug
-  source ~/.zplug/zplug && zplug update --self
-}
+  source ~/.zplug/init.zsh
+fi
 
 # Load ZPLUG
 source ~/.zplug/init.zsh
 
-# Oh My ZSH Workaround
-zplug "robbyrussell/oh-my-zsh", use:"lib/*.zsh", nice:-19
+if ! zplug check; then
+  printf "Install plugins? [y/N] "
+  if read -q; then
+    echo
+    zplug install
+  else
+    echo
+  fi
+fi
+# zplug "zplug/zplug"
 
 # Add zplug plugins
+# OMZ Libs
+zplug "lib/compfix", from:oh-my-zsh
+zplug "lib/completion", from:oh-my-zsh
+zplug "lib/correction", from:oh-my-zsh
+zplug "lib/clipboard", from:oh-my-zsh
+zplug "lib/directories", from:oh-my-zsh
+zplug "lib/grep", from:oh-my-zsh
+zplug "lib/key-bindings", from:oh-my-zsh
+zplug "lib/misc", from:oh-my-zsh
+zplug "lib/theme-and-appearance", from:oh-my-zsh
+
+# Basic utils
 zplug "plugins/common-aliases", from:oh-my-zsh
 zplug "plugins/gnu-utils", from:oh-my-zsh
-zplug "plugins/sudo",   from:oh-my-zsh
-zplug "plugins/colored-man-pages",   from:oh-my-zsh
-zplug "plugins/ssh-agent",   from:oh-my-zsh, if:"which ssh-agent"
-zplug "plugins/tmuxinator", from:oh-my-zsh
-
-zplug "plugins/dnf",   from:oh-my-zsh, if:"which dnf"
-zplug "plugins/ubuntu",   from:oh-my-zsh, if:"which apt"
-zplug "plugins/archlinux", from:oh-my-zsh, if:"which pacman"
-zplug "plugins/systemd", from:oh-my-zsh, if:"which systemctl"
-
-zplug "plugins/git",   from:oh-my-zsh, if:"which git", \
-	nice:11
-zplug "plugins/gitfast",   from:oh-my-zsh, if:"which git", \
-	nice:11
-zplug "plugins/git-extras", from:oh-my-zsh, if:"which git-extras"
-
-zplug "plugins/npm",   from:oh-my-zsh, if:"which npm"
-
-zplug "plugins/ruby",   from:oh-my-zsh, if:"which ruby"
-zplug "plugins/gem",   from:oh-my-zsh, if:"which gem"
-zplug "plugins/chruby",   from:oh-my-zsh, if:"which chruby-exec", \
-	nice:11
-zplug "plugins/bundler", from:oh-my-zsh, \
-	nice:12
-
-zplug "plugins/nvm", from:oh-my-zsh, \
-	nice:11
-
-zplug "plugins/vagrant",   from:oh-my-zsh, if:"which vagrant"
-zplug "plugins/docker",   from:oh-my-zsh, if:"which docker"
-
-zplug "plugins/sublime",   from:oh-my-zsh
-
-zplug "plugins/golang",   from:oh-my-zsh, if:"which go", \
-	nice:11
-
-zplug "plugins/python",   from:oh-my-zsh, if:"which python"
-zplug "plugins/pip",   from:oh-my-zsh, if:"which pip"
-zplug "plugins/virtualenv",   from:oh-my-zsh, if:"which virtualenv"
-zplug "plugins/virtualenvwrapper",   from:oh-my-zsh, if:"which virtualenvwrapper.sh"
-
-zplug "plugins/knife",   from:oh-my-zsh
-zplug "plugins/knife_ssh",   from:oh-my-zsh, \
-	nice:11
-zplug "plugins/kitchen",   from:oh-my-zsh
-
-zplug "plugins/z",   from:oh-my-zsh
+zplug "plugins/sudo", from:oh-my-zsh
+zplug "plugins/colored-man-pages", from:oh-my-zsh
+zplug "plugins/ssh-agent", from:oh-my-zsh, if:"which ssh-agent"
+zplug "plugins/tmux", from:oh-my-zsh
+zplug "plugins/z", from:oh-my-zsh
 zplug "rimraf/k", from:github, as:plugin
 zplug "Russell91/sshrc", from:github, as:command, use:"sshrc"
 
+# System
+zplug "plugins/archlinux", from:oh-my-zsh, if:"which pacman"
+zplug "plugins/systemd", from:oh-my-zsh, if:"which systemctl"
+
+# GIT
+zplug "plugins/git", from:oh-my-zsh
+zplug "pecigonzalo/gitfast-zsh-plugin", from:github
+zplug "plugins/git-extras", from:oh-my-zsh
+
+# Node
+zplug "plugins/nvm", from:oh-my-zsh
+zplug "plugins/npm", from:oh-my-zsh, if:"which npm"
+
+# Ruby
+zplug "plugins/ruby", from:oh-my-zsh, if:"which ruby"
+zplug "plugins/gem", from:oh-my-zsh, if:"which gem"
+zplug "plugins/chruby", from:oh-my-zsh, if:"which chruby-exec"
+zplug "plugins/bundler", from:oh-my-zsh
+
+# Python
+zplug "plugins/python", from:oh-my-zsh, if:"which python"
+zplug "plugins/pip", from:oh-my-zsh, if:"which pip"
+zplug "plugins/virtualenv", from:oh-my-zsh, if:"which virtualenv"
+zplug "plugins/virtualenvwrapper", from:oh-my-zsh, if:"which virtualenvwrapper.sh"
+zplug "plugins/django", from:oh-my-zsh
+
+# GoLang
+zplug "plugins/golang", from:oh-my-zsh, if:"which go"
+
+# Containers/Virtual
+zplug "plugins/vagrant", from:oh-my-zsh, if:"which vagrant"
+zplug "plugins/docker", from:oh-my-zsh, if:"which docker"
+zplug "plugins/docker-compose", from:oh-my-zsh, if:"which docker-compose"
+
+#  Chef
+zplug "plugins/knife", from:oh-my-zsh
+zplug "plugins/knife_ssh", from:oh-my-zsh
+zplug "plugins/kitchen", from:oh-my-zsh
+
 # zsh-syntax-highlighting must be loaded after executing compinit command and sourcing other plugins
 zplug "zsh-users/zsh-syntax-highlighting", \
-    nice:12
+    defer:3
 zplug "zsh-users/zsh-history-substring-search"
-zplug "zsh-users/zsh-completions", \
-    nice:12
-# zplug "zsh-users/zsh-autosuggestions", \
-#    nice:-1
+zplug "zsh-users/zsh-completions"
+zplug "zsh-users/zsh-autosuggestions", \
+    defer:2
 
 # Set Theme
 zplug "denysdovhan/spaceship-zsh-theme"
@@ -219,5 +245,13 @@ fi
 
 # Then, source plugins and add commands to $PATH
 zplug load
+autoload -Uz compinit && compinit -i
 ## FINISH Zplug config
+
+# TMP DotEnv loader
+#source_env() {
+#   if [[ -f .env ]]; then
+#	source .env
+#   fi
+#}
 
