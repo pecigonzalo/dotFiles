@@ -1,12 +1,11 @@
-#!/bin/zsh
 # Gonzalo Peci
 
 ############################################################################################
 
-# # Exit if called from vim
+# Exit if called from vim
 [[ -n $VIMRUNTIME ]] && return
 
-# # Exit if called from atom
+# Exit if called from atom
 [[ -n $ATOM_HOME ]] && return
 
 ## START Zplug config
@@ -33,23 +32,23 @@ zplug "lib/termsupport", from:oh-my-zsh, defer:0
 zplug "lib/theme-and-appearance", from:oh-my-zsh, defer:0
 
 # Basic utils
-zplug "plugins/common-aliases", from:oh-my-zsh
+# zplug "plugins/common-aliases", from:oh-my-zsh
 zplug "plugins/sudo", from:oh-my-zsh
 zplug "plugins/colored-man-pages", from:oh-my-zsh
 zplug "plugins/ssh-agent", from:oh-my-zsh, if:"which ssh-agent"
-# zplug "plugins/tmux", from:oh-my-zsh
+zplug "plugins/tmux", from:oh-my-zsh
 zplug "plugins/z", from:oh-my-zsh
-# zplug "rimraf/k", from:github, as:plugin
+zplug "rimraf/k", from:github, as:plugin
 zplug "Russell91/sshrc", from:github, as:command, use:"sshrc"
 
 # System
-# zplug "plugins/archlinux", from:oh-my-zsh, if:"which pacman"
+zplug "plugins/archlinux", from:oh-my-zsh, if:"which pacman"
 zplug "plugins/systemd", from:oh-my-zsh, if:"which systemctl"
 
 # GIT
 zplug "plugins/git", from:oh-my-zsh
-# zplug "pecigonzalo/gitfast-zsh-plugin", from:github
-# zplug "plugins/git-extras", from:oh-my-zsh
+zplug "pecigonzalo/gitfast-zsh-plugin", from:github
+zplug "plugins/git-extras", from:oh-my-zsh
 
 # Node
 zplug "plugins/nvm", from:oh-my-zsh
@@ -71,11 +70,9 @@ zplug "plugins/golang", from:oh-my-zsh
 
 # Containers/Virtual
 zplug "plugins/vagrant", from:oh-my-zsh, if:"which vagrant"
-zplug "plugins/docker", from:oh-my-zsh, if:"which docker"
 zplug "plugins/docker-compose", from:oh-my-zsh, if:"which docker-compose"
 
 #  Chef
-zplug "plugins/knife", from:oh-my-zsh
 zplug "plugins/knife_ssh", from:oh-my-zsh
 zplug "plugins/kitchen", from:oh-my-zsh
 
@@ -87,7 +84,7 @@ zplug "zsh-users/zsh-history-substring-search", defer:3
 # Set Theme
 zplug "mafredri/zsh-async", from:github, defer:0  # Load this first
 zplug "~/Workspace/src/pure", use:pure.zsh, from:local, as:theme
-#zplug "denysdovhan/spaceship-zsh-theme", as:theme, defer:3
+# zplug "denysdovhan/spaceship-zsh-theme", as:theme, defer:3
 
 # And load
 # Install plugins if there are plugins that have not been installed
@@ -186,7 +183,7 @@ zstyle ':completion:*:cd:*' tag-order local-directories directory-stack path-dir
 # Use caching so that commands like apt and dpkg complete are useable
 zstyle ':completion:*' accept-exact '*(N)'
 zstyle ':completion::complete:*' use-cache 1
-zstyle ':completion::complete:*' cache-path "$HOME/.zsh/cache"
+# zstyle ':completion::complete:*' cache-path "$HOME/.zsh/cache"
 
 # Don't complete uninteresting users
 zstyle ':completion:*:*:*:users' ignored-patterns \
