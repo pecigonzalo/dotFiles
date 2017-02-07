@@ -2,6 +2,12 @@
 
 ############################################################################################
 
+# If not running interactively, don't do anything
+case $- in
+ 	*i*) ;;
+	*) return;;
+esac
+
 # Exit if called from vim
 [[ -n $VIMRUNTIME ]] && return
 
@@ -80,10 +86,12 @@ zplug "plugins/kitchen", from:oh-my-zsh
 # zsh-syntax-highlighting must be loaded after executing compinit command and sourcing other plugins
 zplug "zsh-users/zsh-syntax-highlighting", defer:3
 zplug "zsh-users/zsh-history-substring-search", defer:3
+zplug "zsh-users/zsh-autosuggestions", defer:3
 
 # Set Theme
 zplug "mafredri/zsh-async", from:github, defer:0  # Load this first
-zplug "~/Workspace/src/pure", use:pure.zsh, from:local, as:theme
+zplug "pecigonzalo/pure-spaceship-zsh-theme", use:pure.zsh, from:github, as:theme
+# zplug sindresorhus/pure, use:pure.zsh, from:github, as:theme
 # zplug "denysdovhan/spaceship-zsh-theme", as:theme, defer:3
 
 # And load
@@ -241,3 +249,7 @@ function urlencode {
 
 # Remove entry from hosts
 func remove_from_hosts() {sed -i "$($arg1)d" ~/.ssh/known_hosts}
+
+# Open External Crypt
+func opencrypt() {sudo cryptsetup --veracrypt tcryptOpen $@ Workspace}
+func closecrypt() {sudo umount ~/Workspace && sudo cryptsetup close Workspace}
