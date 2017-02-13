@@ -251,5 +251,5 @@ function urlencode {
 func remove_from_hosts() {sed -i "$($arg1)d" ~/.ssh/known_hosts}
 
 # Open External Crypt
-func opencrypt() {sudo cryptsetup --veracrypt tcryptOpen $@ Workspace}
+func opencrypt() {sudo cryptsetup luksOpen $@ Workspace}
 func closecrypt() {sudo umount ~/Workspace && sudo cryptsetup close Workspace}
