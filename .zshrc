@@ -237,7 +237,7 @@ alias gitg="gitg >> /dev/null 2>&1"
 # Run glances in a container
 alias glances="docker run --rm -v /var/run/docker.sock:/var/run/docker.sock:ro --pid host -it docker.io/nicolargo/glances"
 # Git tool
-alias gitlog="git log --oneline --all --graph --decorate -n 30"
+alias gitlog="git log --all --graph --pretty=format:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative"
 function gitclean {
  git branch --merged | grep -v "\*" | grep -v master | xargs -n1 git branch -d
 }
