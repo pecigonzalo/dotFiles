@@ -1,5 +1,6 @@
 ## Base config
 limit coredumpsize 0
+export PATH=~/bin:$PATH
 
 # History config
 export HISTFILE=$HOME/.histfile

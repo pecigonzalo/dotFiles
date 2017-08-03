@@ -15,7 +15,7 @@ esac
 [[ -n $ATOM_HOME ]] && return
 
 ## START Zplug config
-zstyle :omz:plugins:ssh-agent identities id_rsa Github_pecigonzalo
+zstyle :omz:plugins:ssh-agent identities Github_pecigonzalo
 
 # Check if zplug is installed
 if [[ ! -f ~/.zplug/init.zsh ]]; then
@@ -57,7 +57,7 @@ zplug "pecigonzalo/gitfast-zsh-plugin", from:github
 zplug "plugins/git-extras", from:oh-my-zsh
 
 # Node
-zplug "plugins/nvm", from:oh-my-zsh
+# zplug "plugins/nvm", from:oh-my-zsh
 
 # Ruby
 zplug "plugins/ruby", from:oh-my-zsh
@@ -235,7 +235,7 @@ alias less="less -R"
 # gitg no output
 alias gitg="gitg >> /dev/null 2>&1"
 # Run glances in a container
-alias glances="docker run --rm -v /var/run/docker.sock:/var/run/docker.sock:ro --pid host -it docker.io/nicolargo/glances"
+# alias glances="docker run --rm -v /var/run/docker.sock:/var/run/docker.sock:ro --pid host -it docker.io/nicolargo/glances"
 # Git tool
 alias gitlog="git log --all --graph --pretty=format:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative"
 function gitclean {
