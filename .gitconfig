@@ -1,0 +1,42 @@
+[user]
+	name = Gonzalo Peci
+	email = pecigonzalo@users.noreply.github.com
+[push]
+	default = current
+[pull]
+	rebase = true
+[fetch]
+    prune = true
+[core]
+	pager = less -FRSX
+	compression = 9
+	whitespace = trailing-space,space-before-tab
+[color]
+	branch = auto
+	diff = auto
+	interactive = auto
+	pager = true
+	status = auto
+	ui = true
+[color "status"]
+	added = green
+	changed = yellow
+	untracked = red
+[branch]
+	autosetuprebase = always
+[diff]
+    algorithm = minimal
+    compactionHeuristic = true
+	renames = copies
+	mnemonicprefix = true
+[merge]
+        # tool = kdiff3
+	tool = meld
+[init]
+    templatedir = ~/.git_template/template
+[rebase]
+    autosquash = true
+[rerere]
+    enabled = true
+[mergetool]
+    keepBackup = false

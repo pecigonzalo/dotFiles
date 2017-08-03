@@ -27,6 +27,8 @@ else
 fi
 
 # Add zplug plugins
+zplug 'zplug/zplug', hook-build:'zplug --self-manage'
+
 # OMZ Libs
 zplug "lib/compfix", from:oh-my-zsh, defer:0
 zplug "lib/clipboard", from:oh-my-zsh, defer:0
@@ -253,3 +255,7 @@ func remove_from_hosts() {sed -i "$($arg1)d" ~/.ssh/known_hosts}
 # Open External Crypt
 func opencrypt() {sudo cryptsetup luksOpen $@ Workspace}
 func closecrypt() {sudo umount ~/Workspace && sudo cryptsetup close Workspace}
+
+# added by travis gem
+[ -f /home/gonzalop/.travis/travis.sh ] && source /home/gonzalop/.travis/travis.sh
+
