@@ -1,12 +1,14 @@
 [user]
 	name = Gonzalo Peci
 	email = pecigonzalo@users.noreply.github.com
+[status]
+    showuntrackedfiles = no
 [push]
 	default = current
 [pull]
 	rebase = true
 [fetch]
-    prune = true
+	prune = true
 [core]
 	pager = less -FRSX
 	compression = 9
@@ -17,7 +19,7 @@
 	interactive = auto
 	pager = true
 	status = auto
-	ui = true
+	ui = auto
 [color "status"]
 	added = green
 	changed = yellow
@@ -29,8 +31,9 @@
     compactionHeuristic = true
 	renames = copies
 	mnemonicprefix = true
+	tool = meld
 [merge]
-        # tool = kdiff3
+    # tool = kdiff3
 	tool = meld
 [init]
     templatedir = ~/.git_template/template
@@ -40,3 +43,10 @@
     enabled = true
 [mergetool]
     keepBackup = false
+[help]
+    autocorrect = 1
+[alias]
+    gist = log --graph --oneline --all --decorate --date-order
+    find = log --graph --oneline --all --decorate --date-order --regexp-ignore-case --extended-regexp --grep
+    rfind = log --graph --oneline --all --decorate --date-order --regexp-ignore-case --extended-regexp --invert-grep --grep
+    search = grep --line-number --ignore-case -E -I
