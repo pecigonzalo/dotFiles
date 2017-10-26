@@ -1,4 +1,6 @@
-## Base config
+#!/bin/bash
+
+# Base config
 limit coredumpsize 0
 export PATH=~/bin:$PATH
 
@@ -55,6 +57,15 @@ export _Z_NO_COMPLETE_CD=1
 # Disable virtualenv in prompt autoconfig
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 
+# TLDR Colors
+export TLDR_COLOR_BLANK="white"
+export TLDR_COLOR_NAME="cyan"
+export TLDR_COLOR_DESCRIPTION="white"
+export TLDR_COLOR_EXAMPLE="green"
+export TLDR_COLOR_COMMAND="red"
+export TLDR_COLOR_PARAMETER="white"
+
 # Load shared aliases
-[[ -f $HOME/.aliases ]] && source $HOME/.aliases
+[[ -f $HOME/.aliases ]] && source "$HOME"/.aliases
+
 
