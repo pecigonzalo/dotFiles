@@ -1,46 +1,47 @@
 [user]
-	name = Gonzalo Peci
-	email = pecigonzalo@users.noreply.github.com
+    name = Gonzalo Peci
+    email = pecigonzalo@users.noreply.github.com
 [status]
     showuntrackedfiles = no
 [push]
-	default = current
+    default = current
 [pull]
-	rebase = true
+    rebase = true
 [fetch]
-	prune = true
+    prune = true
 [core]
-	pager = less -FRSX
-	compression = 9
-	whitespace = trailing-space,space-before-tab
+    pager = less -FRSX
+    compression = 9
+    whitespace = trailing-space,space-before-tab
 [color]
-	branch = auto
-	diff = auto
-	interactive = auto
-	pager = true
-	status = auto
-	ui = auto
+    branch = auto
+    diff = auto
+    interactive = auto
+    pager = true
+    status = auto
+    ui = auto
 [color "status"]
-	added = green
-	changed = yellow
-	untracked = red
+    added = green
+    changed = yellow
+    untracked = red
 [branch]
-	autosetuprebase = always
+    autosetuprebase = always
 [diff]
     algorithm = minimal
     compactionHeuristic = true
-	renames = copies
-	mnemonicprefix = true
-	tool = meld
+    renames = copies
+    mnemonicprefix = true
+    tool = meld
 [merge]
-    # tool = kdiff3
-	tool = meld
+     tool = kdiff3
+#	tool = meld
 [init]
     templatedir = ~/.git_template/template
 [rebase]
     autosquash = true
 [rerere]
     enabled = true
+    autoupdate = true
 [mergetool]
     keepBackup = false
 [help]
