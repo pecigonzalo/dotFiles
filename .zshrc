@@ -30,7 +30,8 @@ fi
 zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 
 # OMZ Libs
-zplug "lib/compfix", from:oh-my-zsh, defer:0
+# zplug "lib/compfix", from:oh-my-zsh, defer:0
+# zplug "lib/completion", from:oh-my-zsh, defer:0
 zplug "lib/clipboard", from:oh-my-zsh, defer:0
 zplug "lib/directories", from:oh-my-zsh, defer:0
 zplug "lib/grep", from:oh-my-zsh, defer:0
@@ -38,13 +39,17 @@ zplug "lib/key-bindings", from:oh-my-zsh, defer:0
 zplug "lib/misc", from:oh-my-zsh, defer:0
 zplug "lib/termsupport", from:oh-my-zsh, defer:0
 zplug "lib/theme-and-appearance", from:oh-my-zsh, defer:0
+zplug "lib/history", from:oh-my-zsh, defer:0
 
 # Basic utils
 # zplug "plugins/common-aliases", from:oh-my-zsh
+zplug "plugins/history", from:oh-my-zsh
 zplug "plugins/sudo", from:oh-my-zsh
 zplug "plugins/colored-man-pages", from:oh-my-zsh
 zplug "plugins/ssh-agent", from:oh-my-zsh, if:"which ssh-agent"
 zplug "plugins/tmux", from:oh-my-zsh
+zplug "plugins/tmux", from:oh-my-zsh, if:"which tmux"
+zplug "plugins/urltools", from:oh-my-zsh
 zplug "plugins/z", from:oh-my-zsh
 zplug "rimraf/k", from:github, as:plugin
 zplug "Russell91/sshrc", from:github, as:command, use:"sshrc"
@@ -54,9 +59,10 @@ zplug "plugins/archlinux", from:oh-my-zsh, if:"which pacman"
 zplug "plugins/systemd", from:oh-my-zsh, if:"which systemctl"
 
 # GIT
-zplug "plugins/git", from:oh-my-zsh
-zplug "pecigonzalo/gitfast-zsh-plugin", from:github
+zplug "plugins/gitfast", from:oh-my-zsh
+# zplug "pecigonzalo/gitfast-zsh-plugin", from:github
 zplug "plugins/git-extras", from:oh-my-zsh
+zplug "plugins/github", from:oh-my-zsh
 
 # Node
 # zplug "plugins/nvm", from:oh-my-zsh
@@ -80,7 +86,10 @@ zplug "plugins/golang", from:oh-my-zsh
 zplug "plugins/vagrant", from:oh-my-zsh, if:"which vagrant"
 zplug "plugins/docker-compose", from:oh-my-zsh, if:"which docker-compose"
 
-#  Chef
+# Hashicorp
+zplug "plugins/terraform", from:oh-my-zsh, if:"which terraform"
+
+# Chef
 zplug "plugins/knife_ssh", from:oh-my-zsh
 zplug "plugins/kitchen", from:oh-my-zsh
 
@@ -206,6 +215,10 @@ zstyle ':completion:*:*:*:users' ignored-patterns \
         rpc rpcuser rpm rtkit scard shutdown squid sshd statd svn sync tftp \
         usbmux uucp vcsa wwwrun xfs '_*'
 
+# list of completers to use
+zstyle ':completion:*::::' completer _expand _complete _ignored _approximate
+zstyle ':completion:*' menu select=1 _complete _ignored _approximate
+
 # Key bindings
 # Emacs mode
 bindkey -e
@@ -222,8 +235,8 @@ bindkey  "^[[F"   end-of-line
 source /usr/bin/virtualenvwrapper.sh
 workon 2.7
 # # Load default chruby
-source /usr/local/share/chruby/chruby.sh
-chruby ruby-2.2.5
+source /usr/share/chruby/chruby.sh
+chruby ruby-2.4.1
 
 # TMP DotEnv loader
 #source_env() {
@@ -232,30 +245,34 @@ chruby ruby-2.2.5
 #   fi
 #}
 
-# make less accept color codes and re-output them
-alias less="less -R"
-# gitg no output
-alias gitg="gitg >> /dev/null 2>&1"
 # Run glances in a container
 # alias glances="docker run --rm -v /var/run/docker.sock:/var/run/docker.sock:ro --pid host -it docker.io/nicolargo/glances"
+
+# make less accept color codes and re-output them
+# alias less="less -R"
+
+# Packer
+alias packer=packer-io
+
+# gitg no output
+alias gitg="GTK_THEME='Maia-Dark:dark' gitg >> /dev/null 2>&1"
 # Git tool
 alias gitlog="git log --all --graph --pretty=format:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative"
 function gitclean {
  git branch --merged | grep -v "\*" | grep -v master | xargs -n1 git branch -d
 }
 
-# urlencode text
-function urlencode {
-  print "${${(j: :)@}//(#b)(?)/%$[[##16]##${match[1]}]}"
-}
-
 # Remove entry from hosts
-func remove_from_hosts() {sed -i "$($arg1)d" ~/.ssh/known_hosts}
+remove_from_hosts() {sed -i "$($arg1)d" ~/.ssh/known_hosts}
 
 # Open External Crypt
 func opencrypt() {sudo cryptsetup luksOpen $@ Workspace}
 func closecrypt() {sudo umount ~/Workspace && sudo cryptsetup close Workspace}
 
+# Get funtions
+source $HOME/dotFiles/functions.zsh
+
 # added by travis gem
 [ -f /home/gonzalop/.travis/travis.sh ] && source /home/gonzalop/.travis/travis.sh
+[ -f $HOME/.travis/travis.sh ] && source $HOME/.travis/travis.sh
 
