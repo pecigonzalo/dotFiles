@@ -1,21 +1,9 @@
+#!/usr/bin/zsh
+############################################################################################
 # Gonzalo Peci
 
-############################################################################################
-
-# If not running interactively, don't do anything
-case $- in
- 	*i*) ;;
-	*) return;;
-esac
-
-# Exit if called from vim
-[[ -n $VIMRUNTIME ]] && return
-
-# Exit if called from atom
-[[ -n $ATOM_HOME ]] && return
-
 ## START Zplug config
-zstyle :omz:plugins:ssh-agent identities Github_pecigonzalo
+zstyle :omz:plugins:ssh-agent identities Github_pecigonzalo codeship
 
 # Check if zplug is installed
 if [[ ! -f ~/.zplug/init.zsh ]]; then
@@ -47,7 +35,6 @@ zplug "plugins/history", from:oh-my-zsh
 zplug "plugins/sudo", from:oh-my-zsh
 zplug "plugins/colored-man-pages", from:oh-my-zsh
 zplug "plugins/ssh-agent", from:oh-my-zsh, if:"which ssh-agent"
-zplug "plugins/tmux", from:oh-my-zsh
 zplug "plugins/tmux", from:oh-my-zsh, if:"which tmux"
 zplug "plugins/urltools", from:oh-my-zsh
 zplug "plugins/z", from:oh-my-zsh
@@ -93,6 +80,10 @@ zplug "plugins/terraform", from:oh-my-zsh, if:"which terraform"
 zplug "plugins/knife_ssh", from:oh-my-zsh
 zplug "plugins/kitchen", from:oh-my-zsh
 
+# Coya
+zplug "~/Workspace/Coya/src/ragbag/coya-vars", from:local
+zplug "~/Workspace/Coya/src/ragbag/travis-vars", from:local
+
 # Misc
 # zsh-syntax-highlighting must be loaded after executing compinit command and sourcing other plugins
 zplug "zsh-users/zsh-syntax-highlighting", defer:3
@@ -104,6 +95,7 @@ zplug "mafredri/zsh-async", from:github, defer:0  # Load this first
 zplug "pecigonzalo/pure-spaceship-zsh-theme", use:pure.zsh, from:github, as:theme
 # zplug sindresorhus/pure, use:pure.zsh, from:github, as:theme
 # zplug "denysdovhan/spaceship-zsh-theme", as:theme, defer:3
+# zplug "/home/gonzalop/Workspace/src/pure-spaceship-zsh-theme", use:fleet.zsh, from:local, as:theme
 
 # And load
 # Install plugins if there are plugins that have not been installed
@@ -273,6 +265,7 @@ func closecrypt() {sudo umount ~/Workspace && sudo cryptsetup close Workspace}
 source $HOME/dotFiles/functions.zsh
 
 # added by travis gem
-[ -f /home/gonzalop/.travis/travis.sh ] && source /home/gonzalop/.travis/travis.sh
 [ -f $HOME/.travis/travis.sh ] && source $HOME/.travis/travis.sh
 
+# Autocomplete for vboxmanage
+compdef vboxmanage=VBoxManage
