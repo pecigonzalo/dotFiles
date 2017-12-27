@@ -121,42 +121,5 @@ bindkey  "^[[F"   end-of-line
 
 ############################################################################################
 
-# TMP DotEnv loader
-#source_env() {
-#   if [[ -f .env ]]; then
-#	source .env
-#   fi
-#}
-
-# Run glances in a container
-# alias glances="docker run --rm -v /var/run/docker.sock:/var/run/docker.sock:ro --pid host -it docker.io/nicolargo/glances"
-
-# make less accept color codes and re-output them
-# alias less="less -R"
-
-# Packer
-alias packer=packer-io
-
-# gitg no output
-alias gitg="GTK_THEME='Maia-Dark:dark' gitg >> /dev/null 2>&1"
-# Git tool
-alias gitlog="git log --all --graph --pretty=format:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative"
-function gitclean {
- git branch --merged | grep -v "\*" | grep -v master | xargs -n1 git branch -d
-}
-
-# Remove entry from hosts
-remove_from_hosts() {sed -i "$($arg1)d" ~/.ssh/known_hosts}
-
-# Open External Crypt
-func opencrypt() {sudo cryptsetup luksOpen $@ Workspace}
-func closecrypt() {sudo umount ~/Workspace && sudo cryptsetup close Workspace}
-
-# Get funtions
-source $HOME/dotFiles/functions.zsh
-
-# added by travis gem
-[ -f $HOME/.travis/travis.sh ] && source $HOME/.travis/travis.sh
-
 # Autocomplete for vboxmanage
 compdef vboxmanage=VBoxManage

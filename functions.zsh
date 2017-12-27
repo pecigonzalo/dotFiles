@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 # -------------------------------------------------------------------
 # compressed file expander
 # (from https://github.com/myfreeweb/zshuery/blob/master/zshuery.sh)
@@ -57,4 +57,29 @@ givedef() {
   else
     curl "dict://dict.org/d:$1"
   fi
+}
+
+# TMP DotEnv loader
+#source_env() {
+#   if [[ -f .env ]]; then
+#	source .env
+#   fi
+#}
+
+# Clean merged git branches
+function gitclean {
+ git branch --merged | grep -v "\*" | grep -v master | xargs -n1 git branch -d
+}
+
+# Remove entry from hosts
+rm_hosts() {sed -i "$($arg1)d" ~/.ssh/known_hosts}
+
+# ExplainShell on CLI
+explain() {
+    command="$@"
+    tool="$(echo $@ | cut -d' ' -f1)"
+    params="$(echo $@ | cut -d' ' -f2-)"
+    w3m -dump "http://explainshell.com/explain?cmd=""$(echo $@ | tr ' ' '+'\})" | 
+        sed '/^explainshell\.com/,/^'"$tool"'.*$/{//!d}' | 
+        sed '/^'"$tool"'.*$/,/^'"$params"'.*$/{//!d}'
 }

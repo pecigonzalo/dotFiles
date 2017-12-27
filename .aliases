@@ -1,0 +1,18 @@
+#!/bin/bash
+# Google Apps CLI
+alias gam="/home/gonzalop/bin/gam/gam"
+
+# Follow tail
+alias tailf="tail -f"
+
+# Run glances in a container
+# alias glances="docker run --rm -v /var/run/docker.sock:/var/run/docker.sock:ro --pid host -it docker.io/nicolargo/glances"
+
+# make less accept color codes and re-output them
+alias less="less -R"
+
+# Packer
+alias packer=packer-io
+
+# gitg remove console output
+alias gitg="gitg >> /dev/null 2>&1"

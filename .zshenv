@@ -66,6 +66,10 @@ export TLDR_COLOR_COMMAND="red"
 export TLDR_COLOR_PARAMETER="white"
 
 # Load shared aliases
-[[ -f $HOME/.aliases ]] && source "$HOME"/.aliases
+[[ -f $HOME/dotFiles/.aliases ]] && source $HOME/dotFiles/.aliases
 
+# Get funtions
+[[ -f $HOME/dotFiles/functions.zsh ]] && source $HOME/dotFiles/functions.zsh
 
+# Load Travis
+[ -f $HOME/.travis/travis.sh ] && source $HOME/.travis/travis.sh
