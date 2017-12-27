@@ -1,0 +1,104 @@
+#!/usr/bin/zsh
+############################################################################################
+# Gonzalo Peci
+
+# Check if zplug is installed
+if [[ ! -f ~/.zplug/init.zsh ]]; then
+  git clone https://github.com/b4b4r07/zplug ~/.zplug
+  source ~/.zplug/init.zsh
+else
+  # Load ZPLUG
+  source ~/.zplug/init.zsh
+fi
+
+# Add zplug plugins
+zplug 'zplug/zplug', hook-build:'zplug --self-manage'
+
+# OMZ Libs
+# zplug "lib/*", from:oh-my-zsh, defer:0
+zplug "lib/misc", from:oh-my-zsh, defer:0
+zplug "lib/functions", from:oh-my-zsh, defer:0
+zplug "lib/key-bindings", from:oh-my-zsh
+zplug "lib/history", from:oh-my-zsh
+zplug "lib/grep", from:oh-my-zsh
+zplug "lib/theme-and-appearance", from:oh-my-zsh
+zplug "lib/clipboard", from:oh-my-zsh
+
+# Basic utils
+zplug "plugins/common-aliases", from:oh-my-zsh, defer:1
+zplug "plugins/history", from:oh-my-zsh
+zplug "plugins/sudo", from:oh-my-zsh
+zplug "plugins/tmux", from:oh-my-zsh, if:"which tmux", defer:1
+zplug "plugins/urltools", from:oh-my-zsh
+zplug "plugins/z", from:oh-my-zsh
+zplug "rimraf/k", from:github
+zplug "Russell91/sshrc", from:github, as:command, use:"sshrc"
+
+# Git
+zplug "plugins/gitfast", from:oh-my-zsh, defer:2
+
+# Node
+# zplug "plugins/nvm", from:oh-my-zsh, defer:1
+
+# Ruby
+zplug "plugins/chruby", from:oh-my-zsh, defer:1
+zplug "plugins/bundler", from:oh-my-zsh, defer:1
+
+# Python
+zplug "plugins/python", from:oh-my-zsh, defer:1
+zplug "plugins/pip", from:oh-my-zsh, defer:1
+zplug "plugins/virtualenvwrapper", from:oh-my-zsh, defer:1
+zplug "plugins/django", from:oh-my-zsh, defer:1
+
+# GoLang
+zplug "plugins/golang", from:oh-my-zsh, defer:1
+
+# Containers/Virtual
+zplug "plugins/vagrant", from:oh-my-zsh, if:"which vagrant", defer:1
+zplug "plugins/docker-compose", from:oh-my-zsh, if:"which docker-compose", defer:1
+
+# Hashicorp
+zplug "plugins/terraform", from:oh-my-zsh, if:"which terraform", defer:1
+
+# Chef
+zplug "plugins/knife_ssh", from:oh-my-zsh, defer:1
+zplug "plugins/kitchen", from:oh-my-zsh, defer:1
+
+# AWS
+zplug "plugins/aws", from:oh-my-zsh, defer:1
+
+# Terraform
+zplug "kamatama41/tfenv", as:command, use:"bin/*"
+
+# Coya
+zplug "~/Workspace/Coya/src/ragbag/coya-vars", from:local, defer:1
+zplug "~/Workspace/Coya/src/ragbag/travis-vars", from:local, defer:1
+
+# Misc
+# zsh-syntax-highlighting must be loaded after executing compinit command and sourcing other plugins
+zplug "zsh-users/zsh-syntax-highlighting", defer:2
+zplug "zsh-users/zsh-history-substring-search", defer:3
+zplug "zsh-users/zsh-autosuggestions", defer:3
+
+# Set Theme
+zplug "mafredri/zsh-async", from:github, defer:0  # Load this first
+zplug "pecigonzalo/pure-spaceship-zsh-theme", use:pure.zsh, from:github, as:theme
+# zplug sindresorhus/pure, use:pure.zsh, from:github, as:theme
+# zplug "denysdovhan/spaceship-zsh-theme", as:theme, defer:3
+# zplug "/home/gonzalop/Workspace/src/pure-spaceship-zsh-theme", use:fleet.zsh, from:local, as:theme
+
+# And load
+# Install plugins if there are plugins that have not been installed
+if ! zplug check; then
+  printf "Install plugins? [y/N] "
+  if read -q; then
+    echo
+    zplug install
+  else
+    echo
+  fi
+fi
+
+# Then, source plugins and add commands to $PATH
+zplug load  # --verbose
+export PATH=$HOME/.zplug/bin:$PATH

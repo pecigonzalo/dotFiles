@@ -2,117 +2,15 @@
 ############################################################################################
 # Gonzalo Peci
 
-## START Zplug config
-zstyle :omz:plugins:ssh-agent identities Github_pecigonzalo codeship
+## Load default virtualenv
+source /usr/bin/virtualenvwrapper.sh
+workon 2.7
+## Load default chruby
+source /usr/share/chruby/chruby.sh
+chruby ruby-2.4.2
 
-# Check if zplug is installed
-if [[ ! -f ~/.zplug/init.zsh ]]; then
-  git clone https://github.com/b4b4r07/zplug ~/.zplug
-  source ~/.zplug/init.zsh
-else
-  # Load ZPLUG
-  source ~/.zplug/init.zsh
-fi
-
-# Add zplug plugins
-zplug 'zplug/zplug', hook-build:'zplug --self-manage'
-
-# OMZ Libs
-# zplug "lib/compfix", from:oh-my-zsh, defer:0
-# zplug "lib/completion", from:oh-my-zsh, defer:0
-zplug "lib/clipboard", from:oh-my-zsh, defer:0
-zplug "lib/directories", from:oh-my-zsh, defer:0
-zplug "lib/grep", from:oh-my-zsh, defer:0
-zplug "lib/key-bindings", from:oh-my-zsh, defer:0
-zplug "lib/misc", from:oh-my-zsh, defer:0
-zplug "lib/termsupport", from:oh-my-zsh, defer:0
-zplug "lib/theme-and-appearance", from:oh-my-zsh, defer:0
-zplug "lib/history", from:oh-my-zsh, defer:0
-
-# Basic utils
-# zplug "plugins/common-aliases", from:oh-my-zsh
-zplug "plugins/history", from:oh-my-zsh
-zplug "plugins/sudo", from:oh-my-zsh
-zplug "plugins/colored-man-pages", from:oh-my-zsh
-zplug "plugins/ssh-agent", from:oh-my-zsh, if:"which ssh-agent"
-zplug "plugins/tmux", from:oh-my-zsh, if:"which tmux"
-zplug "plugins/urltools", from:oh-my-zsh
-zplug "plugins/z", from:oh-my-zsh
-zplug "rimraf/k", from:github, as:plugin
-zplug "Russell91/sshrc", from:github, as:command, use:"sshrc"
-
-# System
-zplug "plugins/archlinux", from:oh-my-zsh, if:"which pacman"
-zplug "plugins/systemd", from:oh-my-zsh, if:"which systemctl"
-
-# GIT
-zplug "plugins/gitfast", from:oh-my-zsh
-# zplug "pecigonzalo/gitfast-zsh-plugin", from:github
-zplug "plugins/git-extras", from:oh-my-zsh
-zplug "plugins/github", from:oh-my-zsh
-
-# Node
-# zplug "plugins/nvm", from:oh-my-zsh
-
-# Ruby
-zplug "plugins/ruby", from:oh-my-zsh
-zplug "plugins/gem", from:oh-my-zsh
-zplug "plugins/chruby", from:oh-my-zsh
-zplug "plugins/bundler", from:oh-my-zsh
-
-# Python
-zplug "plugins/python", from:oh-my-zsh
-zplug "plugins/pip", from:oh-my-zsh
-zplug "plugins/virtualenvwrapper", from:oh-my-zsh
-zplug "plugins/django", from:oh-my-zsh
-
-# GoLang
-zplug "plugins/golang", from:oh-my-zsh
-
-# Containers/Virtual
-zplug "plugins/vagrant", from:oh-my-zsh, if:"which vagrant"
-zplug "plugins/docker-compose", from:oh-my-zsh, if:"which docker-compose"
-
-# Hashicorp
-zplug "plugins/terraform", from:oh-my-zsh, if:"which terraform"
-
-# Chef
-zplug "plugins/knife_ssh", from:oh-my-zsh
-zplug "plugins/kitchen", from:oh-my-zsh
-
-# Coya
-zplug "~/Workspace/Coya/src/ragbag/coya-vars", from:local
-zplug "~/Workspace/Coya/src/ragbag/travis-vars", from:local
-
-# Misc
-# zsh-syntax-highlighting must be loaded after executing compinit command and sourcing other plugins
-zplug "zsh-users/zsh-syntax-highlighting", defer:3
-zplug "zsh-users/zsh-history-substring-search", defer:3
-zplug "zsh-users/zsh-autosuggestions", defer:3
-
-# Set Theme
-zplug "mafredri/zsh-async", from:github, defer:0  # Load this first
-zplug "pecigonzalo/pure-spaceship-zsh-theme", use:pure.zsh, from:github, as:theme
-# zplug sindresorhus/pure, use:pure.zsh, from:github, as:theme
-# zplug "denysdovhan/spaceship-zsh-theme", as:theme, defer:3
-# zplug "/home/gonzalop/Workspace/src/pure-spaceship-zsh-theme", use:fleet.zsh, from:local, as:theme
-
-# And load
-# Install plugins if there are plugins that have not been installed
-if ! zplug check; then
-  printf "Install plugins? [y/N] "
-  if read -q; then
-    echo
-    zplug install
-  else
-    echo
-  fi
-fi
-
-# Then, source plugins and add commands to $PATH
-zplug load
-
-## FINISH Zplug config
+## Load ZPLUG
+source $HOME/dotFiles/.zplug
 
 ############################################################################################
 
@@ -222,13 +120,6 @@ bindkey  "^[[H"   beginning-of-line
 bindkey  "^[[F"   end-of-line
 
 ############################################################################################
-
-# # # Load default virtualenv
-source /usr/bin/virtualenvwrapper.sh
-workon 2.7
-# # Load default chruby
-source /usr/share/chruby/chruby.sh
-chruby ruby-2.4.1
 
 # TMP DotEnv loader
 #source_env() {
