@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 ## place in ~/.config/plasma-workspace/env/ssh-agent-startup.sh
 ## exec order: "kde pre-startup"
 export SSH_ASKPASS="/usr/bin/ksshaskpass"
@@ -9,5 +9,3 @@ fi
 if [[ "$SSH_AGENT_PID" == "" ]]; then
     eval "$(<~/.ssh-agent)"
 fi
-
-
