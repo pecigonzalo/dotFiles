@@ -1,12 +1,18 @@
 - defaults:
     link:
       relink: true
-      force: true
+      force: false
 
-- clean: ['~']
+- clean:
+    ~/:
+      force: false
+    /etc/default:
+      force: false
 
 - link:
-    ~/.dotfiles: ''
+    # ~/.dotfiles: ''
+    # Workspace
+    ~/bin: ~/Workspace/bin
     ~/.tmux.conf: .tmux.conf
     ~/.vimrc: .vimrc
     ~/.profile: .profile
@@ -15,9 +21,19 @@
     ~/.zshrc: .zshrc
     ~/.zshenv: .zshenv
     ~/.gemrc: .gemrc
-    ~/.local/share/konsole/BrogrammerChalk.colorscheme: .local/share/konsole/BrogrammerChalk.colorscheme
-    ~/.local/share/konsole/MonokaiSetiAtom.colorscheme: .local/share/konsole/MonokaiSetiAtom.colorscheme
-    ~/.config/pip/pip.conf: .config/pip/pip.conf
+    ~/.config/pip/pip.conf:
+      create: true
+      path: .config/pip/pip.conf
+    # Gestures
     ~/.config/libinput-gestures.conf: .config/libinput-gestures.conf
-    /etc/polkit-1/rules.d/60-mount.rules: etc/polkit-1/rules.d/60-mount.rules
+    # Konsole
+    ~/.local/share/konsole/MonokaiSetiAtom.colorscheme: .local/share/konsole/MonokaiSetiAtom.colorscheme
+    ~/.local/share/konsole/BrogrammerChalk.colorscheme: .local/share/konsole/BrogrammerChalk.colorscheme
+    # PowerSaver
     /etc/default/tlp: etc/default/tlp
+    # SSH Startup agent
+    ~/.config/autostart-scripts/ssh-agent-startup.sh: .config/autostart-scripts/ssh-agent-startup.sh
+    ~/.config/plasma-workspace/env/ssh-agent-startup.sh: .config/plasma-workspace/env/ssh-agent-startup.sh
+    ~/.config/plasma-workspace/shutdown/ssh-agent-kill.sh: .config/plasma-workspace/shutdown/ssh-agent-kill.sh
+    # Automount
+    # /etc/polkit-1/rules.d/60-mount.rules: etc/polkit-1/rules.d/60-mount.rules
