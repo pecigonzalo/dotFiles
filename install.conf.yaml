@@ -10,9 +10,8 @@
       force: false
 
 - link:
-    # ~/.dotfiles: ''
-    # Workspace
-    ~/bin: ~/Workspace/bin
+    # Main Files
+    ~/.xprofile: .xprofile
     ~/.tmux.conf: .tmux.conf
     ~/.vimrc: .vimrc
     ~/.profile: .profile
@@ -29,11 +28,9 @@
     # Konsole
     ~/.local/share/konsole/MonokaiSetiAtom.colorscheme: .local/share/konsole/MonokaiSetiAtom.colorscheme
     ~/.local/share/konsole/BrogrammerChalk.colorscheme: .local/share/konsole/BrogrammerChalk.colorscheme
-    # PowerSaver
-    /etc/default/tlp: etc/default/tlp
     # SSH Startup agent
     ~/.config/autostart-scripts/ssh-agent-startup.sh: .config/autostart-scripts/ssh-agent-startup.sh
     ~/.config/plasma-workspace/env/ssh-agent-startup.sh: .config/plasma-workspace/env/ssh-agent-startup.sh
     ~/.config/plasma-workspace/shutdown/ssh-agent-kill.sh: .config/plasma-workspace/shutdown/ssh-agent-kill.sh
-    # Automount
-    # /etc/polkit-1/rules.d/60-mount.rules: etc/polkit-1/rules.d/60-mount.rules
+    # Workspace
+    ~/bin: ~/Workspace/bin
