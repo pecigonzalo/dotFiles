@@ -2,12 +2,16 @@
 
 # Base config
 limit coredumpsize 0
-export PATH=~/bin:$PATH
+export PATH=$HOME/bin:$PATH
 
 # History config
 export HISTFILE=$HOME/.histfile
 export HISTSIZE=10000
 export SAVEHIST=100000
+
+# PyEnv
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
 
 # User Bin
 export PATH="$HOME/.local/bin:$PATH"
@@ -73,3 +77,6 @@ export TLDR_COLOR_PARAMETER="white"
 
 # Load Travis
 [ -f $HOME/.travis/travis.sh ] && source $HOME/.travis/travis.sh
+
+# Set aws-vault backend
+export AWS_VAULT_BACKEND=kwallet

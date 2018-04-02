@@ -2,6 +2,8 @@
 ############################################################################################
 # Gonzalo Peci
 
+export ZPLUG_HOME="${HOME}/.zplug"
+
 # Check if zplug is installed
 if [[ ! -f ~/.zplug/init.zsh ]]; then
   git clone https://github.com/b4b4r07/zplug ~/.zplug
@@ -35,6 +37,7 @@ zplug "rimraf/k", from:github
 zplug "Russell91/sshrc", from:github, as:command, use:"sshrc"
 
 # Git
+zplug "plugins/git", from:oh-my-zsh, defer:2
 zplug "plugins/gitfast", from:oh-my-zsh, defer:2
 
 # Node
@@ -47,7 +50,7 @@ zplug "plugins/bundler", from:oh-my-zsh, defer:1
 # Python
 zplug "plugins/python", from:oh-my-zsh, defer:1
 zplug "plugins/pip", from:oh-my-zsh, defer:1
-zplug "plugins/virtualenvwrapper", from:oh-my-zsh, defer:1
+#zplug "plugins/virtualenvwrapper", from:oh-my-zsh, defer:1
 zplug "plugins/django", from:oh-my-zsh, defer:1
 
 # GoLang
@@ -58,7 +61,7 @@ zplug "plugins/vagrant", from:oh-my-zsh, if:"which vagrant", defer:1
 zplug "plugins/docker-compose", from:oh-my-zsh, if:"which docker-compose", defer:1
 
 # Hashicorp
-zplug "plugins/terraform", from:oh-my-zsh, if:"which terraform", defer:1
+zplug "plugins/terraform", from:oh-my-zsh, defer:1
 
 # Chef
 zplug "plugins/knife_ssh", from:oh-my-zsh, defer:1
@@ -84,8 +87,8 @@ zplug "zsh-users/zsh-autosuggestions", defer:3
 zplug "mafredri/zsh-async", from:github, defer:0  # Load this first
 zplug "pecigonzalo/pure-spaceship-zsh-theme", use:pure.zsh, from:github, as:theme
 # zplug sindresorhus/pure, use:pure.zsh, from:github, as:theme
-# zplug "denysdovhan/spaceship-zsh-theme", as:theme, defer:3
-# zplug "/home/gonzalop/Workspace/src/pure-spaceship-zsh-theme", use:fleet.zsh, from:local, as:theme
+# zplug "denysdovhan/spaceship-zsh-theme", as:theme, from:github
+# zplug "/home/gonzalo.peci/Workspace/src/pure-spaceship-zsh-theme", from:local, as:theme
 
 # And load
 # Install plugins if there are plugins that have not been installed

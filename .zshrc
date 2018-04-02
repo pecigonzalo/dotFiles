@@ -3,14 +3,30 @@
 # Gonzalo Peci
 
 ## Load default virtualenv
-source /usr/bin/virtualenvwrapper.sh
-workon 2.7
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+pyenv virtualenvwrapper
+workon pyenv-2.7
 ## Load default chruby
 source /usr/share/chruby/chruby.sh
-chruby ruby-2.4.2
+chruby ruby-2.5.0
+## Load default Node
+# source /usr/share/nvm/init-nvm.sh
+# default load order does not work as it requires compdef "wrapper" already loaded for compatibility
+# splitting
+[ -z "$NVM_DIR" ] && export NVM_DIR="$HOME/.nvm"
+source /usr/share/nvm/nvm.sh
+source /usr/share/nvm/install-nvm-exec
+## Load default GoLang
+source /home/gonzalo.peci/.gvm/scripts/gvm
+## Load direnv
+eval "$(direnv hook zsh)"
 
 ## Load ZPLUG
 source $HOME/dotFiles/.zplug
+
+# Load NVM Autocomplete
+source /usr/share/nvm/bash_completion
 
 ############################################################################################
 
@@ -20,7 +36,7 @@ setopt interactive_comments # Allow comments even in interactive shells (especia
 
 # ===== Changing Directories
 setopt auto_cd           # If you type foo, and it isn't a command, and it is a directory in your cdpath, go there
-setopt cdablevarS        # if argument to cd is the name of a parameter whose value is a valid directory, it will become the current directory
+setopt cdablevars        # if argument to cd is the name of a parameter whose value is a valid directory, it will become the current directory
 setopt pushd_ignore_dups # don't push multiple copies of the same directory onto the directory stack
 setopt auto_pushd        # make cd push the old directory onto the directory stack
 setopt pushdminus        # swapped the meaning of cd +1 and cd -1; we want them to mean the opposite of what they mean im csh
@@ -81,6 +97,7 @@ zstyle ':completion:*:descriptions' format ' %F{yellow}-- %d --%f'
 zstyle ':completion:*:messages' format ' %F{purple} -- %d --%f'
 zstyle ':completion:*:warnings' format ' %F{red}-- no matches found --%f'
 zstyle ':completion:*:default' list-prompt '%S%M matches%s'
+zstyle ':completion::complete:*' cache-path # Fixes oh-my-zsh/lib/completion zcompcache
 
 # Process completion
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
@@ -92,7 +109,7 @@ zstyle ':completion:*:cd:*' tag-order local-directories directory-stack path-dir
 # Use caching so that commands like apt and dpkg complete are useable
 zstyle ':completion:*' accept-exact '*(N)'
 zstyle ':completion::complete:*' use-cache 1
-# zstyle ':completion::complete:*' cache-path "$HOME/.zsh/cache"
+zstyle ':completion::complete:*' cache-path "$HOME/.zsh/cache"
 
 # Don't complete uninteresting users
 zstyle ':completion:*:*:*:users' ignored-patterns \
@@ -123,3 +140,4 @@ bindkey  "^[[F"   end-of-line
 
 # Autocomplete for vboxmanage
 compdef vboxmanage=VBoxManage
+
