@@ -55,27 +55,27 @@ CPU_SCALING_GOVERNOR_ON_BAT=powersave
 # Values are given in order of increasing power saving.
 # Note: Intel Skylake or newer CPU and Kernel >= 4.10 required.
 CPU_HWP_ON_AC=balance_performance
-CPU_HWP_ON_BAT=balance_power
+CPU_HWP_ON_BAT=default
 
 # Set Intel P-state performance: 0..100 (%)
 # Limit the max/min P-state to control the power dissipation of the CPU.
 # Values are stated as a percentage of the available performance.
 # Requires an Intel Core i processor with intel_pstate driver.
-CPU_MIN_PERF_ON_AC=0
-CPU_MAX_PERF_ON_AC=100
-CPU_MIN_PERF_ON_BAT=0
-CPU_MAX_PERF_ON_BAT=100
+#CPU_MIN_PERF_ON_AC=0
+#CPU_MAX_PERF_ON_AC=100
+#CPU_MIN_PERF_ON_BAT=0
+CPU_MAX_PERF_ON_BAT=80
 
 # Set the CPU "turbo boost" feature: 0=disable, 1=allow
 # Requires an Intel Core i processor.
 # Important:
 # - This may conflict with your distribution's governor settings
 # - A value of 1 does *not* activate boosting, it just allows it
-CPU_BOOST_ON_AC=1
-CPU_BOOST_ON_BAT=1
+#CPU_BOOST_ON_AC=1
+#CPU_BOOST_ON_BAT=1
 
 # Minimize number of used CPU cores/hyper-threads under light load conditions
-SCHED_POWERSAVE_ON_AC=1
+SCHED_POWERSAVE_ON_AC=0
 SCHED_POWERSAVE_ON_BAT=1
 
 # Kernel NMI Watchdog:
@@ -96,7 +96,7 @@ ENERGY_PERF_POLICY_ON_BAT=powersave
 
 # Hard disk devices; separate multiple devices with spaces (default: sda).
 # Devices can be specified by disk ID also (lookup with: tlp diskid).
-DISK_DEVICES=""
+#DISK_DEVICES=""
 
 # Hard disk advanced power management level: 1..254, 255 (max saving, min, off)
 # Levels 1..127 may spin down the disk; 255 allowable on most drives.
@@ -120,10 +120,12 @@ DISK_APM_LEVEL_ON_BAT="128 128"
 # to keep the kernel default scheduler for the particular disk.
 #DISK_IOSCHED="cfq cfq"
 
-# SATA aggressive link power management (ALPM):
-#   min_power, medium_power, max_performance
-SATA_LINKPWR_ON_AC=max_performance
-SATA_LINKPWR_ON_BAT=min_power
+# AHCI link power management (ALPM) for disk devices:
+#   min_power, med_power_with_dipm(*), medium_power, max_performance.
+# (*) Kernel >= 4.15 required, then recommended.
+# Multiple values separated with spaces are tried sequentially until success.
+SATA_LINKPWR_ON_AC="med_power_with_dipm max_performance"
+SATA_LINKPWR_ON_BAT="med_power_with_dipm max_performance"
 
 # Exclude SATA host devices from link power management.
 # Separate multiple hosts with spaces.
@@ -171,7 +173,7 @@ SOUND_POWER_SAVE_ON_AC=0
 SOUND_POWER_SAVE_ON_BAT=1
 
 # Disable controller too (HDA only): Y/N
-SOUND_POWER_SAVE_CONTROLLER=Y
+SOUND_POWER_SAVE_CONTROLLER=N
 
 # Power off optical drive in UltraBay/MediaBay: 0=disable, 1=enable.
 # Drive can be powered on again by releasing (and reinserting) the eject lever
@@ -203,7 +205,7 @@ USB_AUTOSUSPEND=1
 # Exclude listed devices from USB autosuspend (separate with spaces).
 # Use lsusb to get the ids.
 # Note: input devices (usbhid) are excluded automatically
-USB_BLACKLIST="0bda:8153"
+USB_BLACKLIST=""
 
 # Bluetooth devices are excluded from USB autosuspend:
 #   0=do not exclude, 1=exclude
