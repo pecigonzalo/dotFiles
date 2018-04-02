@@ -5,7 +5,7 @@ RightButton;NoModifier=org.kde.contextmenu
 activityId=
 formfactor=2
 immutability=1
-lastScreen=13
+lastScreen=11
 location=3
 plugin=org.kde.plasma.private.systemtray
 wallpaperplugin=org.kde.image
@@ -13,6 +13,9 @@ wallpaperplugin=org.kde.image
 [Containments][11][Applets][12]
 immutability=1
 plugin=org.kde.plasma.volume
+
+[Containments][11][Applets][12][Configuration]
+PreloadWeight=42
 
 [Containments][11][Applets][12][Configuration][ConfigDialog]
 DialogHeight=714
@@ -22,21 +25,29 @@ DialogWidth=1279
 immutability=1
 plugin=org.kde.plasma.clipboard
 
+[Containments][11][Applets][13][Configuration]
+PreloadWeight=42
+
 [Containments][11][Applets][14]
 immutability=1
 plugin=org.kde.plasma.devicenotifier
+
+[Containments][11][Applets][14][Configuration]
+PreloadWeight=42
 
 [Containments][11][Applets][16]
 immutability=1
 plugin=org.kde.plasma.notifications
 
-[Containments][11][Applets][17]
-immutability=1
-plugin=org.kde.plasma.printmanager
+[Containments][11][Applets][16][Configuration]
+PreloadWeight=42
 
 [Containments][11][Applets][18]
 immutability=1
 plugin=org.kde.discovernotifier
+
+[Containments][11][Applets][18][Configuration]
+PreloadWeight=42
 
 [Containments][11][Applets][18][Configuration][ConfigDialog]
 DialogHeight=540
@@ -46,13 +57,15 @@ DialogWidth=720
 immutability=1
 plugin=org.kde.plasma.networkmanagement
 
-[Containments][11][Applets][22]
-immutability=1
-plugin=org.kde.plasma.bluetooth
+[Containments][11][Applets][21][Configuration]
+PreloadWeight=42
 
 [Containments][11][Applets][26]
 immutability=1
 plugin=touchpad
+
+[Containments][11][Applets][26][Configuration]
+PreloadWeight=42
 
 [Containments][11][Applets][26][Configuration][ConfigDialog]
 DialogHeight=540
@@ -65,25 +78,30 @@ global=
 immutability=1
 plugin=org.kde.plasma.vault
 
+[Containments][11][Applets][41][Configuration]
+PreloadWeight=42
+
 [Containments][11][Applets][43]
 immutability=1
 plugin=org.kde.plasma.battery
 
-[Containments][11][Applets][44]
-immutability=1
-plugin=org.kde.ktp-contactlist
+[Containments][11][Applets][43][Configuration]
+PreloadWeight=42
 
-[Containments][11][Applets][61]
+[Containments][11][Applets][67]
 immutability=1
-plugin=org.kde.kdeconnect
+plugin=org.kde.plasma.printmanager
 
-[Containments][11][Applets][63]
+[Containments][11][Applets][78]
 immutability=1
 plugin=org.kde.plasma.mediacontroller
 
 [Containments][11][ConfigDialog]
 DialogHeight=540
 DialogWidth=720
+
+[Containments][11][Configuration]
+PreloadWeight=42
 
 [Containments][11][General]
 extraItems=org.kde.plasma.bluetooth,org.kde.plasma.notifications,org.kde.plasma.devicenotifier,org.kde.plasma.battery,org.kde.plasma.clipboard,org.kde.plasma.mediacontroller,org.kde.plasma.networkmanagement,org.kde.plasma.volume,org.kde.kdeconnect,org.kde.plasma.printmanager,org.kde.discovernotifier,touchpad,org.kde.plasma.vault,org.kde.ktp-contactlist
@@ -94,7 +112,7 @@ activityId=
 dockWindowBehavior=true
 formfactor=2
 immutability=1
-lastScreen=13
+lastScreen=11
 location=3
 onPrimary=true
 plugin=org.kde.latte.containment
@@ -111,18 +129,22 @@ immutability=1
 plugin=org.kde.plasma.systemtray
 
 [Containments][4][Applets][10][Configuration]
+PreloadWeight=42
 SystrayContainmentId=11
 
 [Containments][4][Applets][23]
 immutability=1
 plugin=org.kde.plasma.showdesktop
 
+[Containments][4][Applets][23][Configuration]
+PreloadWeight=42
+
 [Containments][4][Applets][25]
 immutability=1
 plugin=org.kde.plasma.digitalclock
 
-[Containments][4][Applets][25][Configuration][Appearance]
-showDate=true
+[Containments][4][Applets][25][Configuration]
+PreloadWeight=42
 
 [Containments][4][Applets][25][Configuration][ConfigDialog]
 DialogHeight=540
@@ -132,9 +154,15 @@ DialogWidth=720
 immutability=1
 plugin=org.kde.plasma.pager
 
+[Containments][4][Applets][38][Configuration]
+PreloadWeight=42
+
 [Containments][4][Applets][40]
 immutability=1
 plugin=org.kde.plasma.systemloadviewer
+
+[Containments][4][Applets][40][Configuration]
+PreloadWeight=42
 
 [Containments][4][Applets][40][Configuration][ConfigDialog]
 DialogHeight=480
@@ -144,10 +172,6 @@ DialogWidth=640
 memApplicationColor=255,0,0
 setColorsManually=true
 swapActivated=false
-
-[Containments][4][Applets][62]
-immutability=1
-plugin=org.kde.activeWindowControl
 
 [Containments][4][Applets][62][Configuration][AppMenu]
 appmenuEnabled=true
@@ -174,25 +198,95 @@ slidingIconAndText=true
 [Containments][4][Applets][62][Configuration][Behaviour]
 showForCurrentScreenOnly=true
 
-[Containments][4][Applets][62][Configuration][ConfigDialog]
-DialogHeight=669
-DialogWidth=1280
+[Containments][4][Applets][65][Configuration][AppMenu]
+appmenuEnabled=true
+appmenuFillHeight=true
+appmenuNextToIconAndText=true
+
+[Containments][4][Applets][65][Configuration][Appearance]
+autoFillWidth=true
+buttonSize=1
+buttonsStandalone=true
+buttonsVerticalCenter=true
+controlButtonsSpacing=0
+doNotHideControlButtons=true
+showButtonOnlyWhenMaximized=true
+showMinimize=true
+showPinToAllDesktops=true
+slidingIconAndText=true
+
+[Containments][4][Applets][66][Configuration][AppMenu]
+appmenuDoNotHide=true
+appmenuEnabled=true
+appmenuFillHeight=true
+appmenuFontBold=true
+appmenuNextToButtons=true
+appmenuNextToIconAndText=true
+appmenuSwitchSidesWithIconAndText=true
+
+[Containments][4][Applets][66][Configuration][Appearance]
+autoFillWidth=true
+boldFontWeight=true
+buttonSize=1
+buttonsStandalone=true
+controlButtonsSpacing=0
+doNotHideControlButtons=true
+horizontalScreenWidthPercent=0.89
+showButtonOnlyWhenMaximized=true
+showMinimize=true
+showPinToAllDesktops=true
+slidingIconAndText=true
+useWindowTitleReplace=true
+
+[Containments][4][Applets][68]
+immutability=1
+plugin=org.kde.activeWindowControl
+
+[Containments][4][Applets][68][Configuration][AppMenu]
+appmenuDoNotHide=true
+appmenuEnabled=true
+appmenuFillHeight=true
+appmenuNextToButtons=true
+appmenuNextToIconAndText=true
+appmenuOuterSideMargin=5
+appmenuSeparatorEnabled=false
+appmenuSwitchSidesWithIconAndText=true
+
+[Containments][4][Applets][68][Configuration][Appearance]
+autoFillWidth=true
+boldFontWeight=true
+buttonSize=1
+buttonsStandalone=true
+controlButtonsSpacing=0
+doNotHideControlButtons=true
+showButtonOnlyWhenMaximized=true
+showMinimize=true
+showPinToAllDesktops=true
+slidingIconAndText=true
+useWindowTitleReplace=true
+
+[Containments][4][Applets][68][Configuration][ConfigDialog]
+DialogHeight=540
+DialogWidth=720
 
 [Containments][4][Applets][7]
 immutability=1
 plugin=metadata
 
 [Containments][4][ConfigDialog]
-DialogHeight=617
+DialogHeight=619
 DialogWidth=450
+
+[Containments][4][Configuration]
+PreloadWeight=42
 
 [Containments][4][General]
 advanced=true
-appletOrder=62;38;40;10;25;23
+appletOrder=68;25;38;23;10;40
 autoDecreaseIconSize=false
 backgroundOnlyOnMaximized=true
 durationTime=None
-iconSize=32
+iconSize=26
 panelPosition=10
 panelShadows=false
 panelSize=100
@@ -200,8 +294,49 @@ panelTransparency=60
 shadowOpacity=80
 shadowSize=20
 splitterPosition=1
-splitterPosition2=2
+splitterPosition2=3
 zoomLevel=0
+
+[Containments][63]
+activityId=
+dockWindowBehavior=true
+formfactor=2
+immutability=1
+lastScreen=-1
+location=4
+onPrimary=true
+plugin=org.kde.latte.containment
+raiseOnActivityChange=false
+raiseOnDesktopChange=false
+timerHide=700
+timerShow=200
+visibility=2
+wallpaperplugin=org.kde.image
+
+[Containments][63][Applets][64]
+immutability=1
+plugin=org.kde.latte.plasmoid
+
+[Containments][63][Applets][64][Configuration]
+PreloadWeight=42
+
+[Containments][63][Applets][64][Configuration][General]
+isInLatteDock=true
+
+[Containments][63][ConfigDialog]
+DialogHeight=619
+DialogWidth=450
+
+[Containments][63][Configuration]
+PreloadWeight=42
+
+[Containments][63][General]
+appletOrder=64
+durationTime=x1
+showGlow=true
+showToolTips=true
+threeColorsWindows=true
+useThemePanel=false
 
 [LayoutSettings]
 activities=
