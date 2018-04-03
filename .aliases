@@ -1,6 +1,6 @@
 #!/bin/bash
 # Google Apps CLI
-alias gam="/home/gonzalop/bin/gam/gam"
+alias gam="/home/gonzalo.peci/bin/gam/gam"
 
 # Follow tail
 alias tailf="tail -f"
