@@ -1,0 +1,35 @@
+Packages and scripts installed through pipsi:
+  Package "ansible":
+    ansible
+    ansible-config
+    ansible-connection
+    ansible-console
+    ansible-doc
+    ansible-galaxy
+    ansible-inventory
+    ansible-playbook
+    ansible-pull
+    ansible-vault
+  Package "awscli":
+    aws
+    aws.cmd
+    aws_zsh_completer.sh
+    aws_bash_completer
+    aws_completer
+  Package "cookiecutter":
+    cookiecutter
+  Package "localstack":
+    localstack
+  Package "pipenv":
+    pewtwo
+    pipenv
+    pipenv-resolver
+  Package "pipsi":
+    pipsi
+  Package "pre-commit":
+    pre-commit
+    pre-commit-validate-config
+    pre-commit-validate-manifest
+  Package "yq":
+    xq
+    yq
