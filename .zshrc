@@ -2,11 +2,8 @@
 ############################################################################################
 # Gonzalo Peci
 
-## Load default virtualenv
+## Load pyenv
 eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-pyenv virtualenvwrapper
-workon pyenv-2.7
 ## Load default chruby
 source /usr/share/chruby/chruby.sh
 chruby ruby-2.5.0
@@ -140,4 +137,3 @@ bindkey  "^[[F"   end-of-line
 
 # Autocomplete for vboxmanage
 compdef vboxmanage=VBoxManage
-
