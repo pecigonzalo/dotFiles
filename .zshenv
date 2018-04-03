@@ -80,3 +80,12 @@ export TLDR_COLOR_PARAMETER="white"
 
 # Set aws-vault backend
 export AWS_VAULT_BACKEND=kwallet
+
+# Spaceship Theme Config
+SPACESHIP_GIT_BRANCH_COLOR="$(tput setaf 240)"
+SPACESHIP_DIR_COLOR="blue"
+SPACESHIP_CHAR_SYMBOL="❯"
+SPACESHIP_CHAR_SUFFIX=" "
+SPACESHIP_DIR_TRUNC=0
+SPACESHIP_DIR_TRUNC_REPO=false
+

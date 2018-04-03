@@ -14,7 +14,7 @@ else
 fi
 
 # Add zplug plugins
-zplug 'zplug/zplug', hook-build:'zplug --self-manage'
+#zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 
 # OMZ Libs
 # zplug "lib/*", from:oh-my-zsh, defer:0
@@ -84,10 +84,10 @@ zplug "zsh-users/zsh-history-substring-search", defer:3
 zplug "zsh-users/zsh-autosuggestions", defer:3
 
 # Set Theme
-zplug "mafredri/zsh-async", from:github, defer:0  # Load this first
-zplug "pecigonzalo/pure-spaceship-zsh-theme", use:pure.zsh, from:github, as:theme
+#zplug "mafredri/zsh-async", from:github, defer:0  # Load this first
+#zplug "pecigonzalo/pure-spaceship-zsh-theme", use:pure.zsh, from:github, as:theme
 # zplug sindresorhus/pure, use:pure.zsh, from:github, as:theme
-# zplug "denysdovhan/spaceship-zsh-theme", as:theme, from:github
+zplug "denysdovhan/spaceship-prompt", use:spaceship.zsh, from:github, as:theme
 # zplug "/home/gonzalo.peci/Workspace/src/pure-spaceship-zsh-theme", from:local, as:theme
 
 # And load
@@ -104,4 +104,4 @@ fi
 
 # Then, source plugins and add commands to $PATH
 zplug load  # --verbose
-export PATH=$HOME/.zplug/bin:$PATH
+# export PATH=$HOME/.zplug/bin:$PATH
