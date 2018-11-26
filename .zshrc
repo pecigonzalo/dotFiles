@@ -22,7 +22,7 @@ eval "$(direnv hook zsh)"
 ## Load ZPLUG
 source $HOME/dotFiles/.zplug
 
-# Load NVM Autocomplete
+## Load NVM Autocomplete
 source /usr/share/nvm/bash_completion
 
 ############################################################################################
@@ -39,7 +39,7 @@ setopt auto_pushd        # make cd push the old directory onto the directory sta
 setopt pushdminus        # swapped the meaning of cd +1 and cd -1; we want them to mean the opposite of what they mean im csh
 
 # ===== Expansion and Globbing
-setopt extendedglob # treat #, ~, and ^ as part of patterns for filename generation
+setopt extendedglob        # treat #, ~, and ^ as part of patterns for filename generation
 
 # ===== History
 setopt append_history         # Allow multiple terminal sessions to all append to one zsh command history
@@ -62,7 +62,7 @@ setopt auto_menu          # show completion menu on successive tab press. needs 
 setopt auto_name_dirs     # any parameter that is set to the absolute name of a directory immediately becomes a name for that directory
 setopt complete_in_word   # allow completion from within a word/phrase
 setopt auto_list          # automatically list choices on ambiguous completion.
-unsetopt complete_aliases   # an alias of a command should complete to the command completion
+unsetopt complete_aliases # an alias of a command should complete to the command completion
 unsetopt menu_complete    # do not autoselect the first completion entry
 unsetopt flowcontrol      # do not freezes output to the terminal until you type ^q
 
@@ -76,7 +76,7 @@ setopt transient_rprompt # only show the rprompt on the current prompt
 unsetopt auto_name_dirs  # do not set auto_name_dirs because it messes up prompts
 
 # ===== Scripts and Functions
-setopt multios # perform implicit tees or cats when multiple redirections are attempted
+setopt multios  # perform implicit tees or cats when multiple redirections are attempted
 
 # ZSH Completion config
 zstyle '*' single-ignored show
@@ -110,14 +110,14 @@ zstyle ':completion::complete:*' cache-path "$HOME/.zsh/cache"
 
 # Don't complete uninteresting users
 zstyle ':completion:*:*:*:users' ignored-patterns \
-        adm amanda apache at avahi avahi-autoipd beaglidx bin cacti canna \
-        clamav daemon dbus distcache dnsmasq dovecot fax ftp games gdm \
-        gkrellmd gopher hacluster haldaemon halt hsqldb ident junkbust kdm \
-        ldap lp mail mailman mailnull man messagebus  mldonkey mysql nagios \
-        named netdump news nfsnobody nobody nscd ntp nut nx obsrun openvpn \
-        operator pcap polkitd postfix postgres privoxy pulse pvm quagga radvd \
-        rpc rpcuser rpm rtkit scard shutdown squid sshd statd svn sync tftp \
-        usbmux uucp vcsa wwwrun xfs '_*'
+  adm amanda apache at avahi avahi-autoipd beaglidx bin cacti canna \
+  clamav daemon dbus distcache dnsmasq dovecot fax ftp games gdm \
+  gkrellmd gopher hacluster haldaemon halt hsqldb ident junkbust kdm \
+  ldap lp mail mailman mailnull man messagebus mldonkey mysql nagios \
+  named netdump news nfsnobody nobody nscd ntp nut nx obsrun openvpn \
+  operator pcap polkitd postfix postgres privoxy pulse pvm quagga radvd \
+  rpc rpcuser rpm rtkit scard shutdown squid sshd statd svn sync tftp \
+  usbmux uucp vcsa wwwrun xfs '_*'
 
 # list of completers to use
 zstyle ':completion:*::::' completer _expand _complete _ignored _approximate
@@ -130,8 +130,8 @@ bindkey -e
 bindkey "\e[1;5D" backward-word
 bindkey "\e[1;5C" forward-word
 # Bind home / end
-bindkey  "^[[H"   beginning-of-line
-bindkey  "^[[F"   end-of-line
+bindkey "^[[H" beginning-of-line
+bindkey "^[[F" end-of-line
 
 ############################################################################################
 
