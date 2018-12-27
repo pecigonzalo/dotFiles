@@ -27,8 +27,7 @@
     ~/.local/share/konsole/BrogrammerChalk.colorscheme: .local/share/konsole/BrogrammerChalk.colorscheme
     # SSH Startup agent
     ~/.config/autostart-scripts/ssh-agent-startup.sh: .config/autostart-scripts/ssh-agent-startup.sh
-    ~/.config/plasma-workspace/env/ssh-agent-startup.sh: .config/plasma-workspace/env/ssh-agent-startup.sh
-    ~/.config/plasma-workspace/shutdown/ssh-agent-kill.sh: .config/plasma-workspace/shutdown/ssh-agent-kill.sh
+    ~/.config/systemd/user/ssh-agent.service: .config/systemd/user/ssh-agent.service
     # Workspace
     ~/bin: ~/Workspace/bin
 

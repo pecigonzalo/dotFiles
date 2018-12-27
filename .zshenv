@@ -3,6 +3,9 @@
 # Base config
 limit coredumpsize 0
 export PATH=$HOME/bin:$PATH
+# ssh-agent SOCK
+export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}/ssh-agent.socket"
+export SSH_ASKPASS="/usr/bin/ksshaskpass"
 
 # History config
 export HISTFILE=$HOME/.histfile
