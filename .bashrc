@@ -5,5 +5,3 @@
 
 alias ls='ls --color=auto'
 PS1='[\u@\h \W]\$ '
-
-gam() { "/home/gonzalo.peci/bin/gam/gam" "$@"; }

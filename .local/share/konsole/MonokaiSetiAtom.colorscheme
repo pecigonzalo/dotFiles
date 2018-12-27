@@ -1,5 +1,8 @@
 [Background]
 Color=21,23,24
+MaxRandomHue=0
+MaxRandomSaturation=0
+MaxRandomValue=0
 
 [BackgroundFaint]
 Color=21,23,24
@@ -89,6 +92,7 @@ Color=248,248,242
 Color=248,248,242
 
 [General]
+Blur=true
 Description=Monokai Seti Atom
-Opacity=0.95
+Opacity=0.85
 Wallpaper=

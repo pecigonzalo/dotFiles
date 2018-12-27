@@ -1,28 +1,52 @@
+- shell:
+    - [git submodule update --init --recursive, Installing submodules]
+
+- defaults:
+    link:
+      relink: true
+      create: true
+
 - clean:
     ~/:
       force: false
 
 - link:
-    # Main Files
+    # Git
     ~/.gitconfig: .gitconfig
-    ~/.xprofile: .xprofile
+
+    # Tmux
     ~/.tmux.conf: .tmux.conf
+
+    # Vim
     ~/.vimrc: .vimrc
+
+    # Xmodmap
+    ~/.xprofile: .xprofile
+    ~/.Xmodmap: .Xmodmap.9370DE
+
+    # Bash/ZSH/Profile
+    ~/.aliases: .aliases
     ~/.profile: .profile
     ~/.bashrc: .bashrc
     ~/.bash_profile: .bash_profile
     ~/.zshrc: .zshrc
     ~/.zshenv: .zshenv
+
+    # Ruby
     ~/.gemrc: .gemrc
+
     # Gestures
     ~/.config/libinput-gestures.conf: .config/libinput-gestures.conf
+
     # Konsole
     ~/.local/share/konsole/MonokaiSetiAtom.colorscheme: .local/share/konsole/MonokaiSetiAtom.colorscheme
     ~/.local/share/konsole/BrogrammerChalk.colorscheme: .local/share/konsole/BrogrammerChalk.colorscheme
+
     # SSH Startup agent
     ~/.config/autostart-scripts/ssh-agent-startup.sh: .config/autostart-scripts/ssh-agent-startup.sh
     ~/.config/systemd/user/ssh-agent.service: .config/systemd/user/ssh-agent.service
-    # Workspace
+
+    # Workspace Bin
     ~/bin: ~/Workspace/bin
 
 - pip:

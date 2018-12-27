@@ -1,0 +1,12 @@
+! Remap > < | to Mod
+keycode 94 = Mode_switch NoSymbol Mode_switch
+
+! Make it so mod+arrows work like XPS 9360
+keycode 111 = Up NoSymbol Prior
+keycode 116 = Down NoSymbol Next
+keycode 113 = Left NoSymbol Home
+keycode 114 = Right NoSymbol End
+
+! Remap bad PageUp/PageDown to == Left/Right
+keycode 112 = Left NoSymbol Home
+keycode 117 = Right NoSymbol End

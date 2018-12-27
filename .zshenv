@@ -1,7 +1,6 @@
 #!/usr/bin/zsh
 
 # Base config
-limit coredumpsize 0
 declare -U path
 
 # Environment
@@ -17,7 +16,10 @@ export SSH_ASKPASS="/usr/bin/ksshaskpass"
 export HISTFILE=$HOME/.histfile
 export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help"
 export HISTSIZE=100000
-export SAVEHIST=100000
+export SAVEHIST=20000
+
+# Ignore Command History
+export HISTORY_IGNORE='(awsvl *|ls|cd -|cd|pwd|exit|date|man *|* --help)'
 
 # Editor
 export VISUAL='vim'
@@ -43,53 +45,60 @@ export LESS_TERMCAP_ue=$'\E[0m'
 export LESS_TERMCAP_us=$'\E[01;32m'
 
 # declare the environment variables
-CORRECT_IGNORE='_*'
-CORRECT_IGNORE_FILE='.*'
+export CORRECT_IGNORE='_*'
+export CORRECT_IGNORE_FILE='.*'
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
 # much, much faster.
-DISABLE_UNTRACKED_FILES_DIRTY="true"
+export DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 # zsh-syntax-highlighting
-ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
+export ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 
 # z
-_Z_NO_RESOLVE_SYMLINKS=1
-_Z_NO_COMPLETE_CD=1
+export _Z_NO_RESOLVE_SYMLINKS=1
+export _Z_NO_COMPLETE_CD=1
 
 # Disable virtualenv in prompt autoconfig
-VIRTUAL_ENV_DISABLE_PROMPT=1
+export VIRTUAL_ENV_DISABLE_PROMPT=1
 
 # TLDR Colors
-TLDR_COLOR_BLANK="white"
-TLDR_COLOR_NAME="cyan"
-TLDR_COLOR_DESCRIPTION="white"
-TLDR_COLOR_EXAMPLE="green"
-TLDR_COLOR_COMMAND="red"
-TLDR_COLOR_PARAMETER="white"
+export TLDR_COLOR_BLANK="white"
+export TLDR_COLOR_NAME="cyan"
+export TLDR_COLOR_DESCRIPTION="white"
+export TLDR_COLOR_EXAMPLE="green"
+export TLDR_COLOR_COMMAND="red"
+export TLDR_COLOR_PARAMETER="white"
 
 # Set aws-vault backend
-AWS_VAULT_BACKEND=kwallet
+export AWS_VAULT_BACKEND=kwallet
+
+# Set BK backend
+export BUILDKITE_CLI_KEYRING_BACKEND=kwallet
 
 # Spaceship Theme Config
-SPACESHIP_GIT_BRANCH_COLOR="$(tput setaf 240)"
-SPACESHIP_DIR_COLOR="blue"
-SPACESHIP_CHAR_SYMBOL="❯"
-SPACESHIP_CHAR_SUFFIX=" "
-SPACESHIP_DIR_TRUNC=0
-SPACESHIP_DIR_TRUNC_REPO=false
+export SPACESHIP_GIT_BRANCH_COLOR="$(tput setaf 240)"
+export SPACESHIP_DIR_COLOR="blue"
+export SPACESHIP_CHAR_SYMBOL="❯"
+export SPACESHIP_CHAR_SUFFIX=" "
+export SPACESHIP_DIR_TRUNC=0
+export SPACESHIP_DIR_TRUNC_REPO=false
 
 # Generated completions path
-GENCOMPL_FPATH="$HOME/.zsh/complete"
+export GENCOMPL_FPATH="$HOME/.zsh/complete"
 
 # PyEnv
-PYENV_ROOT="$HOME/.pyenv"
+export PYENV_ROOT="$HOME/.pyenv"
 path=($PYENV_ROOT/bin $path)
 
 # Pipenv
-PIPENV_VENV_IN_PROJECT=true
+export PIPENV_VENV_IN_PROJECT=true
 
 # Golang
 export GOPATH="$HOME/Workspace/Go"
 export PATH="$GOPATH/bin:$PATH"
+
+# OMZ
+export DISABLE_UPDATE_PROMPT="true"
+export DISABLE_AUTO_UPDATE="true"

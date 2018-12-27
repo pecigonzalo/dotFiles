@@ -29,6 +29,12 @@ Plug 'airblade/vim-gitgutter'
 "--------------
 Plug 'rickharris/vim-monokai'
 
+"--------------
+" Languages
+"--------------
+Plug 'hashivim/vim-terraform'
+Plug 'juliosueiras/vim-terraform-completion'
+
 call plug#end()
 
 " encoding utf-8
@@ -71,4 +77,23 @@ set expandtab       " expand tab to space
 " Wrapped lines goes down/up to next row, rather than next line in file.
 nnoremap j gj
 nnoremap k gk
+
+" NERD Tree auto-open
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+" Open NERD Tree with CTRL+\
+map <C-\> :NERDTreeToggle<CR>
+" NERD Tree auto-close
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" NERD Tree config
+let NERDTreeShowHidden=1
+
+" Terraform Config
+let g:terraform_align=1
+let g:terraform_remap_spacebar=1
+let g:terraform_commentstring='//%s'
+let g:terraform_fmt_on_save=1
+
+" Display spaces and tabs
+set listchars=tab:‣\ ,trail:·,precedes:«,extends:»
 

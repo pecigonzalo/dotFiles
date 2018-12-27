@@ -5,8 +5,8 @@ alias gam="/home/gonzalo.peci/bin/gam/gam"
 # Follow tail
 alias tailf="tail -f"
 
-# Packer
-alias packer=packer-io
-
 # gitg remove console output
 alias gitg="gitg >> /dev/null 2>&1"
+
+# LS
+alias ls='ls --color=tty'
