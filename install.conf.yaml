@@ -20,9 +20,6 @@
     ~/.zshrc: .zshrc
     ~/.zshenv: .zshenv
     ~/.gemrc: .gemrc
-    ~/.config/pip/pip.conf:
-      create: true
-      path: .config/pip/pip.conf
     # Gestures
     ~/.config/libinput-gestures.conf: .config/libinput-gestures.conf
     # Konsole
@@ -34,3 +31,15 @@
     ~/.config/plasma-workspace/shutdown/ssh-agent-kill.sh: .config/plasma-workspace/shutdown/ssh-agent-kill.sh
     # Workspace
     ~/bin: ~/Workspace/bin
+
+- pip:
+    file: pipsi/pip.txt
+    binary: pip3
+    user: true # Like --user
+    stdout: true # Print the execution stdout
+    stderr: true # Print the execution stderr
+
+- pipsi:
+    file: pipsi/pipsi.txt
+    stdout: true # Print the execution stdout
+    stderr: true # Print the execution stderr
