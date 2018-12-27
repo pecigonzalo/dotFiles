@@ -19,7 +19,7 @@ TLP_PERSISTENT_DEFAULT=0
 # Seconds laptop mode has to wait after the disk goes idle before doing a sync.
 # Non-zero value enables, zero disables laptop mode.
 DISK_IDLE_SECS_ON_AC=0
-DISK_IDLE_SECS_ON_BAT=2
+DISK_IDLE_SECS_ON_BAT=0
 
 # Dirty page values (timeouts in secs).
 MAX_LOST_WORK_SECS_ON_AC=15
@@ -64,7 +64,7 @@ CPU_HWP_ON_BAT=default
 #CPU_MIN_PERF_ON_AC=0
 #CPU_MAX_PERF_ON_AC=100
 #CPU_MIN_PERF_ON_BAT=0
-CPU_MAX_PERF_ON_BAT=80
+#CPU_MAX_PERF_ON_BAT=80
 
 # Set the CPU "turbo boost" feature: 0=disable, 1=allow
 # Requires an Intel Core i processor.
@@ -102,8 +102,8 @@ ENERGY_PERF_POLICY_ON_BAT=powersave
 # Levels 1..127 may spin down the disk; 255 allowable on most drives.
 # Separate values for multiple disks with spaces. Use the special value 'keep'
 # to keep the hardware default for the particular disk.
-DISK_APM_LEVEL_ON_AC="254 254"
-DISK_APM_LEVEL_ON_BAT="128 128"
+DISK_APM_LEVEL_ON_AC="keep"
+DISK_APM_LEVEL_ON_BAT="keep"
 
 # Hard disk spin down timeout:
 #   0:        spin down disabled
@@ -118,7 +118,7 @@ DISK_APM_LEVEL_ON_BAT="128 128"
 # Select IO scheduler for the disk devices: cfq, deadline, noop (Default: cfq);
 # Separate values for multiple disks with spaces. Use the special value 'keep'
 # to keep the kernel default scheduler for the particular disk.
-#DISK_IOSCHED="cfq cfq"
+DISK_IOSCHED="keep"
 
 # AHCI link power management (ALPM) for disk devices:
 #   min_power, med_power_with_dipm(*), medium_power, max_performance.
@@ -148,17 +148,17 @@ PCIE_ASPM_ON_BAT=powersave
 # Radeon graphics clock speed (profile method): low, mid, high, auto, default;
 # auto = mid on BAT, high on AC; default = use hardware defaults.
 # (Kernel >= 2.6.35 only, open-source radeon driver explicitly)
-RADEON_POWER_PROFILE_ON_AC=high
-RADEON_POWER_PROFILE_ON_BAT=low
+#RADEON_POWER_PROFILE_ON_AC=high
+#RADEON_POWER_PROFILE_ON_BAT=low
 
 # Radeon dynamic power management method (DPM): battery, performance
 # (Kernel >= 3.11 only, requires boot option radeon.dpm=1)
-RADEON_DPM_STATE_ON_AC=performance
-RADEON_DPM_STATE_ON_BAT=battery
+#RADEON_DPM_STATE_ON_AC=performance
+#RADEON_DPM_STATE_ON_BAT=battery
 
 # Radeon DPM performance level: auto, low, high; auto is recommended.
-RADEON_DPM_PERF_LEVEL_ON_AC=auto
-RADEON_DPM_PERF_LEVEL_ON_BAT=auto
+#RADEON_DPM_PERF_LEVEL_ON_AC=auto
+#RADEON_DPM_PERF_LEVEL_ON_BAT=auto
 
 # WiFi power saving mode: on=enable, off=disable; not supported by all adapters.
 WIFI_PWR_ON_AC=off
@@ -173,7 +173,7 @@ SOUND_POWER_SAVE_ON_AC=0
 SOUND_POWER_SAVE_ON_BAT=1
 
 # Disable controller too (HDA only): Y/N
-SOUND_POWER_SAVE_CONTROLLER=N
+SOUND_POWER_SAVE_CONTROLLER=Y
 
 # Power off optical drive in UltraBay/MediaBay: 0=disable, 1=enable.
 # Drive can be powered on again by releasing (and reinserting) the eject lever
@@ -209,11 +209,11 @@ USB_BLACKLIST=""
 
 # Bluetooth devices are excluded from USB autosuspend:
 #   0=do not exclude, 1=exclude
-USB_BLACKLIST_BTUSB=0
+USB_BLACKLIST_BTUSB=1
 
 # Phone devices are excluded from USB autosuspend:
 #   0=do not exclude, 1=exclude (enable charging)
-USB_BLACKLIST_PHONE=0
+USB_BLACKLIST_PHONE=1
 
 # WWAN devices are excluded from USB autosuspend:
 #   0=do not exclude, 1=exclude
