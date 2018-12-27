@@ -1,16 +1,10 @@
-- defaults:
-    link:
-      relink: true
-      force: false
-
 - clean:
     ~/:
-      force: false
-    /etc/default:
       force: false
 
 - link:
     # Main Files
+    ~/.gitconfig: .gitconfig
     ~/.xprofile: .xprofile
     ~/.tmux.conf: .tmux.conf
     ~/.vimrc: .vimrc
