@@ -13,6 +13,7 @@
     pager = less -FRSX
     compression = 9
     whitespace = trailing-space,space-before-tab
+    excludesfile = /home/gonzalo.peci/.gitignore_global
 [color]
     branch = auto
     diff = auto
@@ -31,10 +32,10 @@
     compactionHeuristic = true
     renames = copies
     mnemonicprefix = true
-    tool = meld
 [merge]
-     tool = kdiff3
-#	tool = meld
+    # tool = kdiff3
+    tool = meld
+    conflictstyle = diff3
 [init]
     templatedir = ~/.git_template/template
 [rebase]
@@ -43,7 +44,10 @@
     enabled = true
     autoupdate = true
 [mergetool]
-    keepBackup = false
+	keepBackup = false
+[mergetool "meld"]
+	#cmd = meld "$LOCAL" "$MERGED" "$REMOTE" --output "$MERGED"
+	#cmd = meld "$LOCAL" "$BASE" "$REMOTE" --output "$MERGED"
 [help]
     autocorrect = 1
 [alias]
@@ -51,3 +55,6 @@
     find = log --graph --oneline --all --decorate --date-order --regexp-ignore-case --extended-regexp --grep
     rfind = log --graph --oneline --all --decorate --date-order --regexp-ignore-case --extended-regexp --invert-grep --grep
     search = grep --line-number --ignore-case -E -I
+    bclean = ! git branch --merged | grep -v -E '(^\\*|master|staging)' | xargs -r git branch -d
+    ignore = "!gi() { curl -L -s https://www.gitignore.io/api/$@ ;}; gi"
+    changelog = "!f() { git log $1 $2 --no-merges --pretty=format:\"* [%H] - %s\"; }; f"
