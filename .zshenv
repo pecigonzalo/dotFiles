@@ -1,33 +1,30 @@
-#!/bin/bash
+#!/usr/bin/zsh
 
 # Base config
 limit coredumpsize 0
-export PATH=$HOME/bin:$PATH
+declare -U path
+
+# Environment
+path=($HOME/bin $path)
+# User Bin
+path=($HOME/.local/bin $path)
+
 # ssh-agent SOCK
 export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}/ssh-agent.socket"
 export SSH_ASKPASS="/usr/bin/ksshaskpass"
 
 # History config
 export HISTFILE=$HOME/.histfile
-export HISTSIZE=10000
+export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help"
+export HISTSIZE=100000
 export SAVEHIST=100000
 
-# PyEnv
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-
-# User Bin
-export PATH="$HOME/.local/bin:$PATH"
-
-# Golang
-export GOPATH="$HOME/Workspace/Go"
-export PATH="$GOPATH/bin:$PATH"
-
 # Editor
-export EDITOR='vim'
-export CVSEDITOR="${EDITOR}"
-export SVN_EDITOR="${EDITOR}"
-export GIT_EDITOR="${EDITOR}"
+export VISUAL='vim'
+export EDITOR="${VISUAL}"
+export CVSEDITOR="${VISUAL}"
+export SVN_EDITOR="${VISUAL}"
+export GIT_EDITOR="${VISUAL}"
 
 # Pager
 export PAGER=less
@@ -46,43 +43,34 @@ export LESS_TERMCAP_ue=$'\E[0m'
 export LESS_TERMCAP_us=$'\E[01;32m'
 
 # declare the environment variables
-export CORRECT_IGNORE='_*'
-export CORRECT_IGNORE_FILE='.*'
+CORRECT_IGNORE='_*'
+CORRECT_IGNORE_FILE='.*'
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
 # much, much faster.
-export DISABLE_UNTRACKED_FILES_DIRTY="true"
+DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 # zsh-syntax-highlighting
-export ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 
 # z
-export _Z_NO_RESOLVE_SYMLINKS=1
-export _Z_NO_COMPLETE_CD=1
+_Z_NO_RESOLVE_SYMLINKS=1
+_Z_NO_COMPLETE_CD=1
 
 # Disable virtualenv in prompt autoconfig
-export VIRTUAL_ENV_DISABLE_PROMPT=1
+VIRTUAL_ENV_DISABLE_PROMPT=1
 
 # TLDR Colors
-export TLDR_COLOR_BLANK="white"
-export TLDR_COLOR_NAME="cyan"
-export TLDR_COLOR_DESCRIPTION="white"
-export TLDR_COLOR_EXAMPLE="green"
-export TLDR_COLOR_COMMAND="red"
-export TLDR_COLOR_PARAMETER="white"
-
-# Load shared aliases
-[[ -f $HOME/dotFiles/.aliases ]] && source $HOME/dotFiles/.aliases
-
-# Get funtions
-[[ -f $HOME/dotFiles/functions.zsh ]] && source $HOME/dotFiles/functions.zsh
-
-# Load Travis
-[ -f $HOME/.travis/travis.sh ] && source $HOME/.travis/travis.sh
+TLDR_COLOR_BLANK="white"
+TLDR_COLOR_NAME="cyan"
+TLDR_COLOR_DESCRIPTION="white"
+TLDR_COLOR_EXAMPLE="green"
+TLDR_COLOR_COMMAND="red"
+TLDR_COLOR_PARAMETER="white"
 
 # Set aws-vault backend
-export AWS_VAULT_BACKEND=kwallet
+AWS_VAULT_BACKEND=kwallet
 
 # Spaceship Theme Config
 SPACESHIP_GIT_BRANCH_COLOR="$(tput setaf 240)"
@@ -92,3 +80,16 @@ SPACESHIP_CHAR_SUFFIX=" "
 SPACESHIP_DIR_TRUNC=0
 SPACESHIP_DIR_TRUNC_REPO=false
 
+# Generated completions path
+GENCOMPL_FPATH="$HOME/.zsh/complete"
+
+# PyEnv
+PYENV_ROOT="$HOME/.pyenv"
+path=($PYENV_ROOT/bin $path)
+
+# Pipenv
+PIPENV_VENV_IN_PROJECT=true
+
+# Golang
+export GOPATH="$HOME/Workspace/Go"
+export PATH="$GOPATH/bin:$PATH"
