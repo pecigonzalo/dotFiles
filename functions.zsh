@@ -134,16 +134,3 @@ tmx() {
     fi
   fi
 }
-
-# exit() {
-#   if [ -z "$TMUX" ]; then
-#     builtin exit
-#   else
-#     PANES=$(tmux list-panes | wc -l)
-#     if [ $PANES -gt 1 ]; then
-#       builtin exit
-#     else
-#       tmux detach-client
-#     fi
-#   fi
-# }
