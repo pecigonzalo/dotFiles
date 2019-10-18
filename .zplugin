@@ -31,6 +31,10 @@ zplugin light tfutils/tfenv
 zplugin ice from"gh-r" as"program" ver"v2.12.8" pick"hub*/bin/hub" bpick"*Linux*64*"
 zplugin light github/hub
 
+# Diff So Fancy
+zplugin ice as"program" pick"bin/git-dsf"
+zplugin light zdharma/zsh-diff-so-fancy
+
 ## OMZ Config
 zplugin snippet OMZ::lib/key-bindings.zsh
 zplugin snippet OMZ::lib/git.zsh

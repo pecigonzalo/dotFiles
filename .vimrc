@@ -96,4 +96,3 @@ let g:terraform_fmt_on_save=1
 
 " Display spaces and tabs
 set listchars=tab:‣\ ,trail:·,precedes:«,extends:»
-
