@@ -1,0 +1,4 @@
+terraform 0.11.14
+shfmt v2.6.4
+shellcheck 0.7.0
+terraform-docs v0.6.0
