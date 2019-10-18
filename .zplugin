@@ -61,6 +61,11 @@ zplugin ice blockf
 zplugin snippet "/usr/bin/aws_zsh_completer.sh"
 
 ## Others
+
+# fzf
+zplugin snippet /usr/share/fzf/key-bindings.zsh
+zplugin snippet /usr/share/fzf/completion.zsh
+
 # Git
 zplugin ice wait atload"unalias grv" lucid
 zplugin snippet OMZ::plugins/git/git.plugin.zsh
@@ -87,15 +92,25 @@ zplugin light rimraf/k
 
 # Z
 zplugin ice blockf
-zplugin light agkozak/zsh-z
+zplugin light rupa/z
+zplugin ice blockf
+zplugin light changyuheng/fz
 
 # sshrc
 zplugin ice as"program"
 zplugin light Russell91/sshrc
 
 # asdf
-zplugin ice ver"v0.7.4" pick"asdf.sh" blockf nocompletions
+zplugin ice wait lucid ver"v0.7.4" pick"asdf.sh" blockf nocompletions
 zplugin light asdf-vm/asdf
+
+# Tipz
+zplugin ice wait lucid
+zplugin light "molovo/tipz"
+
+# Interactive CD
+zplugin ice wait lucid
+zplugin light "changyuheng/zsh-interactive-cd"
 
 # # zplugin load djui/alias-tips
 

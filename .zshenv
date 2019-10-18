@@ -14,11 +14,11 @@ export SSH_ASKPASS="/usr/bin/ksshaskpass"
 
 # History config
 export HISTFILE=$HOME/.histfile
-export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help"
 export HISTSIZE=100000
 export SAVEHIST=20000
 
 # Ignore Command History
+export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help"
 export HISTORY_IGNORE='(awsvl *|ls|cd -|cd|pwd|exit|date|man *|* --help)'
 
 # Editor
@@ -102,3 +102,16 @@ export PATH="$GOPATH/bin:$PATH"
 # OMZ
 export DISABLE_UPDATE_PROMPT="true"
 export DISABLE_AUTO_UPDATE="true"
+
+# fzf
+export FZF_DEFAULT_COMMAND="fd --type file --color=always"
+export FZF_DEFAULT_OPTS="--multi --ansi --height=50% --min-height=15 --reverse --color=bg:-1,fg:-1,prompt:1,info:3"
+# FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --preview-window='right:hidden:wrap'"
+# FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --preview='[[\$(file --mime {}) =~ binary ]] && echo {} is a binary file || (bat --style=numbers --color=always {} || cat {}) 2> /dev/null | head -300'"
+# export FZF_ALT_C_COMMAND="fd -t d . $HOME"
+
+# Tipz
+export TIPZ_TEXT='💡'
+
+# z
+export ZSHZ_CMD="_z"
