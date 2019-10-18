@@ -10,3 +10,9 @@ alias gitg="gitg >> /dev/null 2>&1"
 
 # LS
 alias ls='ls --color=tty'
+
+# bat
+alias cat="bat -p"
+
+# fd
+unalias fd
