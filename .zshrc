@@ -6,8 +6,7 @@ zmodload zsh/zprof
 
 autoload -U colors && colors
 
-# source $HOME/dotFiles/.zplug
-# source $HOME/dotFiles/.antigen
+# Load Zplugin
 source "$HOME/dotFiles/.zplugin"
 
 # Load shared aliases
@@ -20,23 +19,9 @@ if [[ -f "$HOME/dotFiles/functions.zsh" ]]; then
   source "$HOME/dotFiles/functions.zsh"
 fi
 
-# PyEnv
-eval "$(pyenv init - --no-rehash zsh)"
-
-# Load chruby
-if [[ -e /usr/share/chruby/chruby.sh ]]; then
-  source /usr/share/chruby/chruby.sh
-  source /usr/share/chruby/auto.sh
-fi
-
 # LinuxBrew
 if [[ -d ~/.linuxbrew ]]; then
   eval $(~/.linuxbrew/bin/brew shellenv)
-fi
-
-# Load NVM
-if [[ -s "$HOME/.nvm/nvm.sh" ]]; then
-  source "$HOME/.nvm/nvm.sh"
 fi
 
 if [[ -s "$zcompdump" && (! -s "${zcompdump}.zwc" || "$zcompdump" -nt "${zcompdump}.zwc") ]]; then
@@ -102,6 +87,7 @@ setopt multios # perform implicit tees or cats when multiple redirections are at
 
 # ZSH Completion config
 zstyle '*' single-ignored show
+zstyle ':completion:*' menu select
 zstyle ':completion:*:*:*:*:*' menu select
 zstyle ':completion:*' format ' %F{yellow}-- %d --%f'
 zstyle ':completion:*' group-name ''
