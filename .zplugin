@@ -112,6 +112,10 @@ zplugin light "molovo/tipz"
 zplugin ice wait lucid
 zplugin light "changyuheng/zsh-interactive-cd"
 
+# forgit
+zplugin ice wait lucid
+zplugin light "wfxr/forgit"
+
 # # zplugin load djui/alias-tips
 
 # # zplugin load RobSis/zsh-completion-generator

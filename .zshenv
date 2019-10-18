@@ -104,11 +104,15 @@ export DISABLE_UPDATE_PROMPT="true"
 export DISABLE_AUTO_UPDATE="true"
 
 # fzf
-export FZF_DEFAULT_COMMAND="fd --type file --color=always"
-export FZF_DEFAULT_OPTS="--multi --ansi --height=50% --min-height=15 --reverse --color=bg:-1,fg:-1,prompt:1,info:3"
-# FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --preview-window='right:hidden:wrap'"
-# FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --preview='[[\$(file --mime {}) =~ binary ]] && echo {} is a binary file || (bat --style=numbers --color=always {} || cat {}) 2> /dev/null | head -300'"
-# export FZF_ALT_C_COMMAND="fd -t d . $HOME"
+export FZF_DEFAULT_COMMAND="fd --type file --color=always ."
+export FZF_DEFAULT_OPTS="--multi --ansi --height=50% --min-height=15 --reverse --color=bg:-1,fg:-1,prompt:1,info:3,hl:2,hl+:2"
+## Search with preview
+export FZF_CTRL_T_OPTS="--preview '(cat {} || tree -C {}) 2> /dev/null' --select-1 --exit-0"
+## Search history
+export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview'"
+## Search Folders
+export FZF_ALT_C_COMMAND="fd --type directory --color=always . $HOME"
+export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
 
 # Tipz
 export TIPZ_TEXT='💡'
