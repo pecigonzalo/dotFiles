@@ -8,8 +8,13 @@ alias tailf="tail -f"
 # gitg remove console output
 alias gitg="gitg >> /dev/null 2>&1"
 
-# LS
-alias ls='ls --color=tty'
+# ls
+alias ls='ls --color=always'
+
+# exa
+alias l='exa -lF'
+alias ll='exa -l'
+alias la='exa -la'
 
 # bat
 alias cat="bat -p"
