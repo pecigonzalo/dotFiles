@@ -12,6 +12,7 @@ alias gitg="gitg >> /dev/null 2>&1"
 alias ls='ls --color=always'
 
 # exa
+alias exa='exa --color=always'
 alias l='exa -lF'
 alias ll='exa -l'
 alias la='exa -la'
