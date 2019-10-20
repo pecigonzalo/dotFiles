@@ -138,4 +138,6 @@ zstyle ':completion:*:*:*:users' ignored-patterns \
 bindkey -e # Use emacs key bindings
 
 # Nix
-. /etc/profile.d/nix.sh
+if [[ -f "/etc/profile.d/nix.sh" ]]; then
+  source /etc/profile.d/nix.sh
+fi
