@@ -107,7 +107,7 @@ export DISABLE_AUTO_UPDATE="true"
 export FZF_DEFAULT_COMMAND="fd --type file --color=always ."
 export FZF_DEFAULT_OPTS="--multi --ansi --height=50% --min-height=15 --reverse --color=bg:-1,fg:-1,prompt:1,info:3,hl:2,hl+:2"
 ## Search with preview
-export FZF_CTRL_T_OPTS="--preview '(cat {} || tree -C {}) 2> /dev/null' --select-1 --exit-0"
+export FZF_CTRL_T_OPTS="--preview '(bat --color=always {} || tree -C {}) 2> /dev/null' --select-1 --exit-0"
 ## Search history
 export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview'"
 ## Search Folders
