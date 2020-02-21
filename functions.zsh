@@ -135,3 +135,46 @@ tmx() {
     fi
   fi
 }
+
+# WSL2 clipcopy
+
+function clipcopy() {
+  emulate -L zsh
+  local file=$1
+  if [[ $OSTYPE == darwin* ]]; then
+    if [[ -z $file ]]; then
+      pbcopy
+    else
+      cat $file | pbcopy
+    fi
+  elif [[ $OSTYPE == (cygwin|msys)* ]]; then
+    if [[ -z $file ]]; then
+      cat > /dev/clipboard
+    else
+      cat $file > /dev/clipboard
+    fi
+  elif [[ $OSTYPE == (linux-gnu)* ]]; then
+    if [[ -z $file ]]; then
+      cat | clip.exe
+    else
+      cat $file | clip.exe
+    fi
+  else
+    if (( $+commands[xclip] )); then
+      if [[ -z $file ]]; then
+        xclip -in -selection clipboard
+      else
+        xclip -in -selection clipboard $file
+      fi
+    elif (( $+commands[xsel] )); then
+      if [[ -z $file ]]; then
+        xsel --clipboard --input
+      else
+        cat "$file" | xsel --clipboard --input
+      fi
+    else
+      print "clipcopy: Platform $OSTYPE not supported or xclip/xsel not installed" >&2
+      return 1
+    fi
+  fi
+}
