@@ -82,27 +82,27 @@ export BUILDKITE_CLI_KEYRING_BACKEND=kwallet
 
 # Spaceship Theme Config
 export SPACESHIP_PROMPT_ORDER=(
-  time          # Time stamps section
-  user          # Username section
-  dir           # Current directory section
-  host          # Hostname section
-  git           # Git section (git_branch + git_status)
-#   node          # Node.js section
-#   ruby          # Ruby section
-  golang        # Go section
-  docker        # Docker section
-#   aws           # Amazon Web Services section
-  venv          # virtualenv section
-  pyenv         # Pyenv section
-#   dotnet        # .NET section
-#   kubecontext   # Kubectl context section
-#   terraform     # Terraform workspace section
-  exec_time     # Execution time
-  line_sep      # Line break
-#   vi_mode       # Vi-mode indicator
-  jobs          # Background jobs indicator
-  exit_code     # Exit code section
-  char          # Prompt character
+  time # Time stamps section
+  user # Username section
+  dir  # Current directory section
+  host # Hostname section
+  git  # Git section (git_branch + git_status)
+  #   node          # Node.js section
+  #   ruby          # Ruby section
+  golang # Go section
+  docker # Docker section
+  #   aws           # Amazon Web Services section
+  venv  # virtualenv section
+  pyenv # Pyenv section
+  #   dotnet        # .NET section
+  #   kubecontext   # Kubectl context section
+  #   terraform     # Terraform workspace section
+  exec_time # Execution time
+  line_sep  # Line break
+  #   vi_mode       # Vi-mode indicator
+  jobs      # Background jobs indicator
+  exit_code # Exit code section
+  char      # Prompt character
 )
 export SPACESHIP_GIT_BRANCH_COLOR="$(tput setaf 240)"
 export SPACESHIP_DIR_COLOR="blue"
