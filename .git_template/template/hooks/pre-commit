@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+
+pushd $(dirname $0) >/dev/null
+HERE=$(pwd)
+popd >/dev/null
+
+retv=0
+args=""
+
+SKIP_ON_MISSING_CONF=true
+
+which pre-commit >&/dev/null
+WHICH_RETV=$?
+
+type -p pre-commit
+
+if ! type -p pre-commit >&/dev/null; then
+  echo '`pre-commit` not found.'
+  exit 1
+fi
+
+# Run the legacy pre-commit if it exists
+if [ -x "$HERE"/pre-commit.legacy ]; then
+  "$HERE"/pre-commit.legacy
+  if [ $? -ne 0 ]; then
+    retv=1
+  fi
+fi
+
+CONF_FILE=$(git rev-parse --show-toplevel)"/.pre-commit-config.yaml"
+if [ ! -f $CONF_FILE ]; then
+  if [ $SKIP_ON_MISSING_CONF = true ] || [ ! -z $PRE_COMMIT_ALLOW_NO_CONFIG ]; then
+    echo '`.pre-commit-config.yaml` config file not found. Skipping `pre-commit`.'
+    exit $retv
+  else
+    echo 'No .pre-commit-config.yaml file was found'
+    echo '- To temporarily silence this, run `PRE_COMMIT_ALLOW_NO_CONFIG=1 git ...`'
+    echo '- To permanently silence this, install pre-commit with the `--allow-missing-config` option'
+    echo '- To uninstall pre-commit run `pre-commit uninstall`'
+    exit 1
+  fi
+fi
+
+# Run pre-commit
+pre-commit $args
+PRE_COMMIT_RETV=$?
+
+if ((PRE_COMMIT_RETV != 0)); then
+  retv=1
+fi
+
+exit $retv

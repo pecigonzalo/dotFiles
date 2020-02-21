@@ -13,7 +13,7 @@ prune = true
 pager = less -FRSX
 compression = 9
 whitespace = trailing-space,space-before-tab
-excludesfile = /home/gonzalo.peci/.gitignore_global
+excludesfile = ~/.git_globalignore
 pager = diff-so-fancy | less -FXRi
 [color]
 branch = auto
