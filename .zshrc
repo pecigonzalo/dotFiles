@@ -33,20 +33,20 @@ zprof >/tmp/zprof
 # ############################################################################################
 
 # ===== Basics
-unsetopt bg_nice              # do NOT nice bg commands
-setopt no_beep                # don't beep on error
-setopt interactive_comments   # Allow comments even in interactive shells (especially for Muness)
-setopt prompt_subst           # Prompt string is first subjected to parameter expansion, command substitution and arithmetic expansion.
+unsetopt bg_nice            # do NOT nice bg commands
+setopt no_beep              # don't beep on error
+setopt interactive_comments # Allow comments even in interactive shells (especially for Muness)
+setopt prompt_subst         # Prompt string is first subjected to parameter expansion, command substitution and arithmetic expansion.
 
 # ===== Changing Directories
-setopt auto_cd                # If you type foo, and it isn't a command, and it is a directory in your cdpath, go there
-setopt cdablevars             # if argument to cd is the name of a parameter whose value is a valid directory, it will become the current directory
-setopt pushd_ignore_dups      # don't push multiple copies of the same directory onto the directory stack
-setopt auto_pushd             # make cd push the old directory onto the directory stack
-setopt pushdminus             # swapped the meaning of cd +1 and cd -1; we want them to mean the opposite of what they mean im csh
+setopt auto_cd           # If you type foo, and it isn't a command, and it is a directory in your cdpath, go there
+setopt cdablevars        # if argument to cd is the name of a parameter whose value is a valid directory, it will become the current directory
+setopt pushd_ignore_dups # don't push multiple copies of the same directory onto the directory stack
+setopt auto_pushd        # make cd push the old directory onto the directory stack
+setopt pushdminus        # swapped the meaning of cd +1 and cd -1; we want them to mean the opposite of what they mean im csh
 
 # ===== Expansion and Globbing
-setopt extendedglob           # treat #, ~, and ^ as part of patterns for filename generation
+setopt extendedglob # treat #, ~, and ^ as part of patterns for filename generation
 
 # ===== History
 setopt append_history         # Allow multiple terminal sessions to all append to one zsh command history
