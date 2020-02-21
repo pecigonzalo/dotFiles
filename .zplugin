@@ -39,6 +39,7 @@ zplugin light zdharma/zsh-diff-so-fancy
 zplugin snippet OMZ::lib/key-bindings.zsh
 zplugin snippet OMZ::lib/git.zsh
 zplugin snippet OMZ::lib/clipboard.zsh
+zplugin snippet OMZ::lib/termsupport.zsh
 
 ## Completions
 zplugin ice blockf atpull'zplugin creinstall -q .'
