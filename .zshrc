@@ -20,8 +20,8 @@ if [[ -f "$HOME/dotFiles/functions.zsh" ]]; then
 fi
 
 # LinuxBrew
-if [[ -d ~/.linuxbrew ]]; then
-  eval $(~/.linuxbrew/bin/brew shellenv)
+if [[ -d /home/linuxbrew/.linuxbrew ]]; then
+  eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 fi
 
 if [[ -s "$zcompdump" && (! -s "${zcompdump}.zwc" || "$zcompdump" -nt "${zcompdump}.zwc") ]]; then
