@@ -1,138 +1,102 @@
 #!/usr/bin/zsh
-source "${HOME}/.zplugin/bin/zplugin.zsh"
+source ~/.zinit/bin/zinit.zsh
 
-autoload -Uz _zplugin
-(( ${+_comps} )) && _comps[zplugin]=_zplugin
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+
+## SSH
+zstyle :omz:plugins:ssh-agent identities pecigonzalo_ed25519 pecigonzalo_rsa
+zinit snippet OMZ::plugins/ssh-agent/ssh-agent.plugin.zsh
 
 ## Programs
+# Load asdf
+zinit ice wait lucid blockf
+zinit snippet OMZ::plugins/asdf/asdf.plugin.zsh
 
 # Direnv
-zplugin ice from"gh-r" as"program" mv"direnv* -> direnv" \
-  './direnv hook zsh > zhook.zsh' atpull'%atclone' pick"direnv"
-zplugin light direnv/direnv
-
-# Kind
-zplugin ice from"gh-r" as"program" ver"v0.5.1" mv"kind* -> kind" bpick"*linux-amd64*"
-zplugin light kubernetes-sigs/kind
-
-# aws-vault
-zplugin ice from"gh-r" as"program" ver"v4.6.4" mv"aws-vault* -> aws-vault" bpick"*linux-amd64*"
-zplugin light 99designs/aws-vault
-
-# chamber
-zplugin ice from"gh-r" as"program" ver"v2.7.2" mv"chamber* -> chamber" bpick"*linux-amd64*"
-zplugin light segmentio/chamber
-
-# Terraform - tfenv
-zplugin ice as"program" pick"bin/*"
-zplugin light tfutils/tfenv
-
-# Hub
-zplugin ice from"gh-r" as"program" ver"v2.12.8" pick"hub*/bin/hub" bpick"*Linux*64*"
-zplugin light github/hub
-
-# Diff So Fancy
-zplugin ice as"program" pick"bin/git-dsf"
-zplugin light zdharma/zsh-diff-so-fancy
+zinit ice as"null" atinit'direnv hook zsh > zhook.zsh' src"zhook.zsh"
+zinit snippet "$(brew --prefix)/bin/direnv"
 
 ## OMZ Config
-zplugin snippet OMZ::lib/key-bindings.zsh
-zplugin snippet OMZ::lib/git.zsh
-zplugin snippet OMZ::lib/clipboard.zsh
-zplugin snippet OMZ::lib/termsupport.zsh
+zinit snippet OMZ::lib/key-bindings.zsh
+zinit snippet OMZ::lib/git.zsh
+zinit snippet OMZ::lib/clipboard.zsh
+zinit snippet OMZ::lib/termsupport.zsh
 
 ## Completions
-zplugin ice blockf atpull'zplugin creinstall -q .'
-zplugin light zsh-users/zsh-completions
+zinit ice wait lucid blockf atpull'zinit creinstall -q .'
+zinit light zsh-users/zsh-completions
 
-zplugin ice wait lucid from"gh-r" as"completion" ver"v2.12.8" id-as"hub-completion" \
-        mv"hub*/etc/hub.zsh_completion -> _hub" pick"_hub"
-zplugin light github/hub
-
-zplugin ice wait lucid ver"v0.7.4" pick"completions/asdf.bash" nocompletions id-as"asdf-completion"
-zplugin light asdf-vm/asdf
-
-zplugin ice as"completion"
-zplugin snippet OMZ::plugins/pip/_pip
-
-zplugin ice as"completion"
-zplugin snippet OMZ::plugins/terraform/_terraform
-
-zplugin ice blockf
-zplugin snippet "/usr/bin/aws_zsh_completer.sh"
+zinit ice as"completion"
+zinit snippet OMZ::plugins/terraform/_terraform
 
 ## Others
-
 # fzf
-zplugin snippet /usr/share/fzf/key-bindings.zsh
-zplugin snippet /usr/share/fzf/completion.zsh
+zinit snippet "$(brew --prefix fzf)/shell/key-bindings.zsh"
+zinit snippet "$(brew --prefix fzf)/shell/completion.zsh"
 
 # Git
-zplugin ice wait atload"unalias grv" lucid
-zplugin snippet OMZ::plugins/git/git.plugin.zsh
+zinit ice wait atload"unalias grv" lucid
+zinit snippet OMZ::plugins/git/git.plugin.zsh
 
-zplugin snippet OMZ::plugins/git-auto-fetch/git-auto-fetch.plugin.zsh
-zplugin snippet OMZ::plugins/gitignore/gitignore.plugin.zsh
+zinit snippet OMZ::plugins/git-auto-fetch/git-auto-fetch.plugin.zsh
+zinit snippet OMZ::plugins/gitignore/gitignore.plugin.zsh
 
 # Python
-zplugin ice blockf
-zplugin snippet OMZ::plugins/pip/pip.plugin.zsh
+zinit ice wait lucid blockf
+zinit snippet OMZ::plugins/pip/pip.plugin.zsh
+
+zinit ice as"completion"
+zinit snippet OMZ::plugins/pip/_pip
 
 # Docker
-zplugin snippet OMZ::plugins/docker-compose/docker-compose.plugin.zsh
+zinit snippet OMZ::plugins/docker-compose/docker-compose.plugin.zsh
+
+zinit ice wait as"completion" lucid
+zinit snippet OMZ::plugins/docker/_docker
 
 # Utils
-zplugin snippet OMZ::plugins/common-aliases/common-aliases.plugin.zsh
-zplugin snippet OMZ::plugins/sudo/sudo.plugin.zsh
-zplugin snippet OMZ::plugins/rsync/rsync.plugin.zsh
-zplugin snippet OMZ::plugins/urltools/urltools.plugin.zsh
+zinit snippet OMZ::plugins/common-aliases/common-aliases.plugin.zsh
+zinit snippet OMZ::plugins/sudo/sudo.plugin.zsh
+zinit snippet OMZ::plugins/rsync/rsync.plugin.zsh
+zinit snippet OMZ::plugins/urltools/urltools.plugin.zsh
 
 # K
-zplugin ice blockf
-zplugin light rimraf/k
+zinit ice blockf
+zinit light rimraf/k
 
 # Z
-zplugin ice blockf
-zplugin light rupa/z
-zplugin ice blockf
-zplugin light changyuheng/fz
-
-# asdf
-zplugin ice wait lucid ver"v0.7.4" pick"asdf.sh" blockf nocompletions
-zplugin light asdf-vm/asdf
+zinit ice blockf
+zinit light rupa/z
+zinit ice blockf
+zinit light changyuheng/fz
 
 # Tipz
-zplugin ice wait lucid
-zplugin light "molovo/tipz"
+zinit ice wait lucid
+zinit light "molovo/tipz"
 
 # Interactive CD
-zplugin ice wait lucid
-zplugin light "changyuheng/zsh-interactive-cd"
+zinit ice wait lucid
+zinit light "changyuheng/zsh-interactive-cd"
 
 # forgit
-zplugin ice wait lucid
-zplugin light "wfxr/forgit"
-
-# # zplugin load RobSis/zsh-completion-generator
-
-# # COYA
-# zplugin snippet $HOME/Workspace/Coya/src/ragbag/coya-vars/coya-set-vars.plugin.zsh
-# zplugin snippet $HOME/Workspace/Coya/src/ragbag/travis-vars/travis-set-vars.plugin.zsh
+zinit ice wait lucid
+zinit light "wfxr/forgit"
 
 # Theme
-zplugin light $HOME/Workspace/src/spaceship-prompt
+zinit light denysdovhan/spaceship-prompt
 
 # Last
 # Load completions with highlighting
-zplugin ice wait atinit"ZPLGM[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay" lucid
-zplugin light zsh-users/zsh-syntax-highlighting
-# zplugin light zdharma/fast-syntax-highlighting
+zinit ice wait lucid atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay"
+zinit light zsh-users/zsh-syntax-highlighting
+# zini light zdharma/fast-syntax-highlighting
 
-zplugin ice wait atload"_zsh_autosuggest_start" lucid
-zplugin light zsh-users/zsh-autosuggestions
+zinit ice wait lucid atload"_zsh_autosuggest_start"
+zinit light zsh-users/zsh-autosuggestions
 
 # Fish like search
-zplugin ice wait'1' lucid atload' \
+zinit ice wait lucid atload' \
   [ -n "${terminfo[kcuu1]}" ] && bindkey "${terminfo[kcuu1]}" history-substring-search-up; \
   [ -n "${terminfo[kcud1]}" ] && bindkey "${terminfo[kcud1]}" history-substring-search-down; \
   bindkey -M emacs "^P" history-substring-search-up; \
@@ -140,4 +104,4 @@ zplugin ice wait'1' lucid atload' \
   bindkey -M vicmd "k" history-substring-search-up; \
   bindkey -M vicmd "j" history-substring-search-down; \
 '
-zplugin light zsh-users/zsh-history-substring-search
+zinit light zsh-users/zsh-history-substring-search

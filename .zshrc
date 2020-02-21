@@ -6,6 +6,14 @@ zmodload zsh/zprof
 
 autoload -U colors && colors
 
+# LinuxBrew
+if [[ -d /home/linuxbrew/.linuxbrew ]]; then
+  eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+  if ! type -v brew &>/dev/null; then
+    FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+  fi
+fi
+
 # Load Zplugin
 source "$HOME/dotFiles/.zplugin"
 
@@ -17,11 +25,6 @@ fi
 # Get funtions
 if [[ -f "$HOME/dotFiles/functions.zsh" ]]; then
   source "$HOME/dotFiles/functions.zsh"
-fi
-
-# LinuxBrew
-if [[ -d /home/linuxbrew/.linuxbrew ]]; then
-  eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 fi
 
 if [[ -s "$zcompdump" && (! -s "${zcompdump}.zwc" || "$zcompdump" -nt "${zcompdump}.zwc") ]]; then
