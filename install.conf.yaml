@@ -13,6 +13,8 @@
 - link:
     # Git
     ~/.gitconfig: .gitconfig
+    ~/.git_globalignore: .git_globalignore
+    ~/.git_template: .git_template
 
     # Tmux
     ~/.tmux.conf: .tmux.conf
@@ -22,15 +24,14 @@
 
     # Xmodmap
     ~/.xprofile: .xprofile
-    ~/.Xmodmap: .Xmodmap.9370DE
 
     # Bash/ZSH/Profile
     ~/.aliases: .aliases
-    ~/.profile: .profile
-    ~/.bashrc: .bashrc
     ~/.bash_profile: .bash_profile
-    ~/.zshrc: .zshrc
+    ~/.bashrc: .bashrc
+    ~/.profile: .profile
     ~/.zshenv: .zshenv
+    ~/.zshrc: .zshrc
 
     # Ruby
     ~/.gemrc: .gemrc
@@ -39,24 +40,21 @@
     ~/.config/libinput-gestures.conf: .config/libinput-gestures.conf
 
     # Konsole
-    ~/.local/share/konsole/MonokaiSetiAtom.colorscheme: .local/share/konsole/MonokaiSetiAtom.colorscheme
-    ~/.local/share/konsole/BrogrammerChalk.colorscheme: .local/share/konsole/BrogrammerChalk.colorscheme
+    ~/.local/:
+      glob: true
+      path: .local/*
+      relink: tru
 
     # SSH Startup agent
-    ~/.config/autostart-scripts/ssh-agent-startup.sh: .config/autostart-scripts/ssh-agent-startup.sh
-    ~/.config/systemd/user/ssh-agent.service: .config/systemd/user/ssh-agent.service
+    ~/.config/:
+      glob: true
+      path: .config/*
+      relink: tru
 
     # Workspace Bin
     ~/bin: ~/Workspace/bin
 
-- pip:
-    file: pipsi/pip.txt
-    binary: pip3
-    user: true # Like --user
-    stdout: true # Print the execution stdout
-    stderr: true # Print the execution stderr
-
-- pipsi:
-    file: pipsi/pipsi.txt
-    stdout: true # Print the execution stdout
-    stderr: true # Print the execution stderr
+- shell:
+    - chsh -s $(which zsh)
+    - [chsh -s $(which zsh), Making zsh the default shell]
+    - [git submodule update --init --recursive, Installing submodules]
