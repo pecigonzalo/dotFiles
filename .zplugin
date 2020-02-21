@@ -113,8 +113,6 @@ zplugin light "changyuheng/zsh-interactive-cd"
 zplugin ice wait lucid
 zplugin light "wfxr/forgit"
 
-# # zplugin load djui/alias-tips
-
 # # zplugin load RobSis/zsh-completion-generator
 
 # # COYA
