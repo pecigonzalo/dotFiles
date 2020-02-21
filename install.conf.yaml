@@ -40,13 +40,13 @@
     ~/.config/libinput-gestures.conf: .config/libinput-gestures.conf
 
     # Konsole
-    ~/.local/:
+    ~/.local:
       glob: true
       path: .local/*
       relink: tru
 
     # SSH Startup agent
-    ~/.config/:
+    ~/.config:
       glob: true
       path: .config/*
       relink: tru
@@ -54,7 +54,11 @@
     # Workspace Bin
     ~/bin: ~/Workspace/bin
 
-- shell:
-    - chsh -s $(which zsh)
-    - [chsh -s $(which zsh), Making zsh the default shell]
-    - [git submodule update --init --recursive, Installing submodules]
+- asdf:
+    - plugin: terraform
+      versions:
+        - 0.11.14
+        - 0.12.21
+
+- brewfile:
+    - Brewfile
