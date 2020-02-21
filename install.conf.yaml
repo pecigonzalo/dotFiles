@@ -6,9 +6,7 @@
       relink: true
       create: true
 
-- clean:
-    ~/:
-      force: false
+- clean: ["~", "~/.config", "~/.local"]
 
 - link:
     # Git
@@ -36,20 +34,15 @@
     # Ruby
     ~/.gemrc: .gemrc
 
-    # Gestures
-    ~/.config/libinput-gestures.conf: .config/libinput-gestures.conf
-
-    # Konsole
-    ~/.local:
+    # Local
+    ~/.local/share/:
       glob: true
-      path: .local/*
-      relink: tru
+      path: .local/share/*
 
-    # SSH Startup agent
-    ~/.config:
+    # Config
+    ~/.config/:
       glob: true
       path: .config/*
-      relink: tru
 
     # Workspace Bin
     ~/bin: ~/Workspace/bin
