@@ -22,3 +22,9 @@ alias cat="bat -p"
 
 # fd
 unalias fd
+
+# terraform
+alias tf="terraform"
+
+# Reload
+alias reshell!="exec $SHELL -l"

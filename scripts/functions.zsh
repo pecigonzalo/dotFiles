@@ -21,10 +21,11 @@ ex() {
     *.Z) uncompress "$1" ;;
     *.7z) 7z x "$1" ;;
     *.dmg) hdiutul mount "$1" ;; # mount OS X disk images
-    *) echo "'$1' cannot be extracted via >ex<" ;;
+    *) echo "'$1' cannot be extracted via >ex<" && return 1;;
     esac
   else
     echo "'$1' is not a valid file"
+    return 1
   fi
 }
 
@@ -177,4 +178,49 @@ function clipcopy() {
       return 1
     fi
   fi
+}
+
+# Quick Install download folder in path
+letmetry() {
+  set -x
+  URL="${1:-}"
+  NAME="${2:-}"
+  if [[ -z $URL ]]; then
+    echo "Please specify a URL"
+    return 1
+  fi
+
+  FILE="${URL##*/}"
+  TMP="$(mktemp -d)"
+  OUT="${TMP}/${FILE}"
+
+  # Run on a subshell so we dont need to manage PWD
+  (
+    cd "$TMP"
+
+    wget -q --show-progress --https-only --timestamping "$URL" -O "${OUT}"
+
+    ex "${OUT}" || NOEX=true
+  )
+
+  if [[ "$NOEX" ]]; then
+    PATH="${TMP}:${PATH}"
+  else
+    PAHT="${TMP}/bin:${PATH}"
+  fi
+}
+
+# Move binary to user path
+userinstall() {
+  set -x
+  SRC="${1:-}"
+  NAME="${2:-${SRC##*/}}"
+  if [[ -z $SRC ]]; then
+    echo "Please specify a SRC"
+    return 1
+  fi
+
+  echo "Installing ${NAME} from ${SRC}"
+  cp "${SRC}" "${HOME}/.local/bin${NAME}"
+  chmod +x "${NAME}"
 }

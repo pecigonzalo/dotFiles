@@ -83,10 +83,10 @@ zinit light "changyuheng/zsh-interactive-cd"
 zinit ice wait lucid
 zinit light "wfxr/forgit"
 
-# Theme
+## Theme
 zinit light denysdovhan/spaceship-prompt
 
-# Last
+## Last
 # Load completions with highlighting
 zinit ice wait lucid atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay"
 zinit light zsh-users/zsh-syntax-highlighting

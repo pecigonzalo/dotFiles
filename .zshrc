@@ -14,18 +14,15 @@ if [[ -d /home/linuxbrew/.linuxbrew ]]; then
   fi
 fi
 
-# Load Zplugin
-source "$HOME/dotFiles/.zplugin"
+# Load zinit
+source "$HOME/dotFiles/scripts/zinit.zsh"
 
 # Load shared aliases
-if [[ -f "$HOME/dotFiles/.aliases" ]]; then
-  source "$HOME/dotFiles/.aliases"
-fi
-
+source "$HOME/dotFiles/scripts/aliases.zsh"
 # Get funtions
-if [[ -f "$HOME/dotFiles/functions.zsh" ]]; then
-  source "$HOME/dotFiles/functions.zsh"
-fi
+source "$HOME/dotFiles/scripts/functions.zsh"
+# Get wsl
+source "$HOME/dotFiles/scripts/wsl.zsh"
 
 if [[ -s "$zcompdump" && (! -s "${zcompdump}.zwc" || "$zcompdump" -nt "${zcompdump}.zwc") ]]; then
   zcompile "$zcompdump"
