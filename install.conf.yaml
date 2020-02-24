@@ -9,6 +9,9 @@
 - clean: ["~", "~/.config", "~/.local"]
 
 - link:
+    # asdf-tools
+    ~/.tool-versions: .tool-versions
+
     # Git
     ~/.gitconfig: .gitconfig
     ~/.git_globalignore: .git_globalignore
@@ -24,7 +27,6 @@
     ~/.xprofile: .xprofile
 
     # Bash/ZSH/Profile
-    ~/.aliases: .aliases
     ~/.bash_profile: .bash_profile
     ~/.bashrc: .bashrc
     ~/.profile: .profile
