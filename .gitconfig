@@ -2,7 +2,7 @@
 name = Gonzalo Peci
 email = pecigonzalo@users.noreply.github.com
 [status]
-showuntrackedfiles = no
+showuntrackedfiles = all
 [push]
 default = current
 [pull]
