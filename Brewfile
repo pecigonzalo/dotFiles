@@ -50,6 +50,10 @@ brew "pipx"
 brew "pre-commit"
 # Python version management
 brew "pyenv"
+# Rsync for cloud storage
+brew "rclone"
+# Fast, efficient and secure backup program
+brew "restic"
 # Search tool like grep and The Silver Searcher
 brew "ripgrep"
 # Autoformat shell script source code

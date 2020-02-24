@@ -5,60 +5,56 @@
         "revision": "04a8b37bbdd9bb801a5fde72fd82232846cf2b69"
       },
       "homebrew/core": {
-        "revision": "4516cd496d18e263dd1dc3d37934e9780f5f5332"
+        "revision": "f20b3f97559466a46cb87cb392201ea90c509b37"
       }
     },
     "brew": {
       "readline": {
-        "version": "8.0.1",
-        "bottle": {
-          "cellar": ":any_skip_relocation",
-          "prefix": "/home/linuxbrew/.linuxbrew",
-          "files": {
-            "catalina": {
-              "url": "https://linuxbrew.bintray.com/bottles/readline-8.0.1.catalina.bottle.tar.gz",
-              "sha256": "ab3c966f4cae7d0f3ecc5688bb989820c3261f5ed547a08c84186ba7f53bdd9c"
-            },
-            "mojave": {
-              "url": "https://linuxbrew.bintray.com/bottles/readline-8.0.1.mojave.bottle.tar.gz",
-              "sha256": "3c754391e9d243835811d128771ca0f1a565024100fd2c2871534353d46aaf0e"
-            },
-            "high_sierra": {
-              "url": "https://linuxbrew.bintray.com/bottles/readline-8.0.1.high_sierra.bottle.tar.gz",
-              "sha256": "ae341a036139a92a47396aabc773ffcf40a17fc388aaadf0147f688c72ece987"
-            },
-            "sierra": {
-              "url": "https://linuxbrew.bintray.com/bottles/readline-8.0.1.sierra.bottle.tar.gz",
-              "sha256": "f234d1ff8148bf08b0ac31e661f2e96b5c6e64df26a45d2392056c9077f964af"
-            },
-            "x86_64_linux": {
-              "url": "https://linuxbrew.bintray.com/bottles/readline-8.0.1.x86_64_linux.bottle.tar.gz",
-              "sha256": "7219d088b8500a4db8fa155b3cb1e76632adc24a20896fbc2a4058d68b027957"
-            }
-          }
-        }
-      },
-      "ansible": {
-        "version": "2.9.4",
+        "version": "8.0.4",
         "bottle": {
           "cellar": ":any",
           "prefix": "/home/linuxbrew/.linuxbrew",
           "files": {
             "catalina": {
-              "url": "https://linuxbrew.bintray.com/bottles/ansible-2.9.4.catalina.bottle.tar.gz",
-              "sha256": "1d96acd80c0291e181062b66be9f75f9bf952d38134abc3e445a0c18ce272ea5"
+              "url": "https://linuxbrew.bintray.com/bottles/readline-8.0.4.catalina.bottle.tar.gz",
+              "sha256": "6ae1c8e7c783f32bd22c6085caa4d838fed7fb386da7e40ca47b87ec9b1237d6"
             },
             "mojave": {
-              "url": "https://linuxbrew.bintray.com/bottles/ansible-2.9.4.mojave.bottle.tar.gz",
-              "sha256": "7f227936d8424e3224843ca8b4d0397e4ff65d6c117839e05d7b948a41c0c664"
+              "url": "https://linuxbrew.bintray.com/bottles/readline-8.0.4.mojave.bottle.tar.gz",
+              "sha256": "29f7102a730ab39c8312cad1e7e439f6da2a67c452ce2b3380581eb185a5d8e8"
             },
             "high_sierra": {
-              "url": "https://linuxbrew.bintray.com/bottles/ansible-2.9.4.high_sierra.bottle.tar.gz",
-              "sha256": "9fb2a1c3c5698c12d153da53463563e8a5edc69aa1d5d6952da7479efb14f91a"
+              "url": "https://linuxbrew.bintray.com/bottles/readline-8.0.4.high_sierra.bottle.tar.gz",
+              "sha256": "896a3d50ce8962ba56e853bdd590fadeabc00ab36475d143d6c2bea5cc15bb28"
             },
             "x86_64_linux": {
-              "url": "https://linuxbrew.bintray.com/bottles/ansible-2.9.4.x86_64_linux.bottle.tar.gz",
-              "sha256": "c691ebfeb355359c2d124288224edbe1e4ffcbbcd08927d41a05c9ae76183034"
+              "url": "https://linuxbrew.bintray.com/bottles/readline-8.0.4.x86_64_linux.bottle.tar.gz",
+              "sha256": "46da47db3da04b2f248e3cf2d6d14c55aa543555d1134f6cbbf07787a5bf0bd6"
+            }
+          }
+        }
+      },
+      "ansible": {
+        "version": "2.9.4_1",
+        "bottle": {
+          "cellar": ":any",
+          "prefix": "/home/linuxbrew/.linuxbrew",
+          "files": {
+            "catalina": {
+              "url": "https://linuxbrew.bintray.com/bottles/ansible-2.9.4_1.catalina.bottle.tar.gz",
+              "sha256": "f99db9f97cd8b5245ff043534d19c9ad136e14d6e3aa4266d317e9dc68c5a7cb"
+            },
+            "mojave": {
+              "url": "https://linuxbrew.bintray.com/bottles/ansible-2.9.4_1.mojave.bottle.tar.gz",
+              "sha256": "a834bb82786159e2599146aa2d19c2370b5259320528d2e40166abce2e089c48"
+            },
+            "high_sierra": {
+              "url": "https://linuxbrew.bintray.com/bottles/ansible-2.9.4_1.high_sierra.bottle.tar.gz",
+              "sha256": "81d69c48b7719875097e25a8940fb0c3765d33f4b2d454a5f60fd306922451aa"
+            },
+            "x86_64_linux": {
+              "url": "https://linuxbrew.bintray.com/bottles/ansible-2.9.4_1.x86_64_linux.bottle.tar.gz",
+              "sha256": "f68d527620befbc7281ee8eb13703905d1796e1390e420a26d281d725276e941"
             }
           }
         },
@@ -617,26 +613,26 @@
         }
       },
       "shfmt": {
-        "version": "3.0.1_1",
+        "version": "3.0.2",
         "bottle": {
           "cellar": ":any_skip_relocation",
           "prefix": "/home/linuxbrew/.linuxbrew",
           "files": {
             "catalina": {
-              "url": "https://linuxbrew.bintray.com/bottles/shfmt-3.0.1_1.catalina.bottle.tar.gz",
-              "sha256": "6358293ae23a216f4349ac0ab191bf9b17e9205a979cc0934c839406066194ce"
+              "url": "https://linuxbrew.bintray.com/bottles/shfmt-3.0.2.catalina.bottle.tar.gz",
+              "sha256": "8f5428c697aaa1c8f6c9ef1962a12b516746aea50718e7e59bb8cf8c5b3f6f0c"
             },
             "mojave": {
-              "url": "https://linuxbrew.bintray.com/bottles/shfmt-3.0.1_1.mojave.bottle.tar.gz",
-              "sha256": "d05ca216d6a5b95ad55eaca1e5faf4c346ae9b9f9fc82eb644dfdc3b684ed646"
+              "url": "https://linuxbrew.bintray.com/bottles/shfmt-3.0.2.mojave.bottle.tar.gz",
+              "sha256": "833bc26b402baccb14b51ab208aa13edb4838d59ef3f490fe6b11e3e9ea42253"
             },
             "high_sierra": {
-              "url": "https://linuxbrew.bintray.com/bottles/shfmt-3.0.1_1.high_sierra.bottle.tar.gz",
-              "sha256": "4b32111c7f53b4f21cc971b866f218b40ba87cb3606c5fe418eabb2a4dc886d4"
+              "url": "https://linuxbrew.bintray.com/bottles/shfmt-3.0.2.high_sierra.bottle.tar.gz",
+              "sha256": "813f4f3b102bbedc95eef92c952b663be6c572edfb5248da453cba5f33e66aba"
             },
             "x86_64_linux": {
-              "url": "https://linuxbrew.bintray.com/bottles/shfmt-3.0.1_1.x86_64_linux.bottle.tar.gz",
-              "sha256": "88171d610aa61dcc7d6f22034e9d8975d602e75b3fe563c79571f73409d53040"
+              "url": "https://linuxbrew.bintray.com/bottles/shfmt-3.0.2.x86_64_linux.bottle.tar.gz",
+              "sha256": "59a04f29abc5e6d3925f584267756a8c640d44705863b56550d6b0a1d06f8afd"
             }
           }
         }
@@ -702,7 +698,7 @@
       "Ubuntu 18.04.4 LTS (bionic)": {
         "HOMEBREW_VERSION": "2.2.6",
         "HOMEBREW_PREFIX": "/home/linuxbrew/.linuxbrew",
-        "Homebrew/linuxbrew-core": "4516cd496d18e263dd1dc3d37934e9780f5f5332",
+        "Homebrew/linuxbrew-core": "f20b3f97559466a46cb87cb392201ea90c509b37",
         "GCC": "7.4.0"
       }
     }
