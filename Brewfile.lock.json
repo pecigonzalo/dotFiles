@@ -5,7 +5,7 @@
         "revision": "04a8b37bbdd9bb801a5fde72fd82232846cf2b69"
       },
       "homebrew/core": {
-        "revision": "f20b3f97559466a46cb87cb392201ea90c509b37"
+        "revision": "b65ada1ebcf8fbe6e9854c9a86e0a1ef1ea1e0e2"
       }
     },
     "brew": {
@@ -690,6 +690,56 @@
             }
           }
         }
+      },
+      "rclone": {
+        "version": "1.51.0",
+        "bottle": {
+          "cellar": ":any_skip_relocation",
+          "prefix": "/home/linuxbrew/.linuxbrew",
+          "files": {
+            "catalina": {
+              "url": "https://linuxbrew.bintray.com/bottles/rclone-1.51.0.catalina.bottle.tar.gz",
+              "sha256": "7b56453fcde4d2d35cf467afd37d5798d332c3b666d74d7945c9b8df6e059893"
+            },
+            "mojave": {
+              "url": "https://linuxbrew.bintray.com/bottles/rclone-1.51.0.mojave.bottle.tar.gz",
+              "sha256": "947a6aa9692f716501316c370eef83e0d87042edf86d4d1c99ac7b99e27b27ff"
+            },
+            "high_sierra": {
+              "url": "https://linuxbrew.bintray.com/bottles/rclone-1.51.0.high_sierra.bottle.tar.gz",
+              "sha256": "cec3a23f8fdca70160d15ef04eee1126ab208553c548fbfe7fe3f9d127711046"
+            },
+            "x86_64_linux": {
+              "url": "https://linuxbrew.bintray.com/bottles/rclone-1.51.0.x86_64_linux.bottle.tar.gz",
+              "sha256": "e9b3fdf0df60aafbbdc28efe061acfad3b7b7bb2fc4de4196710fb7e03fece1e"
+            }
+          }
+        }
+      },
+      "restic": {
+        "version": "0.9.6",
+        "bottle": {
+          "cellar": ":any_skip_relocation",
+          "prefix": "/home/linuxbrew/.linuxbrew",
+          "files": {
+            "catalina": {
+              "url": "https://linuxbrew.bintray.com/bottles/restic-0.9.6.catalina.bottle.tar.gz",
+              "sha256": "cfbf35af0c86f5893fbecfb60085c49edd22ed8eb0861e6921cd85922680de44"
+            },
+            "mojave": {
+              "url": "https://linuxbrew.bintray.com/bottles/restic-0.9.6.mojave.bottle.tar.gz",
+              "sha256": "92b98a560b99f2a295e8e40689cd2fa9b8f04df62d6846fed8d13b63e0c2f960"
+            },
+            "high_sierra": {
+              "url": "https://linuxbrew.bintray.com/bottles/restic-0.9.6.high_sierra.bottle.tar.gz",
+              "sha256": "736201b7e7014d36f9ccd79a1deee1f577b231975628a2c405ca424882f00e7f"
+            },
+            "x86_64_linux": {
+              "url": "https://linuxbrew.bintray.com/bottles/restic-0.9.6.x86_64_linux.bottle.tar.gz",
+              "sha256": "9a5b264681dc6dbdace9918afb9a7955c11f830775e2112bf4a38a0496bb09be"
+            }
+          }
+        }
       }
     }
   },
@@ -698,7 +748,7 @@
       "Ubuntu 18.04.4 LTS (bionic)": {
         "HOMEBREW_VERSION": "2.2.6",
         "HOMEBREW_PREFIX": "/home/linuxbrew/.linuxbrew",
-        "Homebrew/linuxbrew-core": "f20b3f97559466a46cb87cb392201ea90c509b37",
+        "Homebrew/linuxbrew-core": "b65ada1ebcf8fbe6e9854c9a86e0a1ef1ea1e0e2",
         "GCC": "7.4.0"
       }
     }
