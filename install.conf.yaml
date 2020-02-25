@@ -36,6 +36,9 @@
     # Ruby
     ~/.gemrc: .gemrc
 
+    # Terraform
+    ~/.terraformrc: .terraformrc
+
     # Local
     ~/.local/share/:
       glob: true
