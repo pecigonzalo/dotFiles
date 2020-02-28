@@ -10,12 +10,14 @@ zinit snippet OMZ::plugins/ssh-agent/ssh-agent.plugin.zsh
 
 ## Programs
 # Load asdf
+ASDF_DIR="${HOMEBREW_PREFIX}/opt/asdf"
 zinit ice blockf
 zinit snippet OMZ::plugins/asdf/asdf.plugin.zsh
 
 # Direnv
-zinit ice wait lucid as"null" atinit'direnv hook zsh > zhook.zsh' src"zhook.zsh"
-zinit snippet "$(brew --prefix)/bin/direnv"
+zinit ice wait lucid as"null" \
+  atclone'./direnv hook zsh > zhook.zsh' atpull'%atclone' src"zhook.zsh"
+zinit snippet "${HOMEBREW_PREFIX}/bin/direnv"
 
 ## OMZ Config
 zinit snippet OMZ::lib/key-bindings.zsh
@@ -32,8 +34,8 @@ zinit snippet OMZ::plugins/terraform/_terraform
 
 ## Others
 # fzf
-zinit snippet "$(brew --prefix fzf)/shell/key-bindings.zsh"
-zinit snippet "$(brew --prefix fzf)/shell/completion.zsh"
+zinit snippet "${HOMEBREW_PREFIX}/opt/fzf/shell/key-bindings.zsh"
+zinit snippet "${HOMEBREW_PREFIX}/opt/fzf/shell/completion.zsh"
 
 # Git
 zinit ice wait atload"unalias grv" lucid
