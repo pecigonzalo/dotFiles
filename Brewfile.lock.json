@@ -2,10 +2,10 @@
   "entries": {
     "tap": {
       "homebrew/bundle": {
-        "revision": "04a8b37bbdd9bb801a5fde72fd82232846cf2b69"
+        "revision": "0796bb72fa0b6615cdb51d0ec07ca405e4550870"
       },
       "homebrew/core": {
-        "revision": "b65ada1ebcf8fbe6e9854c9a86e0a1ef1ea1e0e2"
+        "revision": "fed267f01ebf82f81c079969eac30554aabc47a5"
       }
     },
     "brew": {
@@ -313,26 +313,26 @@
         }
       },
       "go": {
-        "version": "1.13.8",
+        "version": "1.14",
         "bottle": {
           "cellar": "/home/linuxbrew/.linuxbrew/Cellar",
           "prefix": "/home/linuxbrew/.linuxbrew",
           "files": {
             "catalina": {
-              "url": "https://linuxbrew.bintray.com/bottles/go-1.13.8.catalina.bottle.tar.gz",
-              "sha256": "8305b022bd8a799e4809c72e23d54cbb19ebe7c93506aba8387905e0980beabb"
+              "url": "https://linuxbrew.bintray.com/bottles/go-1.14.catalina.bottle.tar.gz",
+              "sha256": "a4e81b1025b77af039a34888545ce0f4a3a332b1ed6358ca8107e878d25e46aa"
             },
             "mojave": {
-              "url": "https://linuxbrew.bintray.com/bottles/go-1.13.8.mojave.bottle.tar.gz",
-              "sha256": "39312df94599f8c4bc9ce394b09121a9c5ac2fe81514900b77107227de0e8ddf"
+              "url": "https://linuxbrew.bintray.com/bottles/go-1.14.mojave.bottle.tar.gz",
+              "sha256": "998c9c9f95091a3567d9ac27def2d3d4d33aeae06e621d78bf76f3f4f4a2a793"
             },
             "high_sierra": {
-              "url": "https://linuxbrew.bintray.com/bottles/go-1.13.8.high_sierra.bottle.tar.gz",
-              "sha256": "e97af4feacaeaba7c1647ff9b56cad0b972fb09998810c91bd7c844091dd9a57"
+              "url": "https://linuxbrew.bintray.com/bottles/go-1.14.high_sierra.bottle.tar.gz",
+              "sha256": "c26d2ecb7e2c53a78fa0cca9b7117355f953ebf1b4bd31eef04ebe4e576a174b"
             },
             "x86_64_linux": {
-              "url": "https://linuxbrew.bintray.com/bottles/go-1.13.8.x86_64_linux.bottle.tar.gz",
-              "sha256": "e1a68b0ed6b6ed526d7fcd29d36144bf8606c1b62e63d12c9e748a5e64b228a8"
+              "url": "https://linuxbrew.bintray.com/bottles/go-1.14.x86_64_linux.bottle.tar.gz",
+              "sha256": "c455f4f3cd29212dc03082815ed8a2a2ee483d54ec58d92f2e1660900f0a7569"
             }
           }
         }
@@ -638,26 +638,26 @@
         }
       },
       "tflint": {
-        "version": "0.14.0",
+        "version": "0.15.0",
         "bottle": {
           "cellar": ":any_skip_relocation",
           "prefix": "/home/linuxbrew/.linuxbrew",
           "files": {
             "catalina": {
-              "url": "https://linuxbrew.bintray.com/bottles/tflint-0.14.0.catalina.bottle.tar.gz",
-              "sha256": "e9f0fc2a91060f1de08e5232b5aae15c14bd4602748238657584ec40a1dae8e9"
+              "url": "https://linuxbrew.bintray.com/bottles/tflint-0.15.0.catalina.bottle.tar.gz",
+              "sha256": "e158c7b2506fbe6147f6427cdbabdce81b5f4882c75ee2d46d7004122c6f69b5"
             },
             "mojave": {
-              "url": "https://linuxbrew.bintray.com/bottles/tflint-0.14.0.mojave.bottle.tar.gz",
-              "sha256": "7b902fba389828da3898acefd4f89e01b04b2badddba472d570e4f58b2e3e7ff"
+              "url": "https://linuxbrew.bintray.com/bottles/tflint-0.15.0.mojave.bottle.tar.gz",
+              "sha256": "90d5e52171d056b3e836fb8c1a19b60bcfa29ab4c2ce3fcd0404386b296c3e99"
             },
             "high_sierra": {
-              "url": "https://linuxbrew.bintray.com/bottles/tflint-0.14.0.high_sierra.bottle.tar.gz",
-              "sha256": "deb2cde32589e6e282f8ef2e3d7218537f4fe8e70b7bb85fa16b1e4fe2e5dabb"
+              "url": "https://linuxbrew.bintray.com/bottles/tflint-0.15.0.high_sierra.bottle.tar.gz",
+              "sha256": "816f0c2590828c20e46c8c54f287b6399619e1d2cd33c801e6d8c0104991d022"
             },
             "x86_64_linux": {
-              "url": "https://linuxbrew.bintray.com/bottles/tflint-0.14.0.x86_64_linux.bottle.tar.gz",
-              "sha256": "65c6faeb40f62359c90998e2cef70aedf2e6a25dccbfbc7b0a4256a0cb68413e"
+              "url": "https://linuxbrew.bintray.com/bottles/tflint-0.15.0.x86_64_linux.bottle.tar.gz",
+              "sha256": "60157ab6d1e0e2dbb2169b8f45db686e3299178bc0896ad0674101a0415238a7"
             }
           }
         }
@@ -748,7 +748,7 @@
       "Ubuntu 18.04.4 LTS (bionic)": {
         "HOMEBREW_VERSION": "2.2.6",
         "HOMEBREW_PREFIX": "/home/linuxbrew/.linuxbrew",
-        "Homebrew/linuxbrew-core": "b65ada1ebcf8fbe6e9854c9a86e0a1ef1ea1e0e2",
+        "Homebrew/linuxbrew-core": "fed267f01ebf82f81c079969eac30554aabc47a5",
         "GCC": "7.4.0"
       }
     }

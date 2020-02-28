@@ -10,7 +10,7 @@
 
 - link:
     # asdf-tools
-    ~/.tool-versions: .tool-versions
+    ~/.asdfrc: .asdfrc
 
     # Git
     ~/.gitconfig: .gitconfig
@@ -54,9 +54,26 @@
 
 - asdf:
     - plugin: terraform
+      global: 0.11.14
       versions:
-        - 0.11.14
         - 0.12.21
+        - 0.11.14
+    - plugin: terraform-docs
+      global: v0.6.0
+      versions:
+        - v0.6.0
+    - plugin: shfmt
+      global: v2.6.4
+      versions:
+        - v2.6.4
+    - plugin: shellcheck
+      global: 0.7.0
+      versions:
+        - 0.7.0
+    - plugin: nodejs
+      global: 12.12.0
+      versions:
+        - 12.12.0
 
 - brewfile:
     - Brewfile
