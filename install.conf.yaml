@@ -56,8 +56,8 @@
     - plugin: terraform
       global: 0.11.14
       versions:
-        - 0.12.21
         - 0.11.14
+        - 0.12.21
     - plugin: terraform-docs
       global: v0.6.0
       versions:

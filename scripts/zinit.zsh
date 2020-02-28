@@ -10,11 +10,11 @@ zinit snippet OMZ::plugins/ssh-agent/ssh-agent.plugin.zsh
 
 ## Programs
 # Load asdf
-zinit ice wait lucid blockf
+zinit ice blockf
 zinit snippet OMZ::plugins/asdf/asdf.plugin.zsh
 
 # Direnv
-zinit ice as"null" atinit'direnv hook zsh > zhook.zsh' src"zhook.zsh"
+zinit ice wait lucid as"null" atinit'direnv hook zsh > zhook.zsh' src"zhook.zsh"
 zinit snippet "$(brew --prefix)/bin/direnv"
 
 ## OMZ Config
@@ -62,7 +62,7 @@ zinit snippet OMZ::plugins/rsync/rsync.plugin.zsh
 zinit snippet OMZ::plugins/urltools/urltools.plugin.zsh
 
 # K
-zinit ice blockf
+zinit ice wait lucid blockf
 zinit light rimraf/k
 
 # Z

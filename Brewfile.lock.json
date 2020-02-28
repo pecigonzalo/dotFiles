@@ -5,7 +5,7 @@
         "revision": "0796bb72fa0b6615cdb51d0ec07ca405e4550870"
       },
       "homebrew/core": {
-        "revision": "fed267f01ebf82f81c079969eac30554aabc47a5"
+        "revision": "458d704d5a0ee91c2e064f4fddb892c1914bbe10"
       }
     },
     "brew": {
@@ -748,7 +748,7 @@
       "Ubuntu 18.04.4 LTS (bionic)": {
         "HOMEBREW_VERSION": "2.2.6",
         "HOMEBREW_PREFIX": "/home/linuxbrew/.linuxbrew",
-        "Homebrew/linuxbrew-core": "fed267f01ebf82f81c079969eac30554aabc47a5",
+        "Homebrew/linuxbrew-core": "458d704d5a0ee91c2e064f4fddb892c1914bbe10",
         "GCC": "7.4.0"
       }
     }
