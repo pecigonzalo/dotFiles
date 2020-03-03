@@ -23,6 +23,7 @@ Plug 'scrooloose/syntastic'
 " Other Utils
 " ------------
 Plug 'airblade/vim-gitgutter'
+Plug 'editorconfig/editorconfig-vim'
 
 "--------------
 " Color Scheme
