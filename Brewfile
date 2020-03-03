@@ -62,3 +62,5 @@ brew "shfmt"
 brew "tflint"
 # Display directories as trees (with optional color/HTML output)
 brew "tree"
+# JavaScript package manager
+brew "yarn"

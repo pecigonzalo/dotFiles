@@ -11,6 +11,7 @@
 - link:
     # asdf-tools
     ~/.asdfrc: .asdfrc
+    ~/.tool-versions: .tool-versions
 
     # Git
     ~/.gitconfig: .gitconfig
@@ -71,9 +72,14 @@
       versions:
         - 0.7.0
     - plugin: nodejs
-      global: 12.12.0
+      global: system
       versions:
         - 12.12.0
+    - plugin: golang
+      global: system
+      versions:
+        - 1.13
+        - 1.14
 
 - brewfile:
     - Brewfile
