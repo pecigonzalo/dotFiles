@@ -2,10 +2,10 @@
   "entries": {
     "tap": {
       "homebrew/bundle": {
-        "revision": "fc2c26865597a2a26a70646e64de4f7af5b1bb0b"
+        "revision": "50a4435475f1022242c41d4191f0b4789f67abc8"
       },
       "homebrew/core": {
-        "revision": "f09ceddd3e55a4c44b04806b774cd62d731dfa8c"
+        "revision": "31bd06278e5fab01775a3e79407095a4df1615a5"
       }
     },
     "brew": {
@@ -750,9 +750,9 @@
   "system": {
     "linux": {
       "Ubuntu 18.04.4 LTS (bionic)": {
-        "HOMEBREW_VERSION": "2.2.7",
+        "HOMEBREW_VERSION": "2.2.8",
         "HOMEBREW_PREFIX": "/home/linuxbrew/.linuxbrew",
-        "Homebrew/linuxbrew-core": "f09ceddd3e55a4c44b04806b774cd62d731dfa8c",
+        "Homebrew/linuxbrew-core": "31bd06278e5fab01775a3e79407095a4df1615a5",
         "GCC": "7.4.0"
       }
     }
