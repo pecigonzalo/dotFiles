@@ -6,8 +6,6 @@ skip_global_compinit=1
 # Base config
 declare -U path
 
-# Environment
-path=($HOME/bin $path)
 # User Bin
 path=($HOME/.local/bin $path)
 
@@ -122,8 +120,8 @@ path=($PYENV_ROOT/bin $path)
 export PIPENV_VENV_IN_PROJECT=true
 
 # Golang
-export GOPATH="$HOME/Workspace/Go"
-export PATH="$GOPATH/bin:$PATH"
+export GOPATH="$HOME/Workspace/go"
+path=($GOPATH/bin $path)
 
 # OMZ
 export DISABLE_UPDATE_PROMPT="true"
