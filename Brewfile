@@ -12,6 +12,8 @@ brew "aws-vault"
 brew "awscli"
 # Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
+# Command-line benchmark tool
+brew "bench"
 # CLI for managing secrets through AWS SSM Parameter Store
 brew "chamber"
 # Good-lookin' diffs with diff-highlight and more
@@ -28,6 +30,8 @@ brew "exa"
 brew "fd"
 # Command-line fuzzy finder written in Go
 brew "fzf"
+# Extensions to follow Vincent Driessen's branching model
+brew "git-flow"
 # GNU version of the tar archiving utility
 brew "gnu-tar"
 # Open source programming language to build simple/reliable/efficient software
@@ -36,10 +40,14 @@ brew "go"
 brew "httpie"
 # Add GitHub support to git on the command-line
 brew "hub"
+# Command-line benchmarking tool
+brew "hyperfine"
 # Interactive computing in Python
 brew "ipython"
 # Run local Kubernetes cluster in Docker
 brew "kind"
+# Kubernetes command-line interface
+brew "kubernetes-cli"
 # Ambitious Vim-fork focused on extensibility and agility
 brew "neovim"
 # Platform built on V8 to build network applications
@@ -66,5 +74,7 @@ brew "sshuttle"
 brew "tflint"
 # Display directories as trees (with optional color/HTML output)
 brew "tree"
+# Watch files and take action when they change
+brew "watchman"
 # JavaScript package manager
 brew "yarn"
