@@ -43,6 +43,7 @@ zinit snippet OMZ::plugins/git/git.plugin.zsh
 
 zinit snippet OMZ::plugins/git-auto-fetch/git-auto-fetch.plugin.zsh
 zinit snippet OMZ::plugins/gitignore/gitignore.plugin.zsh
+zinit snippet OMZ::plugins/git-flow/git-flow.plugin.zsh
 
 # Python
 zinit ice wait lucid blockf
