@@ -8,6 +8,7 @@ fi
 services=(
   cron
   rsyslog
+  docker
 )
 
 for service in "${services[@]}"; do
@@ -15,3 +16,7 @@ for service in "${services[@]}"; do
     sudo service "$service" start
   fi
 done
+
+# X Forwarding
+export DISPLAY="$(awk '/nameserver / {print $2; exit}' /etc/resolv.conf 2>/dev/null):0"
+export LIBGL_ALWAYS_INDIRECT="1"
