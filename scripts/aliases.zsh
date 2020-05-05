@@ -28,3 +28,8 @@ alias tf="terraform"
 
 # Reload
 alias reshell!="exec $SHELL -l"
+
+# Brew and Pyenv compat
+if which pyenv > /dev/null 2>&1; then
+  alias brew='env PATH=${PATH//$(pyenv root)\/shims:/} brew'
+fi
