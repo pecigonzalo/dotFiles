@@ -3,6 +3,18 @@
 # Skip the not really helping Ubuntu global compinit
 skip_global_compinit=1
 
+# LinuxBrew
+if [[ -d /home/linuxbrew/.linuxbrew ]]; then
+  eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+  if ! type -v brew &>/dev/null; then
+    FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+  fi
+fi
+
+# Golang
+export GOPATH="$HOME/Workspace/go"
+path=($GOPATH/bin $path)
+
 # Base config
 declare -U path
 
@@ -20,7 +32,7 @@ export SAVEHIST=20000
 
 # Ignore Command History
 export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help"
-export HISTORY_IGNORE='(awsvl *|ls|cd -|cd|pwd|exit|date|man *|* --help)'
+export HISTORY_IGNORE='(awsvl *|ls|cd -|cd|pwd|exit|date|man *|* --help|)'
 
 # Editor
 export VISUAL='vim'
@@ -112,16 +124,8 @@ export SPACESHIP_DIR_TRUNC_REPO=false
 # Generated completions path
 export GENCOMPL_FPATH="$HOME/.zsh/complete"
 
-# PyEnv
-export PYENV_ROOT="$HOME/.pyenv"
-path=($PYENV_ROOT/bin $path)
-
 # Pipenv
 export PIPENV_VENV_IN_PROJECT=true
-
-# Golang
-export GOPATH="$HOME/Workspace/go"
-path=($GOPATH/bin $path)
 
 # OMZ
 export DISABLE_UPDATE_PROMPT="true"
