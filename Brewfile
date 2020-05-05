@@ -1,5 +1,6 @@
 tap "homebrew/bundle"
 tap "homebrew/core"
+tap "linuxbrew/xorg"
 # Library for command-line editing
 brew "readline"
 # Automate deployment, configuration, and upgrading
@@ -52,10 +53,14 @@ brew "kubernetes-cli"
 brew "neovim"
 # Platform built on V8 to build network applications
 brew "node"
+# Tool for creating identical machine images for multiple platforms
+brew "packer"
 # Python dependency management tool
 brew "pipenv"
 # Execute binaries from Python packages in isolated environments
 brew "pipx"
+# Python package management tool
+brew "poetry"
 # Framework for managing multi-language pre-commit hooks
 brew "pre-commit"
 # Python version management
