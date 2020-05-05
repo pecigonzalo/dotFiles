@@ -74,7 +74,7 @@ gitclean() {
 }
 
 # Remove entry from hosts
-rm_hosts() {sed -i "$($arg1)d" ~/.ssh/known_hosts}
+rm-known-host() {sed -i "$($arg1)d" ~/.ssh/known_hosts}
 
 # ExplainShell on CLI
 explain() {
