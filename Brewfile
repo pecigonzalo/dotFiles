@@ -49,6 +49,8 @@ brew "ipython"
 brew "kind"
 # Kubernetes command-line interface
 brew "kubernetes-cli"
+# Fast, highly customisable system info script
+brew "neofetch"
 # Ambitious Vim-fork focused on extensibility and agility
 brew "neovim"
 # Platform built on V8 to build network applications
@@ -71,6 +73,8 @@ brew "rclone"
 brew "restic"
 # Search tool like grep and The Silver Searcher
 brew "ripgrep"
+# Generate ASCII art with terminal, shell, and OS info
+brew "screenfetch"
 # Autoformat shell script source code
 brew "shfmt"
 # Proxy server that works as a poor man's VPN
