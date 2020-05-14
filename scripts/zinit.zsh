@@ -52,6 +52,10 @@ zinit snippet OMZ::plugins/pip/pip.plugin.zsh
 zinit ice as"completion"
 zinit snippet OMZ::plugins/pip/_pip
 
+zinit ice blockf wait lucid as"null" \
+  atclone'pyenv init - > zpyenv.zsh' atpull'%atclone' src"zpyenv.zsh"
+zinit snippet "${HOMEBREW_PREFIX}/opt/pyenv/completions/pyenv.zsh"
+
 # Docker
 zinit snippet OMZ::plugins/docker-compose/docker-compose.plugin.zsh
 
