@@ -37,6 +37,8 @@ brew "git-flow"
 brew "gnu-tar"
 # Open source programming language to build simple/reliable/efficient software
 brew "go"
+# Idempotent command-line utility for managing your /etc/hosts file
+brew "hostess"
 # User-friendly cURL replacement (command-line HTTP client)
 brew "httpie"
 # Add GitHub support to git on the command-line
@@ -49,6 +51,8 @@ brew "ipython"
 brew "kind"
 # Kubernetes command-line interface
 brew "kubernetes-cli"
+# Run a Kubernetes cluster locally
+brew "minikube"
 # Fast, highly customisable system info script
 brew "neofetch"
 # Ambitious Vim-fork focused on extensibility and agility
@@ -57,6 +61,8 @@ brew "neovim"
 brew "node"
 # Tool for creating identical machine images for multiple platforms
 brew "packer"
+# Shell command parallelization utility
+brew "parallel"
 # Python dependency management tool
 brew "pipenv"
 # Execute binaries from Python packages in isolated environments
@@ -75,6 +81,8 @@ brew "restic"
 brew "ripgrep"
 # Generate ASCII art with terminal, shell, and OS info
 brew "screenfetch"
+# Build applications with serverless architectures
+brew "serverless"
 # Autoformat shell script source code
 brew "shfmt"
 # Proxy server that works as a poor man's VPN
