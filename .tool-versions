@@ -1,6 +1,6 @@
 terraform 0.12.21
 terraform-docs v0.6.0
-shfmt v2.6.4
+shfmt 2.6.4
 shellcheck 0.7.0
 nodejs system
 golang system
