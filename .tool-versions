@@ -5,3 +5,8 @@ shellcheck 0.7.0
 nodejs system
 golang system
 direnv system
+yarn system
+gcloud 297.0.1
+k3d system
+fd system
+dhall 1.33.1

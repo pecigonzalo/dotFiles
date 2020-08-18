@@ -5,7 +5,12 @@ skip_global_compinit=1
 
 # LinuxBrew
 if [[ -d /home/linuxbrew/.linuxbrew ]]; then
-  eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+  export HOMEBREW_PREFIX="/home/linuxbrew/.linuxbrew"
+  export HOMEBREW_CELLAR="/home/linuxbrew/.linuxbrew/Cellar"
+  export HOMEBREW_REPOSITORY="/home/linuxbrew/.linuxbrew/Homebrew"
+  export PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin${PATH+:$PATH}"
+  export MANPATH="/home/linuxbrew/.linuxbrew/share/man${MANPATH+:$MANPATH}:"
+  export INFOPATH="/home/linuxbrew/.linuxbrew/share/info:${INFOPATH}"
   if ! type -v brew &>/dev/null; then
     FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
   fi
@@ -85,41 +90,10 @@ export TLDR_COLOR_COMMAND="red"
 export TLDR_COLOR_PARAMETER="white"
 
 # Set aws-vault backend
-export AWS_VAULT_BACKEND=kwallet
+export AWS_VAULT_BACKEND=file
 
 # Set BK backend
-export BUILDKITE_CLI_KEYRING_BACKEND=kwallet
-
-# Spaceship Theme Config
-export SPACESHIP_PROMPT_ORDER=(
-  time # Time stamps section
-  user # Username section
-  dir  # Current directory section
-  host # Hostname section
-  git  # Git section (git_branch + git_status)
-  #   node          # Node.js section
-  #   ruby          # Ruby section
-  golang # Go section
-  docker # Docker section
-  #   aws           # Amazon Web Services section
-  venv  # virtualenv section
-  pyenv # Pyenv section
-  #   dotnet        # .NET section
-  #   kubecontext   # Kubectl context section
-  #   terraform     # Terraform workspace section
-  exec_time # Execution time
-  line_sep  # Line break
-  #   vi_mode       # Vi-mode indicator
-  jobs      # Background jobs indicator
-  exit_code # Exit code section
-  char      # Prompt character
-)
-export SPACESHIP_GIT_BRANCH_COLOR="$(tput setaf 240)"
-export SPACESHIP_DIR_COLOR="blue"
-export SPACESHIP_CHAR_SYMBOL="❯"
-export SPACESHIP_CHAR_SUFFIX=" "
-export SPACESHIP_DIR_TRUNC=0
-export SPACESHIP_DIR_TRUNC_REPO=false
+export BUILDKITE_CLI_KEYRING_BACKEND=file
 
 # Generated completions path
 export GENCOMPL_FPATH="$HOME/.zsh/complete"
@@ -145,5 +119,18 @@ export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
 # Tipz
 export TIPZ_TEXT='💡'
 
+# zsh-autosuggestions
+export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
+export ZSH_AUTOSUGGEST_USE_ASYNC="true"
+
 # z
 export ZSHZ_CMD="_z"
+
+# TODO: Remove
+export AWS_VAULT_FILE_PASSPHRASE='ABC123abc!'
+
+# Docker
+export DOCKER_BUILDKIT=1
+
+# K8s Krew
+path=($path $HOME/.krew/bin)

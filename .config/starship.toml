@@ -1,0 +1,54 @@
+add_newline = true
+prompt_order = [
+  "username",
+  "hostname",
+  "directory",
+  "git_branch",
+  "git_commit",
+  "git_state",
+  "git_status",
+  "hg_branch",
+  "docker_context",
+  "package",
+  "dotnet",
+  "elixir",
+  "elm",
+  "golang",
+  "haskell",
+  "java",
+  "nodejs",
+  "python",
+  "ruby",
+  "rust",
+  "kubernetes",
+  "terraform",
+  "nix_shell",
+  "memory_usage",
+  "aws",
+  "env_var",
+  "cmd_duration",
+  "custom",
+  "line_break",
+  "jobs",
+  "battery",
+  "time",
+  "character",
+]
+
+[character]
+symbol = "❯"
+
+[directory]
+style = "fg:blue"
+truncation_length = 0
+truncate_to_repo = true
+
+[git_branch]
+style = "fg:240"
+
+[aws]
+symbol = "☁️ "
+displayed_items = "profile"
+
+[kubernetes]
+disabled = false

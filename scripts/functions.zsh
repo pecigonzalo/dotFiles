@@ -88,7 +88,7 @@ explain() {
 
 # Short aws-vault
 awsve() {
-  aws-vault exec --assume-role-ttl=1h $@
+  aws-vault exec --duration=3h $@
 }
 
 # Short aws-vault login
@@ -182,7 +182,7 @@ function clipcopy() {
 
 # Quick Install download folder in path
 letmetry() {
-  set -x
+  # set -x
   URL="${1:-}"
   NAME="${2:-}"
   if [[ -z $URL ]]; then
@@ -212,7 +212,7 @@ letmetry() {
 
 # Move binary to user path
 userinstall() {
-  set -x
+  # set -x
   SRC="${1:-}"
   NAME="${2:-${SRC##*/}}"
   if [[ -z $SRC ]]; then
