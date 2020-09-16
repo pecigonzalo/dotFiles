@@ -14,7 +14,7 @@ pager = less -FRSX
 compression = 9
 whitespace = trailing-space,space-before-tab
 excludesfile = ~/.git_globalignore
-pager = diff-so-fancy | less -FXRi
+pager = delta
 [color]
 branch = auto
 diff = auto
@@ -49,6 +49,8 @@ autoupdate = true
 keepBackup = false
 [help]
 autocorrect = 1
+[interactive]
+diffFilter = delta --color-only
 [alias]
 gist = log --graph --oneline --all --decorate --date-order
 find = log --graph --oneline --all --decorate --date-order --regexp-ignore-case --extended-regexp --grep
