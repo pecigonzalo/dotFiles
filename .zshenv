@@ -120,5 +120,9 @@ export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
 # Tipz
 export TIPZ_TEXT='💡'
 
+# zsh-autosuggestions
+export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
+export ZSH_AUTOSUGGEST_USE_ASYNC="true"
+
 # z
 export ZSHZ_CMD="_z"
