@@ -91,7 +91,8 @@ zinit ice wait lucid
 zinit light "wfxr/forgit"
 
 ## Theme
-zinit light denysdovhan/spaceship-prompt
+# zinit light denysdovhan/spaceship-prompt
+eval "$(starship init zsh)"
 
 ## Last
 # Load completions with highlighting
