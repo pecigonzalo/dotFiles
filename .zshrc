@@ -7,14 +7,21 @@ zmodload zsh/zprof
 autoload -U colors && colors
 
 # Load zinit
-source "$HOME/dotFiles/scripts/zinit.zsh"
+source ~/.zinit/bin/zinit.zsh
 
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+
+source "$HOME/dotFiles/scripts/zinit.zsh"
 # Load shared aliases
 source "$HOME/dotFiles/scripts/aliases.zsh"
 # Get funtions
 source "$HOME/dotFiles/scripts/functions.zsh"
 # Get wsl
+# If under WSL, load
+if [[ -n "$WSL_DISTRO_NAME" ]]; then
 source "$HOME/dotFiles/scripts/wsl.zsh"
+fi
 
 if [[ -s "$zcompdump" && (! -s "${zcompdump}.zwc" || "$zcompdump" -nt "${zcompdump}.zwc") ]]; then
   zcompile "$zcompdump"
