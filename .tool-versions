@@ -1,7 +1,12 @@
-terraform 0.12.21
+terraform 0.13.2
 terraform-docs v0.6.0
-shfmt 2.6.4
-shellcheck 0.7.0
+shfmt 3.1.0
+shellcheck 0.7.1
 nodejs system
 golang system
 direnv system
+yarn system
+gcloud 297.0.1
+k3d system
+fd system
+dhall system
