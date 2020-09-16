@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# set -x
+
+THRESHOLDKB="1000000"
+
+echo "Running WSL2 memory reclamation if over $THRESHOLDKB KB"
+
+reclaimable=$(
+  grep -e '^Cached' /proc/meminfo |
+    tr -s ' ' |
+    cut -d ' ' -f2
+)
+
+if [[ $reclaimable -gt $THRESHOLDKB ]]; then
+  echo "Over threshold, reclaming..."
+  sync && /sbin/sysctl -w vm.drop_caches=3
+  sync && /sbin/sysctl -w vm.drop_caches=2
+  sync && /sbin/sysctl -w vm.drop_caches=1
+  echo "Done"
+else
+  echo "Not over threshold"
+fi
