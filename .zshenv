@@ -126,3 +126,9 @@ export ZSH_AUTOSUGGEST_USE_ASYNC="true"
 
 # z
 export ZSHZ_CMD="_z"
+
+# Docker
+export DOCKER_BUILDKIT=1
+
+# K8s Krew
+path=($path $HOME/.krew/bin)
