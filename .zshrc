@@ -20,7 +20,7 @@ source "$HOME/dotFiles/scripts/functions.zsh"
 # Get wsl
 # If under WSL, load
 if [[ -n "$WSL_DISTRO_NAME" ]]; then
-source "$HOME/dotFiles/scripts/wsl.zsh"
+  source "$HOME/dotFiles/scripts/wsl.zsh"
 fi
 
 if [[ -s "$zcompdump" && (! -s "${zcompdump}.zwc" || "$zcompdump" -nt "${zcompdump}.zwc") ]]; then
