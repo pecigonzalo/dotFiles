@@ -1,6 +1,11 @@
 call plug#begin('~/.vim/plugged')
 
 "-----------------
+" Dracula Theme
+"-----------------
+Plug 'dracula/vim', { 'as': 'dracula' }
+
+"-----------------
 " Code Completion
 "-----------------
 Plug 'ervandew/supertab'
@@ -24,6 +29,8 @@ Plug 'scrooloose/syntastic'
 " ------------
 Plug 'airblade/vim-gitgutter'
 Plug 'editorconfig/editorconfig-vim'
+Plug 'junegunn/fzf'
+Plug 'airblade/vim-gitgutter'
 
 "--------------
 " Color Scheme
@@ -37,6 +44,8 @@ Plug 'hashivim/vim-terraform'
 Plug 'juliosueiras/vim-terraform-completion'
 
 call plug#end()
+let g:dracula_colorterm = 0
+colorscheme dracula
 
 " encoding utf-8
 set encoding=utf-8
@@ -97,3 +106,13 @@ let g:terraform_fmt_on_save=1
 
 " Display spaces and tabs
 set listchars=tab:‣\ ,trail:·,precedes:«,extends:»
+
+" GitGutter
+let g:gitgutter_sign_added = '∙'
+let g:gitgutter_sign_modified = '∙'
+let g:gitgutter_sign_removed = '∙'
+let g:gitgutter_sign_modified_removed = '∙'
+highlight GitGutterAdd ctermfg=2
+highlight GitGutterChange ctermfg=3
+highlight GitGutterDelete ctermfg=1
+highlight GitGutterChangeDelete ctermfg=4
