@@ -20,9 +20,6 @@ alias la='exa -la'
 # bat
 alias cat="bat -p"
 
-# fd
-unalias fd
-
 # terraform
 alias tf="terraform"
 
@@ -30,6 +27,6 @@ alias tf="terraform"
 alias reshell!="exec $SHELL -l"
 
 # Brew and Pyenv compat
-if which pyenv > /dev/null 2>&1; then
+if which pyenv >/dev/null 2>&1; then
   alias brew='env PATH=${PATH//$(pyenv root)\/shims:/} brew'
 fi
