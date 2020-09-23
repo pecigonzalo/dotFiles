@@ -9,4 +9,4 @@ yarn system
 gcloud 297.0.1
 k3d system
 fd system
-dhall system
+dhall 1.33.1

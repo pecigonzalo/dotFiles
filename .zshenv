@@ -90,11 +90,10 @@ export TLDR_COLOR_COMMAND="red"
 export TLDR_COLOR_PARAMETER="white"
 
 # Set aws-vault backend
-export AWS_VAULT_BACKEND=kwallet
+export AWS_VAULT_BACKEND=file
 
 # Set BK backend
-export BUILDKITE_CLI_KEYRING_BACKEND=kwallet
-
+export BUILDKITE_CLI_KEYRING_BACKEND=file
 
 # Generated completions path
 export GENCOMPL_FPATH="$HOME/.zsh/complete"
@@ -126,6 +125,9 @@ export ZSH_AUTOSUGGEST_USE_ASYNC="true"
 
 # z
 export ZSHZ_CMD="_z"
+
+# TODO: Remove
+export AWS_VAULT_FILE_PASSPHRASE='ABC123abc!'
 
 # Docker
 export DOCKER_BUILDKIT=1
