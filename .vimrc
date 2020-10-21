@@ -44,6 +44,7 @@ Plug 'hashivim/vim-terraform'
 Plug 'juliosueiras/vim-terraform-completion'
 
 call plug#end()
+
 let g:dracula_colorterm = 0
 colorscheme dracula
 
