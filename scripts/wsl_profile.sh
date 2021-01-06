@@ -12,11 +12,10 @@ for service in "${services[@]}"; do
 done
 
 # X Forwarding
-# export LIBGL_ALWAYS_INDIRECT
-unset LIBGL_ALWAYS_INDIRECT
-export DISPLAY="$(awk '/nameserver / {print $2; exit}' /etc/resolv.conf 2>/dev/null):0"
+DISPLAY="$(awk '/nameserver / {print $2; exit}' /etc/resolv.conf 2>/dev/null):0"
+export DISPLAY
 
-(/mnt/c/Program\ Files/VcXsrv/vcxsrv.exe :0 -silent-dup-error -ac -nowgl -dpms -terminate -lesspointer -multiwindow -clipboard &>/dev/null &)
+(vcxsrv.exe :0 -silent-dup-error -ac -nowgl -dpms -terminate -lesspointer -multiwindow -clipboard &>/dev/null &)
 
 # Theme
 export GTK_THEME="windows-10-dark"
