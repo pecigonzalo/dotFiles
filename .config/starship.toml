@@ -1,39 +1,40 @@
 add_newline = true
-prompt_order = [
-  "username",
-  "hostname",
-  "directory",
-  "git_branch",
-  "git_commit",
-  "git_state",
-  "git_status",
-  "hg_branch",
-  "docker_context",
-  "package",
-  "dotnet",
-  "elixir",
-  "elm",
-  "golang",
-  "haskell",
-  "java",
-  "nodejs",
-  "python",
-  "ruby",
-  "rust",
-  "kubernetes",
-  "terraform",
-  "nix_shell",
-  "memory_usage",
-  "aws",
-  "env_var",
-  "cmd_duration",
-  "custom",
-  "line_break",
-  "jobs",
-  "battery",
-  "time",
-  "character",
-]
+format = """
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_commit\
+$git_state\
+$git_status\
+$hg_branch\
+$docker_context\
+$package\
+$dotnet\
+$elixir\
+$elm\
+$golang\
+$haskell\
+$java\
+$nodejs\
+$python\
+$ruby\
+$rust\
+$kubernetes\
+$terraform\
+$nix_shell\
+$memory_usage\
+$gcloud\
+$aws\
+$env_var\
+$cmd_duration\
+$custom\
+$line_break\
+$jobs\
+$battery\
+$time\
+$character\
+"""
 
 [character]
 symbol = "❯"
@@ -48,7 +49,12 @@ style = "fg:240"
 
 [aws]
 symbol = "☁️ "
-displayed_items = "profile"
+format = 'on [$symbol$profile]($style) '
+
+[gcloud]
+format  = 'on [$symbol$project(\($region\))]($style) '
 
 [kubernetes]
 disabled = false
+format = 'on [$symbol$context( \($namespace\))]($style) '
+symbol = "⛵ "
