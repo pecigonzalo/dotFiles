@@ -1,0 +1,18 @@
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: kubernetes-dashboard
+  namespace: kube-system
+spec:
+  chart: kubernetes-dashboard
+  repo: https://kubernetes.github.io/dashboard/
+  targetNamespace: kubernetes-dashboard
+  set:
+    protocolHttp: "true"
+    service.externalPort: 8080
+    namespace: kubernetes-dashboard
+    metricsScraper.enabled: "true"
+  valuesContent: |-
+    extraArgs:
+      - --enable-insecure-login
+      - --disable-settings-authorizer
