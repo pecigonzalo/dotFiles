@@ -1,0 +1,6 @@
+[global]
+strict_env = true
+
+[whitelist]
+prefix = [ "/home/davyjones/Workspace/Sourcegraph/src" ]
+
