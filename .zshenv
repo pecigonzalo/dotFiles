@@ -135,10 +135,10 @@ export DOCKER_BUILDKIT=1
 # K8s Krew
 path=($path $HOME/.krew/bin)
 
-Nix
+# Nix
 if [[ -f "/etc/profile.d/nix.sh" ]]; then
- source /etc/profile.d/nix.sh
-else if [[ -f "${HOME}/.nix-profile/etc/profile.d/nix.sh" ]]
- source "${HOME}/.nix-profile/etc/profile.d/nix.sh"
- source "${HOME}/.nix-profile/etc/profile.d/hm-session-vars.sh"
+  source /etc/profile.d/nix.sh
+elif [[ -f "${HOME}/.nix-profile/etc/profile.d/nix.sh" ]]; then
+  source "${HOME}/.nix-profile/etc/profile.d/nix.sh"
+  source "${HOME}/.nix-profile/etc/profile.d/hm-session-vars.sh"
 fi
