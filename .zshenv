@@ -33,7 +33,7 @@ export SSH_ASKPASS="/usr/bin/ksshaskpass"
 # History config
 export HISTFILE=$HOME/.histfile
 export HISTSIZE=100000
-export SAVEHIST=20000
+export SAVEHIST=200000
 
 # Ignore Command History
 export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help"
@@ -134,3 +134,11 @@ export DOCKER_BUILDKIT=1
 
 # K8s Krew
 path=($path $HOME/.krew/bin)
+
+Nix
+if [[ -f "/etc/profile.d/nix.sh" ]]; then
+ source /etc/profile.d/nix.sh
+else if [[ -f "${HOME}/.nix-profile/etc/profile.d/nix.sh" ]]
+ source "${HOME}/.nix-profile/etc/profile.d/nix.sh"
+ source "${HOME}/.nix-profile/etc/profile.d/hm-session-vars.sh"
+fi

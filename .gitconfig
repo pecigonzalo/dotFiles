@@ -33,7 +33,7 @@ algorithm = minimal
 compactionHeuristic = true
 renames = copies
 mnemonicprefix = true
-	tool = vscode
+tool = vscode
 [merge]
 # tool = kdiff3
 tool = meld
@@ -60,4 +60,6 @@ search = grep --line-number --ignore-case -E -I
 ignore = "!gi() { curl -L -s https://www.gitignore.io/api/$@ ;}; gi"
 changelog = "!f() { git log $1 $2 --no-merges --pretty=format:\"* [%H] - %s\"; }; f"
 [difftool "vscode"]
-	cmd = code --wait --diff \"$LOCAL\" \"$REMOTE\"
+cmd = code --wait --diff \"$LOCAL\" \"$REMOTE\"
+[delta]
+side-by-side = false

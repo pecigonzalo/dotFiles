@@ -6,7 +6,8 @@ nodejs system
 golang system
 direnv system
 yarn system
-gcloud 297.0.1
+gcloud 321.0.0
 k3d system
 fd system
 dhall 1.33.1
+ds-to-dhall 0.12.0
