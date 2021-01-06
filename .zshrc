@@ -4,13 +4,12 @@
 ############################################################################################
 zmodload zsh/zprof
 
+# set -x
+
 autoload -U colors && colors
 
 # Load zinit
 source ~/.zinit/bin/zinit.zsh
-
-autoload -Uz _zinit
-(( ${+_comps} )) && _comps[zinit]=_zinit
 
 source "$HOME/dotFiles/scripts/zinit.zsh"
 # Load shared aliases
@@ -84,6 +83,11 @@ unsetopt auto_name_dirs  # do not set auto_name_dirs because it messes up prompt
 # ===== Scripts and Functions
 setopt multios # perform implicit tees or cats when multiple redirections are attempted
 
+# Speed up autocomplete, force prefix mapping
+zstyle ':completion:*' accept-exact '*(N)'
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path "$HOME/.cache/zsh"
+
 # ZSH Completion config
 zstyle '*' single-ignored show
 zstyle ':completion:*' menu select
@@ -93,10 +97,6 @@ zstyle ':completion:*' group-name ''
 zstyle ':completion:*' verbose yes
 zstyle ':completion:*' list-colors ''
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
-# Speed up autocomplete, force prefix mapping
-zstyle ':completion:*' accept-exact '*(N)'
-zstyle ':completion:*' use-cache on
-zstyle ':completion:*' cache-path "$HOME/.cache/zsh"
 #
 zstyle ':completion:*:matches' group 'yes'
 zstyle ':completion:*:options' description 'yes'
@@ -145,9 +145,3 @@ bindkey '^W' backward-kill-word-match
 
 zstyle :zle:backward-kill-word-match word-style standard
 zstyle :zle:backward-kill-word-match word-chars ''
-
-
-# Nix
-if [[ -f "/etc/profile.d/nix.sh" ]]; then
-  source /etc/profile.d/nix.sh
-fi
