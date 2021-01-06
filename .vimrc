@@ -22,6 +22,7 @@ Plug 'tpope/vim-surround'
 " Code Reading
 "--------------
 Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'scrooloose/syntastic'
 
 "-------------
@@ -30,12 +31,12 @@ Plug 'scrooloose/syntastic'
 Plug 'airblade/vim-gitgutter'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'junegunn/fzf'
-Plug 'airblade/vim-gitgutter'
+Plug 'christoomey/vim-tmux-navigator'
 
 "--------------
 " Color Scheme
 "--------------
-Plug 'rickharris/vim-monokai'
+Plug 'dracula/vim', { 'as': 'dracula' }
 
 "--------------
 " Languages
