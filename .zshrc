@@ -8,6 +8,9 @@ zmodload zsh/zprof
 
 autoload -U colors && colors
 
+# Direnv
+eval "$(direnv hook zsh)"
+
 # Load zinit
 source ~/.zinit/bin/zinit.zsh
 

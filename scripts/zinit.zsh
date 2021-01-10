@@ -12,11 +12,6 @@ zinit light-mode for \
 zinit is-snippet for \
   blockf "$(asdf where gcloud)/completion.zsh.inc"
 
-# Direnv
-zinit ice wait lucid as"null" \
-  atclone'./direnv hook zsh > zhook.zsh' atpull'%atclone' src"zhook.zsh"
-zinit snippet "${HOMEBREW_PREFIX}/bin/direnv"
-
 ## OMZ Config
 zinit for \
   OMZ::lib/key-bindings.zsh \
@@ -26,8 +21,8 @@ zinit for \
 ## Others
 # fzf
 zinit is-snippet for \
-  "${HOMEBREW_PREFIX}/opt/fzf/shell/key-bindings.zsh" \
-  "${HOMEBREW_PREFIX}/opt/fzf/shell/completion.zsh"
+  "${HOME}/.nix-profile/share/fzf/key-bindings.zsh" \
+  "${HOME}/.nix-profile/share/fzf/completion.zsh"
 
 zinit wait lucid for \
   OMZ::lib/git.zsh \
