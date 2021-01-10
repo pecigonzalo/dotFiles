@@ -16,6 +16,14 @@ if [[ -d /home/linuxbrew/.linuxbrew ]]; then
   fi
 fi
 
+# Nix
+if [[ -f "/etc/profile.d/nix.sh" ]]; then
+  source /etc/profile.d/nix.sh
+elif [[ -f "${HOME}/.nix-profile/etc/profile.d/nix.sh" ]]; then
+  source "${HOME}/.nix-profile/etc/profile.d/nix.sh"
+  source "${HOME}/.nix-profile/etc/profile.d/hm-session-vars.sh"
+fi
+
 # Golang
 export GOPATH="$HOME/Workspace/go"
 path=($GOPATH/bin $path)
@@ -134,11 +142,3 @@ export DOCKER_BUILDKIT=1
 
 # K8s Krew
 path=($path $HOME/.krew/bin)
-
-# Nix
-if [[ -f "/etc/profile.d/nix.sh" ]]; then
-  source /etc/profile.d/nix.sh
-elif [[ -f "${HOME}/.nix-profile/etc/profile.d/nix.sh" ]]; then
-  source "${HOME}/.nix-profile/etc/profile.d/nix.sh"
-  source "${HOME}/.nix-profile/etc/profile.d/hm-session-vars.sh"
-fi
