@@ -30,10 +30,14 @@
     sshuttle
     socat
     watchman
+    direnv
     go-task # taskfile.dev
     caddy
     dos2unix
     zstd
+
+    # Dhall
+    dhall
 
     # Dev
     tmux

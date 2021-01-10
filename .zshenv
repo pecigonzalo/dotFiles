@@ -12,7 +12,7 @@ if [[ -d /home/linuxbrew/.linuxbrew ]]; then
   export MANPATH="/home/linuxbrew/.linuxbrew/share/man${MANPATH+:$MANPATH}:"
   export INFOPATH="/home/linuxbrew/.linuxbrew/share/info:${INFOPATH}"
   if ! type -v brew &>/dev/null; then
-    FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+    FPATH="$(brew --prefix)/share/zsh/site-functions:$FPATH"
   fi
 fi
 
@@ -22,6 +22,7 @@ if [[ -f "/etc/profile.d/nix.sh" ]]; then
 elif [[ -f "${HOME}/.nix-profile/etc/profile.d/nix.sh" ]]; then
   source "${HOME}/.nix-profile/etc/profile.d/nix.sh"
   source "${HOME}/.nix-profile/etc/profile.d/hm-session-vars.sh"
+  FPATH="${HOME}/.nix-profile/share/zsh/site-functions:$FPATH"
 fi
 
 # Golang
