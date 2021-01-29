@@ -1,4 +1,5 @@
 #!/bin/bash
+
 # Google Apps CLI
 alias gam="/home/gonzalo.peci/bin/gam/gam"
 
@@ -25,3 +26,9 @@ alias tf="terraform"
 
 # Reload
 alias reshell!="exec $SHELL -l"
+
+# Neovim
+alias vim="nvim"
+
+# Kubectl
+alias k="kubectl"

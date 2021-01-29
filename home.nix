@@ -64,7 +64,7 @@
     shfmt
 
     # Hashi
-    vagrant
+    # vagrant
     packer
     terraform
     terraform-ls
@@ -87,6 +87,9 @@
     nodejs
     yarn
 
+    # Deno
+    deno
+
     # Git
     gitAndTools.hub
     gitAndTools.gh
@@ -99,6 +102,7 @@
     kind
     krew
     k9s
+    kail
     kubectl
     kustomize
     minikube
@@ -109,5 +113,6 @@
 
     # Go
     go
+    gopls
   ];
 }

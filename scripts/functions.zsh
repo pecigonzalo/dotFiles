@@ -181,10 +181,10 @@ function clipcopy() {
 }
 
 # Quick Install download folder in path
+# letmetry $URL
 letmetry() {
   # set -x
   URL="${1:-}"
-  NAME="${2:-}"
   if [[ -z $URL ]]; then
     echo "Please specify a URL"
     return 1
@@ -197,20 +197,20 @@ letmetry() {
   # Run on a subshell so we dont need to manage PWD
   (
     cd "$TMP"
-
-    wget -q --show-progress --https-only --timestamping "$URL" -O "${OUT}"
-
-    ex "${OUT}" || NOEX=true
+    wget -q --show-progress --https-only --timestamping "$URL" -O "${OUT}"  
   )
-
+  ex "${OUT}" > /dev/null 2>&1 || NOEX=true
   if [[ "$NOEX" ]]; then
     PATH="${TMP}:${PATH}"
+    chmod +x ${TMP}/*
   else
-    PAHT="${TMP}/bin:${PATH}"
+    PATH="${TMP}/bin:${PATH}"
+    chmod +x ${TMP}/bin/*
   fi
 }
 
 # Move binary to user path
+# userinstall $LOCAL_SRC $NAME
 userinstall() {
   # set -x
   SRC="${1:-}"
@@ -221,6 +221,20 @@ userinstall() {
   fi
 
   echo "Installing ${NAME} from ${SRC}"
-  cp "${SRC}" "${HOME}/.local/bin${NAME}"
-  chmod +x "${NAME}"
+  cp "${SRC}" "${HOME}/.local/bin/${NAME}"
+  chmod +x "${HOME}/.local/bin/${NAME}"
+}
+
+function config {
+  git --git-dir=$HOME/.cfg/ --work-tree=$HOME $@
+}
+
+# Meta search
+function srcs() {
+  src search "repogroup:sourcegraph ${1}"
+}
+
+# Scratch dir 
+function mkt() {
+  cd $(mktemp -d)
 }
