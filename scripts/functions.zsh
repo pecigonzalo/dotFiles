@@ -221,8 +221,12 @@ userinstall() {
   fi
 
   echo "Installing ${NAME} from ${SRC}"
-  cp "${SRC}" "${HOME}/.local/bin/${NAME}"
-  chmod +x "${HOME}/.local/bin/${NAME}"
+  if type install >/dev/null 2>&1; then
+    echo install -T "${SRC}" "${HOME}/.local/bin/${NAME}"
+  else
+    echo cp "${SRC}" "${HOME}/.local/bin/${NAME}"
+    echo chmod +x "${HOME}/.local/bin/${NAME}"
+  fi    
 }
 
 function config {
