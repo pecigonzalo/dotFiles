@@ -81,9 +81,8 @@ explain() {
   command="$@"
   tool="$(echo $@ | cut -d' ' -f1)"
   params="$(echo $@ | cut -d' ' -f2-)"
-  w3m -dump "http://explainshell.com/explain?cmd=""$(echo "$command" | tr ' ' '+'\})" |
-    sed '/^explainshell\.com/,/^'"$tool"'.*$/{//!d}' |
-    sed '/^'"$tool"'.*$/,/^'"$params"'.*$/{//!d}'
+  w3m -dump "https://explainshell.com/explain?cmd=${command}" |
+    sed '/'"$tool"'/,$!d'
 }
 
 # Short aws-vault
@@ -138,8 +137,7 @@ tmx() {
 }
 
 # WSL2 clipcopy
-
-function clipcopy() {
+clipcopy() {
   emulate -L zsh
   local file=$1
   if [[ $OSTYPE == darwin* ]]; then
@@ -197,7 +195,7 @@ letmetry() {
   # Run on a subshell so we dont need to manage PWD
   (
     cd "$TMP"
-    wget -q --show-progress --https-only --timestamping "$URL" -O "${OUT}"  
+    wget -q --show-progress --https-only --timestamping "$URL" -O "${OUT}"
   )
   ex "${OUT}" > /dev/null 2>&1 || NOEX=true
   if [[ "$NOEX" ]]; then
@@ -226,19 +224,36 @@ userinstall() {
   else
     echo cp "${SRC}" "${HOME}/.local/bin/${NAME}"
     echo chmod +x "${HOME}/.local/bin/${NAME}"
-  fi    
+  fi
 }
 
-function config {
+config() {
   git --git-dir=$HOME/.cfg/ --work-tree=$HOME $@
 }
 
 # Meta search
-function srcs() {
+srcs() {
   src search "repogroup:sourcegraph ${1}"
 }
 
-# Scratch dir 
-function mkt() {
+# Scratch dir
+mkt() {
   cd $(mktemp -d)
+}
+
+# Git Clean Squashed
+gitcleansquash() {
+  currentBranch=$(git rev-parse --abbrev-ref HEAD)
+  git checkout -q main
+  git for-each-ref refs/heads/ "--format=%(refname:short)" | while read branch; do
+    mergeBase=$(git merge-base main $branch)
+    if [[ $(git cherry main $(git commit-tree $(git rev-parse $branch\^{tree}) -p $mergeBase -m _)) == "-"* ]]; then
+      if [[ $1 == "now" ]]; then
+        git branch -D $branch
+      else
+        echo "$branch is merged into main and can be deleted"
+      fi
+    fi
+  done
+  git checkout -q ${currentBranch}
 }
