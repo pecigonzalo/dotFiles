@@ -84,10 +84,6 @@ export DISABLE_UNTRACKED_FILES_DIRTY="true"
 # zsh-syntax-highlighting
 export ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 
-# z
-export _Z_NO_RESOLVE_SYMLINKS=1
-export _Z_NO_COMPLETE_CD=1
-
 # Disable virtualenv in prompt autoconfig
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 
@@ -133,8 +129,11 @@ export TIPZ_TEXT='💡'
 export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 export ZSH_AUTOSUGGEST_USE_ASYNC="true"
 
-# z
-export ZSHZ_CMD="_z"
+# zsh-z, fz
+export ZSHZ_CMD="zshz"
+export ZSHZ_NO_RESOLVE_SYMLINKS=1
+export FZ_HISTORY_CD_CMD="zshz"
+export FZ_SUBDIR_TRAVERSAL=0
 
 # TODO: Remove
 export AWS_VAULT_FILE_PASSPHRASE='ABC123abc!'

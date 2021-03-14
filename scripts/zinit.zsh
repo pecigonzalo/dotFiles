@@ -53,9 +53,9 @@ zinit wait lucid for \
   OMZ::plugins/rsync/rsync.plugin.zsh \
   OMZ::plugins/urltools/urltools.plugin.zsh
 
-# K, Z
+# Z, Tipz
 zinit wait lucid blockf light-mode for \
-  rupa/z \
+  agkozak/zsh-z \
   changyuheng/fz \
   changyuheng/zsh-interactive-cd \
   molovo/tipz
