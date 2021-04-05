@@ -1,5 +1,4 @@
-{ config, pkgs, ... }:
-
+{ pkgs, ... }:
 {
   # Let Home Manager install and manage itself.
   programs.home-manager = {
@@ -7,6 +6,16 @@
   };
 
   home.packages = with pkgs; [
+    # Local
+    (callPackage ~/dotFiles/nix/loro.nix {})
+
+    # Buildkite
+    buildkite-agent
+    buildkite-cli
+
+    # Kafka
+    kcli
+
     # Nix
     rnix-lsp
 
@@ -77,6 +86,10 @@
     # AWS
     aws-vault
     chamber
+    awscli2
+    aws-nuke
+    awless
+    eksctl
 
     # GCP
     berglas
@@ -107,6 +120,7 @@
     kustomize
     minikube
     skaffold
+    kubeval
 
     # Elm
     elmPackages.elm
@@ -114,5 +128,7 @@
     # Go
     go
     gopls
+    goreleaser
+    golangci-lint
   ];
 }
