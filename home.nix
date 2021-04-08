@@ -62,6 +62,7 @@
 
     # Config Mgmt
     ansible
+    ansible-lint
 
     # Python
     poetry
