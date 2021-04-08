@@ -143,3 +143,6 @@ export DOCKER_BUILDKIT=1
 
 # K8s Krew
 path=($path $HOME/.krew/bin)
+
+# github.com/oz/tz
+export TZ_LIST="Europe/Madrid;Home,US/Pacific;PDT"
