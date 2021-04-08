@@ -12,6 +12,7 @@
     # asdf-tools
     ~/.asdfrc: .asdfrc
     ~/.tool-versions: .tool-versions
+    ~/.default-cloud-sdk-components: .default-cloud-sdk-components
 
     # Git
     ~/.gitconfig: .gitconfig
@@ -31,6 +32,7 @@
     ~/.bash_profile: .bash_profile
     ~/.bashrc: .bashrc
     ~/.profile: .profile
+    ~/.zlogin: .zlogin
     ~/.zshenv: .zshenv
     ~/.zshrc: .zshrc
 
@@ -50,41 +52,79 @@
       glob: true
       path: .config/*
 
-    # Workspace Bin
-    ~/bin: ~/Workspace/bin
-
 - asdf:
+    # Hashi
     - plugin: vagrant
+      global: system
     - plugin: packer
+      global: system
     - plugin: terraform
-      global: 0.13.2
+      global: system
       versions:
         - 0.13.2
-        - 0.11.14
         - 0.12.29
     - plugin: terraform-docs
-      global: v0.6.0
       versions:
         - v0.6.0
+
+    # Tools
+    - plugin: fd
+      global: system
+    - plugin: jq
+      global: system
+    - plugin: just
+      global: system
+    - plugin: yq
+      global: system
+
+    # Kubernetes
+    - plugin: k3d
+      global: system
+    - plugin: kustomize
+      global: system
+
+
+    # Shell
     - plugin: shfmt
-      global: 3.1.0
+      global: system
       versions:
         - 3.1.0
     - plugin: shellcheck
-      global: 0.7.1
+      global: system
       versions:
         - 0.7.1
-    - plugin: nodejs
-      global: system
+
+    # Golang
     - plugin: golang
       global: system
+
+    # Python
+    - plugin: poetry
+      global: system
+    - plugin: python
+      global: system
+
+    # Direnv
     - plugin: direnv
       global: system
+
+    # Node
+    - plugin: nodejs
+      global: system
     - plugin: yarn
+      global: system
+
+    # Dhall
     - plugin: dhall
+      global: system
+
+    # Pulumi
     - plugin: pulumi
-    - plugin: k3d
-    - plugin: kind
+      global: system
+
+    # GCP
+    - plugin: gcloud
+      global: system
 
 - brewfile:
     - Brewfile
