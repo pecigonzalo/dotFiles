@@ -33,8 +33,7 @@ $line_break\
 $jobs\
 $battery\
 $time\
-$character\
-"""
+$character"""
 
 [character]
 symbol = "❯"
@@ -53,8 +52,10 @@ format = 'on [$symbol$profile]($style) '
 
 [gcloud]
 format  = 'on [$symbol$project(\($region\))]($style) '
+[gcloud.region_aliases]
+us-central1 = "uc1"
 
 [kubernetes]
 disabled = false
-format = 'on [$symbol$context( \($namespace\))]($style) '
+format = 'on [$symbol$context(\($namespace\))]($style) '
 symbol = "⛵ "
