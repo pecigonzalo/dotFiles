@@ -36,11 +36,6 @@ zinit wait lucid for \
 zinit ice as:"completion"
 zinit snippet OMZ::plugins/terraform/_terraform
 
-# Python
-zinit wait lucid for \
-  blockf OMZ::plugins/pip/pip.plugin.zsh \
-  as:"completion" OMZ::plugins/pip/_pip
-
 # Docker
 zinit wait lucid for \
   OMZ::plugins/docker-compose/docker-compose.plugin.zsh \

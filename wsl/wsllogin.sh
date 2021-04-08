@@ -6,7 +6,7 @@ services=(
 )
 
 for service in "${services[@]}"; do
-  if [[ "$(service $service status)" =~ '.*is not running' ]]; then
+  if [[ $(service "$service" status) =~ .*"is not running" ]]; then
     sudo service "$service" start
   fi
 done
