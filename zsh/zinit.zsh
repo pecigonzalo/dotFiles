@@ -10,7 +10,7 @@ zinit light-mode for \
   @asdf-vm/asdf
 
 zinit is-snippet for \
-  blockf "$(asdf where gcloud)/completion.zsh.inc"
+  blockf "${HOME}/.nix-profile/google-cloud-sdk/completion.zsh.inc"
 
 ## OMZ Config
 zinit for \
@@ -23,8 +23,6 @@ zinit for \
 zinit is-snippet for \
   "${HOME}/.nix-profile/share/fzf/key-bindings.zsh" \
   "${HOME}/.nix-profile/share/fzf/completion.zsh"
-
-# zinit light Aloxaf/fzf-tab
 
 zinit wait lucid for \
   OMZ::lib/git.zsh \
@@ -54,7 +52,7 @@ zinit wait lucid for \
 zinit wait lucid blockf light-mode for \
   agkozak/zsh-z \
   changyuheng/fz \
-  changyuheng/zsh-interactive-cd \
+  Aloxaf/fzf-tab \
   molovo/tipz
 
 ## Theme

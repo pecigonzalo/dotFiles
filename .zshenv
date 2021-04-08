@@ -26,6 +26,9 @@ elif [[ -f "${HOME}/.nix-profile/etc/profile.d/nix.sh" ]]; then
   FPATH="${HOME}/.nix-profile/share/zsh/vendor-completions:${FPATH}"
 fi
 
+# Set LS_COLORS
+eval $(dircolors)
+
 # Golang
 export GOPATH="$HOME/Workspace/go"
 path=($GOPATH/bin $path)
