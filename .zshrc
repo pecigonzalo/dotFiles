@@ -1,10 +1,7 @@
 #!/usr/bin/zsh
-############################################################################################
-# Gonzalo Peci
-############################################################################################
-zmodload zsh/zprof
 
-# set -x
+# zsh profiling
+zmodload zsh/zprof
 
 autoload -U colors && colors
 
@@ -13,22 +10,20 @@ eval "$(direnv hook zsh)"
 
 # Load zinit
 source ~/.zinit/bin/zinit.zsh
+source "$HOME/dotFiles/zsh/zinit.zsh"
 
-source "$HOME/dotFiles/scripts/zinit.zsh"
 # Load shared aliases
-source "$HOME/dotFiles/scripts/aliases.zsh"
+source "$HOME/dotFiles/zsh/aliases.zsh"
+
 # Get funtions
-source "$HOME/dotFiles/scripts/functions.zsh"
-# Get wsl
-# If under WSL, load
+source "$HOME/dotFiles/zsh/functions.zsh"
+
+# If on WSL, load
 if [[ -n "$WSL_DISTRO_NAME" ]]; then
-  source "$HOME/dotFiles/scripts/wsl.zsh"
+  source "$HOME/dotFiles/wsl/wslrc.zsh"
 fi
 
-if [[ -s "$zcompdump" && (! -s "${zcompdump}.zwc" || "$zcompdump" -nt "${zcompdump}.zwc") ]]; then
-  zcompile "$zcompdump"
-fi
-
+# zsh profiling save
 zprof >/tmp/zprof
 
 # ############################################################################################

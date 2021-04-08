@@ -24,6 +24,8 @@ zinit is-snippet for \
   "${HOME}/.nix-profile/share/fzf/key-bindings.zsh" \
   "${HOME}/.nix-profile/share/fzf/completion.zsh"
 
+# zinit light Aloxaf/fzf-tab
+
 zinit wait lucid for \
   OMZ::lib/git.zsh \
   atload:"unalias grv" OMZ::plugins/git/git.plugin.zsh \

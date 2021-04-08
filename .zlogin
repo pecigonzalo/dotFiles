@@ -1,6 +1,6 @@
 #!/usr/bin/zsh
 
-# If under WSL load wsl profiles
+# If on WSL load the WSL profiles
 if [[ -n "$WSL_DISTRO_NAME" ]]; then
-  source "$HOME/dotFiles/scripts/wsl_profile.sh"
+  source "$HOME/dotFiles/wsl/wsllogin.sh"
 fi
