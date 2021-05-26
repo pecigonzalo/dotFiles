@@ -35,8 +35,8 @@ $battery\
 $time\
 $character"""
 
-[character]
-symbol = "❯"
+#[character]
+#symbol = "❯"
 
 [directory]
 style = "fg:blue"

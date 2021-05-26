@@ -9,38 +9,8 @@
 - clean: ["~", "~/.config", "~/.local"]
 
 - link:
-    # asdf-tools
-    ~/.asdfrc: .asdfrc
-    ~/.tool-versions: .tool-versions
-    ~/.default-cloud-sdk-components: .default-cloud-sdk-components
-
-    # Git
-    ~/.gitconfig: .gitconfig
-    ~/.git_globalignore: .git_globalignore
-    ~/.git_template: .git_template
-
-    # Tmux
-    ~/.tmux.conf: .tmux.conf
-
-    # Vim
-    ~/.vimrc: .vimrc
-
     # Xmodmap
     ~/.xprofile: .xprofile
-
-    # Bash/ZSH/Profile
-    ~/.bash_profile: .bash_profile
-    ~/.bashrc: .bashrc
-    ~/.profile: .profile
-    ~/.zlogin: .zlogin
-    ~/.zshenv: .zshenv
-    ~/.zshrc: .zshrc
-
-    # Ruby
-    ~/.gemrc: .gemrc
-
-    # Terraform
-    ~/.terraformrc: .terraformrc
 
     # Local
     ~/.local/share/:

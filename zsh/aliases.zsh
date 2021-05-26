@@ -13,10 +13,14 @@ alias gitg="gitg >> /dev/null 2>&1"
 alias ls='ls --color=always'
 
 # exa
-alias exa='exa --color=always'
-alias l='exa -lF'
-alias ll='exa -l'
+alias exa='exa --icons --color=always'
+alias ls='exa'
+alias tree='exa --tree'
+alias l='exa -lFh'
 alias la='exa -la'
+alias ll='exa -l'
+alias lS='exa -1'
+alias lt='tree --level=2'
 
 # bat
 alias cat="bat -p"

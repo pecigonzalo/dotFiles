@@ -61,13 +61,6 @@ givedef() {
   fi
 }
 
-# TMP DotEnv loader
-#source_env() {
-#   if [[ -f .env ]]; then
-#	source .env
-#   fi
-#}
-
 # Clean merged git branches
 gitclean() {
   git branch --merged | grep -v "\*" | grep -v master | xargs -n1 git branch -d
@@ -92,12 +85,13 @@ awsve() {
 
 # Short aws-vault login
 awsvl() {
-  local TOKEN="$(aws-vault login --assume-role-ttl=1h -s $@)"
+  local TOKEN="$(aws-vault login -d 1h -s $@)"
 
   if [[ $TOKEN =~ "signin.aws.amazon.com" ]]; then
     local cache=$(mktemp -d /tmp/google-chrome-XXXXXX)
     local data=$(mktemp -d /tmp/google-chrome-XXXXXX)
-    google-chrome-stable --no-first-run --new-window \
+    /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome \
+      --no-first-run --new-window \
       --disk-cache-dir=$cache \
       --user-data-dir=$data \
       $TOKEN
@@ -229,11 +223,6 @@ userinstall() {
 
 config() {
   git --git-dir=$HOME/.cfg/ --work-tree=$HOME $@
-}
-
-# Meta search
-srcs() {
-  src search "repogroup:sourcegraph ${1}"
 }
 
 # Scratch dir

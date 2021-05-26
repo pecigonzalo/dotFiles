@@ -18,3 +18,11 @@ path=(
 
 # Remove .dll and other crap from autocomp
 zstyle ':completion:*:complete:-command-::commands' ignored-patterns '*.dll' '*.DLL'
+
+# TODO: Remove
+# Set aws-vault backend
+export AWS_VAULT_BACKEND=file
+export AWS_VAULT_FILE_PASSPHRASE='ABC123abc!'
+
+# Set BK backend
+export BUILDKITE_CLI_KEYRING_BACKEND=file

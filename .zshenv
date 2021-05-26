@@ -3,17 +3,31 @@
 # Skip the not really helpfull Ubuntu global compinit
 skip_global_compinit=1
 
-# LinuxBrew
+# Linuxbrew or Homebrew
 if [[ -d /home/linuxbrew/.linuxbrew ]]; then
   export HOMEBREW_PREFIX="/home/linuxbrew/.linuxbrew"
-  export HOMEBREW_CELLAR="/home/linuxbrew/.linuxbrew/Cellar"
-  export HOMEBREW_REPOSITORY="/home/linuxbrew/.linuxbrew/Homebrew"
-  export PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin${PATH+:$PATH}"
-  export MANPATH="/home/linuxbrew/.linuxbrew/share/man${MANPATH+:$MANPATH}:"
-  export INFOPATH="/home/linuxbrew/.linuxbrew/share/info:${INFOPATH}"
-  if ! type -v brew &>/dev/null; then
-    FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
-  fi
+elif [[ -d /opt/homebrew ]]; then
+  export HOMEBREW_PREFIX="/opt/homebrew"
+fi
+
+if [[ -n $HOMEBREW_PREFIX ]]; then
+  export HOMEBREW_CELLAR="${HOMEBREW_PREFIX}/Cellar"
+  export HOMEBREW_REPOSITORY="${HOMEBREW_PREFIX}/Homebrew"
+  export path=("${HOMEBREW_PREFIX}/binss" "${HOMEBREW_PREFIX}/bin" "${HOMEBREW_PREFIX}/sbin" $path)
+  export MANPATH="${HOMEBREW_PREFIX}/share/man${MANPATH+:$MANPATH}:"
+  export INFOPATH="${HOMEBREW_PREFIX}/share/info:${INFOPATH}"
+  FPATH="${HOMEBREW_PREFIX}/share/zsh/site-functions:${FPATH}"
+fi
+# Homebrew gnubins
+if [[ -d /opt/homebrew ]]; then
+  for gnubin in ${HOMEBREW_PREFIX}/opt/*/libexec/gnubin; do
+    export path=($gnubin $path)
+  done
+  for gnuman in ${HOMEBREW_PREFIX}/opt/*/libexec/gnuman; do
+    export manpath=($gnuman $manpath)
+  done
+  # excl=("/opt/homebrew/opt/findutils/libexec/gnubin" "/opt/homebrew/opt/coreutils/libexec/gnubin")
+  # path=${path:|excl}
 fi
 
 # Nix
@@ -40,8 +54,8 @@ declare -U path
 path=($HOME/.local/bin $path)
 
 # ssh-agent SOCK
-export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}/ssh-agent.socket"
-export SSH_ASKPASS="/usr/bin/ksshaskpass"
+# export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}/ssh-agent.socket"
+# export SSH_ASKPASS="/usr/bin/ksshaskpass"
 
 # History config
 export HISTFILE=$HOME/.histfile
@@ -53,11 +67,8 @@ export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help"
 export HISTORY_IGNORE='(awsvl *|ls|cd -|cd|pwd|exit|date|man *|* --help|)'
 
 # Editor
-export VISUAL='vim'
-export EDITOR="${VISUAL}"
-export CVSEDITOR="${VISUAL}"
-export SVN_EDITOR="${VISUAL}"
-export GIT_EDITOR="${VISUAL}"
+export EDITOR='nvim'
+export VISUAL='nvim'
 
 # Pager
 export PAGER=less
@@ -98,12 +109,6 @@ export TLDR_COLOR_EXAMPLE="green"
 export TLDR_COLOR_COMMAND="red"
 export TLDR_COLOR_PARAMETER="white"
 
-# Set aws-vault backend
-export AWS_VAULT_BACKEND=file
-
-# Set BK backend
-export BUILDKITE_CLI_KEYRING_BACKEND=file
-
 # Generated completions path
 export GENCOMPL_FPATH="$HOME/.zsh/complete"
 
@@ -137,9 +142,6 @@ export ZSHZ_CMD="zshz"
 export ZSHZ_NO_RESOLVE_SYMLINKS=1
 export FZ_HISTORY_CD_CMD="zshz"
 export FZ_SUBDIR_TRAVERSAL=0
-
-# TODO: Remove
-export AWS_VAULT_FILE_PASSPHRASE='ABC123abc!'
 
 # Docker
 export DOCKER_BUILDKIT=1

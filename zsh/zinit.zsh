@@ -1,6 +1,7 @@
 #!/usr/bin/zsh
 
 ## SSH
+zstyle :omz:plugins:ssh-agent ssh-add-args -K # NOTE: OSX Only
 zstyle :omz:plugins:ssh-agent identities pecigonzalo_ed25519 pecigonzalo_rsa
 zinit snippet OMZ::plugins/ssh-agent/ssh-agent.plugin.zsh
 
@@ -9,8 +10,8 @@ zinit snippet OMZ::plugins/ssh-agent/ssh-agent.plugin.zsh
 zinit light-mode for \
   @asdf-vm/asdf
 
-zinit is-snippet for \
-  blockf "${HOME}/.nix-profile/google-cloud-sdk/completion.zsh.inc"
+# zinit is-snippet for \
+#   blockf "${HOME}/.nix-profile/google-cloud-sdk/completion.zsh.inc"
 
 ## OMZ Config
 zinit for \
@@ -21,8 +22,8 @@ zinit for \
 ## Others
 # fzf
 zinit is-snippet for \
-  "${HOME}/.nix-profile/share/fzf/key-bindings.zsh" \
-  "${HOME}/.nix-profile/share/fzf/completion.zsh"
+  "${HOMEBREW_PREFIX}/opt/fzf/shell/key-bindings.zsh" \
+  "${HOMEBREW_PREFIX}/opt/fzf/shell/completion.zsh"
 
 zinit wait lucid for \
   OMZ::lib/git.zsh \
@@ -30,7 +31,8 @@ zinit wait lucid for \
   OMZ::plugins/git-auto-fetch/git-auto-fetch.plugin.zsh \
   OMZ::plugins/gitignore/gitignore.plugin.zsh \
   OMZ::plugins/git-flow/git-flow.plugin.zsh \
-  wfxr/forgit
+  wfxr/forgit \
+  wfxr/emoji-cli
 
 # Terraform
 zinit ice as:"completion"
@@ -42,7 +44,7 @@ zinit wait lucid for \
   as:"completion" OMZ::plugins/docker/_docker
 
 # Utils
-zinit wait lucid for \
+zinit for \
   OMZ::plugins/common-aliases/common-aliases.plugin.zsh \
   OMZ::plugins/sudo/sudo.plugin.zsh \
   OMZ::plugins/rsync/rsync.plugin.zsh \

@@ -22,6 +22,10 @@ if [[ -n "$WSL_DISTRO_NAME" ]]; then
   source "$HOME/dotFiles/wsl/wslrc.zsh"
 fi
 
+if [[ $(uname) == "Darwin" ]]; then
+  source "$HOME/dotFiles/macOS/macosrc.zsh"
+fi
+
 # ZSH profiling save
 zprof >/tmp/zprof
 
@@ -33,3 +37,5 @@ source "$HOME/dotFiles/zsh/zstyle.zsh"
 
 # Set Keyboard
 source "$HOME/dotFiles/zsh/keyboard.zsh"
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
