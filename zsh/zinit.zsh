@@ -25,6 +25,15 @@ zinit is-snippet for \
   "${HOMEBREW_PREFIX}/opt/fzf/shell/key-bindings.zsh" \
   "${HOMEBREW_PREFIX}/opt/fzf/shell/completion.zsh"
 
+_fzf_compgen_path() {
+  fd --hidden --follow --exclude ".git" . "$1"
+}
+
+# Use fd to generate the list for directory completion
+_fzf_compgen_dir() {
+  fd --type d --hidden --follow --exclude ".git" . "$1"
+}
+
 zinit wait lucid for \
   OMZ::lib/git.zsh \
   atload:"unalias grv" OMZ::plugins/git/git.plugin.zsh \
@@ -32,7 +41,7 @@ zinit wait lucid for \
   OMZ::plugins/gitignore/gitignore.plugin.zsh \
   OMZ::plugins/git-flow/git-flow.plugin.zsh \
   wfxr/forgit \
-  wfxr/emoji-cli
+  b4b4r07/emoji-cli
 
 # Terraform
 zinit ice as:"completion"
@@ -48,13 +57,15 @@ zinit for \
   OMZ::plugins/common-aliases/common-aliases.plugin.zsh \
   OMZ::plugins/sudo/sudo.plugin.zsh \
   OMZ::plugins/rsync/rsync.plugin.zsh \
-  OMZ::plugins/urltools/urltools.plugin.zsh
+  OMZ::plugins/urltools/urltools.plugin.zsh \
+  OMZ::plugins/aws/aws.plugin.zsh
 
 # Z, Tipz
+  # b4b4r07/enhancd \ # TODO: Review
 zinit wait lucid blockf light-mode for \
+  Aloxaf/fzf-tab \
   agkozak/zsh-z \
   changyuheng/fz \
-  Aloxaf/fzf-tab \
   molovo/tipz
 
 ## Theme

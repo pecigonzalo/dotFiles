@@ -1,5 +1,5 @@
 terraform system
-terraform-docs v0.6.0
+terraform-docs system
 shfmt system
 shellcheck system
 nodejs system

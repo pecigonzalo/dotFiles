@@ -2,7 +2,8 @@
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path "$HOME/.cache/zsh"
 
-# Set formatting
+# # Set formatting
+zstyle ':completion:*' format '[%d]'
 zstyle ':completion:*:messages' format '%F{purple}-- %d --%f'
 zstyle ':completion:*:descriptions' format '%F{yellow}-- %d --%f'
 zstyle ':completion:*:corrections' format '%F{green}-- %d (errors: %e) --%f'
@@ -28,3 +29,8 @@ zstyle ':fzf-tab:*' prefix ''
 zstyle ':fzf-tab:*' single-group color header
 # Disabling group headers
 zstyle ':fzf-tab:*' show-group brief
+
+# Disable sort when completing `git`
+zstyle ':completion:*:git-*:*' sort false
+
+# zstyle ':fzf-tab:*' fzf-bindings 'tab:toggle'
