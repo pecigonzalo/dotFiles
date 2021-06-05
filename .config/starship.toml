@@ -47,7 +47,6 @@ truncate_to_repo = true
 style = "fg:240"
 
 [aws]
-symbol = "☁️ "
 format = 'on [$symbol$profile]($style) '
 
 [gcloud]
@@ -57,5 +56,9 @@ us-central1 = "uc1"
 
 [kubernetes]
 disabled = false
-format = 'on [$symbol$context(\($namespace\))]($style) '
 symbol = "⛵ "
+format = 'on [$symbol$context(\($namespace\))]($style) '
+
+[nix_shell]
+impure_msg = ""
+format = 'via [❄️ $state( \($name\))](bold blue) '
