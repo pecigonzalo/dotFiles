@@ -1,1 +1,1 @@
-/home/davyjones/dotFiles/.vimrc
+../../.vimrc

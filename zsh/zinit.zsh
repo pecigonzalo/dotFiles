@@ -3,28 +3,26 @@
 ## SSH
 zstyle :omz:plugins:ssh-agent ssh-add-args -K # NOTE: OSX Only
 zstyle :omz:plugins:ssh-agent identities pecigonzalo_ed25519 pecigonzalo_rsa
-zinit snippet OMZ::plugins/ssh-agent/ssh-agent.plugin.zsh
+
+zinit snippet OMZP::ssh-agent/ssh-agent.plugin.zsh
 
 ## Programs
 # Load asdf
 zinit light-mode for \
   @asdf-vm/asdf
 
-# zinit is-snippet for \
-#   blockf "${HOME}/.nix-profile/google-cloud-sdk/completion.zsh.inc"
-
 ## OMZ Config
 zinit for \
-  OMZ::lib/key-bindings.zsh \
-  OMZ::lib/clipboard.zsh \
-  OMZ::lib/termsupport.zsh
+  OMZL::key-bindings.zsh \
+  OMZL::clipboard.zsh \
+  OMZL::termsupport.zsh
 
-## Others
 # fzf
 zinit is-snippet for \
-  "${HOMEBREW_PREFIX}/opt/fzf/shell/key-bindings.zsh" \
-  "${HOMEBREW_PREFIX}/opt/fzf/shell/completion.zsh"
+  "${HOME}/.nix-profile/share/fzf/key-bindings.zsh" \
+  "${HOME}/.nix-profile/share/fzf/completion.zsh"
 
+## Others
 _fzf_compgen_path() {
   fd --hidden --follow --exclude ".git" . "$1"
 }
@@ -35,37 +33,38 @@ _fzf_compgen_dir() {
 }
 
 zinit wait lucid for \
-  OMZ::lib/git.zsh \
-  atload:"unalias grv" OMZ::plugins/git/git.plugin.zsh \
-  OMZ::plugins/git-auto-fetch/git-auto-fetch.plugin.zsh \
-  OMZ::plugins/gitignore/gitignore.plugin.zsh \
-  OMZ::plugins/git-flow/git-flow.plugin.zsh \
+  OMZL::git.zsh \
+  atload:"unalias grv" OMZP::git/git.plugin.zsh \
+  OMZP::git-auto-fetch/git-auto-fetch.plugin.zsh \
+  OMZP::gitignore/gitignore.plugin.zsh \
+  OMZP::git-flow/git-flow.plugin.zsh \
   wfxr/forgit \
   b4b4r07/emoji-cli
 
 # Terraform
 zinit ice as:"completion"
-zinit snippet OMZ::plugins/terraform/_terraform
+zinit snippet OMZP::terraform/_terraform
 
 # Docker
 zinit wait lucid for \
-  OMZ::plugins/docker-compose/docker-compose.plugin.zsh \
-  as:"completion" OMZ::plugins/docker/_docker
+  OMZP::docker-compose/docker-compose.plugin.zsh \
+  as:"completion" OMZP::docker/_docker
 
 # Utils
 zinit for \
-  OMZ::plugins/common-aliases/common-aliases.plugin.zsh \
-  OMZ::plugins/sudo/sudo.plugin.zsh \
-  OMZ::plugins/rsync/rsync.plugin.zsh \
-  OMZ::plugins/urltools/urltools.plugin.zsh \
-  OMZ::plugins/aws/aws.plugin.zsh
+  OMZP::common-aliases/common-aliases.plugin.zsh \
+  OMZP::sudo/sudo.plugin.zsh \
+  OMZP::rsync/rsync.plugin.zsh \
+  OMZP::urltools/urltools.plugin.zsh \
+  OMZP::aws/aws.plugin.zsh
 
 # Z, Tipz
-  # b4b4r07/enhancd \ # TODO: Review
-zinit wait lucid blockf light-mode for \
+# b4b4r07/enhancd \ # TODO: Review
+zinit wait lucid blockf for \
   Aloxaf/fzf-tab \
   agkozak/zsh-z \
   changyuheng/fz \
+  reegnz/jq-zsh-plugin \
   molovo/tipz
 
 ## Theme
@@ -73,7 +72,7 @@ eval "$(starship init zsh)"
 
 ## Last
 # Load completions with highlighting
-zinit wait lucid atload:"ZINIT[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay" blockf for \
+zinit wait lucid atload"zicompinit; zicdreplay" blockf for \
   zsh-users/zsh-autosuggestions \
   zsh-users/zsh-completions \
   zsh-users/zsh-syntax-highlighting

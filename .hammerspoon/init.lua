@@ -1,5 +1,6 @@
 hs.alert('Loading the Hammer')
-local hyper = {"ctrl", "alt", "cmd", "shift"}
+local hyper = {"rightctrl", "rightalt", "rightcmd", "rightshift"}
+local chrome = require("chrome")
 
 require("targets")
 
@@ -110,4 +111,10 @@ hs.hotkey.bind(hyper, "`", function()
   -- print(window.upLeft(win))
   -- print("upRight: ")
   -- print(window.upRight(win))
+end)
+
+hs.hotkey.bind(hyper, "M", function()
+  chrome.jump(
+    "meet.google.com"
+  )
 end)

@@ -20,6 +20,7 @@ ex() {
     *.zip) unzip "$1" ;;
     *.Z) uncompress "$1" ;;
     *.7z) 7z x "$1" ;;
+    *.xz) xz -dkv "$1" ;;
     *.dmg) hdiutul mount "$1" ;; # mount OS X disk images
     *) echo "'$1' cannot be extracted via >ex<" && return 1;;
     esac
@@ -91,10 +92,11 @@ awsvl() {
     local cache=$(mktemp -d /tmp/google-chrome-XXXXXX)
     local data=$(mktemp -d /tmp/google-chrome-XXXXXX)
     /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome \
-      --no-first-run --new-window \
-      --disk-cache-dir=$cache \
-      --user-data-dir=$data \
-      $TOKEN
+    --incognito $TOKEN
+    #  --no-first-run --new-window \
+    #  --disk-cache-dir=$cache \
+    #  --user-data-dir=$data \
+    #  $TOKEN
     rm -rf $cache $data
   else
     echo $TOKEN
@@ -233,14 +235,14 @@ mkt() {
 # Git Clean Squashed
 gitcleansquash() {
   currentBranch=$(git rev-parse --abbrev-ref HEAD)
-  git checkout -q main
+  git checkout -q master
   git for-each-ref refs/heads/ "--format=%(refname:short)" | while read branch; do
-    mergeBase=$(git merge-base main $branch)
-    if [[ $(git cherry main $(git commit-tree $(git rev-parse $branch\^{tree}) -p $mergeBase -m _)) == "-"* ]]; then
+    mergeBase=$(git merge-base master $branch)
+    if [[ $(git cherry master $(git commit-tree $(git rev-parse $branch\^{tree}) -p $mergeBase -m _)) == "-"* ]]; then
       if [[ $1 == "now" ]]; then
         git branch -D $branch
       else
-        echo "$branch is merged into main and can be deleted"
+        echo "$branch is merged into master and can be deleted"
       fi
     fi
   done

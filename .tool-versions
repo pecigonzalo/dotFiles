@@ -19,3 +19,4 @@ k3d system
 kustomize system
 poetry system
 pulumi system
+deno system
