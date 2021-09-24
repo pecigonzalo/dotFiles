@@ -57,13 +57,7 @@ in
   };
 
   home.file = {
-    # ".profile".source = "${home}/dotFiles/.profile";
-
-    # ".zlogin".source = "${home}/dotFiles/zsh/zlogin";
-    # ".zshrc".source = "${home}/dotFiles/zsh/zshrc";
-
-    # ".bash_profile".source = "${home}/dotFiles/.bash_profile";
-    # ".bashrc".source = "${home}/dotFiles/.bashrc";
+    ".xprofile".source = "${home}/dotFiles/.xprofile";
 
     ".vimrc".source = "${home}/dotFiles/.vimrc";
 
@@ -77,7 +71,7 @@ in
 
     ".gemrc".source = "${home}/dotFiles/.gemrc";
 
-    # ".numpy-site.cfg".source = "${home}/dotFiles/.numpy-site.cfg";
+    ".numpy-site.cfg".source = "${home}/dotFiles/.numpy-site.cfg";
   };
 
   programs.bash.enable = true;
@@ -240,6 +234,18 @@ in
     enable = true;
     enableZshIntegration = true;
     nix-direnv.enable = true;
+
+    config = {
+      global = {
+        strict_env = true;
+      };
+
+      whitelist = {
+        prefix = [
+          "${home}/Workspace/"
+        ];
+      };
+    };
 
     stdlib = ''
       layout_poetry() {

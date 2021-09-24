@@ -9,9 +9,6 @@
 - clean: ["~", "~/.config", "~/.local"]
 
 - link:
-    # Xmodmap
-    ~/.xprofile: .xprofile
-
     # Local
     ~/.local/share/:
       glob: true
@@ -52,7 +49,6 @@
       global: system
     - plugin: kustomize
       global: system
-
 
     # Shell
     - plugin: shfmt
@@ -95,6 +91,3 @@
     # GCP
     - plugin: gcloud
       global: system
-
-- brewfile:
-    - Brewfile
