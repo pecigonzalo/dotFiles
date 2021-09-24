@@ -1,11 +1,3 @@
-call plug#begin('~/.vim/plugged')
-
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'preservim/nerdtree'
-Plug 'dracula/vim', { 'as': 'dracula' }
-
-call plug#end()
-
 let g:dracula_colorterm = 0
 colorscheme dracula
 
@@ -79,4 +71,3 @@ highlight GitGutterAdd ctermfg=2
 highlight GitGutterChange ctermfg=3
 highlight GitGutterDelete ctermfg=1
 highlight GitGutterChangeDelete ctermfg=4
-
