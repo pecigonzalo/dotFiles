@@ -80,6 +80,10 @@ in
     ".numpy-site.cfg".source = "${home}/dotFiles/.numpy-site.cfg";
   };
 
+  xdg.configFile = {
+    "pypoetry/config.toml".source = "${home}/dotFiles/.config/pypoetry/config.toml";
+  };
+
   programs.bash.enable = true;
   programs.zsh = {
     enable = true;
@@ -97,8 +101,12 @@ in
     initExtraBeforeCompInit = "source ~/.zinit/bin/zinit.zsh";
 
     initExtra = ''
+      # ASDF
+      source "${home}/.nix-profile/etc/profile.d/asdf-prepare.sh"
+
       # Dynamic load
       source ${home}/dotFiles/zsh/zshrc
+
       # ZSH profiling save
       zprof >/tmp/zprof
     '';
@@ -320,6 +328,9 @@ in
     zstd
     m4
 
+    # ASDF
+    asdf-vm
+
     # Buildkite
     buildkite-agent
     buildkite-cli
@@ -363,11 +374,6 @@ in
     tflint
     packer
 
-    # Docker
-    docker
-    docker-compose
-    podman
-
     # AWS
     aws-vault
     chamber
@@ -388,6 +394,13 @@ in
 
     # Git
     gitAndTools.pre-commit
+    git-filter-repo
+
+    # Docker
+    docker
+    docker-compose
+    podman
+    dive
 
     # K8s
     kube3d # k3d
@@ -419,24 +432,27 @@ in
 
     # CLIs
     _1password
+    teleport
 
     # Libs
-    openssl_1_1
-    openssl_1_1.dev
-    zlib
-    zlib.dev
-    readline
-    readline.dev
-    libffi
-    libffi.dev
-    bzip2
-    bzip2.dev
+    # openssl_1_1
+    # openssl_1_1.dev
+    # zlib
+    # zlib.dev
+    # readline
+    # readline.dev
+    # libffi
+    # libffi.dev
+    # bzip2
+    # bzip2.dev
+    # xz
+    # xz.dev
 
     # Math Libs
-    openblas
-    openblas.dev
+    # openblas
+    # openblas.dev
 
     # Compiler
-    gfortran
+    # gfortran
   ];
 }

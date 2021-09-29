@@ -10,14 +10,14 @@
 
 - link:
     # Local
-    ~/.local/share/:
-      glob: true
-      path: .local/share/*
+    # ~/.local/share/:
+    #   glob: true
+    #   path: .local/share/*
 
-    # Config
-    ~/.config/:
-      glob: true
-      path: .config/*
+    # # Config
+    # ~/.config/:
+    #   glob: true
+    #   path: .config/*
 
 - asdf:
     # Hashi

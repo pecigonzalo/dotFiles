@@ -6,11 +6,6 @@ zstyle :omz:plugins:ssh-agent identities pecigonzalo_ed25519 pecigonzalo_rsa
 
 zinit snippet OMZP::ssh-agent/ssh-agent.plugin.zsh
 
-## Programs
-# Load asdf
-zinit light-mode for \
-  @asdf-vm/asdf
-
 ## OMZ Config
 zinit for \
   OMZL::key-bindings.zsh \

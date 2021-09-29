@@ -24,7 +24,7 @@ in
       autohide = true;
       orientation = "left";
       tilesize = 45;
-      show-recents = false;
+      show-recents = true;
     };
     NSGlobalDomain = {
       KeyRepeat = 2;
@@ -112,6 +112,7 @@ in
     coreutils
     findutils
     diffutils
+    binutils
     gnumake
     gnugrep
     gnused
@@ -128,5 +129,4 @@ in
     enableCompletion = false;
     enableBashCompletion = false;
   };
-  environment.shells = with pkgs; [ bashInteractive zsh ];
 }

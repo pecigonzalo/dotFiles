@@ -3,7 +3,7 @@
     enable = true;
     autoUpdate = false;
 
-    cleanup = "none";
+    cleanup = "uninstall";
     brewPrefix = "/opt/homebrew/bin";
 
     global.brewfile = true;
@@ -42,13 +42,10 @@
     ];
 
     brews = [
-      "dbt" # TODO: Replace with Docker
-      "dive"
-      "git-filter-repo"
-      "iamlive"
-      "snyk"
-      "sshuttle"
-      "teleport"
+      "fishtown-analytics/dbt/dbt" # TODO: Replace with Docker
+      "iann0036/iamlive/iamlive"
+      "snyk/tap/snyk"
+      "hyperkit"
     ];
 
     masApps = {
