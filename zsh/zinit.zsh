@@ -36,14 +36,14 @@ zinit wait lucid for \
   wfxr/forgit \
   b4b4r07/emoji-cli
 
-# Terraform
-zinit ice as:"completion"
-zinit snippet OMZP::terraform/_terraform
+# # Terraform
+# zinit ice as:"completion"
+# zinit snippet OMZP::terraform/_terraform
 
 # Docker
 zinit wait lucid for \
-  OMZP::docker-compose/docker-compose.plugin.zsh \
-  as:"completion" OMZP::docker/_docker
+  OMZP::docker-compose/docker-compose.plugin.zsh
+#   as:"completion" OMZP::docker/_docker
 
 # Utils
 zinit for \

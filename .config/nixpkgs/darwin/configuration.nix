@@ -40,11 +40,10 @@ in
     {
       package = pkgs.nix;
       useDaemon = false;
+      buildCores = 6;
+      maxJobs = 6;
       extraOptions = ''
         auto-optimise-store = true
-
-        keep-outputs = true
-        keep-derivations = true
 
         system = aarch64-darwin
         extra-platforms = aarch64-darwin x86_64-darwin
@@ -72,22 +71,44 @@ in
           (attrNames (readDir path)));
   };
 
+  programs.nix-index.enable = true;
   services = {
     nix-daemon.enable = false;
+    lorri = {
+      enable = true;
+      logFile = "/tmp/lorri.log";
+    };
   };
 
+  environment.pathsToLink = [
+    # "/sbin"
+    "/lib"
+    "/include"
+    "/libexec"
+  ];
+
+  environment.shells = [ pkgs.zsh ];
   users = {
     users.gonzalopeci = {
       name = user;
       home = "/Users/${user}";
+      shell = pkgs.zsh;
     };
   };
 
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = false;
-    verbose = true;
+    verbose = false;
     users.gonzalopeci = home-manager-config;
+  };
+
+  programs.bash.enable = true;
+  programs.zsh = {
+    enable = true;
+    promptInit = ""; # Disable default theme, we use a custom one
+    enableCompletion = false;
+    enableBashCompletion = false;
   };
 
   environment.systemPackages = with pkgs; [
@@ -120,13 +141,4 @@ in
     gnupg
     gawk
   ];
-
-  # Create /etc/bashrc that loads the nix-darwin environment.
-  programs.bash.enable = true;
-  programs.zsh = {
-    enable = true;
-    promptInit = ""; # Disable default theme, we use a custom one
-    enableCompletion = false;
-    enableBashCompletion = false;
-  };
 }

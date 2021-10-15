@@ -7,4 +7,7 @@ in
   elmPackages.elm = pkgs_x86_64.elmPackages.elm;
   packer = pkgs_x86_64.packer;
   asdf-vm = pkgs_x86_64.asdf-vm;
+  nix-index = pkgs_x86_64.nix-index;
+  fsharp = pkgs_x86_64.fsharp;
+  dotnetCorePackages = pkgs_x86_64.dotnetCorePackages;
 }

@@ -2,12 +2,16 @@
 {
   programs.gh = {
     enable = true;
-    editor = "nvim";
-    gitProtocol = "ssh";
-    aliases = {
-      co = "pr checkout";
-      pv = "pr view";
-      prs = "pr list -A pecigonzalo";
+
+    settings = {
+      git_protocol = "ssh";
+      editor = "nvim";
+
+      aliases = {
+        co = "pr checkout";
+        pv = "pr view";
+        prs = "pr list -A pecigonzalo";
+      };
     };
   };
 
@@ -46,15 +50,14 @@
         branch = "auto";
         diff = "auto";
         interactive = "auto";
-        pager = true;
         status = "auto";
+        pager = true;
+        # status = {
+        #   added = "green";
+        #   changed = "yellow";
+        #   untracked = "red";
+        # };
         ui = "auto";
-      };
-
-      "color \"status\"" = {
-        added = "green";
-        changed = "yellow";
-        untracked = "red";
       };
 
       diff = {
@@ -65,11 +68,19 @@
         tool = "vscode";
       };
 
-      "difftool \"vscode\"".cmd = "cmd = code --wait --diff $LOCAL $REMOTE";
+      difftool = {
+        vscode = {
+          cmd = "code --wait --diff $LOCAL $REMOTE";
+        };
+      };
 
       merge.tool = "vscode";
-      mergetool.keepBackup = false;
-      "mergetool \"vscode\"".cmd = "code --wait $MERGED";
+      mergetool = {
+        keepBackup = false;
+        vscode = {
+          cmd = "code --wait $MERGED";
+        };
+      };
 
       rebase = {
         autoSquash = true;

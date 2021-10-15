@@ -91,12 +91,11 @@ awsvl() {
   if [[ $TOKEN =~ "signin.aws.amazon.com" ]]; then
     local cache=$(mktemp -d /tmp/google-chrome-XXXXXX)
     local data=$(mktemp -d /tmp/google-chrome-XXXXXX)
-    /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome \
-    --incognito $TOKEN
-    #  --no-first-run --new-window \
-    #  --disk-cache-dir=$cache \
-    #  --user-data-dir=$data \
-    #  $TOKEN
+    open -na "Google Chrome" --args \
+     --no-first-run \
+     --disk-cache-dir=$cache \
+     --user-data-dir=$data \
+     $TOKEN
     rm -rf $cache $data
   else
     echo $TOKEN

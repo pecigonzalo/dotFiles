@@ -239,6 +239,8 @@
 	<false/>
 	<key>EscapeShellCharsWithBackslash</key>
 	<false/>
+	<key>FlashTabBarInFullscreen</key>
+	<true/>
 	<key>GlobalKeyMap</key>
 	<dict>
 		<key>0x19-0x60000</key>

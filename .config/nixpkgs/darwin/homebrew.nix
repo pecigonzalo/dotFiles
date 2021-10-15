@@ -24,11 +24,7 @@
     ];
 
     casks = [
-      "1password-cli"
-      "aws-vault"
       "dozer"
-      "font-fira-code-nerd-font"
-      "font-fira-code"
       "hammerspoon"
       "kap"
       "karabiner-elements"
@@ -38,14 +34,12 @@
       "signal"
       "snowflake-snowsql"
       "wireshark"
-      # "intellij-idea-ce"
     ];
 
     brews = [
       "fishtown-analytics/dbt/dbt" # TODO: Replace with Docker
       "iann0036/iamlive/iamlive"
       "snyk/tap/snyk"
-      "hyperkit"
     ];
 
     masApps = {

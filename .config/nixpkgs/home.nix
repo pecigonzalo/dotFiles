@@ -11,7 +11,6 @@ in
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
-
   imports =
     [
       ./home/git.nix
@@ -19,6 +18,8 @@ in
       ./home/tmux.nix
       ./home/starship.nix
     ];
+
+  fonts.fontconfig.enable = true;
 
   home = {
     username = username;
@@ -240,7 +241,6 @@ in
     ];
   };
 
-  # Create /etc/bashrc that loads the nix-darwin environment.
   programs.direnv = {
     enable = true;
     enableZshIntegration = true;
@@ -327,6 +327,7 @@ in
     pandoc
     zstd
     m4
+    vale # Prose linter
 
     # ASDF
     asdf-vm
@@ -355,9 +356,6 @@ in
     # Python
     pythonEnv
 
-    # TA-Lib
-    # (callPackage "${home}/dotFiles/nix/ta-lib.nix" {})
-
     # DBT
     # (callPackage "${home}/dotFiles/nix/dbt.nix" { })
 
@@ -371,6 +369,7 @@ in
     # vagrant
     terraform
     terraform-ls
+    nodePackages.cdktf-cli
     tflint
     packer
 
@@ -409,6 +408,7 @@ in
     k9s
     kail
     kubectl
+    kubectl-example
     kustomize
     minikube
     skaffold
@@ -434,7 +434,15 @@ in
     _1password
     teleport
 
-    # Libs
+    # Fonts
+    (nerdfonts.override { fonts = [ "FiraCode" ]; })
+    fira-code
+    fira-mono
+
+    # TA-Lib
+    # (callPackage "${home}/dotFiles/nix/ta-lib.nix" {})
+
+    # General Libs
     # openssl_1_1
     # openssl_1_1.dev
     # zlib
