@@ -8,7 +8,7 @@
 
       directory = {
         style = "fg:blue";
-        truncation_length = 0;
+        truncation_symbol = "…/";
         truncate_to_repo = true;
       };
 
@@ -17,7 +17,9 @@
       };
 
       aws = {
-        format = "on [$symbol$profile] ($style) ";
+        region_aliases = {
+          eu-central-1 = "eu1";
+        };
       };
 
       gcloud = {
@@ -31,11 +33,14 @@
         disabled = false;
         symbol = "⛵ ";
         format = "on [$symbol$context(\($namespace\))]($style) ";
+        context_aliases = {
+          "(?P<cluster>[\\\\w-]+).data-platform-cluster" = "$cluster";
+        };
       };
 
       nix_shell = {
         impure_msg = "";
-        format = "via [❄️ $state( \($name\))](bold blue) ";
+        format = "via [$symbol$name]($style) ";
       };
 
       format = lib.concatStrings [
