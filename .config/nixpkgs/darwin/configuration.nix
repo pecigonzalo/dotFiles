@@ -126,6 +126,9 @@ in
     wget
     curl
     which
+    ldns
+    dnsutils
+    unixtools.watch
 
     # Build tools
     pkgconfig
