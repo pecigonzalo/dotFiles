@@ -1,9 +1,9 @@
 {
   homebrew = {
     enable = true;
-    autoUpdate = false;
+    autoUpdate = true;
 
-    cleanup = "uninstall";
+    cleanup = "zap";
     brewPrefix = "/opt/homebrew/bin";
 
     global.brewfile = true;
@@ -19,7 +19,6 @@
       "homebrew/cask-fonts"
       "homebrew/core"
       "homebrew/services"
-      "iann0036/iamlive"
       "snyk/tap"
     ];
 
@@ -38,13 +37,13 @@
 
     brews = [
       "fishtown-analytics/dbt/dbt" # TODO: Replace with Docker
-      "iann0036/iamlive/iamlive"
       "snyk/tap/snyk"
     ];
 
     masApps = {
       # "Xcode" = 497799835;
       "Amphetamine" = 937984704;
+      "Yubico Authenticator" = 1497506650;
     };
   };
 }
