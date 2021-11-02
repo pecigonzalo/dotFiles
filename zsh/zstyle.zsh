@@ -2,7 +2,7 @@
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path "$HOME/.cache/zsh"
 
-# # Set formatting
+# Set formatting
 zstyle ':completion:*' format '[%d]'
 zstyle ':completion:*:messages' format '%F{purple}-- %d --%f'
 zstyle ':completion:*:descriptions' format '%F{yellow}-- %d --%f'

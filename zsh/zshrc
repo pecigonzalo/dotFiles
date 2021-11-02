@@ -6,9 +6,6 @@ autoload -U colors && colors
 # Load env
 source "$HOME/dotFiles/zsh/env.zsh"
 
-# Load zinit
-source "$HOME/dotFiles/zsh/zinit.zsh"
-
 # Get funtions
 source "$HOME/dotFiles/zsh/functions.zsh"
 

@@ -13,6 +13,8 @@ in
 
   imports =
     [
+      (import ./home/zsh.nix { inherit home pkgs; })
+      (import ./home/fzf.nix { inherit home pkgs; })
       ./home/git.nix
       ./home/editor.nix
       ./home/tmux.nix
@@ -86,160 +88,6 @@ in
   };
 
   programs.bash.enable = true;
-  programs.zsh = {
-    enable = true;
-
-    # This is taken care of by zinit
-    enableCompletion = false;
-    enableAutosuggestions = false;
-    enableSyntaxHighlighting = false;
-    envExtra = "skip_global_compinit=1";
-
-    dotDir = ".config/zsh";
-
-    initExtraFirst = "zmodload zsh/zprof";
-
-    initExtraBeforeCompInit = "source ~/.zinit/bin/zinit.zsh";
-
-    initExtra = ''
-      # ASDF
-      source "${home}/.nix-profile/etc/profile.d/asdf-prepare.sh"
-
-      # Dynamic load
-      source ${home}/dotFiles/zsh/zshrc
-
-      # ZSH profiling save
-      zprof >/tmp/zprof
-    '';
-
-    history = {
-      size = 5000000;
-      save = 5000000;
-      path = ".histfile";
-      ignorePatterns = [
-        "ls"
-        "cd"
-        "cd -"
-        "pwd"
-        "exit"
-        "date"
-        "* --help"
-        "man *"
-      ];
-    };
-
-    shellAliases = {
-      # Snowsql
-      "snowsql" = "/Applications/SnowSQL.app/Contents/MacOS/snowsql";
-
-      # Google Apps CLI
-      "gam" = "/home/gonzalo.peci/bin/gam/gam";
-
-      # Follow tail
-      "tailf" = "tail -f";
-
-      # gitg remove console output
-      "gitg" = "gitg >> /dev/null 2>&1";
-
-      # exa
-      "exa" = "exa --icons --color=always";
-      "ls" = "exa";
-      "tree" = "exa --tree";
-      "l" = "exa -lFh";
-      "la" = "exa -la";
-      "ll" = "exa -l";
-      "lS" = "exa -1";
-      "lt" = "tree --level=2";
-
-      # bat
-      "cat" = "bat -p";
-
-      # terraform
-      "tf" = "terraform";
-
-      # Reload
-      "reshell!" = "exec $SHELL -l";
-
-      # Kubectl
-      "k" = "kubectl";
-    };
-
-    sessionVariables = {
-      # Correction settings
-      CORRECT_IGNORE = "_*";
-      CORRECT_IGNORE_FILE = ".*";
-
-      # Uncomment the following line if you want to disable marking untracked files
-      # under VCS as dirty. This makes repository status check for large repositories
-      # much, much faster.
-      DISABLE_UNTRACKED_FILES_DIRTY = "true";
-
-      # TLDR Colors
-      TLDR_COLOR_BLANK = "white";
-      TLDR_COLOR_NAME = "cyan";
-      TLDR_COLOR_DESCRIPTION = "white";
-      TLDR_COLOR_EXAMPLE = "green";
-      TLDR_COLOR_COMMAND = "red";
-      TLDR_COLOR_PARAMETER = "white";
-
-      # OMZ
-      DISABLE_UPDATE_PROMPT = "true";
-      DISABLE_AUTO_UPDATE = "true";
-
-      # Tipz
-      TIPZ_TEXT = "💡";
-
-      # zsh-autosuggestions
-      ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE = 20;
-      ZSH_AUTOSUGGEST_USE_ASYNC = "true";
-
-      # zsh-z, fz
-      ZSHZ_CMD = "zshz";
-      ZSHZ_NO_RESOLVE_SYMLINKS = 1;
-      FZ_HISTORY_CD_CMD = "zshz";
-      FZ_SUBDIR_TRAVERSAL = 0;
-
-      # github.com/oz/tz
-      TZ_LIST = "Europe/Madrid;Home,US/Pacific;PDT";
-
-      # AWS
-      AWS_PAGER = "bat -p --color=always -l json";
-      SHOW_AWS_PROMPT = "false"; # Disable OMZ prompt
-    };
-  };
-
-  programs.fzf = {
-    enable = true;
-    enableZshIntegration = true;
-
-    defaultCommand = "fd --type f --hidden --follow --exclude .git --color=always";
-    defaultOptions = [
-      "--multi"
-      "--ansi"
-      "--height=50%"
-      "--min-height=15"
-      "--reverse"
-      "--color=bg:-1,fg:-1,prompt:1,info:3,hl:2,hl+:2"
-    ];
-
-    historyWidgetOptions = [
-      "--preview 'echo {}'"
-      "--preview-window down:3:hidden:wrap"
-      "--bind '?:toggle-preview'"
-    ];
-
-    # fileWidgetCommand = "";
-    fileWidgetOptions = [
-      "--preview '(bat --style=numbers --color=always --line-range :500 {} || exa --tree --level=4 {}) 2> /dev/null'"
-      "--select-1"
-      "--exit-0"
-    ];
-
-    changeDirWidgetCommand = "fd --type directory --color=always . ${home}";
-    changeDirWidgetOptions = [
-      "--preview 'exa --tree --level=4 {} | head -200'"
-    ];
-  };
 
   programs.direnv = {
     enable = true;
@@ -328,6 +176,8 @@ in
     zstd
     m4
     vale # Prose linter
+    zsh-completions
+    nix-zsh-completions
 
     # ASDF
     asdf-vm
@@ -359,8 +209,17 @@ in
     # DBT
     # (callPackage "${home}/dotFiles/nix/dbt.nix" { })
 
+    # snyk
+    # (callPackage "${home}/dotFiles/nix/snyk" { })
+
+    # iamlive
+    (callPackage "${home}/dotFiles/nix/iamlive" { })
+
     # Hostess
-    (callPackage "${home}/dotFiles/nix/hostess.nix" { })
+    (callPackage "${home}/dotFiles/nix/hostess" { })
+
+    # Loro
+    # (callPackage "${home}/dotFiles/nix/loro.nix" { })
 
     # Bash
     shfmt
@@ -387,6 +246,7 @@ in
     # Node
     nodejs
     yarn
+    nodePackages.node2nix
 
     # Deno
     deno
