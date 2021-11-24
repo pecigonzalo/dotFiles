@@ -1,6 +1,8 @@
-{ home, pkgs, ... }:
+{ config, pkgs, ... }:
 
 let
+  homedir = config.home.homeDirectory;
+
   omzRev = "5e8905b4b22dfec9042590f3aa399935b8b83eed";
   omzPlugin = { name }: {
     name = "ohmyzsh-plugin-${name}";
@@ -58,10 +60,10 @@ in
       }
 
       # ASDF
-      source "${home}/.nix-profile/etc/profile.d/asdf-prepare.sh"
+      source "${homedir}/.nix-profile/etc/profile.d/asdf-prepare.sh"
 
       # Dynamic load
-      source ${home}/dotFiles/zsh/zshrc
+      source ${homedir}/dotFiles/zsh/zshrc
 
       # ZSH profiling save
       zprof >/tmp/zprof

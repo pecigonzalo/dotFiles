@@ -1,10 +1,17 @@
+{ config, lib, pkgs, ... }:
+let
+  brewPrefix = "/opt/homebrew/bin";
+in
 {
+  environment.shellInit = ''
+    eval "$(${brewPrefix}/brew shellenv)"
+  '';
   homebrew = {
     enable = true;
     autoUpdate = true;
 
     cleanup = "zap";
-    brewPrefix = "/opt/homebrew/bin";
+    brewPrefix = brewPrefix;
 
     global.brewfile = true;
     global.noLock = true;
@@ -38,12 +45,12 @@
     brews = [
       "fishtown-analytics/dbt/dbt" # TODO: Replace with Docker
       "snyk/tap/snyk"
+      "teleport" # TODO: Remove when nixpkg works again
     ];
 
     masApps = {
       # "Xcode" = 497799835;
       "Amphetamine" = 937984704;
-      "Yubico Authenticator" = 1497506650;
     };
   };
 }

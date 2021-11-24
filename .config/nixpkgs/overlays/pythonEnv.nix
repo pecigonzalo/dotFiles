@@ -13,6 +13,7 @@ self: super:
           pytest
           virtualenv
           pipx
+          leveldb
         ]
       ))
       self.poetry

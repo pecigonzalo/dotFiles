@@ -52,11 +52,6 @@
         interactive = "auto";
         status = "auto";
         pager = true;
-        # status = {
-        #   added = "green";
-        #   changed = "yellow";
-        #   untracked = "red";
-        # };
         ui = "auto";
       };
 

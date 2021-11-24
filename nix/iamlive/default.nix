@@ -10,7 +10,7 @@ buildGoModule rec {
     sha256 = "1jqz19bj259ingl8q32ar3wsrcsg3g0h6nxr4dg3hfqikjym8xbl";
   };
 
-  vendorSha256 = "0fsmcp5cm8r6ddlaaybwm6vf9ybg5zf4ybjhibp4x366syia117n";
+  vendorSha256 = null;
 
   meta = with lib; {
     homepage = "https://github.com/iann0036/iamlive";

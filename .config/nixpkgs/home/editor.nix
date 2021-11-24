@@ -19,5 +19,4 @@ in
 
     extraConfig = builtins.readFile "${home}/dotFiles/.vimrc";
   };
-
 }

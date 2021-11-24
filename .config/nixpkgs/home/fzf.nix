@@ -1,4 +1,8 @@
-{ home, pkgs, ... }:
+{ config, pkgs, ... }:
+
+let
+  homedir = config.home.homeDirectory;
+in
 {
   programs.fzf = {
     enable = true;
@@ -27,7 +31,7 @@
       "--exit-0"
     ];
 
-    changeDirWidgetCommand = "fd --type directory --color=always . ${home}";
+    changeDirWidgetCommand = "fd --type directory --color=always . ${homedir}";
     changeDirWidgetOptions = [
       "--preview 'exa --tree --level=4 {} | head -200'"
     ];

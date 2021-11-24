@@ -1,10 +1,12 @@
-{ lib
+{ config
+, lib
 , pkgs
 , ...
 }:
 let
-  username = builtins.getEnv "USER";
-  home = builtins.getEnv "HOME";
+  inherit (config.lib.file) mkOutOfStoreSymlink;
+  user = "gonzalopeci";
+  homedir = "/Users/${user}";
 in
 {
   news.display = "silent";
@@ -13,28 +15,29 @@ in
 
   imports =
     [
-      (import ./home/zsh.nix { inherit home pkgs; })
-      (import ./home/fzf.nix { inherit home pkgs; })
-      ./home/git.nix
-      ./home/editor.nix
-      ./home/tmux.nix
-      ./home/starship.nix
+      ./zsh.nix
+      ./fzf.nix
+      ./direnv.nix
+      ./git.nix
+      ./editor.nix
+      ./tmux.nix
+      ./starship.nix
     ];
 
   fonts.fontconfig.enable = true;
 
   home = {
-    username = username;
-    homeDirectory = home;
+    username = user;
+    homeDirectory = homedir;
 
     sessionVariables =
       let
         preSessionPath = [
-          "${home}/.local/bin"
+          "${homedir}/.local/bin"
           # Go
-          "${home}/Workspace/go/bin"
+          "${homedir}/Workspace/go/bin"
           # K8s Krew
-          "${home}/.krew/bin"
+          "${homedir}/.krew/bin"
           # Snowflake SnowSQL
           "/Applications/SnowSQL.app/Contents/MacOS"
           # Brew
@@ -57,7 +60,7 @@ in
         LESS = "-FRSX";
 
         # Go
-        GOPATH = "${home}/Workspace/go";
+        GOPATH = "${homedir}/Workspace/go";
 
         # Disable virtualenv in prompt autoconfig
         VIRTUAL_ENV_DISABLE_PROMPT = 1;
@@ -70,70 +73,24 @@ in
   };
 
   home.file = {
-    ".xprofile".source = "${home}/dotFiles/.xprofile";
+    ".xprofile".source = mkOutOfStoreSymlink "${homedir}/dotFiles/.xprofile";
 
-    ".asdfrc".source = "${home}/dotFiles/.asdfrc";
-    ".tool-versions".source = "${home}/dotFiles/.tool-versions";
-    ".default-cloud-sdk-components".source = "${home}/dotFiles/.default-cloud-sdk-components";
+    ".asdfrc".source = mkOutOfStoreSymlink "${homedir}/dotFiles/.asdfrc";
+    ".tool-versions".source = mkOutOfStoreSymlink "${homedir}/dotFiles/.tool-versions";
+    ".default-cloud-sdk-components".source = mkOutOfStoreSymlink "${homedir}/dotFiles/.default-cloud-sdk-components";
 
-    ".terraformrc".source = "${home}/dotFiles/.terraformrc";
+    ".terraformrc".source = mkOutOfStoreSymlink "${homedir}/dotFiles/.terraformrc";
 
-    ".gemrc".source = "${home}/dotFiles/.gemrc";
+    ".gemrc".source = mkOutOfStoreSymlink "${homedir}/dotFiles/.gemrc";
 
-    ".numpy-site.cfg".source = "${home}/dotFiles/.numpy-site.cfg";
+    ".numpy-site.cfg".source = mkOutOfStoreSymlink "${homedir}/dotFiles/.numpy-site.cfg";
   };
 
   xdg.configFile = {
-    "pypoetry/config.toml".source = "${home}/dotFiles/.config/pypoetry/config.toml";
+    "pypoetry/config.toml".source = mkOutOfStoreSymlink "${homedir}/dotFiles/.config/pypoetry/config.toml";
   };
 
   programs.bash.enable = true;
-
-  programs.direnv = {
-    enable = true;
-    enableZshIntegration = true;
-    nix-direnv.enable = true;
-
-    config = {
-      global = {
-        strict_env = true;
-      };
-
-      whitelist = {
-        prefix = [
-          "${home}/Workspace/"
-        ];
-      };
-    };
-
-    stdlib = ''
-      layout_poetry() {
-        if [[ ! -f pyproject.toml ]]; then
-          log_error 'No pyproject.toml found. Use `poetry new` or `poetry init` to create one first.'
-          exit 2
-        fi
-
-        # create venv if it doesn't exist
-        poetry run true
-
-        export VIRTUAL_ENV=$(poetry env info --path)
-        export POETRY_ACTIVE=1
-        PATH_add "$VIRTUAL_ENV/bin"
-      }
-
-      layout_node() {
-        PATH_add node_modules/.bin
-      }
-
-      # if [[ -f pyproject.toml ]]; then
-      #   layout_poetry
-      # fi
-
-      # if [[ -f node_modules ]]; then
-      #   layout_node
-      # fi
-    '';
-  };
 
   programs.ssh = {
     enable = true;
@@ -171,13 +128,11 @@ in
     watchman
     go-task # taskfile.dev
     dos2unix
-    snzip
     pandoc
     zstd
     m4
     vale # Prose linter
     zsh-completions
-    nix-zsh-completions
 
     # ASDF
     asdf-vm
@@ -207,19 +162,19 @@ in
     pythonEnv
 
     # DBT
-    # (callPackage "${home}/dotFiles/nix/dbt.nix" { })
+    # (callPackage "${homedir}/dotFiles/nix/dbt.nix" { })
 
     # snyk
-    # (callPackage "${home}/dotFiles/nix/snyk" { })
+    # (callPackage "${homedir}/dotFiles/nix/snyk" { })
 
     # iamlive
-    (callPackage "${home}/dotFiles/nix/iamlive" { })
+    (callPackage "${homedir}/dotFiles/nix/iamlive" { })
 
-    # Hostess
-    (callPackage "${home}/dotFiles/nix/hostess" { })
+    # hostess
+    (callPackage "${homedir}/dotFiles/nix/hostess" { })
 
     # Loro
-    # (callPackage "${home}/dotFiles/nix/loro.nix" { })
+    # (callPackage "${homedir}/dotFiles/nix/loro.nix" { })
 
     # Bash
     shfmt
@@ -246,7 +201,7 @@ in
     # Node
     nodejs
     yarn
-    nodePackages.node2nix
+    # nodePackages.node2nix
 
     # Deno
     deno
@@ -292,7 +247,7 @@ in
 
     # CLIs
     _1password
-    teleport
+    # teleport
 
     # Fonts
     (nerdfonts.override { fonts = [ "FiraCode" ]; })
