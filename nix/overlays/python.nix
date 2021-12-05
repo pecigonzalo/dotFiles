@@ -1,9 +1,9 @@
-self: super:
+final: prev:
 {
-  pythonEnv = super.buildEnv {
+  pythonEnv = prev.buildEnv {
     name = "pythonEnv";
     paths = [
-      (self.python3.withPackages (
+      (final.python3.withPackages (
         ps: with ps; [
           pip
           isort
@@ -16,8 +16,8 @@ self: super:
           leveldb
         ]
       ))
-      self.poetry
-      self.pipenv
+      final.poetry
+      final.pipenv
     ];
   };
 }

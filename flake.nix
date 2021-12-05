@@ -3,9 +3,6 @@
   inputs = {
     # Package sets
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    nixpkgs-master.url = "github:nixos/nixpkgs/master";
-    nixpkgs-stable-darwin.url = "github:nixos/nixpkgs/nixpkgs-21.05-darwin";
-    nixos-stable.url = "github:nixos/nixpkgs/nixos-21.05";
 
     # Environment/system management
     darwin.url = "github:lnl7/nix-darwin";
@@ -20,6 +17,27 @@
 
       user = "gonzalopeci";
       homedir = "/Users/${user}";
+
+      dynamicOverlays =
+        let path = ./nix/overlays; in
+        with builtins;
+        map (overlay: import (path + ("/" + overlay)))
+          (
+            filter (overlay: match ".*\\.nix" overlay != null || pathExists (path + ("/" + overlay + "/default.nix")))
+            (attrNames (readDir path))
+          );
+
+      namedOverlays = attrValues {
+        # Overlay useful on Macs with Apple Silicon
+        apple-silicon = final: prev: optionalAttrs (prev.stdenv.system == "aarch64-darwin") {
+          # Add access to x86 packages system is running Apple Silicon
+          pkgs-x86 = import inputs.nixpkgs {
+            system = "x86_64-darwin";
+            inherit (nixpkgsConfig) config;
+          };
+        };
+      };
+
       nixpkgsConfig = with inputs; {
         config = {
           allowUnfree = true;
@@ -27,6 +45,17 @@
           allowInsecure = false;
           allowUnsupportedSystem = true;
         };
+        # Dynamic list of patches
+        # patches =
+        #   let path = ./nix/patches; in
+        #   with builtins;
+        #   map (patch: path + "/${patch}")
+        #     (
+        #       filter (x: x != ".keep")
+        #       (attrNames (readDir path))
+        #     );
+        # Dynamic list of overlays
+        overlays = namedOverlays ++ dynamicOverlays;
       };
 
       commonHomeManagerConfig = {
@@ -62,7 +91,7 @@
         bootstrap-arm = bootstrap-x86.override { system = "aarch64-darwin"; };
 
         # Apple Silicon macOS
-        m1 = darwin.lib.darwinSystem {
+        macfish = darwin.lib.darwinSystem {
           system = "aarch64-darwin";
           modules = commonDarwinConfig;
         };
