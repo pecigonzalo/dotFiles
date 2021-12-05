@@ -32,6 +32,14 @@
     enableBashCompletion = false;
   };
 
+  programs.tmux = {
+    enable = true;
+    enableFzf = true;
+    enableMouse = true;
+    enableSensible = true;
+    iTerm2 = true;
+  };
+
   environment.systemPackages = with pkgs; [
     # Nix
     nixpkgs-fmt
