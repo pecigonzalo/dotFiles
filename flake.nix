@@ -36,6 +36,8 @@
             inherit (nixpkgsConfig) config;
           };
         };
+
+        packages = import ./nix/nixpkgs;
       };
 
       nixpkgsConfig = with inputs; {

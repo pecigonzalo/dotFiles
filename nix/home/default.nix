@@ -170,14 +170,13 @@ in
     # snyk
     # (callPackage "${homedir}/dotFiles/nix/snyk" { })
 
-    # iamlive
-    # (callPackage "../nix/nixpkgs/iamlive" { })
-
     # hostess
     # (callPackage "../nix/nixpkgs/hostess" { })
 
-    # Loro
-    # (callPackage "${homedir}/dotFiles/nix/loro.nix" { })
+    # Local
+    loro
+    iamlive
+    shell-functools
 
     # Bash
     shfmt
