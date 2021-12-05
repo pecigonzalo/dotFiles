@@ -87,10 +87,12 @@ in
   };
 
   xdg.configFile = {
-    "pypoetry/config.toml".source = mkOutOfStoreSymlink "${homedir}/dotFiles/.config/pypoetry/config.toml";
+    "pypoetry/config.toml".source = mkOutOfStoreSymlink ".config/pypoetry/config.toml";
   };
 
   programs.bash.enable = true;
+
+  programs.alacritty.enable = true;
 
   programs.ssh = {
     enable = true;
@@ -100,6 +102,7 @@ in
 
     controlMaster = "auto";
     controlPersist = "10m";
+    controlPath = "~/.ssh/%C.control";
 
     extraConfig = "Include *.config";
   };
@@ -168,10 +171,10 @@ in
     # (callPackage "${homedir}/dotFiles/nix/snyk" { })
 
     # iamlive
-    (callPackage "${homedir}/dotFiles/nix/iamlive" { })
+    # (callPackage "../nix/nixpkgs/iamlive" { })
 
     # hostess
-    (callPackage "${homedir}/dotFiles/nix/hostess" { })
+    # (callPackage "../nix/nixpkgs/hostess" { })
 
     # Loro
     # (callPackage "${homedir}/dotFiles/nix/loro.nix" { })
@@ -183,7 +186,6 @@ in
     # vagrant
     terraform
     terraform-ls
-    nodePackages.cdktf-cli
     tflint
     packer
 
@@ -201,7 +203,6 @@ in
     # Node
     nodejs
     yarn
-    # nodePackages.node2nix
 
     # Deno
     deno
@@ -253,29 +254,5 @@ in
     (nerdfonts.override { fonts = [ "FiraCode" ]; })
     fira-code
     fira-mono
-
-    # TA-Lib
-    # (callPackage "${home}/dotFiles/nix/ta-lib.nix" {})
-
-    # General Libs
-    # openssl_1_1
-    # openssl_1_1.dev
-    # zlib
-    # zlib.dev
-    # readline
-    # readline.dev
-    # libffi
-    # libffi.dev
-    # bzip2
-    # bzip2.dev
-    # xz
-    # xz.dev
-
-    # Math Libs
-    # openblas
-    # openblas.dev
-
-    # Compiler
-    # gfortran
   ];
 }

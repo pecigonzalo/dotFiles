@@ -27,23 +27,16 @@
           allowInsecure = false;
           allowUnsupportedSystem = true;
         };
-        # Dynamically generate a list of overlays
-        overlays =
-          let path = "${homedir}/dotFiles/.config/nixpkgs/overlays"; in
-          with builtins;
-          map (n: import (path + ("/" + n)))
-            (filter
-              (n: match ".*\\.nix" n != null ||
-                pathExists (path + ("/" + n + "/default.nix")))
-              (attrNames (readDir path)));
       };
 
-      homeManagerCommonConfig = {
-        imports = [ .config/nixpkgs/home ];
+      commonHomeManagerConfig = {
+        imports = [
+          ./nix/home
+        ];
       };
 
-      nixDarwinCommonModules = [
-        .config/nixpkgs/darwin
+      commonDarwinConfig = [
+        ./nix/darwin
         home-manager.darwinModules.home-manager
         {
           nixpkgs = nixpkgsConfig;
@@ -53,7 +46,7 @@
             useGlobalPkgs = true;
             useUserPackages = false;
             verbose = false;
-            users.${user} = homeManagerCommonConfig;
+            users.${user} = commonHomeManagerConfig;
           };
         }
       ];
@@ -64,14 +57,14 @@
         # Mininal configurations to bootstrap systems
         bootstrap-x86 = makeOverridable darwinSystem {
           system = "x86_64-darwin";
-          modules = [ .config/nixpkgs/darwin/bootstrap.nix { nixpkgs = nixpkgsConfig; } ];
+          modules = [ ./nix/darwin/bootstrap.nix { nixpkgs = nixpkgsConfig; } ];
         };
         bootstrap-arm = bootstrap-x86.override { system = "aarch64-darwin"; };
 
         # Apple Silicon macOS
         m1 = darwin.lib.darwinSystem {
           system = "aarch64-darwin";
-          modules = nixDarwinCommonModules;
+          modules = commonDarwinConfig;
         };
       };
     };

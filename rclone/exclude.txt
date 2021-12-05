@@ -1,9 +1,0 @@
-# Exclude list for Workspace Backup
-
-# Packer files
-packer_cache
-*.vmdk
-*.ovf
-
-# End
-
