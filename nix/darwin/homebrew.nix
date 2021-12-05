@@ -45,7 +45,6 @@ in
     brews = [
       "fishtown-analytics/dbt/dbt" # TODO: Replace with Docker
       "snyk/tap/snyk"
-      "teleport" # TODO: Remove when nixpkg works again
     ];
 
     masApps = {
