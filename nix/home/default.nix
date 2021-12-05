@@ -247,7 +247,7 @@ in
 
     # CLIs
     _1password
-    # teleport
+    teleport
 
     # Fonts
     (nerdfonts.override { fonts = [ "FiraCode" ]; })
