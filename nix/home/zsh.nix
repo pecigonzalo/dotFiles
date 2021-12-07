@@ -32,6 +32,8 @@ in
   programs.zsh = {
     enable = true;
 
+    defaultKeymap = "emacs";
+
     # This is taken care of by zinit
     enableCompletion = true;
     enableAutosuggestions = true;

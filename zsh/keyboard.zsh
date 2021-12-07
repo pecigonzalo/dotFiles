@@ -1,5 +1,3 @@
-bindkey -e # Use emacs key bindings
-
 # Set ctrl+w to use bash style delimiters
 # https://unix.stackexchange.com/a/594305
 # http://info2html.sourceforge.net/cgi-bin/info2html-demo/info2html?(zsh)ZLE%2520Functions
