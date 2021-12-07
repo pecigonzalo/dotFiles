@@ -6,23 +6,48 @@
     settings = {
       add_newline = true;
 
+      cmake.symbol = "△ ";
+      docker_context.symbol = " ";
+      dotnet.symbol = " ";
+      elixir.symbol = " ";
+      elm.symbol = " ";
+      erlang.symbol = " ";
+      golang.symbol = " ";
+      helm.symbol = "⎈ ";
+      hg_branch.symbol = " ";
+      java.symbol = " ";
+      julia.symbol = " ";
+      kotlin.symbol = " ";
+      lua.symbol = " ";
+      nodejs.symbol = " ";
+      package.symbol = " ";
+      python.symbol = " ";
+      ruby.symbol = " ";
+      terraform.symbol = "𝗧 ";
+      vagrant.symbol = "𝗩 ";
+
       directory = {
+        read_only = " ";
         style = "fg:blue";
         truncation_symbol = "…/";
         truncate_to_repo = true;
       };
 
+      git_commit.tag_symbol = " ";
       git_branch = {
+        symbol = " ";
         style = "fg:240";
       };
 
       aws = {
+        symbol = "  ";
         region_aliases = {
           eu-central-1 = "eu1";
         };
       };
 
       gcloud = {
+        symbol = " ";
         format = "on [$symbol$project(\($region\))]($style) ";
         region_aliases = {
           us-central1 = "uc1";
@@ -31,7 +56,7 @@
 
       kubernetes = {
         disabled = false;
-        symbol = "⛵ ";
+        symbol = "☸ ";
         format = "on [$symbol$context(\($namespace\))]($style) ";
         context_aliases = {
           "(?P<cluster>[\\\\w-]+).data-platform-cluster" = "$cluster";
@@ -39,8 +64,17 @@
       };
 
       nix_shell = {
+        symbol = " ";
         impure_msg = "";
         format = "via [$symbol$name]($style) ";
+      };
+
+      battery = {
+        full_symbol = "";
+        charging_symbol = "";
+        discharging_symbol = "";
+        unknown_symbol = "";
+        empty_symbol = "";
       };
 
       format = lib.concatStrings [
