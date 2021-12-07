@@ -22,6 +22,7 @@
     "/lib"
     "/include"
     "/libexec"
+    "/share/zsh" # Completions
   ];
 
   programs.bash.enable = true;
