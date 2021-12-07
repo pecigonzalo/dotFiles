@@ -4,6 +4,10 @@
     # Package sets
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
+    # Comma
+    # https://github.com/nix-community/comma
+    comma = { url = github:nix-community/comma; flake = false; };
+
     # Environment/system management
     darwin.url = "github:lnl7/nix-darwin";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
@@ -35,6 +39,9 @@
             system = "x86_64-darwin";
             inherit (nixpkgsConfig) config;
           };
+        };
+        comma = final: prev: {
+          comma = import inputs.comma { inherit (prev) pkgs; };
         };
 
         packages = import ./nix/nixpkgs;

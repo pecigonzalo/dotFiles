@@ -84,6 +84,8 @@ in
     ".gemrc".source = mkOutOfStoreSymlink "${homedir}/dotFiles/.gemrc";
 
     ".numpy-site.cfg".source = mkOutOfStoreSymlink "${homedir}/dotFiles/.numpy-site.cfg";
+
+    ".parallel/will-cite".text = ""; # Stop `parallel` from displaying citation warning
   };
 
   xdg.configFile = {
@@ -92,7 +94,10 @@ in
 
   programs.bash.enable = true;
 
-  programs.alacritty.enable = true;
+  programs.htop = {
+    enable = true;
+    settings.show_program_path = true;
+  };
 
   programs.ssh = {
     enable = true;
