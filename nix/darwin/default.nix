@@ -40,10 +40,6 @@
   };
 
   environment.systemPackages = with pkgs; [
-    # Nix
-    nixpkgs-fmt
-    rnix-lsp
-
     # Common
     htop
     nano

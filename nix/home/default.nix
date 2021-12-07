@@ -115,14 +115,15 @@ in
   };
 
   home.packages = with pkgs; [
+    # Nix
+    nixpkgs-fmt
+    rnix-lsp
+    comma # Run without installing by using ,
+
     # Misc
+    parallel
     jq
     yq-go
-    tldr
-    exa
-    fd
-    httpie
-    ripgrep
     mkcert
     rclone
     restic
@@ -133,9 +134,23 @@ in
     dos2unix
     pandoc
     zstd
-    m4
     vale # Prose linter
     zsh-completions
+
+    # Compression
+    m4
+    xz
+    unrar
+
+    # CLI Replacements
+    ripgrep # grep
+    exa # ls
+    fd # find
+    httpie # curl
+    tealdeer # TLDR
+    du-dust # du
+    htop # top
+    procs # ps
 
     # ASDF
     asdf-vm
@@ -153,9 +168,10 @@ in
     # Dhall
     dhall
 
-    # Load testing
+    # Load testing / Benchmarking
     k6
     vegeta
+    hyperfine # CLI benchmarking
 
     # jsonnet
     jsonnet
@@ -164,19 +180,10 @@ in
     # Python
     pythonEnv
 
-    # DBT
-    # (callPackage "${homedir}/dotFiles/nix/dbt.nix" { })
-
-    # snyk
-    # (callPackage "${homedir}/dotFiles/nix/snyk" { })
-
-    # hostess
-    # (callPackage "../nix/nixpkgs/hostess" { })
-
     # Local
     loro
     iamlive
-    shell-functools
+    shell-functools # a collection of functional programming tools for the shell
 
     # Bash
     shfmt
@@ -202,6 +209,7 @@ in
     # Node
     nodejs
     yarn
+    nodePackages.typescript
 
     # Deno
     deno

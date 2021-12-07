@@ -1,7 +1,4 @@
 { pkgs, ... }:
-let
-  home = builtins.getEnv "HOME";
-in
 {
   programs.neovim = {
     enable = true;
@@ -17,6 +14,12 @@ in
       enable = true;
     };
 
-    extraConfig = builtins.readFile "${home}/dotFiles/.vimrc";
+    extraPackages = with pkgs; [
+      gopls
+      shfmt
+      rnix-lsp
+    ];
+
+    extraConfig = builtins.readFile ../../.vimrc;
   };
 }
