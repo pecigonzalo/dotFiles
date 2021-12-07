@@ -164,22 +164,27 @@ in
       SHOW_AWS_PROMPT = "false"; # Disable OMZ prompt
     };
 
-    plugins = [
-      (omzLib { name = "git"; })
-      (omzLib { name = "key-bindings"; })
-      (omzLib { name = "clipboard"; })
-      (omzLib { name = "termsupport"; })
-      (omzPlugin { name = "ssh-agent"; })
-      (omzPlugin { name = "git"; })
-      (omzPlugin { name = "git-auto-fetch"; })
-      (omzPlugin { name = "gitignore"; })
-      (omzPlugin { name = "git-flow"; })
-      (omzPlugin { name = "docker-compose"; })
-      (omzPlugin { name = "common-aliases"; })
-      (omzPlugin { name = "sudo"; })
-      (omzPlugin { name = "rsync"; })
-      (omzPlugin { name = "urltools"; })
-      (omzPlugin { name = "aws"; })
+    plugins =
+      (map (name: omzLib {name = name;}) [
+        "git"
+        "key-bindings"
+        "clipboard"
+        "termsupport"
+      ]) ++
+      (map (name: omzPlugin {name = name;}) [
+        "ssh-agent"
+        "git"
+        "git-auto-fetch"
+        "gitignore"
+        "git-flow"
+        "docker-compose"
+        "common-aliases"
+        "sudo"
+        "rsync"
+        "urltools"
+        "aws"
+      ]) ++
+      [
       (gitHubPlugin {
         name = "zsh-z";
         owner = "agkozak";
