@@ -65,7 +65,7 @@ in
       source "${homedir}/.nix-profile/etc/profile.d/asdf-prepare.sh"
 
       # Dynamic load
-      source ${homedir}/dotFiles/zsh/zshrc
+      source "${homedir}/dotFiles/zsh/zshrc"
 
       # ZSH profiling save
       zprof >/tmp/zprof
@@ -174,17 +174,17 @@ in
         "termsupport"
       ]) ++
       (map (name: omzPlugin {name = name;}) [
-        "ssh-agent"
-        "git"
-        "git-auto-fetch"
-        "gitignore"
-        "git-flow"
-        "docker-compose"
-        "common-aliases"
-        "sudo"
-        "rsync"
-        "urltools"
         "aws"
+        "common-aliases"
+        "docker-compose"
+        "git-auto-fetch"
+        "git-flow"
+        "git"
+        "gitignore"
+        "rsync"
+        "ssh-agent"
+        "sudo"
+        "urltools"
       ]) ++
       [
       (gitHubPlugin {
