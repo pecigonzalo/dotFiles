@@ -180,11 +180,10 @@ in
         "git-auto-fetch"
         "git-flow"
         "git"
-        "gitignore"
         "rsync"
         "ssh-agent"
-        "sudo"
         "urltools"
+        "vscode"
       ]) ++
       [
       (gitHubPlugin {
