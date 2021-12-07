@@ -17,6 +17,6 @@ in
       enable = true;
     };
 
-    # extraConfig = builtins.readFile "${home}/dotFiles/.vimrc";
+    extraConfig = builtins.readFile "${home}/dotFiles/.vimrc";
   };
 }
