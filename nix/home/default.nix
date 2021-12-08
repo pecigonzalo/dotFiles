@@ -30,6 +30,39 @@ in
     username = user;
     homeDirectory = homedir;
 
+    shellAliases = {
+      # Snowsql
+      "snowsql" = "/Applications/SnowSQL.app/Contents/MacOS/snowsql";
+
+      # Google Apps CLI
+      "gam" = "/home/gonzalo.peci/bin/gam/gam";
+
+      # Follow tail
+      "tailf" = "tail -f";
+
+      # gitg remove console output
+      "gitg" = "gitg >> /dev/null 2>&1";
+
+      # exa
+      "exa" = "exa --icons --color=always";
+      "ls" = "exa";
+      "tree" = "exa --tree";
+      "l" = "exa -lFh";
+      "la" = "exa -la";
+      "ll" = "exa -l";
+      "lS" = "exa -1";
+      "lt" = "tree --level=2";
+
+      # bat
+      "cat" = "bat -p";
+
+      # terraform
+      "tf" = "terraform";
+
+      # Kubectl
+      "k" = "kubectl";
+    };
+
     sessionVariables =
       let
         preSessionPath = [
@@ -45,7 +78,7 @@ in
           # System
           "$PATH"
         ];
-        userPath = "${builtins.concatStringsSep ":" preSessionPath}";
+        userPath = builtins.concatStringsSep ":" preSessionPath;
       in
       {
         # Path
@@ -69,6 +102,20 @@ in
 
         # Docker
         DOCKER_BUILDKIT = 1;
+
+        # TLDR Colors
+        TLDR_COLOR_BLANK = "white";
+        TLDR_COLOR_NAME = "cyan";
+        TLDR_COLOR_DESCRIPTION = "white";
+        TLDR_COLOR_EXAMPLE = "green";
+        TLDR_COLOR_COMMAND = "red";
+        TLDR_COLOR_PARAMETER = "white";
+
+        # AWS
+        AWS_PAGER = "bat -p --color=always -l json";
+
+        # github.com/oz/tz
+        TZ_LIST = "Europe/Madrid;Home,US/Pacific;PDT";
       };
   };
 

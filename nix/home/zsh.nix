@@ -84,43 +84,13 @@ in
         "date"
         "* --help"
         "man *"
+        "zstyle *"
       ];
     };
 
     shellAliases = {
-      # Snowsql
-      "snowsql" = "/Applications/SnowSQL.app/Contents/MacOS/snowsql";
-
-      # Google Apps CLI
-      "gam" = "/home/gonzalo.peci/bin/gam/gam";
-
-      # Follow tail
-      "tailf" = "tail -f";
-
-      # gitg remove console output
-      "gitg" = "gitg >> /dev/null 2>&1";
-
-      # exa
-      "exa" = "exa --icons --color=always";
-      "ls" = "exa";
-      "tree" = "exa --tree";
-      "l" = "exa -lFh";
-      "la" = "exa -la";
-      "ll" = "exa -l";
-      "lS" = "exa -1";
-      "lt" = "tree --level=2";
-
-      # bat
-      "cat" = "bat -p";
-
-      # terraform
-      "tf" = "terraform";
-
       # Reload
       "reshell!" = "exec $SHELL -l";
-
-      # Kubectl
-      "k" = "kubectl";
     };
 
     sessionVariables = {
@@ -133,17 +103,10 @@ in
       # much, much faster.
       DISABLE_UNTRACKED_FILES_DIRTY = "true";
 
-      # TLDR Colors
-      TLDR_COLOR_BLANK = "white";
-      TLDR_COLOR_NAME = "cyan";
-      TLDR_COLOR_DESCRIPTION = "white";
-      TLDR_COLOR_EXAMPLE = "green";
-      TLDR_COLOR_COMMAND = "red";
-      TLDR_COLOR_PARAMETER = "white";
-
       # OMZ
       DISABLE_UPDATE_PROMPT = "true";
       DISABLE_AUTO_UPDATE = "true";
+      SHOW_AWS_PROMPT = "false"; # Disable OMZ prompt
 
       # Tipz
       TIPZ_TEXT = "💡";
@@ -157,13 +120,6 @@ in
       ZSHZ_NO_RESOLVE_SYMLINKS = 1;
       FZ_HISTORY_CD_CMD = "zshz";
       FZ_SUBDIR_TRAVERSAL = 0;
-
-      # github.com/oz/tz
-      TZ_LIST = "Europe/Madrid;Home,US/Pacific;PDT";
-
-      # AWS
-      AWS_PAGER = "bat -p --color=always -l json";
-      SHOW_AWS_PROMPT = "false"; # Disable OMZ prompt
     };
 
     plugins =
