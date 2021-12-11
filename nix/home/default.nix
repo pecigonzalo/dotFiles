@@ -23,6 +23,7 @@ in
       ./editor.nix
       ./tmux.nix
       ./starship.nix
+      ./kitty.nix
       ./fonts.nix
     ];
 
