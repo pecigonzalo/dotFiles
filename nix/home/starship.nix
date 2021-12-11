@@ -57,7 +57,6 @@
       kubernetes = {
         disabled = false;
         symbol = "☸ ";
-        format = "on [$symbol$context(\($namespace\))]($style) ";
         context_aliases = {
           "(?P<cluster>[\\\\w-]+).data-platform-cluster" = "$cluster";
         };
