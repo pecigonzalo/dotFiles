@@ -3,6 +3,7 @@
   inputs = {
     # Package sets
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixpkgs-21-05.url = "github:nixos/nixpkgs/21.05";
 
     # Comma
     # https://github.com/nix-community/comma
@@ -40,6 +41,14 @@
             inherit (nixpkgsConfig) config;
           };
         };
+
+        pkgs-21-05 = final: prev: {
+          pkgs-21-05 = import inputs.nixpkgs-21-05 {
+            inherit (prev.stdenv) system;
+            inherit (nixpkgsConfig) config;
+          };
+        };
+
         comma = final: prev: {
           comma = import inputs.comma { inherit (prev) pkgs; };
         };
