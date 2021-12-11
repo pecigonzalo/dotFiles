@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 {
   system.defaults.dock = {
     orientation = "left";
@@ -28,6 +28,8 @@
 
     NSScrollAnimationEnabled = true;
 
+    AppleShowScrollBars                  = "Automatic";
+
     _HIHideMenuBar = false;
 
     AppleShowAllExtensions = true;
@@ -36,6 +38,7 @@
   system.defaults.finder = {
     AppleShowAllExtensions = true;
     _FXShowPosixPathInTitle = true;
+    FXEnableExtensionChangeWarning = false;
   };
 
   system.defaults.trackpad = {
@@ -43,5 +46,12 @@
     Clicking  = true;
     FirstClickThreshold = 2;
     SecondClickThreshold = 2;
+    TrackpadThreeFingerDrag = true;
+    TrackpadRightClick      = true;
   };
+
+  system.activationScripts.postActivation.text = ''
+    # Stop iTunes from responding to the keyboard media keys
+    launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist 2>/dev/null
+  '';
 }

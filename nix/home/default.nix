@@ -31,9 +31,6 @@ in
     homeDirectory = homedir;
 
     shellAliases = {
-      # Snowsql
-      "snowsql" = "/Applications/SnowSQL.app/Contents/MacOS/snowsql";
-
       # Google Apps CLI
       "gam" = "/home/gonzalo.peci/bin/gam/gam";
 
@@ -172,7 +169,6 @@ in
     go-task # taskfile.dev
     dos2unix
     pandoc
-    zstd
     vale # Prose linter
     zsh-completions
 
@@ -180,6 +176,7 @@ in
     m4
     xz
     unrar
+    zstd
 
     # CLI Replacements
     ripgrep # grep
@@ -218,6 +215,8 @@ in
 
     # Python
     pythonEnv
+    poetry
+    pipenv
 
     # Local
     loro
@@ -292,7 +291,7 @@ in
     ansible_2_9
     # ansible-lint
 
-    # CLIs
+    # Other CLIs
     _1password
     teleport
   ];
