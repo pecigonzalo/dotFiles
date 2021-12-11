@@ -67,11 +67,16 @@ in
       term = "xterm-256color";
       scrollback_lines = 10000;
       background_opacity = "0.98";
+      hide_window_decorations = "titlebar-only";
+      tab_bar_style = "separator";
+      tab_bar_edge = "top";
 
       font_size = 14;
       bold_font = "auto";
       italic_font = "auto";
       bold_italic_font = "auto";
+
+      enabled_layouts = "splits";
 
       strip_trailing_spaces = "smart";
 
@@ -81,17 +86,12 @@ in
       macos_quit_when_last_window_closed = true;
 
       allow_hyperlinks = true;
-
-      enabled_layouts = "splits";
     } // dracula-colors;
 
     keybindings = {
-      # jump to beginning and end of word
-      "alt+left" = "send_text all \x1b\x62";
-      "alt+right" = "send_text all \x1b\x66";
-      # jump to beginning and end of line
-      "cmd+left" = "send_text all \x01";
-      "cmd+right" = "send_text all \x05";
+      # Copy Paste
+      "ctrl+c" = "copy_and_clear_or_interrupt";
+      "ctrl+v" = "paste_from_clipboard";
     };
   };
 }
