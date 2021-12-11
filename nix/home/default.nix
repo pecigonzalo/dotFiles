@@ -15,6 +15,7 @@ in
 
   imports =
     [
+      ./ssh.nix
       ./zsh.nix
       ./fzf.nix
       ./direnv.nix
@@ -22,9 +23,8 @@ in
       ./editor.nix
       ./tmux.nix
       ./starship.nix
+      ./fonts.nix
     ];
-
-  fonts.fontconfig.enable = true;
 
   home = {
     username = user;
@@ -144,19 +144,6 @@ in
   programs.htop = {
     enable = true;
     settings.show_program_path = true;
-  };
-
-  programs.ssh = {
-    enable = true;
-
-    serverAliveInterval = 120;
-    compression = true;
-
-    controlMaster = "auto";
-    controlPersist = "10m";
-    controlPath = "~/.ssh/%C.control";
-
-    extraConfig = "Include *.config";
   };
 
   programs.bat = {
@@ -308,10 +295,5 @@ in
     # CLIs
     _1password
     teleport
-
-    # Fonts
-    (nerdfonts.override { fonts = [ "FiraCode" ]; })
-    fira-code
-    fira-mono
   ];
 }
