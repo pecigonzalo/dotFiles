@@ -1,17 +1,38 @@
-{ stdenv, fetchurl }:
-stdenv.mkDerivation rec {
-  baseName = "loro";
-  version = "0.1.2";
-  name="${baseName}-${version}";
+{ buildGoModule
+, fetchFromGitHub
+, installShellFiles
+}:
+buildGoModule rec {
+  pname = "loro";
+  version = "0.2.3";
 
-  src = fetchurl {
-    url = "https://github.com/pecigonzalo/${baseName}/releases/download/${version}/${baseName}";
-    sha256 = "0m98dyff4r5id0n1652f8km1b1yl47idhqjip7qm2n4j623y38dv";
+  subPackages = [ "." ];
+
+  src = fetchFromGitHub {
+    owner = "pecigonzalo";
+    repo = pname;
+    rev = "${version}";
+    sha256 = "sha256-6qZz1RddX2La+uKb0VFnTmH8DY5B/cKMV41uWHk4qy8=";
   };
 
-  phases = ["installPhase"];
+  vendorSha256 = "sha256-xuJKybJNvsccZ/+JuTZF+yowJK6pNkLgViugM7e3CCE=";
 
-  installPhase = ''
-    install -m755 -D $src $out/bin/loro
+  nativeBuildInputs = [ installShellFiles ];
+
+  doCheck = false;
+
+  ldflags = [
+    "-X main.Version=v${version}"
+  ];
+
+  # postInstall = ''
+  #   installShellCompletion --cmd loro \
+  #     --bash $src/contrib/completions/bash/loro.bash \
+  #     --fish $src/contrib/completions/fish/loro.fish \
+  #     --zsh $src/contrib/completions/zsh/loro.zsh
+  # '';
+
+  installCheckPhase = ''
+    $out/bin/loro --version 2>&1 | grep ${version} > /dev/null
   '';
 }
