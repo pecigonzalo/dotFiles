@@ -66,8 +66,8 @@ in
     settings = {
       term = "xterm-256color";
       scrollback_lines = 10000;
-      background_opacity = "0.98";
-      hide_window_decorations = "titlebar-only";
+      # background_opacity = "0.98";
+      # hide_window_decorations = "titlebar-only";
       tab_bar_style = "separator";
       tab_bar_edge = "top";
 
@@ -86,12 +86,24 @@ in
       macos_quit_when_last_window_closed = true;
 
       allow_hyperlinks = true;
+      copy_on_select = true;
     } // dracula-colors;
 
     keybindings = {
       # Copy Paste
       "ctrl+c" = "copy_and_clear_or_interrupt";
       "ctrl+v" = "paste_from_clipboard";
+
+      # Split conf
+      "ctrl+shift+enter" = "launch --location=hsplit";
+      "ctrl+enter" = "launch --location=vsplit";
+
+      # Clear all
+      "ctrl+k" = "combine : clear_terminal active : send_text normal \\x0c";
+
+      # Fzf
+      ## Scrollback search
+      "ctrl+f" = "launch --type=window --location=hsplit --stdin-source=@screen_scrollback fzf --height=25% --no-sort";
     };
   };
 }
