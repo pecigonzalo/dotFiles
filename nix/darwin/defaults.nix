@@ -28,7 +28,7 @@
 
     NSScrollAnimationEnabled = true;
 
-    AppleShowScrollBars                  = "Automatic";
+    AppleShowScrollBars = "Automatic";
 
     _HIHideMenuBar = false;
 
@@ -46,7 +46,7 @@
     Clicking  = true;
     FirstClickThreshold = 2;
     SecondClickThreshold = 2;
-    TrackpadThreeFingerDrag = true;
+    TrackpadThreeFingerDrag = false;
     TrackpadRightClick      = true;
   };
 
