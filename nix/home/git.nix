@@ -92,6 +92,9 @@
     };
 
     ignores = [
+      # .NET
+      ".ionide"
+
       # Lorri
       "shell.nix"
 
