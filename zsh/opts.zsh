@@ -6,7 +6,7 @@ setopt prompt_subst           # Prompt string is first subjected to parameter ex
 
 # Changing Directories
 setopt auto_cd                # If you type foo, and it isn't a command, and it is a directory in your cdpath, go there
-setopt cdablevars             # if argument to cd is the name of a parameter whose value is a valid directory, it will become the current directory
+unsetopt cdablevars           # Disable named directories (shortcuts to user and other dirs)
 setopt pushd_ignore_dups      # don't push multiple copies of the same directory onto the directory stack
 setopt auto_pushd             # make cd push the old directory onto the directory stack
 setopt pushdminus             # swapped the meaning of cd +1 and cd -1; we want them to mean the opposite of what they mean im csh
