@@ -1,0 +1,273 @@
+// Place your key bindings in this file to override the defaultsauto[]
+[
+  {
+    "key": "ctrl+\\",
+    "command": "-workbench.action.splitEditor"
+  },
+  {
+    "key": "ctrl+\\",
+    "command": "workbench.action.toggleSidebarVisibility"
+  },
+  {
+    "key": "ctrl+b",
+    "command": "-workbench.action.toggleSidebarVisibility"
+  },
+  {
+    "key": "ctrl+cmd+b",
+    "command": "workbench.action.toggleActivityBarVisibility"
+  },
+  {
+    "key": "alt+cmd+b",
+    "command": "workbench.action.toggleStatusbarVisibility"
+  },
+  {
+    "key": "ctrl+s",
+    "command": "workbench.action.files.save"
+  },
+  {
+    "key": "cmd+s",
+    "command": "-workbench.action.files.save"
+  },
+  {
+    "key": "ctrl+w",
+    "command": "workbench.action.closeActiveEditor"
+  },
+  {
+    "key": "cmd+w",
+    "command": "-workbench.action.closeActiveEditor"
+  },
+  {
+    "key": "cmd+w",
+    "command": "workbench.action.switchWindow"
+  },
+  {
+    "key": "ctrl+w",
+    "command": "-workbench.action.switchWindow"
+  },
+  {
+    "key": "ctrl+c",
+    "command": "editor.action.clipboardCopyAction"
+  },
+  {
+    "key": "cmd+c",
+    "command": "-editor.action.clipboardCopyAction"
+  },
+  {
+    "key": "ctrl+c",
+    "command": "execCopy"
+  },
+  {
+    "key": "cmd+c",
+    "command": "-execCopy"
+  },
+  {
+    "key": "ctrl+c",
+    "command": "workbench.action.terminal.copySelection",
+    "when": "terminalFocus && terminalProcessSupported && terminalTextSelected && terminalTextSelected"
+  },
+  {
+    "key": "cmd+c",
+    "command": "-workbench.action.terminal.copySelection",
+    "when": "terminalFocus && terminalProcessSupported && terminalTextSelected && terminalTextSelected"
+  },
+  {
+    "key": "ctrl+f",
+    "command": "actions.find",
+    "when": "editorFocus || editorIsOpen"
+  },
+  {
+    "key": "cmd+f",
+    "command": "-actions.find",
+    "when": "editorFocus || editorIsOpen"
+  },
+  {
+    "key": "ctrl+f",
+    "command": "settings.action.search",
+    "when": "inSettingsEditor"
+  },
+  {
+    "key": "cmd+f",
+    "command": "-settings.action.search",
+    "when": "inSettingsEditor"
+  },
+  {
+    "key": "ctrl+f",
+    "command": "workbench.action.terminal.focusFind",
+    "when": "terminalFindFocused && terminalProcessSupported || terminalFocus && terminalProcessSupported"
+  },
+  {
+    "key": "cmd+f",
+    "command": "-workbench.action.terminal.focusFind",
+    "when": "terminalFindFocused && terminalProcessSupported || terminalFocus && terminalProcessSupported"
+  },
+  {
+    "key": "ctrl+f",
+    "command": "keybindings.editor.searchKeybindings",
+    "when": "inKeybindings"
+  },
+  {
+    "key": "cmd+f",
+    "command": "-keybindings.editor.searchKeybindings",
+    "when": "inKeybindings"
+  },
+  {
+    "key": "cmd+f",
+    "command": "cursorRight",
+    "when": "textInputFocus"
+  },
+  {
+    "key": "ctrl+f",
+    "command": "-cursorRight",
+    "when": "textInputFocus"
+  },
+  {
+    "key": "ctrl+x",
+    "command": "editor.action.clipboardCutAction"
+  },
+  {
+    "key": "cmd+x",
+    "command": "-editor.action.clipboardCutAction"
+  },
+  {
+    "key": "ctrl+x",
+    "command": "execCut"
+  },
+  {
+    "key": "cmd+x",
+    "command": "-execCut"
+  },
+  {
+    "key": "ctrl+x",
+    "command": "filesExplorer.cut",
+    "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !inputFocus"
+  },
+  {
+    "key": "cmd+x",
+    "command": "-filesExplorer.cut",
+    "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !inputFocus"
+  },
+  {
+    "key": "ctrl+c",
+    "command": "filesExplorer.copy",
+    "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !inputFocus"
+  },
+  {
+    "key": "cmd+c",
+    "command": "-filesExplorer.copy",
+    "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !inputFocus"
+  },
+  {
+    "key": "ctrl+c",
+    "command": "keybindings.editor.copyKeybindingEntry",
+    "when": "inKeybindings && keybindingFocus"
+  },
+  {
+    "key": "cmd+c",
+    "command": "-keybindings.editor.copyKeybindingEntry",
+    "when": "inKeybindings && keybindingFocus"
+  },
+  {
+    "key": "ctrl+c",
+    "command": "problems.action.copy",
+    "when": "problemFocus"
+  },
+  {
+    "key": "cmd+c",
+    "command": "-problems.action.copy",
+    "when": "problemFocus"
+  },
+  {
+    "key": "ctrl+c",
+    "command": "remote.tunnel.copyAddressInline",
+    "when": "tunnelViewFocus && tunnelType == 'Detected' || tunnelViewFocus && tunnelType == 'Forwarded'"
+  },
+  {
+    "key": "cmd+c",
+    "command": "-remote.tunnel.copyAddressInline",
+    "when": "tunnelViewFocus && tunnelType == 'Detected' || tunnelViewFocus && tunnelType == 'Forwarded'"
+  },
+  {
+    "key": "ctrl+c",
+    "command": "search.action.copyMatch",
+    "when": "fileMatchOrMatchFocus"
+  },
+  {
+    "key": "cmd+c",
+    "command": "-search.action.copyMatch",
+    "when": "fileMatchOrMatchFocus"
+  },
+  {
+    "key": "ctrl+v",
+    "command": "editor.action.clipboardPasteAction"
+  },
+  {
+    "key": "cmd+v",
+    "command": "-editor.action.clipboardPasteAction"
+  },
+  {
+    "key": "ctrl+v",
+    "command": "workbench.action.terminal.paste",
+    "when": "terminalFocus && terminalProcessSupported"
+  },
+  {
+    "key": "cmd+v",
+    "command": "-workbench.action.terminal.paste",
+    "when": "terminalFocus && terminalProcessSupported"
+  },
+  {
+    "key": "ctrl+v",
+    "command": "filesExplorer.paste",
+    "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceReadonly && !inputFocus"
+  },
+  {
+    "key": "cmd+v",
+    "command": "-filesExplorer.paste",
+    "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceReadonly && !inputFocus"
+  },
+  {
+    "key": "ctrl+z",
+    "command": "undo"
+  },
+  {
+    "key": "cmd+z",
+    "command": "-undo"
+  },
+  {
+    "key": "cmd+a",
+    "command": "cursorLineStart",
+    "when": "textInputFocus"
+  },
+  {
+    "key": "ctrl+a",
+    "command": "-cursorLineStart",
+    "when": "textInputFocus"
+  },
+  {
+    "key": "ctrl+a",
+    "command": "list.selectAll",
+    "when": "listFocus && listSupportsMultiselect && !inputFocus"
+  },
+  {
+    "key": "cmd+a",
+    "command": "-list.selectAll",
+    "when": "listFocus && listSupportsMultiselect && !inputFocus"
+  },
+  {
+    "key": "ctrl+a",
+    "command": "workbench.action.terminal.selectAll",
+    "when": "terminalFocus && terminalProcessSupported"
+  },
+  {
+    "key": "cmd+a",
+    "command": "-workbench.action.terminal.selectAll",
+    "when": "terminalFocus && terminalProcessSupported"
+  },
+  {
+    "key": "ctrl+a",
+    "command": "editor.action.selectAll"
+  },
+  {
+    "key": "cmd+a",
+    "command": "-editor.action.selectAll"
+  }
+]
