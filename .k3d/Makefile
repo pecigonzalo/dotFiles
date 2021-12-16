@@ -1,6 +1,6 @@
 create:
 	k3d cluster create \
-	--servers=3 \
+	--servers=1 \
 	--agents=2 \
 	-p8080:80@loadbalancer \
 	-p8443:443@loadbalancer \
