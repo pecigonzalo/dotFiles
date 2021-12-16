@@ -1,5 +1,8 @@
 final: prev:
-{
+let
+  isSillicon = prev.stdenv.hostPlatform.isDarwin
+    && prev.stdenv.hostPlatform.isAarch64;
+in if isSillicon then {
   # TODO: Remove when Kitty is fixed in: https://github.com/NixOS/nixpkgs/pull/137512
   kitty = prev.kitty.overrideAttrs (oldAttrs: rec {
     buildInputs = oldAttrs.buildInputs ++ [prev.darwin.apple_sdk.frameworks.UserNotifications];
@@ -10,4 +13,4 @@ final: prev:
       })
     ];
   });
-}
+} else {}

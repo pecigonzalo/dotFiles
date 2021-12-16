@@ -9,13 +9,16 @@
     # https://github.com/nix-community/comma
     comma = { url = github:nix-community/comma; flake = false; };
 
+    # Flake Utils
+    flake-utils.url = "github:numtide/flake-utils";
+
     # Environment/system management
     darwin.url = "github:lnl7/nix-darwin";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
-  outputs = { self, darwin, home-manager, ... }@inputs:
+  outputs = { self, nixpkgs, darwin, home-manager, flake-utils, ... }@inputs:
     let
       inherit (darwin.lib) darwinSystem;
       inherit (inputs.nixpkgs.lib) attrValues makeOverridable optionalAttrs singleton;
@@ -76,9 +79,13 @@
         overlays = namedOverlays ++ dynamicOverlays;
       };
 
+      homeManagerStateVersion = "22.05";
       commonHomeManagerConfig = {
         imports = [
           ./nix/home
+          {
+            home.stateVersion = homeManagerStateVersion;
+          }
         ];
       };
 
@@ -109,10 +116,29 @@
         bootstrap-arm = bootstrap-x86.override { system = "aarch64-darwin"; };
 
         # Apple Silicon macOS
-        macfish = darwin.lib.darwinSystem {
+        macfish = darwinSystem {
           system = "aarch64-darwin";
           modules = commonDarwinConfig;
         };
       };
-    };
+
+      homeConfigurations = {
+        landfish = home-manager.lib.homeManagerConfiguration {
+          system = "x86_64-linux";
+          stateVersion = homeManagerStateVersion;
+          homeDirectory = "/home/davyjones";
+          username = "davyjones";
+          configuration = {
+            imports = [commonHomeManagerConfig];
+            nixpkgs = nixpkgsConfig;
+          };
+        };
+      };
+    } //
+    flake-utils.lib.eachDefaultSystem (system:
+      let
+        pkgs = nixpkgs.legacyPackages.${system};
+      in {
+        devShell = import ./shell.nix { inherit pkgs; };
+    });
 }

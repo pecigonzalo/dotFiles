@@ -5,8 +5,6 @@
 }:
 let
   inherit (config.lib.file) mkOutOfStoreSymlink;
-  user = "gonzalopeci";
-  homedir = "/Users/${user}";
 in
 {
   news.display = "silent";
@@ -28,9 +26,6 @@ in
     ];
 
   home = {
-    username = user;
-    homeDirectory = homedir;
-
     shellAliases = {
       # Google Apps CLI
       "gam" = "/home/gonzalo.peci/bin/gam/gam";
@@ -64,11 +59,11 @@ in
     sessionVariables =
       let
         preSessionPath = [
-          "${homedir}/.local/bin"
+          "${config.home.homeDirectory}/.local/bin"
           # Go
-          "${homedir}/Workspace/go/bin"
+          "${config.home.homeDirectory}/Workspace/go/bin"
           # K8s Krew
-          "${homedir}/.krew/bin"
+          "${config.home.homeDirectory}/.krew/bin"
           # Snowflake SnowSQL
           "/Applications/SnowSQL.app/Contents/MacOS"
           # Brew
@@ -91,7 +86,7 @@ in
         LESS = "-FRSX";
 
         # Go
-        GOPATH = "${homedir}/Workspace/go";
+        GOPATH = "${config.home.homeDirectory}/Workspace/go";
 
         # Disable virtualenv in prompt autoconfig
         VIRTUAL_ENV_DISABLE_PROMPT = 1;
@@ -118,17 +113,17 @@ in
   };
 
   home.file = {
-    ".xprofile".source = mkOutOfStoreSymlink "${homedir}/dotFiles/.xprofile";
+    ".xprofile".source = mkOutOfStoreSymlink "${config.home.homeDirectory}/dotFiles/.xprofile";
 
-    ".asdfrc".source = mkOutOfStoreSymlink "${homedir}/dotFiles/.asdfrc";
-    ".tool-versions".source = mkOutOfStoreSymlink "${homedir}/dotFiles/.tool-versions";
-    ".default-cloud-sdk-components".source = mkOutOfStoreSymlink "${homedir}/dotFiles/.default-cloud-sdk-components";
+    ".asdfrc".source = mkOutOfStoreSymlink "${config.home.homeDirectory}/dotFiles/.asdfrc";
+    ".tool-versions".source = mkOutOfStoreSymlink "${config.home.homeDirectory}/dotFiles/.tool-versions";
+    ".default-cloud-sdk-components".source = mkOutOfStoreSymlink "${config.home.homeDirectory}/dotFiles/.default-cloud-sdk-components";
 
-    ".terraformrc".source = mkOutOfStoreSymlink "${homedir}/dotFiles/.terraformrc";
+    ".terraformrc".source = mkOutOfStoreSymlink "${config.home.homeDirectory}/dotFiles/.terraformrc";
 
-    ".gemrc".source = mkOutOfStoreSymlink "${homedir}/dotFiles/.gemrc";
+    ".gemrc".source = mkOutOfStoreSymlink "${config.home.homeDirectory}/dotFiles/.gemrc";
 
-    ".numpy-site.cfg".source = mkOutOfStoreSymlink "${homedir}/dotFiles/.numpy-site.cfg";
+    ".numpy-site.cfg".source = mkOutOfStoreSymlink "${config.home.homeDirectory}/dotFiles/.numpy-site.cfg";
 
     ".parallel/will-cite".text = ""; # Stop `parallel` from displaying citation warning
   };
