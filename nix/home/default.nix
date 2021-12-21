@@ -225,6 +225,7 @@ in
     shell-functools # a collection of functional programming tools for the shell
 
     # Bash
+    shellcheck
     shfmt
 
     # Hashi
