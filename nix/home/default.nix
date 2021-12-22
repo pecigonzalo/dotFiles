@@ -1,12 +1,11 @@
 { config
 , lib
 , pkgs
+, homeDirectory
 , ...
 }:
 let
   inherit (config.lib.file) mkOutOfStoreSymlink;
-  user = "gonzalopeci";
-  homedir = "/Users/${user}";
 in
 {
   news.display = "silent";
@@ -28,9 +27,6 @@ in
     ];
 
   home = {
-    username = user;
-    homeDirectory = homedir;
-
     shellAliases = {
       # Google Apps CLI
       "gam" = "/home/gonzalo.peci/bin/gam/gam";
@@ -64,11 +60,11 @@ in
     sessionVariables =
       let
         preSessionPath = [
-          "${homedir}/.local/bin"
+          "${homeDirectory}/.local/bin"
           # Go
-          "${homedir}/Workspace/go/bin"
+          "${homeDirectory}/Workspace/go/bin"
           # K8s Krew
-          "${homedir}/.krew/bin"
+          "${homeDirectory}/.krew/bin"
           # Snowflake SnowSQL
           "/Applications/SnowSQL.app/Contents/MacOS"
           # Brew
@@ -91,7 +87,7 @@ in
         LESS = "-FRSX";
 
         # Go
-        GOPATH = "${homedir}/Workspace/go";
+        GOPATH = "${homeDirectory}/Workspace/go";
 
         # Disable virtualenv in prompt autoconfig
         VIRTUAL_ENV_DISABLE_PROMPT = 1;
@@ -118,23 +114,23 @@ in
   };
 
   home.file = {
-    ".xprofile".source = mkOutOfStoreSymlink "${homedir}/dotFiles/.xprofile";
+    ".xprofile".source = mkOutOfStoreSymlink "${homeDirectory}/dotFiles/.xprofile";
 
-    ".asdfrc".source = mkOutOfStoreSymlink "${homedir}/dotFiles/.asdfrc";
-    ".tool-versions".source = mkOutOfStoreSymlink "${homedir}/dotFiles/.tool-versions";
-    ".default-cloud-sdk-components".source = mkOutOfStoreSymlink "${homedir}/dotFiles/.default-cloud-sdk-components";
+    ".asdfrc".source = mkOutOfStoreSymlink "${homeDirectory}/dotFiles/.asdfrc";
+    ".tool-versions".source = mkOutOfStoreSymlink "${homeDirectory}/dotFiles/.tool-versions";
+    ".default-cloud-sdk-components".source = mkOutOfStoreSymlink "${homeDirectory}/dotFiles/.default-cloud-sdk-components";
 
-    ".terraformrc".source = mkOutOfStoreSymlink "${homedir}/dotFiles/.terraformrc";
+    ".terraformrc".source = mkOutOfStoreSymlink "${homeDirectory}/dotFiles/.terraformrc";
 
-    ".gemrc".source = mkOutOfStoreSymlink "${homedir}/dotFiles/.gemrc";
+    ".gemrc".source = mkOutOfStoreSymlink "${homeDirectory}/dotFiles/.gemrc";
 
-    ".numpy-site.cfg".source = mkOutOfStoreSymlink "${homedir}/dotFiles/.numpy-site.cfg";
+    ".numpy-site.cfg".source = mkOutOfStoreSymlink "${homeDirectory}/dotFiles/.numpy-site.cfg";
 
     ".parallel/will-cite".text = ""; # Stop `parallel` from displaying citation warning
   };
 
   xdg.configFile = {
-    "pypoetry/config.toml".source = mkOutOfStoreSymlink ".config/pypoetry/config.toml";
+    "pypoetry/config.toml".source = mkOutOfStoreSymlink "${homeDirectory}/dotFiles/.config/pypoetry/config.toml";
   };
 
   programs.bash.enable = true;

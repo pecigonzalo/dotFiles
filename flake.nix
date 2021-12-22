@@ -18,10 +18,9 @@
   outputs = { self, darwin, home-manager, ... }@inputs:
     let
       inherit (darwin.lib) darwinSystem;
-      inherit (inputs.nixpkgs.lib) attrValues makeOverridable optionalAttrs singleton;
+      inherit (inputs.nixpkgs.lib) attrValues makeOverridable optionalAttrs;
 
       user = "gonzalopeci";
-      homedir = "/Users/${user}";
 
       dynamicOverlays =
         let path = ./nix/overlays; in
@@ -29,7 +28,7 @@
         map (overlay: import (path + ("/" + overlay)))
           (
             filter (overlay: match ".*\\.nix" overlay != null || pathExists (path + ("/" + overlay + "/default.nix")))
-            (attrNames (readDir path))
+              (attrNames (readDir path))
           );
 
       namedOverlays = attrValues {
@@ -82,21 +81,26 @@
         ];
       };
 
-      commonDarwinConfig = [
-        ./nix/darwin
-        home-manager.darwinModules.home-manager
-        {
-          nixpkgs = nixpkgsConfig;
-          # home-manager config
-          users.users.${user}.home = homedir;
-          home-manager = {
-            useGlobalPkgs = true;
-            useUserPackages = false;
-            verbose = false;
-            users.${user} = commonHomeManagerConfig;
-          };
-        }
-      ];
+      commonDarwinConfig =
+        let
+          homeDirectory = "/Users/${user}";
+        in
+        [
+          ./nix/darwin
+          home-manager.darwinModules.home-manager
+          {
+            nixpkgs = nixpkgsConfig;
+            # home-manager config
+            users.users.${user}.home = homeDirectory;
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = false;
+              verbose = false;
+              extraSpecialArgs = { inherit homeDirectory; };
+              users.${user} = commonHomeManagerConfig;
+            };
+          }
+        ];
 
     in
     {
