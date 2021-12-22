@@ -43,11 +43,11 @@
 
   system.defaults.trackpad = {
     ActuationStrength = 1;
-    Clicking  = true;
+    Clicking = true;
     FirstClickThreshold = 2;
     SecondClickThreshold = 2;
     TrackpadThreeFingerDrag = false;
-    TrackpadRightClick      = true;
+    TrackpadRightClick = true;
   };
 
   system.activationScripts.postActivation.text = ''

@@ -2,7 +2,7 @@ final: prev:
 {
   # TODO: Remove when Kitty is fixed in: https://github.com/NixOS/nixpkgs/pull/137512
   kitty = prev.kitty.overrideAttrs (oldAttrs: rec {
-    buildInputs = oldAttrs.buildInputs ++ [prev.darwin.apple_sdk.frameworks.UserNotifications];
+    buildInputs = oldAttrs.buildInputs ++ [ prev.darwin.apple_sdk.frameworks.UserNotifications ];
     patches = [
       (prev.fetchpatch {
         url = "https://raw.githubusercontent.com/NixOS/nixpkgs/9816857458874b4e0a9560f9296b3a6a341d3810/pkgs/applications/terminal-emulators/kitty/apple-sdk-11.patch";

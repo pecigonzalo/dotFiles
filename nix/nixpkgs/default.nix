@@ -6,7 +6,7 @@ let
   );
 in
 {
-  shell-functools = callPackage ./shell-functools {};
-  loro = callPackage ./loro {};
-  iamlive = callPackage ./iamlive {};
+  shell-functools = callPackage ./shell-functools { };
+  loro = callPackage ./loro { };
+  iamlive = callPackage ./iamlive { };
 }
