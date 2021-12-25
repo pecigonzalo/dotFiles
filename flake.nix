@@ -5,10 +5,6 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nixpkgs-21-05.url = "github:nixos/nixpkgs/21.05";
 
-    # Comma
-    # https://github.com/nix-community/comma
-    comma = { url = github:nix-community/comma; flake = false; };
-
     # Environment/system management
     darwin.url = "github:lnl7/nix-darwin";
     darwin.inputs.nixpkgs.follows = "nixpkgs";

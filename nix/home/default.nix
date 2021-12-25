@@ -151,7 +151,6 @@ in
     # Nix
     nixpkgs-fmt
     rnix-lsp
-    comma # Run without installing by using ,
 
     # Misc
     parallel
