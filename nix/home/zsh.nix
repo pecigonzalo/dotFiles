@@ -74,7 +74,7 @@ in
     history = {
       size = 5000000;
       save = 5000000;
-      path = ".histfile";
+      path = "${homedir}/.histfile";
       ignorePatterns = [
         "ls"
         "cd"
@@ -93,7 +93,27 @@ in
       "reshell!" = "exec $SHELL -l";
     };
 
-    sessionVariables = {
+    sessionVariables =
+      let
+        preSessionPath = [
+          "${config.home.homeDirectory}/.local/bin"
+          # Go
+          "${config.home.homeDirectory}/Workspace/go/bin"
+          # K8s Krew
+          "${config.home.homeDirectory}/.krew/bin"
+          # Snowflake SnowSQL
+          "/Applications/SnowSQL.app/Contents/MacOS"
+          # Brew
+          "/opt/homebrew/bin"
+          # System
+          "$PATH"
+        ];
+        userPath = builtins.concatStringsSep ":" preSessionPath;
+      in
+      {
+        # Path
+        PATH = userPath;
+
       # Correction settings
       CORRECT_IGNORE = "_*";
       CORRECT_IGNORE_FILE = ".*";
@@ -123,13 +143,13 @@ in
     };
 
     plugins =
-      (map (name: omzLib {name = name;}) [
+      (map (name: omzLib { name = name; }) [
         "git"
         "key-bindings"
         "clipboard"
         "termsupport"
       ]) ++
-      (map (name: omzPlugin {name = name;}) [
+      (map (name: omzPlugin { name = name; }) [
         "aws"
         "common-aliases"
         "docker-compose"

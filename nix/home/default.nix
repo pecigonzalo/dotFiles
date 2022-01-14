@@ -56,60 +56,40 @@ in
       "k" = "kubectl";
     };
 
-    sessionVariables =
-      let
-        preSessionPath = [
-          "${config.home.homeDirectory}/.local/bin"
-          # Go
-          "${config.home.homeDirectory}/Workspace/go/bin"
-          # K8s Krew
-          "${config.home.homeDirectory}/.krew/bin"
-          # Snowflake SnowSQL
-          "/Applications/SnowSQL.app/Contents/MacOS"
-          # Brew
-          "/opt/homebrew/bin"
-          # System
-          "$PATH"
-        ];
-        userPath = builtins.concatStringsSep ":" preSessionPath;
-      in
-      {
-        # Path
-        PATH = userPath;
+    sessionVariables = {
+      # Editor
+      EDITOR = "nvim";
+      VISUAL = "code";
 
-        # Editor
-        EDITOR = "nvim";
-        VISUAL = "code";
+      # Pager
+      PAGER = "less";
+      LESS = "-FRSX";
 
-        # Pager
-        PAGER = "less";
-        LESS = "-FRSX";
+      # Go
+      GOPATH = "${config.home.homeDirectory}/Workspace/go";
 
-        # Go
-        GOPATH = "${config.home.homeDirectory}/Workspace/go";
+      # Disable virtualenv in prompt autoconfig
+      VIRTUAL_ENV_DISABLE_PROMPT = 1;
+      # Pipenv
+      PIPENV_VENV_IN_PROJECT = true;
 
-        # Disable virtualenv in prompt autoconfig
-        VIRTUAL_ENV_DISABLE_PROMPT = 1;
-        # Pipenv
-        PIPENV_VENV_IN_PROJECT = true;
+      # Docker
+      DOCKER_BUILDKIT = 1;
 
-        # Docker
-        DOCKER_BUILDKIT = 1;
+      # TLDR Colors
+      TLDR_COLOR_BLANK = "white";
+      TLDR_COLOR_NAME = "cyan";
+      TLDR_COLOR_DESCRIPTION = "white";
+      TLDR_COLOR_EXAMPLE = "green";
+      TLDR_COLOR_COMMAND = "red";
+      TLDR_COLOR_PARAMETER = "white";
 
-        # TLDR Colors
-        TLDR_COLOR_BLANK = "white";
-        TLDR_COLOR_NAME = "cyan";
-        TLDR_COLOR_DESCRIPTION = "white";
-        TLDR_COLOR_EXAMPLE = "green";
-        TLDR_COLOR_COMMAND = "red";
-        TLDR_COLOR_PARAMETER = "white";
+      # AWS
+      AWS_PAGER = "bat -p --color=always -l json";
 
-        # AWS
-        AWS_PAGER = "bat -p --color=always -l json";
-
-        # github.com/oz/tz
-        TZ_LIST = "Europe/Madrid;Home,US/Pacific;PDT";
-      };
+      # github.com/oz/tz
+      TZ_LIST = "Europe/Madrid;Home,US/Pacific;PDT";
+    };
   };
 
   home.file = {
@@ -129,7 +109,7 @@ in
   };
 
   xdg.configFile = {
-    "pypoetry/config.toml".source = mkOutOfStoreSymlink ".config/pypoetry/config.toml";
+    "pypoetry/config.toml".source = mkOutOfStoreSymlink "${config.home.homeDirectory}/dotFiles/.config/pypoetry/config.toml";
   };
 
   programs.bash.enable = true;

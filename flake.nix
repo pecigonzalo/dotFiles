@@ -32,7 +32,7 @@
         map (overlay: import (path + ("/" + overlay)))
           (
             filter (overlay: match ".*\\.nix" overlay != null || pathExists (path + ("/" + overlay + "/default.nix")))
-            (attrNames (readDir path))
+              (attrNames (readDir path))
           );
 
       namedOverlays = attrValues {
@@ -123,22 +123,21 @@
       };
 
       homeConfigurations = {
-        landfish = home-manager.lib.homeManagerConfiguration {
+        pecigonzalo = home-manager.lib.homeManagerConfiguration {
           system = "x86_64-linux";
           stateVersion = homeManagerStateVersion;
           homeDirectory = "/home/davyjones";
           username = "davyjones";
           configuration = {
-            imports = [commonHomeManagerConfig];
+            imports = [
+              commonHomeManagerConfig
+              {
+                targets.genericLinux.enable = true;
+              }
+            ];
             nixpkgs = nixpkgsConfig;
           };
         };
       };
-    } //
-    flake-utils.lib.eachDefaultSystem (system:
-      let
-        pkgs = nixpkgs.legacyPackages.${system};
-      in {
-        devShell = import ./shell.nix { inherit pkgs; };
-    });
+    };
 }
