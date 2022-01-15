@@ -104,6 +104,16 @@ in
       # Fzf
       ## Scrollback search
       "ctrl+f" = "launch --type=window --location=hsplit --stdin-source=@screen_scrollback fzf --height=25% --no-sort";
+
+      # Window management
+      "ctrl+left" = "neighboring_window left";
+      "ctrl+up" = "neighboring_window up";
+      "ctrl+down" = "neighboring_window down";
+      "ctrl+right" = "neighboring_window right";
+      "shift+left" = "move_window right";
+      "shift+up" = "move_window down";
+      "shift+down" = "move_window up";
+      "shift+right" = "move_window left";
     };
   };
 }

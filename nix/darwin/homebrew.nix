@@ -35,6 +35,7 @@ in
       "signal"
       "snowflake-snowsql"
       "wireshark"
+      "kitty"
     ];
 
     brews = [

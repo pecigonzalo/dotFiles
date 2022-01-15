@@ -10,12 +10,6 @@
   ];
 
   programs.nix-index.enable = true;
-  services = {
-    lorri = {
-      enable = true;
-      logFile = "/tmp/lorri.log";
-    };
-  };
 
   environment.pathsToLink = [
     # "/sbin"
@@ -68,5 +62,15 @@
     gnutar
     gnupg
     gawk
+
+    # TODO: Remove
+    # `home-manager` currently has issues adding them to `~/Applications`
+    # Issue: https://github.com/nix-community/home-manager/issues/1341
+    kitty
   ];
+
+  # https://github.com/nix-community/home-manager/issues/423
+  environment.variables = {
+    TERMINFO_DIRS = "${pkgs.kitty.terminfo.outPath}/share/terminfo";
+  };
 }

@@ -25,6 +25,7 @@ in
       ./starship.nix
       ./kitty.nix
       ./fonts.nix
+      ./aws.nix
     ];
 
   home = {
@@ -68,11 +69,10 @@ in
       LESS = "-FRSX";
 
       # Go
-      GOPATH = "${config.home.homeDirectory}/Workspace/go";
+      GOPATH = "${homedir}/Workspace/go";
 
       # Disable virtualenv in prompt autoconfig
       VIRTUAL_ENV_DISABLE_PROMPT = 1;
-
       # Pipenv
       PIPENV_VENV_IN_PROJECT = true;
 
@@ -87,11 +87,11 @@ in
       TLDR_COLOR_COMMAND = "red";
       TLDR_COLOR_PARAMETER = "white";
 
-      # AWS
-      AWS_PAGER = "bat -p --color=always -l json";
-
       # github.com/oz/tz
       TZ_LIST = "Europe/Madrid;Home,US/Pacific;PDT";
+
+      # Kubeconfig
+      KUBECONFIG = "${homedir}/.kube/config:${homedir}/.kube/direct-config";
     };
   };
 
@@ -159,14 +159,18 @@ in
     zstd
 
     # CLI Replacements
+    bat # cat
     ripgrep # grep
     exa # ls
     fd # find
     httpie # curl
+    curlie # curl
     tealdeer # TLDR
     du-dust # du
     htop # top
     procs # ps
+    dogdns # dig
+    gping # ping with a graph
 
     # ASDF
     asdf-vm
@@ -213,17 +217,13 @@ in
     terraform-ls
     tflint
     packer
-
-    # AWS
-    aws-vault
-    chamber
-    awscli2
-    aws-nuke
-    awless
-    eksctl
+    nodePackages.cdktf-cli
 
     # GCP
     berglas
+
+    # GitHub
+    act
 
     # Node
     nodejs
