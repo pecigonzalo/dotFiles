@@ -162,43 +162,43 @@ in
         "vscode"
       ]) ++
       [
-      (gitHubPlugin {
-        name = "zsh-z";
-        owner = "agkozak";
-        rev = "b1055fb773d5b4bf4756dca6f4c9a9a6779a0d63";
-      })
-      (gitHubPlugin {
-        name = "emoji-cli";
-        owner = "b4b4r07";
-        rev = "0fbb2e48e07218c5a2776100a4c708b21cb06688";
-      })
-      (gitHubPlugin {
-        name = "fzf-tab";
-        owner = "Aloxaf";
-        rev = "e3fae7478fc365a04a06b9972b04766ffed78c1c";
-      })
-      (gitHubPlugin {
-        name = "forgit";
-        owner = "wfxr";
-        rev = "b727321f2bd3d79c1dae805441261c45888cbb41";
-      })
-      (gitHubPlugin {
-        name = "fz";
-        owner = "changyuheng";
-        rev = "2a4c1bc73664bb938bfcc7c99f473d0065f9dbfd";
-      })
-      (gitHubPlugin {
-        name = "jq-zsh-plugin";
-        owner = "reegnz";
-        rev = "79c0ebc6fd6dbacfc2244dace095af58f2d0cd58";
-        file = "jq.plugin.zsh";
-      })
-      (gitHubPlugin {
-        name = "tipz";
-        owner = "molovo";
-        rev = "594eab4642cc6dcfe063ecd51d76478bd84e2878";
-        file = "tipz.zsh";
-      })
-    ];
+        (gitHubPlugin {
+          name = "zsh-z";
+          owner = "agkozak";
+          rev = "b1055fb773d5b4bf4756dca6f4c9a9a6779a0d63";
+        })
+        (gitHubPlugin {
+          name = "emoji-cli";
+          owner = "b4b4r07";
+          rev = "0fbb2e48e07218c5a2776100a4c708b21cb06688";
+        })
+        (gitHubPlugin {
+          name = "fzf-tab";
+          owner = "Aloxaf";
+          rev = "e3fae7478fc365a04a06b9972b04766ffed78c1c";
+        })
+        (gitHubPlugin {
+          name = "forgit";
+          owner = "wfxr";
+          rev = "b727321f2bd3d79c1dae805441261c45888cbb41";
+        })
+        (gitHubPlugin {
+          name = "fz";
+          owner = "changyuheng";
+          rev = "2a4c1bc73664bb938bfcc7c99f473d0065f9dbfd";
+        })
+        (gitHubPlugin {
+          name = "jq-zsh-plugin";
+          owner = "reegnz";
+          rev = "79c0ebc6fd6dbacfc2244dace095af58f2d0cd58";
+          file = "jq.plugin.zsh";
+        })
+        (gitHubPlugin {
+          name = "tipz";
+          owner = "molovo";
+          rev = "594eab4642cc6dcfe063ecd51d76478bd84e2878";
+          file = "tipz.zsh";
+        })
+      ];
   };
 }

@@ -1,6 +1,7 @@
 { config
 , lib
 , pkgs
+, homeDirectory
 , ...
 }:
 let
@@ -70,6 +71,7 @@ in
 
       # Disable virtualenv in prompt autoconfig
       VIRTUAL_ENV_DISABLE_PROMPT = 1;
+
       # Pipenv
       PIPENV_VENV_IN_PROJECT = true;
 
@@ -200,6 +202,7 @@ in
     shell-functools # a collection of functional programming tools for the shell
 
     # Bash
+    shellcheck
     shfmt
 
     # Hashi

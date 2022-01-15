@@ -8,7 +8,7 @@ in
   '';
   homebrew = {
     enable = true;
-    autoUpdate = true;
+    autoUpdate = false;
 
     cleanup = "zap";
     brewPrefix = brewPrefix;
@@ -17,15 +17,10 @@ in
     global.noLock = true;
 
     taps = [
-      "aws/tap"
       "fishtown-analytics/dbt"
-      "hashicorp/tap"
       "homebrew/bundle"
       "homebrew/cask"
-      "homebrew/cask-drivers"
-      "homebrew/cask-fonts"
       "homebrew/core"
-      "homebrew/services"
       "snyk/tap"
     ];
 

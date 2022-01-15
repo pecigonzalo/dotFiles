@@ -5,13 +5,6 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nixpkgs-21-05.url = "github:nixos/nixpkgs/21.05";
 
-    # Comma
-    # https://github.com/nix-community/comma
-    comma = { url = github:nix-community/comma; flake = false; };
-
-    # Flake Utils
-    flake-utils.url = "github:numtide/flake-utils";
-
     # Environment/system management
     darwin.url = "github:lnl7/nix-darwin";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
@@ -21,10 +14,9 @@
   outputs = { self, nixpkgs, darwin, home-manager, flake-utils, ... }@inputs:
     let
       inherit (darwin.lib) darwinSystem;
-      inherit (inputs.nixpkgs.lib) attrValues makeOverridable optionalAttrs singleton;
+      inherit (inputs.nixpkgs.lib) attrValues makeOverridable optionalAttrs;
 
       user = "gonzalopeci";
-      homedir = "/Users/${user}";
 
       dynamicOverlays =
         let path = ./nix/overlays; in
@@ -89,21 +81,26 @@
         ];
       };
 
-      commonDarwinConfig = [
-        ./nix/darwin
-        home-manager.darwinModules.home-manager
-        {
-          nixpkgs = nixpkgsConfig;
-          # home-manager config
-          users.users.${user}.home = homedir;
-          home-manager = {
-            useGlobalPkgs = true;
-            useUserPackages = false;
-            verbose = false;
-            users.${user} = commonHomeManagerConfig;
-          };
-        }
-      ];
+      commonDarwinConfig =
+        let
+          homeDirectory = "/Users/${user}";
+        in
+        [
+          ./nix/darwin
+          home-manager.darwinModules.home-manager
+          {
+            nixpkgs = nixpkgsConfig;
+            # home-manager config
+            users.users.${user}.home = homeDirectory;
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = false;
+              verbose = false;
+              extraSpecialArgs = { inherit homeDirectory; };
+              users.${user} = commonHomeManagerConfig;
+            };
+          }
+        ];
 
     in
     {
