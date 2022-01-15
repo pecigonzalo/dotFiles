@@ -1,11 +1,12 @@
 { config
 , lib
 , pkgs
-, homeDirectory
 , ...
 }:
 let
   inherit (config.lib.file) mkOutOfStoreSymlink;
+  homedir = config.home.homeDirectory;
+  dotfiles = "${config.home.homeDirectory}/dotFiles";
 in
 {
   news.display = "silent";
@@ -95,23 +96,23 @@ in
   };
 
   home.file = {
-    ".xprofile".source = mkOutOfStoreSymlink "${config.home.homeDirectory}/dotFiles/.xprofile";
+    ".xprofile".source = mkOutOfStoreSymlink "${dotfiles}/.xprofile";
 
-    ".asdfrc".source = mkOutOfStoreSymlink "${config.home.homeDirectory}/dotFiles/.asdfrc";
-    ".tool-versions".source = mkOutOfStoreSymlink "${config.home.homeDirectory}/dotFiles/.tool-versions";
-    ".default-cloud-sdk-components".source = mkOutOfStoreSymlink "${config.home.homeDirectory}/dotFiles/.default-cloud-sdk-components";
+    ".asdfrc".source = mkOutOfStoreSymlink "${dotfiles}/.asdfrc";
+    ".tool-versions".source = mkOutOfStoreSymlink "${dotfiles}/.tool-versions";
+    ".default-cloud-sdk-components".source = mkOutOfStoreSymlink "${dotfiles}/.default-cloud-sdk-components";
 
-    ".terraformrc".source = mkOutOfStoreSymlink "${config.home.homeDirectory}/dotFiles/.terraformrc";
+    ".terraformrc".source = mkOutOfStoreSymlink "${dotfiles}/.terraformrc";
 
-    ".gemrc".source = mkOutOfStoreSymlink "${config.home.homeDirectory}/dotFiles/.gemrc";
+    ".gemrc".source = mkOutOfStoreSymlink "${dotfiles}/.gemrc";
 
-    ".numpy-site.cfg".source = mkOutOfStoreSymlink "${config.home.homeDirectory}/dotFiles/.numpy-site.cfg";
+    ".numpy-site.cfg".source = mkOutOfStoreSymlink "${dotfiles}/.numpy-site.cfg";
 
     ".parallel/will-cite".text = ""; # Stop `parallel` from displaying citation warning
   };
 
   xdg.configFile = {
-    "pypoetry/config.toml".source = mkOutOfStoreSymlink "${config.home.homeDirectory}/dotFiles/.config/pypoetry/config.toml";
+    "pypoetry/config.toml".source = mkOutOfStoreSymlink "${dotfiles}/.config/pypoetry/config.toml";
   };
 
   programs.bash.enable = true;
@@ -130,9 +131,10 @@ in
 
   home.packages = with pkgs; [
     # Nix
+    nix
     nixpkgs-fmt
     rnix-lsp
-    comma # Run without installing by using ,
+    # comma # Run without installing by using ,
 
     # Misc
     parallel

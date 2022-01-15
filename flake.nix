@@ -3,6 +3,7 @@
   inputs = {
     # Package sets
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixpkgs-21-11.url = "github:nixos/nixpkgs/21.11";
     nixpkgs-21-05.url = "github:nixos/nixpkgs/21.05";
 
     # Environment/system management
@@ -10,13 +11,14 @@
     darwin.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    # Flake Utils
+    flake-utils.url = "github:numtide/flake-utils";
   };
   outputs = { self, nixpkgs, darwin, home-manager, flake-utils, ... }@inputs:
     let
       inherit (darwin.lib) darwinSystem;
       inherit (inputs.nixpkgs.lib) attrValues makeOverridable optionalAttrs;
-
-      user = "gonzalopeci";
 
       dynamicOverlays =
         let path = ./nix/overlays; in
@@ -29,23 +31,34 @@
 
       namedOverlays = attrValues {
         # Overlay useful on Macs with Apple Silicon
-        apple-silicon = final: prev: optionalAttrs (prev.stdenv.system == "aarch64-darwin") {
+        apple-silicon = final: prev: optionalAttrs (prev.stdenv.system == "aarch64-darwin") rec {
           # Add access to x86 packages system is running Apple Silicon
+          system = "x86_64-darwin";
           pkgs-x86 = import inputs.nixpkgs {
-            system = "x86_64-darwin";
+            inherit system;
+            inherit (nixpkgsConfig) config;
+          };
+          pkgs-x86-stable = pkgs-x86-21-11;
+          pkgs-x86-21-11 = import inputs.nixpkgs-21-11 {
+            inherit system;
+            inherit (nixpkgsConfig) config;
+          };
+          pkgs-x86-21-05 = import inputs.nixpkgs-21-05 {
+            inherit system;
             inherit (nixpkgsConfig) config;
           };
         };
 
-        pkgs-21-05 = final: prev: {
+        stable = final: prev: rec {
+          pkgs-stable = pkgs-21-11;
+          pkgs-21-11 = import inputs.nixpkgs-21-11 {
+            inherit (prev.stdenv) system;
+            inherit (nixpkgsConfig) config;
+          };
           pkgs-21-05 = import inputs.nixpkgs-21-05 {
             inherit (prev.stdenv) system;
             inherit (nixpkgsConfig) config;
           };
-        };
-
-        comma = final: prev: {
-          comma = import inputs.comma { inherit (prev) pkgs; };
         };
 
         packages = import ./nix/nixpkgs;
@@ -81,8 +94,18 @@
         ];
       };
 
+      nixRegistry = {
+        nix = {
+          registry = {
+            nixpkgs.flake = nixpkgs;
+            nixpkgs-21-11.flake = inputs.nixpkgs-21-11;
+          };
+        };
+      };
+
       commonDarwinConfig =
         let
+          user = "gonzalopeci";
           homeDirectory = "/Users/${user}";
         in
         [
@@ -96,10 +119,10 @@
               useGlobalPkgs = true;
               useUserPackages = false;
               verbose = false;
-              extraSpecialArgs = { inherit homeDirectory; };
               users.${user} = commonHomeManagerConfig;
             };
           }
+          nixRegistry
         ];
 
     in
@@ -113,14 +136,16 @@
         bootstrap-arm = bootstrap-x86.override { system = "aarch64-darwin"; };
 
         # Apple Silicon macOS
+        gonzalopeci = macfish; # Alias
         macfish = darwinSystem {
           system = "aarch64-darwin";
           modules = commonDarwinConfig;
         };
       };
 
-      homeConfigurations = {
-        pecigonzalo = home-manager.lib.homeManagerConfiguration {
+      homeConfigurations = rec {
+        pecigonzalo = wslfish; # Alias
+        wslfish = home-manager.lib.homeManagerConfiguration {
           system = "x86_64-linux";
           stateVersion = homeManagerStateVersion;
           homeDirectory = "/home/davyjones";
@@ -136,5 +161,22 @@
           };
         };
       };
-    };
+    } //
+    flake-utils.lib.eachDefaultSystem
+      (system:
+        let pkgs = nixpkgs.legacyPackages.${system};
+        in
+        rec {
+          defaultPackage = self.darwinConfigurations.bootstrap-arm.system;
+          apps.darwin-rebuild = flake-utils.lib.mkApp {
+            drv = self.darwinConfigurations.bootstrap-arm.pkgs.writeScriptBin "darwin-flake-switch" ''
+              if [ -z "$*" ]; then
+                exec ${defaultPackage}/sw/bin/darwin-rebuild --flake . switch
+              else
+                exec ${defaultPackage}/sw/bin/darwin-rebuild --flake . "''${@}"
+              fi
+            '';
+          };
+          defaultApp = apps.darwin-rebuild;
+        });
 }

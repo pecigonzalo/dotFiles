@@ -13,9 +13,5 @@ final: prev:
     virtualenv
 
     ipython
-
-    pyyaml
-
-    boto3
   ]);
 }
