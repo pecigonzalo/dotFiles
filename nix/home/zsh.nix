@@ -96,11 +96,11 @@ in
     sessionVariables =
       let
         preSessionPath = [
-          "${config.home.homeDirectory}/.local/bin"
+          "${homedir}/.local/bin"
           # Go
-          "${config.home.homeDirectory}/Workspace/go/bin"
+          "${homedir}/Workspace/go/bin"
           # K8s Krew
-          "${config.home.homeDirectory}/.krew/bin"
+          "${homedir}/.krew/bin"
           # Snowflake SnowSQL
           "/Applications/SnowSQL.app/Contents/MacOS"
           # Brew
@@ -114,33 +114,33 @@ in
         # Path
         PATH = userPath;
 
-      # Correction settings
-      CORRECT_IGNORE = "_*";
-      CORRECT_IGNORE_FILE = ".*";
+        # Correction settings
+        CORRECT_IGNORE = "_*";
+        CORRECT_IGNORE_FILE = ".*";
 
-      # Uncomment the following line if you want to disable marking untracked files
-      # under VCS as dirty. This makes repository status check for large repositories
-      # much, much faster.
-      DISABLE_UNTRACKED_FILES_DIRTY = "true";
+        # Uncomment the following line if you want to disable marking untracked files
+        # under VCS as dirty. This makes repository status check for large repositories
+        # much, much faster.
+        DISABLE_UNTRACKED_FILES_DIRTY = "true";
 
-      # OMZ
-      DISABLE_UPDATE_PROMPT = "true";
-      DISABLE_AUTO_UPDATE = "true";
-      SHOW_AWS_PROMPT = "false"; # Disable OMZ prompt
+        # OMZ
+        DISABLE_UPDATE_PROMPT = "true";
+        DISABLE_AUTO_UPDATE = "true";
+        SHOW_AWS_PROMPT = "false"; # Disable OMZ prompt
 
-      # Tipz
-      TIPZ_TEXT = "💡";
+        # Tipz
+        TIPZ_TEXT = "💡";
 
-      # zsh-autosuggestions
-      ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE = 20;
-      ZSH_AUTOSUGGEST_USE_ASYNC = "true";
+        # zsh-autosuggestions
+        ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE = 20;
+        ZSH_AUTOSUGGEST_USE_ASYNC = "true";
 
-      # zsh-z, fz
-      ZSHZ_CMD = "zshz";
-      ZSHZ_NO_RESOLVE_SYMLINKS = 1;
-      FZ_HISTORY_CD_CMD = "zshz";
-      FZ_SUBDIR_TRAVERSAL = 0;
-    };
+        # zsh-z, fz
+        ZSHZ_CMD = "zshz";
+        ZSHZ_NO_RESOLVE_SYMLINKS = 1;
+        FZ_HISTORY_CD_CMD = "zshz";
+        FZ_SUBDIR_TRAVERSAL = 0;
+      };
 
     plugins =
       (map (name: omzLib { name = name; }) [
