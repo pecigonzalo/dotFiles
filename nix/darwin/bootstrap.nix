@@ -20,6 +20,9 @@
       auto-optimise-store = true
       experimental-features = nix-command flakes
 
+      keep-outputs = true
+      keep-derivations = true
+
       extra-platforms = aarch64-darwin x86_64-darwin
     '';
   };

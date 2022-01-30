@@ -27,25 +27,13 @@ in
           exit 2
         fi
 
-        # create venv if it doesn't exist
-        poetry run true
+        # Create venv if it doesn't exist
+        poetry env use python
 
         export VIRTUAL_ENV=$(poetry env info --path)
         export POETRY_ACTIVE=1
         PATH_add "$VIRTUAL_ENV/bin"
       }
-
-      layout_node() {
-        PATH_add node_modules/.bin
-      }
-
-      # if [[ -f pyproject.toml ]]; then
-      #   layout_poetry
-      # fi
-
-      # if [[ -f node_modules ]]; then
-      #   layout_node
-      # fi
     '';
   };
 }

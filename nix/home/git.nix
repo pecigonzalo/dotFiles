@@ -98,6 +98,10 @@
       # Lorri
       "shell.nix"
 
+      # Flakes
+      "flake.nix"
+      "flake.lock"
+
       # Created by https://www.gitignore.io/api/code,windows,linux,osx,direnv
       # Edit at https://www.gitignore.io/?templates=code,windows,linux,osx,direnv
 

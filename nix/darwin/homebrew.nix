@@ -36,6 +36,7 @@ in
       "snowflake-snowsql"
       "wireshark"
       "kitty"
+      "docker"
     ];
 
     brews = [
