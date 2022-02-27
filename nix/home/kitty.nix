@@ -103,7 +103,7 @@ in
 
       # Fzf
       ## Scrollback search
-      "ctrl+f" = "launch --type=window --location=hsplit --stdin-source=@screen_scrollback fzf --height=25% --no-sort";
+      "ctrl+f" = "launch --type=overlay --location=hsplit --stdin-source=@screen_scrollback fzf --no-sort --no-mouse -i --tac";
 
       # Window management
       "ctrl+left" = "neighboring_window left";
