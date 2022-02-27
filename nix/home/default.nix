@@ -25,7 +25,6 @@ in
       ./starship.nix
       ./kitty.nix
       ./fonts.nix
-      ./aws.nix
     ];
 
   home = {
@@ -172,6 +171,8 @@ in
     dogdns # dig
     gping # ping with a graph
 
+    jo # JSON objects made easy https://github.com/jpmens/jo
+
     # ASDF
     asdf-vm
 
@@ -275,5 +276,14 @@ in
     # Other CLIs
     _1password
     teleport
+
+    # Lima
+    lima
+
+    # parquet
+    # parquet-tools
+
+    # # Libs
+    # openblas
   ];
 }
