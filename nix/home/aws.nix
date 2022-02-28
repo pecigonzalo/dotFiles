@@ -102,7 +102,7 @@ let
     ));
 in
 {
-  home.file.".aws/config".text = generators.toINI { } awsConfig;
+  # home.file.".aws/config".text = generators.toINI { } awsConfig;
   home.sessionVariables = {
     # AWS
     AWS_PAGER = "bat -p --color=always -l json";
