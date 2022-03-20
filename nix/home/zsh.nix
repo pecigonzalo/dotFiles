@@ -46,7 +46,7 @@ in
       zmodload zsh/zprof
 
       ## SSH
-      zstyle :omz:plugins:ssh-agent ssh-add-args -K # NOTE: OSX Only
+      # zstyle :omz:plugins:ssh-agent ssh-add-args -K # NOTE: OSX Only
       zstyle :omz:plugins:ssh-agent identities pecigonzalo_ed25519 pecigonzalo_rsa
     '';
 

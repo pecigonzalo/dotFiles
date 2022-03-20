@@ -160,6 +160,22 @@
             nixpkgs = nixpkgsConfig;
           };
         };
+        
+        revel = home-manager.lib.homeManagerConfiguration {
+          system = "x86_64-linux";
+          stateVersion = homeManagerStateVersion;
+          homeDirectory = "/home/ubuntu";
+          username = "ubuntu";
+          configuration = {
+            imports = [
+              commonHomeManagerConfig
+              {
+                targets.genericLinux.enable = true;
+              }
+            ];
+            nixpkgs = nixpkgsConfig;
+          };
+        };
       };
     } //
     flake-utils.lib.eachDefaultSystem
