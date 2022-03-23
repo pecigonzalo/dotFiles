@@ -77,8 +77,8 @@
       };
 
       format = lib.concatStrings [
-        "$username"
-        "$hostname"
+        # "$username"
+        # "$hostname"
         "$directory"
         "$git_branch"
         "$git_commit"
