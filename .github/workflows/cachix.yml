@@ -29,8 +29,8 @@ jobs:
     strategy:
       matrix:
         include:
-          - username: pecigonzalo
-          - username: pecigonzalo
+          - username: wslfish
+          - username: revel
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
