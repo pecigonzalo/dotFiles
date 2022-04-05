@@ -146,7 +146,10 @@
         gonzalopeci = macfish; # Alias
         macfish = darwinSystem {
           system = "aarch64-darwin";
-          modules = commonDarwinConfig;
+          modules = commonDarwinConfig ++ [
+            { networking.hostName = "macfish"; }
+          ];
+
         };
       };
 
