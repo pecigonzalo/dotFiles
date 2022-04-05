@@ -38,7 +38,7 @@
       push.default = "current";
       pull.rebase = true;
       fetch.prune = true;
-      help.autocorrect = "true";
+      help.autocorrect = 20;
       difftool.prompt = false;
 
       core = {
@@ -94,13 +94,6 @@
     ignores = [
       # .NET
       ".ionide"
-
-      # Lorri
-      "shell.nix"
-
-      # Flakes
-      "flake.nix"
-      "flake.lock"
 
       # Created by https://www.gitignore.io/api/code,windows,linux,osx,direnv
       # Edit at https://www.gitignore.io/?templates=code,windows,linux,osx,direnv
