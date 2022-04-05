@@ -25,6 +25,7 @@ in
       ./starship.nix
       ./kitty.nix
       ./fonts.nix
+      ./aws.nix
     ];
 
   home = {
