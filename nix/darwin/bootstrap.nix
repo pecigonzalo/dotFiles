@@ -6,27 +6,6 @@
 
   users.nix.configureBuildUsers = true;
 
-  nix = {
-    package = pkgs.nix;
-
-    buildCores = 0;
-    maxJobs = "auto";
-
-    useDaemon = true;
-    daemonIONice = true;
-    daemonNiceLevel = 19;
-
-    extraOptions = ''
-      auto-optimise-store = true
-      experimental-features = nix-command flakes
-
-      keep-outputs = true
-      keep-derivations = true
-
-      extra-platforms = aarch64-darwin x86_64-darwin
-    '';
-  };
-
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
 
@@ -35,4 +14,17 @@
     fish
     zsh
   ];
+
+  nix = {
+    useDaemon = true;
+
+    extraOptions = ''
+      extra-platforms = aarch64-darwin x86_64-darwin
+
+      auto-optimise-store = true
+
+      keep-outputs = true
+      keep-derivations = true
+    '';
+  };
 }
