@@ -161,6 +161,23 @@
           };
         };
         
+	
+        devel = home-manager.lib.homeManagerConfiguration {
+          system = "x86_64-linux";
+          stateVersion = homeManagerStateVersion;
+          homeDirectory = "/home/devel";
+          username = "devel";
+          configuration = {
+            imports = [
+              commonHomeManagerConfig
+              {
+                targets.genericLinux.enable = true;
+              }
+            ];
+            nixpkgs = nixpkgsConfig;
+          };
+        };
+
         revel = home-manager.lib.homeManagerConfiguration {
           system = "x86_64-linux";
           stateVersion = homeManagerStateVersion;
