@@ -31,6 +31,7 @@ jobs:
 
   build-home-configuration:
     strategy:
+      fail-fast: false
       matrix:
         include:
           - username: wslfish
@@ -53,6 +54,7 @@ jobs:
 
   build-darwin-configuration:
     strategy:
+      fail-fast: false
       matrix:
         host:
           - macfish
