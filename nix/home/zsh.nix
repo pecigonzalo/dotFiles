@@ -44,6 +44,7 @@ in
 
     dotDir = ".config/zsh";
 
+    # TODO: Make this an overlay or something
     initExtraFirst = ''
       zmodload zsh/zprof
 
