@@ -160,8 +160,7 @@
             nixpkgs = nixpkgsConfig;
           };
         };
-        
-	
+
         devel = home-manager.lib.homeManagerConfiguration {
           system = "x86_64-linux";
           stateVersion = homeManagerStateVersion;
@@ -207,6 +206,15 @@
                 exec ${defaultPackage}/sw/bin/darwin-rebuild --flake . switch
               else
                 exec ${defaultPackage}/sw/bin/darwin-rebuild --flake . "''${@}"
+              fi
+            '';
+          };
+          apps.home-manager-rebuild = flake-utils.lib.mkapp {
+            drv = pkgs.writeScriptBin "home-manager-switch" ''
+              if [ -z "$*" ]; then
+                exec ${pkgs.defaultApp.program} switch --flake . "''$@"
+              else
+                exec ${pkgs.defaultApp.program} switch --flake . "''$@"
               fi
             '';
           };
