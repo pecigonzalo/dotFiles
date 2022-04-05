@@ -6,7 +6,7 @@
 
     # Other nix-darwin configuration
     ./homebrew.nix
-    ./defaults.nix
+    ./system.nix
   ];
 
   programs.nix-index.enable = true;

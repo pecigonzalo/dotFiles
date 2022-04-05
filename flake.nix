@@ -94,12 +94,18 @@
         ];
       };
 
-      nixRegistry = {
+      nixGlobal = {
         nix = {
           registry = {
             nixpkgs.flake = nixpkgs;
             nixpkgs-21-11.flake = inputs.nixpkgs-21-11;
           };
+
+          nixPath = [
+            "nixpkgs=${inputs.nixpkgs}"
+            "darwin=${inputs.darwin}"
+            "home-manager=${inputs.home-manager}"
+          ];
         };
       };
 
@@ -109,6 +115,8 @@
           homeDirectory = "/Users/${user}";
         in
         [
+          nixGlobal
+          ./nix/common
           ./nix/darwin
           home-manager.darwinModules.home-manager
           {
@@ -122,7 +130,6 @@
               users.${user} = commonHomeManagerConfig;
             };
           }
-          nixRegistry
         ];
 
     in

@@ -47,6 +47,7 @@ in
     masApps = {
       # "Xcode" = 497799835;
       "Amphetamine" = 937984704;
+      "Steam Link" = 1246969117;
     };
   };
 }
