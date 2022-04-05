@@ -3,6 +3,8 @@
 let
   homedir = config.home.homeDirectory;
 
+  isDarwin = pkgs.stdenv.hostPlatform.isDarwin;
+
   omzRev = "5e8905b4b22dfec9042590f3aa399935b8b83eed";
   omzPlugin = { name }: {
     name = "ohmyzsh-plugin-${name}";
@@ -46,9 +48,10 @@ in
       zmodload zsh/zprof
 
       ## SSH
-      zstyle :omz:plugins:ssh-agent ssh-add-args -K # NOTE: OSX Only
       zstyle :omz:plugins:ssh-agent identities pecigonzalo_ed25519 pecigonzalo_rsa
-    '';
+    '' + pkgs.lib.optionalString
+      isDarwin "zstyle :omz:plugins:ssh-agent ssh-add-args --apple-use-keychain # NOTE: OSX Only";
+
 
     initExtra = ''
       ## Others
