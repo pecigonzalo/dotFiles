@@ -94,12 +94,18 @@
         ];
       };
 
-      nixRegistry = {
+      nixGlobal = {
         nix = {
           registry = {
             nixpkgs.flake = nixpkgs;
             nixpkgs-21-11.flake = inputs.nixpkgs-21-11;
           };
+
+          nixPath = [
+            "nixpkgs=${inputs.nixpkgs}"
+            "darwin=${inputs.darwin}"
+            "home-manager=${inputs.home-manager}"
+          ];
         };
       };
 
@@ -109,6 +115,8 @@
           homeDirectory = "/Users/${user}";
         in
         [
+          nixGlobal
+          ./nix/common
           ./nix/darwin
           home-manager.darwinModules.home-manager
           {
@@ -122,7 +130,6 @@
               users.${user} = commonHomeManagerConfig;
             };
           }
-          nixRegistry
         ];
 
     in
@@ -139,7 +146,10 @@
         gonzalopeci = macfish; # Alias
         macfish = darwinSystem {
           system = "aarch64-darwin";
-          modules = commonDarwinConfig;
+          modules = commonDarwinConfig ++ [
+            { networking.hostName = "macfish"; }
+          ];
+
         };
       };
 
@@ -161,7 +171,6 @@
           };
         };
         
-	
         devel = home-manager.lib.homeManagerConfiguration {
           system = "x86_64-linux";
           stateVersion = homeManagerStateVersion;
@@ -207,6 +216,15 @@
                 exec ${defaultPackage}/sw/bin/darwin-rebuild --flake . switch
               else
                 exec ${defaultPackage}/sw/bin/darwin-rebuild --flake . "''${@}"
+              fi
+            '';
+          };
+          apps.home-manager-rebuild = flake-utils.lib.mkapp {
+            drv = pkgs.writeScriptBin "home-manager-switch" ''
+              if [ -z "$*" ]; then
+                exec ${pkgs.defaultApp.program} switch --flake . "''$@"
+              else
+                exec ${pkgs.defaultApp.program} switch --flake . "''$@"
               fi
             '';
           };

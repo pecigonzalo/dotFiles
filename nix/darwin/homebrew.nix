@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 let
-  brewPrefix = "/opt/homebrew/bin";
+  brewPrefix = if pkgs.stdenv.hostPlatform.isDarwin then "/opt/homebrew/bin" else "/usr/local/bin";
 in
 {
   environment.shellInit = ''
@@ -47,6 +47,7 @@ in
     masApps = {
       # "Xcode" = 497799835;
       "Amphetamine" = 937984704;
+      "Steam Link" = 1246969117;
     };
   };
 }
