@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 let
-  brewPrefix = if pkgs.system == "aarch64-darwin" then "/opt/homebrew/bin" else "/usr/local/bin";
+  brewPrefix = if pkgs.stdenv.hostPlatform.isDarwin then "/opt/homebrew/bin" else "/usr/local/bin";
 in
 {
   environment.shellInit = ''
