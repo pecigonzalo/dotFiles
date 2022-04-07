@@ -2,9 +2,10 @@
   description = "Gonzalo's darwin configuration";
   inputs = {
     # Package sets
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/21.11";
     nixpkgs-21-11.url = "github:nixos/nixpkgs/21.11";
     nixpkgs-21-05.url = "github:nixos/nixpkgs/21.05";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
     # Environment/system management
     darwin.url = "github:lnl7/nix-darwin";
