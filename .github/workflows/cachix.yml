@@ -72,5 +72,4 @@ jobs:
 
       - name: Build system
         run: |
-          nix --print-build-logs build .#darwinConfigurations.${{ matrix.host }}.system
-          nix log /nix/store/iikwdfwh2vdnywa5ijy3f55zpb8l1h3i-Brewfile.drv
+          nix --print-build-logs build .#darwinConfigurations.${{ matrix.host }}.system ||nix log /nix/store/iikwdfwh2vdnywa5ijy3f55zpb8l1h3i-Brewfile.drv
