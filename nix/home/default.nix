@@ -229,6 +229,7 @@ in
     # Node
     nodejs
     yarn
+    nodePackages.typescript
 
     # Deno
     deno
