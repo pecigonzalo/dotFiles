@@ -147,6 +147,7 @@
           modules = commonDarwinConfig ++ [
             ({ lib, ... }: {
               homebrew.enable = lib.mkForce false;
+              networking.hostName = "runner";
             })
           ];
         };
