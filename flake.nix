@@ -152,7 +152,9 @@
         };
 
         # Apple Silicon macOS
-        gonzalopeci = macfish; # Alias
+        gonzalopeci = macfish ++ {
+          modules = { networking.hostName = "gonzalopeci"; };
+        }; # Alias
         macfish = darwinSystem {
           system = "aarch64-darwin";
           modules = commonDarwinConfig ++ [
@@ -217,6 +219,7 @@
         let pkgs = nixpkgs.legacyPackages.${system};
         in
         rec {
+          packages = pkgs;
           defaultPackage = self.darwinConfigurations.bootstrap-arm.system;
           apps.darwin-rebuild = flake-utils.lib.mkApp {
             drv = self.darwinConfigurations.bootstrap-arm.pkgs.writeScriptBin "darwin-flake-switch" ''
