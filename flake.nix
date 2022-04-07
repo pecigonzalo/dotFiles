@@ -142,6 +142,15 @@
         };
         bootstrap-arm = bootstrap-x86.override { system = "aarch64-darwin"; };
 
+        githubCI = darwinSystem {
+          system = "aarch64-darwin";
+          modules = commonDarwinConfig ++ [
+            ({ lib, ... }: {
+              homebrew.enable = lib.mkForce false;
+            })
+          ];
+        };
+
         # Apple Silicon macOS
         gonzalopeci = macfish; # Alias
         macfish = darwinSystem {
@@ -149,7 +158,6 @@
           modules = commonDarwinConfig ++ [
             { networking.hostName = "macfish"; }
           ];
-
         };
       };
 
