@@ -143,7 +143,7 @@
         bootstrap-arm = bootstrap-x86.override { system = "aarch64-darwin"; };
 
         githubCI = darwinSystem {
-          system = "aarch64-darwin";
+          system = "x86_64-darwin";
           modules = commonDarwinConfig ++ [
             ({ lib, ... }: {
               homebrew.enable = lib.mkForce false;
