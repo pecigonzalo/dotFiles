@@ -85,7 +85,7 @@
         overlays = namedOverlays ++ dynamicOverlays;
       };
 
-      homeManagerStateVersion = "22.05";
+      homeManagerStateVersion = "21.11";
       commonHomeManagerConfig = {
         imports = [
           ./nix/home
