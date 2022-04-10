@@ -183,7 +183,7 @@ in
         (gitHubPlugin {
           name = "forgit";
           owner = "wfxr";
-          rev = "b727321f2bd3d79c1dae805441261c45888cbb41";
+          rev = "eed197948cc58b5bc388c1ebb1559431898a6221";
         })
         (gitHubPlugin {
           name = "jq-zsh-plugin";
