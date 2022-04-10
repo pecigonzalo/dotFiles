@@ -178,7 +178,7 @@ in
         (gitHubPlugin {
           name = "fzf-tab";
           owner = "Aloxaf";
-          rev = "e3fae7478fc365a04a06b9972b04766ffed78c1c";
+          rev = "103330fdbeba07416d5f90b391eee680cd20d2d6";
         })
         (gitHubPlugin {
           name = "forgit";
