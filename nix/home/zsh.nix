@@ -188,7 +188,7 @@ in
         (gitHubPlugin {
           name = "jq-zsh-plugin";
           owner = "reegnz";
-          rev = "79c0ebc6fd6dbacfc2244dace095af58f2d0cd58";
+          rev = "9de99b0bc6dd33b1a560ce9cfe755c52f4217f72";
           file = "jq.plugin.zsh";
         })
         (gitHubPlugin {
