@@ -139,10 +139,10 @@ in
         ZSH_AUTOSUGGEST_USE_ASYNC = "true";
 
         # zsh-z, fz
-        ZSHZ_CMD = "zshz";
         ZSHZ_NO_RESOLVE_SYMLINKS = 1;
-        FZ_HISTORY_CD_CMD = "zshz";
-        FZ_SUBDIR_TRAVERSAL = 0;
+        ZSHZ_TILDE = 1;
+        ZSHZ_TRAILING_SLASH = 1;
+        ZSHZ_UNCOMMON = 1;
       };
 
     plugins =
@@ -168,7 +168,7 @@ in
         (gitHubPlugin {
           name = "zsh-z";
           owner = "agkozak";
-          rev = "b1055fb773d5b4bf4756dca6f4c9a9a6779a0d63";
+          rev = "b5e61d03a42a84e9690de12915a006b6745c2a5f";
         })
         (gitHubPlugin {
           name = "emoji-cli";
@@ -184,11 +184,6 @@ in
           name = "forgit";
           owner = "wfxr";
           rev = "b727321f2bd3d79c1dae805441261c45888cbb41";
-        })
-        (gitHubPlugin {
-          name = "fz";
-          owner = "changyuheng";
-          rev = "2a4c1bc73664bb938bfcc7c99f473d0065f9dbfd";
         })
         (gitHubPlugin {
           name = "jq-zsh-plugin";
