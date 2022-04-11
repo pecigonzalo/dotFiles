@@ -152,7 +152,7 @@
         };
 
         # Apple Silicon macOS
-        gonzalopeci = macfish ++ {
+        gonzalopeci = macfish // {
           modules = { networking.hostName = "gonzalopeci"; };
         }; # Alias
         macfish = darwinSystem {

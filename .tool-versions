@@ -9,7 +9,6 @@ yarn system
 gcloud system
 dhall system
 python system
-vagrant system
 packer system
 fd system
 jq system
