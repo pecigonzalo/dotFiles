@@ -1,18 +1,12 @@
-{ config, lib, pkgs, ... }:
-let
-  brewPrefix = if pkgs.stdenv.hostPlatform.isDarwin then "/opt/homebrew/bin" else "/usr/local/bin";
-in
+{ config, ... }:
 {
   environment.shellInit = ''
-    eval "$(${brewPrefix}/brew shellenv)"
+    eval "$(${config.homebrew.brewPrefix}/brew shellenv)"
   '';
   homebrew = {
     enable = true;
     autoUpdate = false;
-
     cleanup = "zap";
-    brewPrefix = brewPrefix;
-
     global.brewfile = true;
     global.noLock = true;
 

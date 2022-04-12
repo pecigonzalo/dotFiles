@@ -7,7 +7,7 @@
     # Other nix-darwin configuration
     ./homebrew.nix
     ./system.nix
-    # ./cachix.nix
+    ./cachix.nix
   ];
 
   programs.nix-index.enable = true;
@@ -63,10 +63,6 @@
     gnutar
     gnupg
     gawk
-
-    # TODO: Remove
-    # `home-manager` currently has issues adding them to `~/Applications`
-    kitty
   ];
 
   # https://github.com/nix-community/home-manager/issues/423
