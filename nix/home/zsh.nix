@@ -106,6 +106,8 @@ in
           "${homedir}/.krew/bin"
           # Snowflake SnowSQL
           "/Applications/SnowSQL.app/Contents/MacOS"
+          # Brew
+          "/opt/homebrew/bin"
           # System
           "$PATH"
         ];
