@@ -63,6 +63,10 @@
     gnutar
     gnupg
     gawk
+
+    # Container runtimes
+    lima
+    colima
   ];
 
   # https://github.com/nix-community/home-manager/issues/423
