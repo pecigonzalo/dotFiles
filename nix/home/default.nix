@@ -157,6 +157,7 @@ in
     xz
     unrar
     zstd
+    gzip
 
     # CLI Replacements
     bat # cat
