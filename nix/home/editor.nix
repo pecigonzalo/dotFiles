@@ -36,6 +36,7 @@ in
       plugins = with pkgs.vimPlugins; [
         vim-commentary
         dracula-vim
+        editorconfig-nvim
       ] ++ mapper [
         vim-lsp
         nvim-lspconfig
