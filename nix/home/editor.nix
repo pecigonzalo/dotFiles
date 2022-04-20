@@ -18,10 +18,9 @@ let
     optional = true;
     type = type;
     config = ''
-      if !exists('g:vscode')
-        packadd ${plugin.pname}
-        ${config}
-      endif
+      if not vim.g.vscode then
+        vim.cmd('packadd ${plugin.pname}')
+      end
     '';
   };
 in
@@ -36,22 +35,8 @@ in
 
       plugins = with pkgs.vimPlugins; [
         vim-commentary
+        dracula-vim
       ] ++ mapper [
-        {
-          plugin = dracula-vim;
-          type = "viml";
-          config = ''
-            " NERD Tree auto-open
-            autocmd StdinReadPre * let s:std_in=1
-            autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
-            " Open NERD Tree with CTRL+\
-            map <C-\> :NERDTreeToggle<CR>
-            " NERD Tree auto-close
-            autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-            " NERD Tree config
-            let NERDTreeShowHidden=1
-          '';
-        }
         vim-lsp
         nvim-lspconfig
 
@@ -65,13 +50,13 @@ in
         asyncomplete-lsp-vim
         asyncomplete-vim
 
-        # Tree explorer
-        nerdtree
+        # Treexplorer
+        {
+          plugin = nerdtree;
+          type = "lua";
+          config = builtins.readFile ./neovim/nerdtree.lua;
+        }
       ];
-
-      coc = {
-        enable = false;
-      };
 
       extraPackages = with pkgs; [
         # nvim-treesitter
