@@ -20,6 +20,7 @@ let
     config = ''
       if not vim.g.vscode then
         vim.cmd('packadd ${plugin.pname}')
+        ${config}
       end
     '';
   };
