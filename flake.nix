@@ -67,7 +67,7 @@
       nixpkgsConfig = with inputs; {
         config = {
           allowUnfree = true;
-          allowBroken = false;
+          allowBroken = true;
           allowInsecure = false;
           allowUnsupportedSystem = true;
         };
@@ -103,6 +103,7 @@
 
           nixPath = [
             "nixpkgs=${inputs.nixpkgs}"
+            "nixpkgs-21-11=${inputs.nixpkgs-21-11}"
             "darwin=${inputs.darwin}"
             "home-manager=${inputs.home-manager}"
           ];
@@ -152,9 +153,6 @@
         };
 
         # Apple Silicon macOS
-        gonzalopeci = macfish // {
-          modules = { networking.hostName = "gonzalopeci"; };
-        }; # Alias
         macfish = darwinSystem {
           system = "aarch64-darwin";
           modules = commonDarwinConfig ++ [
@@ -213,32 +211,6 @@
           };
         };
       };
-    } //
-    flake-utils.lib.eachDefaultSystem
-      (system:
-        let pkgs = nixpkgs.legacyPackages.${system};
-        in
-        rec {
-          packages = pkgs;
-          defaultPackage = self.darwinConfigurations.bootstrap-arm.system;
-          apps.darwin-rebuild = flake-utils.lib.mkApp {
-            drv = self.darwinConfigurations.bootstrap-arm.pkgs.writeScriptBin "darwin-flake-switch" ''
-              if [ -z "$*" ]; then
-                exec ${defaultPackage}/sw/bin/darwin-rebuild --flake . switch
-              else
-                exec ${defaultPackage}/sw/bin/darwin-rebuild --flake . "''${@}"
-              fi
-            '';
-          };
-          apps.home-manager-rebuild = flake-utils.lib.mkapp {
-            drv = pkgs.writeScriptBin "home-manager-switch" ''
-              if [ -z "$*" ]; then
-                exec ${pkgs.defaultApp.program} switch --flake . "''$@"
-              else
-                exec ${pkgs.defaultApp.program} switch --flake . "''$@"
-              fi
-            '';
-          };
-          defaultApp = apps.darwin-rebuild;
-        });
+      defaultPackage.aarch64-darwin = darwinSystem.system;
+    };
 }
