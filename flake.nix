@@ -211,6 +211,5 @@
           };
         };
       };
-      defaultPackage.aarch64-darwin = darwinSystem.system;
     };
 }
