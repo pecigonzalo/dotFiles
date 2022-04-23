@@ -39,24 +39,36 @@ in
         dracula-vim
         editorconfig-nvim
       ] ++ mapper [
-        vim-lsp
-        nvim-lspconfig
-
-        vim-nix
+        # Treesitter
         {
           plugin = nvim-treesitter.withPlugins (plugins: pkgs.tree-sitter.allGrammars);
           type = "lua";
           config = builtins.readFile ./neovim/treesitter.lua;
         }
-        async-vim
-        asyncomplete-lsp-vim
-        asyncomplete-vim
+        # LSP
+        nvim-lspconfig
+        cmp-buffer
+        cmp-path
+        cmp-cmdline
+        cmp-vsnip
+        vim-vsnip
+        cmp-nvim-lsp
+        {
+          plugin = nvim-cmp;
+          type = "lua";
+          config = builtins.readFile ./neovim/cmp.lua;
+        }
+
+        vim-visual-multi # Multiple cursors
+
+        vim-nix
 
         # Treexplorer
+        nvim-web-devicons
         {
-          plugin = nerdtree;
+          plugin = nvim-tree-lua;
           type = "lua";
-          config = builtins.readFile ./neovim/nerdtree.lua;
+          config = builtins.readFile ./neovim/explorer.lua;
         }
       ];
 

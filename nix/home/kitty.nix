@@ -107,8 +107,8 @@ in
 
       # Window management
       "ctrl+left" = "neighboring_window left";
-      "ctrl+up" = "neighboring_window up";
-      "ctrl+down" = "neighboring_window down";
+      # "ctrl+up" = "neighboring_window up";
+      # "ctrl+down" = "neighboring_window down";
       "ctrl+right" = "neighboring_window right";
       "shift+left" = "move_window right";
       "shift+up" = "move_window down";
