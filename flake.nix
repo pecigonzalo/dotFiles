@@ -149,6 +149,7 @@
             ({ lib, ... }: {
               homebrew.enable = lib.mkForce false;
             })
+            { networking.hostName = "github"; }
           ];
         };
 
