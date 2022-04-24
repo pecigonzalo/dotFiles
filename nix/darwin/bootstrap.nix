@@ -24,7 +24,7 @@
     useDaemon = true;
 
     extraOptions = ''
-      extra-platforms = x86_64-darwin aarch64-darwin
+      extra-platforms = aarch64-darwin x86_64-darwin
 
       auto-optimise-store = true
       keep-outputs = true

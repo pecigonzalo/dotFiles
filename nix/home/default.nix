@@ -218,6 +218,7 @@ in
     # vagrant
     terraform
     terraform-ls
+    terraform-docs
     tflint
     packer
     nodePackages.cdktf-cli
