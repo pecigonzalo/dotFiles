@@ -225,7 +225,7 @@
             name = system;
             value = {
               macfish =
-                self.darwinConfigurations.macfish.config.system.build.toplevel;
+                self.darwinConfigurations.gitHubCI.config.system.build.toplevel;
             };
           })
           nixpkgs.lib.platforms.darwin) ++
