@@ -228,7 +228,8 @@
                 self.darwinConfigurations.macfish.config.system.build.toplevel;
             };
           })
-          [ "aarch64-darwin" ]) ++
+          nixpkgs.lib.platforms.darwin) ++
+        # [ "aarch64-darwin" ]) ++
         # linux checks
         (map
           (system: {
@@ -237,7 +238,8 @@
               wslfish = self.homeConfigurations.wslfish.activationPackage;
             };
           })
-          [ "x86_64-linux" ])
+          nixpkgs.lib.platforms.linux)
+        # [ "x86_64-linux" ])
       );
     };
 }
