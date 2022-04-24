@@ -216,7 +216,7 @@ in
 
     # Hashi
     # vagrant
-    terraform-full
+    terraform
     terraform-ls
     terraform-docs
     tflint

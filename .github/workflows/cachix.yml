@@ -13,38 +13,17 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build-home-configuration:
+  build:
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - username: wslfish
-          - username: revel
-    runs-on: ubuntu-latest
+        os:
+          - ubuntu-latest
+          - macos-latest
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
-      - uses: cachix/install-nix-action@v16
-
-      - uses: cachix/cachix-action@v10
-        with:
-          name: pecigonzalo
-          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-      - name: Enable incremental cache upload
-        run: cachix watch-store pecigonzalo &
-
-      - name: Build activation package
-        run: nix flake check -v --show-trace
-
-  build-darwin-configuration:
-    strategy:
-      fail-fast: false
-      matrix:
-        host:
-          - githubCI
-    runs-on: macos-11
-    steps:
-      - uses: actions/checkout@v3
-      - uses: cachix/install-nix-action@v16
+      - uses: cachix/install-nix-action@v17
 
       - uses: cachix/cachix-action@v10
         with:

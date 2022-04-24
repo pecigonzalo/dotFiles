@@ -224,8 +224,8 @@
           (system: {
             name = system;
             value = {
-              gitHubCI =
-                self.darwinConfigurations.gitHubCI.config.system.build.toplevel;
+              macfish =
+                self.darwinConfigurations.macfish.config.system.build.toplevel;
             };
           })
           [ "aarch64-darwin" ]) ++
@@ -234,7 +234,7 @@
           (system: {
             name = system;
             value = {
-              wslfish = self.homeConfigurations.devel.activationPackage;
+              wslfish = self.homeConfigurations.wslfish.activationPackage;
             };
           })
           [ "x86_64-linux" ])
