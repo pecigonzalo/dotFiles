@@ -224,18 +224,20 @@
           (system: {
             name = system;
             value = {
-              darwin =
+              gitHubCI =
                 self.darwinConfigurations.gitHubCI.config.system.build.toplevel;
             };
           })
-          nixpkgs.lib.platforms.darwin) ++
+          [ "aarch64-darwin" ]) ++
         # linux checks
         (map
           (system: {
             name = system;
-            value = { };
+            value = {
+              wslfish = self.homeConfigurations.devel.activationPackage;
+            };
           })
-          nixpkgs.lib.platforms.linux)
+          [ "x86_64-linux" ])
       );
     };
 }
