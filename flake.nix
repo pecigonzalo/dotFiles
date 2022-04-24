@@ -148,7 +148,10 @@
           modules = commonDarwinConfig ++ [
             ({ lib, ... }: {
               homebrew.enable = lib.mkForce false;
-              services.nix-daemon.enable = lib.mkForce false;
+              services = {
+                nix-daemon.enable = lib.mkForce false;
+                cachix-agent.enabled = lib.mkForce false;
+              };
             })
             { networking.hostName = "github"; }
           ];
