@@ -18,7 +18,8 @@
   outputs = { self, nixpkgs, darwin, home-manager, flake-utils, ... }@inputs:
     let
       inherit (darwin.lib) darwinSystem;
-      inherit (inputs.nixpkgs.lib) attrValues makeOverridable optionalAttrs;
+      inherit (nixpkgs.lib) attrValues makeOverridable optionalAttrs;
+      inherit (builtins) listToAttrs;
 
       dynamicOverlays =
         let path = ./nix/overlays; in
@@ -143,14 +144,14 @@
         };
         bootstrap-arm = bootstrap-x86.override { system = "aarch64-darwin"; };
 
-        githubCI = darwinSystem {
+        gitHubCI = darwinSystem {
           system = "aarch64-darwin";
           modules = commonDarwinConfig ++ [
             ({ lib, ... }: {
               homebrew.enable = lib.mkForce false;
               services = {
                 nix-daemon.enable = lib.mkForce false;
-                cachix-agent.enabled = lib.mkForce false;
+                cachix-agent.enable = lib.mkForce false;
               };
             })
             { networking.hostName = "github"; }
@@ -216,5 +217,25 @@
           };
         };
       };
+
+      checks = listToAttrs (
+        # darwin checks
+        (map
+          (system: {
+            name = system;
+            value = {
+              darwin =
+                self.darwinConfigurations.gitHubCI.config.system.build.toplevel;
+            };
+          })
+          nixpkgs.lib.platforms.darwin) ++
+        # linux checks
+        (map
+          (system: {
+            name = system;
+            value = { };
+          })
+          nixpkgs.lib.platforms.linux)
+      );
     };
 }
