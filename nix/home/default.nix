@@ -216,8 +216,9 @@ in
 
     # Hashi
     # vagrant
-    terraform
+    terraform-full
     terraform-ls
+    terraform-docs
     tflint
     packer
     nodePackages.cdktf-cli
