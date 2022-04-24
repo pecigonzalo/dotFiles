@@ -33,7 +33,7 @@ jobs:
         run: cachix watch-store pecigonzalo &
 
       - name: Build activation package
-        run: nix flake check
+        run: nix flake check -v --show-trace
 
   build-darwin-configuration:
     strategy:
@@ -54,4 +54,4 @@ jobs:
         run: cachix watch-store pecigonzalo &
 
       - name: Build system
-        run: nix flake check
+        run: nix flake check -v --show-trace
