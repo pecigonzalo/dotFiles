@@ -159,10 +159,10 @@
         };
 
         # Apple Silicon macOS
-        macfish = darwinSystem {
+        gonzalopeci = darwinSystem {
           system = "aarch64-darwin";
           modules = commonDarwinConfig ++ [
-            { networking.hostName = "macfish"; }
+            { networking.hostName = "gonzalopeci"; }
           ];
         };
       };
@@ -224,8 +224,8 @@
           (system: {
             name = system;
             value = {
-              macfish =
-                self.darwinConfigurations.macfish.config.system.build.toplevel;
+              gonzalopeci =
+                self.darwinConfigurations.gonzalopeci.config.system.build.toplevel;
             };
           })
           [ "aarch64-darwin" ]) ++
