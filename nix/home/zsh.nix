@@ -140,10 +140,10 @@ in
         ZSH_AUTOSUGGEST_USE_ASYNC = "true";
 
         # zsh-z, fz
-        ZSHZ_CMD = "zshz";
         ZSHZ_NO_RESOLVE_SYMLINKS = 1;
-        FZ_HISTORY_CD_CMD = "zshz";
-        FZ_SUBDIR_TRAVERSAL = 0;
+        ZSHZ_TILDE = 1;
+        ZSHZ_TRAILING_SLASH = 1;
+        ZSHZ_UNCOMMON = 1;
       };
 
     plugins =
@@ -169,7 +169,7 @@ in
         (gitHubPlugin {
           name = "zsh-z";
           owner = "agkozak";
-          rev = "b1055fb773d5b4bf4756dca6f4c9a9a6779a0d63";
+          rev = "b5e61d03a42a84e9690de12915a006b6745c2a5f";
         })
         (gitHubPlugin {
           name = "emoji-cli";
@@ -179,22 +179,17 @@ in
         (gitHubPlugin {
           name = "fzf-tab";
           owner = "Aloxaf";
-          rev = "e3fae7478fc365a04a06b9972b04766ffed78c1c";
+          rev = "103330fdbeba07416d5f90b391eee680cd20d2d6";
         })
         (gitHubPlugin {
           name = "forgit";
           owner = "wfxr";
-          rev = "b727321f2bd3d79c1dae805441261c45888cbb41";
-        })
-        (gitHubPlugin {
-          name = "fz";
-          owner = "changyuheng";
-          rev = "2a4c1bc73664bb938bfcc7c99f473d0065f9dbfd";
+          rev = "eed197948cc58b5bc388c1ebb1559431898a6221";
         })
         (gitHubPlugin {
           name = "jq-zsh-plugin";
           owner = "reegnz";
-          rev = "79c0ebc6fd6dbacfc2244dace095af58f2d0cd58";
+          rev = "9de99b0bc6dd33b1a560ce9cfe755c52f4217f72";
           file = "jq.plugin.zsh";
         })
         (gitHubPlugin {

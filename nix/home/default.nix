@@ -157,6 +157,7 @@ in
     xz
     unrar
     zstd
+    gzip
 
     # CLI Replacements
     bat # cat
@@ -217,6 +218,7 @@ in
     # vagrant
     terraform
     terraform-ls
+    terraform-docs
     tflint
     packer
     nodePackages.cdktf-cli

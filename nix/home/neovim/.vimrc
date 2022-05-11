@@ -49,16 +49,6 @@ set nobackup
 set undodir=~/.vim/undodir
 set undofile
 
-" NERD Tree auto-open
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
-" Open NERD Tree with CTRL+\
-map <C-\> :NERDTreeToggle<CR>
-" NERD Tree auto-close
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-" NERD Tree config
-let NERDTreeShowHidden=1
-
 " Display spaces and tabs
 set listchars=tab:‣\ ,trail:·,precedes:«,extends:»
 

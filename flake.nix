@@ -19,7 +19,8 @@
   outputs = { self, nixpkgs, darwin, home-manager, flake-utils, ... }@inputs:
     let
       inherit (darwin.lib) darwinSystem;
-      inherit (inputs.nixpkgs.lib) attrValues makeOverridable optionalAttrs;
+      inherit (nixpkgs.lib) attrValues makeOverridable optionalAttrs;
+      inherit (builtins) listToAttrs;
 
       dynamicOverlays =
         let path = ./nix/overlays; in
@@ -71,6 +72,9 @@
           allowBroken = false;
           allowInsecure = false;
           allowUnsupportedSystem = true;
+          # NOTE: Fixes unfree problem, remove when
+          # https://github.com/nix-community/home-manager/issues/2942
+          allowUnfreePredicate = (pkg: true);
         };
         # Dynamic list of patches
         # patches =
@@ -104,6 +108,7 @@
 
           nixPath = [
             "nixpkgs=${inputs.nixpkgs}"
+            "nixpkgs-21-11=${inputs.nixpkgs-21-11}"
             "darwin=${inputs.darwin}"
             "home-manager=${inputs.home-manager}"
           ];
@@ -154,11 +159,10 @@
         };
 
         # Apple Silicon macOS
-        gonzalopeci = macfish; # Alias
-        macfish = darwinSystem {
+        gonzalopeci = darwinSystem {
           system = "aarch64-darwin";
           modules = commonDarwinConfig ++ [
-            { networking.hostName = "macfish"; }
+            { networking.hostName = "gonzalopeci"; }
           ];
         };
       };
@@ -213,31 +217,27 @@
           };
         };
       };
-    } //
-    flake-utils.lib.eachDefaultSystem
-      (system:
-        let pkgs = nixpkgs.legacyPackages.${system};
-        in
-        rec {
-          defaultPackage = self.darwinConfigurations.bootstrap-arm.system;
-          apps.darwin-rebuild = flake-utils.lib.mkApp {
-            drv = self.darwinConfigurations.bootstrap-arm.pkgs.writeScriptBin "darwin-flake-switch" ''
-              if [ -z "$*" ]; then
-                exec ${defaultPackage}/sw/bin/darwin-rebuild --flake . switch
-              else
-                exec ${defaultPackage}/sw/bin/darwin-rebuild --flake . "''${@}"
-              fi
-            '';
-          };
-          apps.home-manager-rebuild = flake-utils.lib.mkapp {
-            drv = pkgs.writeScriptBin "home-manager-switch" ''
-              if [ -z "$*" ]; then
-                exec ${pkgs.defaultApp.program} switch --flake . "''$@"
-              else
-                exec ${pkgs.defaultApp.program} switch --flake . "''$@"
-              fi
-            '';
-          };
-          defaultApp = apps.darwin-rebuild;
-        });
+
+      checks = listToAttrs (
+        # darwin checks
+        (map
+          (system: {
+            name = system;
+            value = {
+              gonzalopeci =
+                self.darwinConfigurations.gonzalopeci.config.system.build.toplevel;
+            };
+          })
+          [ "aarch64-darwin" ]) ++
+        # linux checks
+        (map
+          (system: {
+            name = system;
+            value = {
+              wslfish = self.homeConfigurations.wslfish.activationPackage;
+            };
+          })
+          [ "x86_64-linux" ])
+      );
+    };
 }

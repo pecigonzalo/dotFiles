@@ -86,7 +86,11 @@ awsve() {
 
 # Short aws-vault login
 awsvl() {
-  local TOKEN="$(aws-vault login -d 1h -s $@)"
+  if [[ $# -eq 0 ]]; then
+    local TOKEN="$(aws-vault list | grep '\-vault' | cut -d' ' -f1| fzf | xargs aws-vault login -d 1h -s)"
+  else
+    local TOKEN="$(aws-vault login -d 1h -s $@)"
+  fi
 
   if [[ $TOKEN =~ "signin.aws.amazon.com" ]]; then
     local cache=$(mktemp -d /tmp/google-chrome-XXXXXX)

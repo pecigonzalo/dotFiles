@@ -33,6 +33,7 @@
     _HIHideMenuBar = false;
 
     AppleShowAllExtensions = true;
+    AppleShowAllFiles = true;
   };
 
   system.defaults.finder = {

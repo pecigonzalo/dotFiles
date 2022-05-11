@@ -64,9 +64,9 @@
     gnupg
     gawk
 
-    # TODO: Remove
-    # `home-manager` currently has issues adding them to `~/Applications`
-    kitty
+    # Container runtimes
+    lima
+    colima
   ];
 
   # https://github.com/nix-community/home-manager/issues/423
