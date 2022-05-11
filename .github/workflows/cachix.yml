@@ -29,8 +29,8 @@ jobs:
         with:
           name: pecigonzalo
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-      - name: Enable incremental cache upload
-        run: cachix watch-store pecigonzalo &
+      # - name: Enable incremental cache upload
+      #   run: cachix watch-store pecigonzalo &
 
       - name: Build system
         run: nix flake check -v --show-trace
