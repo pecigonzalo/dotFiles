@@ -71,6 +71,9 @@
           allowBroken = false;
           allowInsecure = false;
           allowUnsupportedSystem = true;
+          # NOTE: Fixes unfree problem, remove when
+          # https://github.com/nix-community/home-manager/issues/2942
+          allowUnfreePredicate = (pkg: true);
         };
         # Dynamic list of patches
         # patches =
