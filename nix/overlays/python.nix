@@ -11,7 +11,7 @@ final: prev:
         });
       };
     };
-  pythonEnv = final.python3.withPackages (ps: with ps;
+  pythonEnv = final.python39.withPackages (ps: with ps;
     [
       pip
       pipx
@@ -23,7 +23,10 @@ final: prev:
 
       pytest
 
+      setuptools
       virtualenv
+
+      python-lsp-server
 
       ipython
     ]);
