@@ -9,5 +9,6 @@ final: prev:
     starship
     neovim
     deno
+    httpie
     ;
 }
