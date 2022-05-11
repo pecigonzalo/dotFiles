@@ -147,20 +147,6 @@
         };
         bootstrap-arm = bootstrap-x86.override { system = "aarch64-darwin"; };
 
-        gitHubCI = darwinSystem {
-          system = "aarch64-darwin";
-          modules = commonDarwinConfig ++ [
-            ({ lib, ... }: {
-              homebrew.enable = lib.mkForce false;
-              services = {
-                nix-daemon.enable = lib.mkForce false;
-                cachix-agent.enable = lib.mkForce false;
-              };
-            })
-            { networking.hostName = "github"; }
-          ];
-        };
-
         # Apple Silicon macOS
         gonzalopeci = darwinSystem {
           system = "aarch64-darwin";
