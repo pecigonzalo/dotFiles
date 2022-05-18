@@ -191,14 +191,20 @@
                 "from": {
                   "key_code": "z",
                   "modifiers": {
-                    "mandatory": ["control"],
-                    "optional": ["any"]
+                    "mandatory": [
+                      "control"
+                    ],
+                    "optional": [
+                      "any"
+                    ]
                   }
                 },
                 "to": [
                   {
                     "key_code": "z",
-                    "modifiers": ["command"]
+                    "modifiers": [
+                      "command"
+                    ]
                   }
                 ],
                 "type": "basic"
@@ -235,14 +241,20 @@
                 "from": {
                   "key_code": "w",
                   "modifiers": {
-                    "mandatory": ["control"],
-                    "optional": ["any"]
+                    "mandatory": [
+                      "control"
+                    ],
+                    "optional": [
+                      "any"
+                    ]
                   }
                 },
                 "to": [
                   {
                     "key_code": "w",
-                    "modifiers": ["command"]
+                    "modifiers": [
+                      "command"
+                    ]
                   }
                 ],
                 "type": "basic"
@@ -279,14 +291,20 @@
                 "from": {
                   "key_code": "n",
                   "modifiers": {
-                    "mandatory": ["control"],
-                    "optional": ["any"]
+                    "mandatory": [
+                      "control"
+                    ],
+                    "optional": [
+                      "any"
+                    ]
                   }
                 },
                 "to": [
                   {
                     "key_code": "n",
-                    "modifiers": ["command"]
+                    "modifiers": [
+                      "command"
+                    ]
                   }
                 ],
                 "type": "basic"
@@ -323,14 +341,20 @@
                 "from": {
                   "key_code": "t",
                   "modifiers": {
-                    "mandatory": ["control"],
-                    "optional": ["any"]
+                    "mandatory": [
+                      "control"
+                    ],
+                    "optional": [
+                      "any"
+                    ]
                   }
                 },
                 "to": [
                   {
                     "key_code": "t",
-                    "modifiers": ["command"]
+                    "modifiers": [
+                      "command"
+                    ]
                   }
                 ],
                 "type": "basic"
@@ -367,14 +391,20 @@
                 "from": {
                   "key_code": "c",
                   "modifiers": {
-                    "mandatory": ["left_control"],
-                    "optional": ["any"]
+                    "mandatory": [
+                      "left_control"
+                    ],
+                    "optional": [
+                      "any"
+                    ]
                   }
                 },
                 "to": [
                   {
                     "key_code": "c",
-                    "modifiers": ["command"]
+                    "modifiers": [
+                      "command"
+                    ]
                   }
                 ],
                 "type": "basic"
@@ -399,14 +429,21 @@
                 "from": {
                   "key_code": "c",
                   "modifiers": {
-                    "mandatory": ["control", "shift"],
-                    "optional": ["any"]
+                    "mandatory": [
+                      "control",
+                      "shift"
+                    ],
+                    "optional": [
+                      "any"
+                    ]
                   }
                 },
                 "to": [
                   {
                     "key_code": "c",
-                    "modifiers": ["command"]
+                    "modifiers": [
+                      "command"
+                    ]
                   }
                 ],
                 "type": "basic"
@@ -443,14 +480,20 @@
                 "from": {
                   "key_code": "x",
                   "modifiers": {
-                    "mandatory": ["control"],
-                    "optional": ["any"]
+                    "mandatory": [
+                      "control"
+                    ],
+                    "optional": [
+                      "any"
+                    ]
                   }
                 },
                 "to": [
                   {
                     "key_code": "x",
-                    "modifiers": ["command"]
+                    "modifiers": [
+                      "command"
+                    ]
                   }
                 ],
                 "type": "basic"
@@ -487,14 +530,20 @@
                 "from": {
                   "key_code": "z",
                   "modifiers": {
-                    "mandatory": ["control"],
-                    "optional": ["any"]
+                    "mandatory": [
+                      "control"
+                    ],
+                    "optional": [
+                      "any"
+                    ]
                   }
                 },
                 "to": [
                   {
                     "key_code": "z",
-                    "modifiers": ["command"]
+                    "modifiers": [
+                      "command"
+                    ]
                   }
                 ],
                 "type": "basic"
@@ -531,14 +580,20 @@
                 "from": {
                   "key_code": "v",
                   "modifiers": {
-                    "mandatory": ["control"],
-                    "optional": ["any"]
+                    "mandatory": [
+                      "control"
+                    ],
+                    "optional": [
+                      "any"
+                    ]
                   }
                 },
                 "to": [
                   {
                     "key_code": "v",
-                    "modifiers": ["command"]
+                    "modifiers": [
+                      "command"
+                    ]
                   }
                 ],
                 "type": "basic"
@@ -563,14 +618,21 @@
                 "from": {
                   "key_code": "v",
                   "modifiers": {
-                    "mandatory": ["control", "shift"],
-                    "optional": ["any"]
+                    "mandatory": [
+                      "control",
+                      "shift"
+                    ],
+                    "optional": [
+                      "any"
+                    ]
                   }
                 },
                 "to": [
                   {
                     "key_code": "v",
-                    "modifiers": ["command"]
+                    "modifiers": [
+                      "command"
+                    ]
                   }
                 ],
                 "type": "basic"
@@ -607,14 +669,20 @@
                 "from": {
                   "key_code": "f",
                   "modifiers": {
-                    "mandatory": ["control"],
-                    "optional": ["any"]
+                    "mandatory": [
+                      "control"
+                    ],
+                    "optional": [
+                      "any"
+                    ]
                   }
                 },
                 "to": [
                   {
                     "key_code": "f",
-                    "modifiers": ["command"]
+                    "modifiers": [
+                      "command"
+                    ]
                   }
                 ],
                 "type": "basic"
@@ -651,14 +719,20 @@
                 "from": {
                   "key_code": "a",
                   "modifiers": {
-                    "mandatory": ["control"],
-                    "optional": ["any"]
+                    "mandatory": [
+                      "control"
+                    ],
+                    "optional": [
+                      "any"
+                    ]
                   }
                 },
                 "to": [
                   {
                     "key_code": "a",
-                    "modifiers": ["command"]
+                    "modifiers": [
+                      "command"
+                    ]
                   }
                 ],
                 "type": "basic"
@@ -669,16 +743,30 @@
             "description": "Change caps_lock key to command+control+option+shift. (Post escape key when pressed alone)",
             "manipulators": [
               {
+                "conditions": [
+                  {
+                    "bundle_identifiers": [
+                      "^tv\\.parsec\\.www$"
+                    ],
+                    "type": "frontmost_application_unless"
+                  }
+                ],
                 "from": {
                   "key_code": "caps_lock",
                   "modifiers": {
-                    "optional": ["any"]
+                    "optional": [
+                      "any"
+                    ]
                   }
                 },
                 "to": [
                   {
                     "key_code": "left_shift",
-                    "modifiers": ["left_command", "left_control", "left_option"]
+                    "modifiers": [
+                      "left_command",
+                      "left_control",
+                      "left_option"
+                    ]
                   }
                 ],
                 "to_if_alone": [
@@ -895,6 +983,7 @@
                       "^com\\.vmware\\.horizon$",
                       "^com\\.vmware\\.fusion$",
                       "^com\\.thinomenon\\.RemoteDesktopConnection$",
+                      "^tv\\.parsec\\.www$",
                       "^com\\.teamviewer\\.TeamViewer$",
                       "^com\\.sublimetext\\.3$",
                       "^com\\.parallels\\.winapp\\.",
@@ -926,14 +1015,20 @@
                 "from": {
                   "key_code": "z",
                   "modifiers": {
-                    "mandatory": ["control"],
-                    "optional": ["any"]
+                    "mandatory": [
+                      "control"
+                    ],
+                    "optional": [
+                      "any"
+                    ]
                   }
                 },
                 "to": [
                   {
                     "key_code": "z",
-                    "modifiers": ["command"]
+                    "modifiers": [
+                      "command"
+                    ]
                   }
                 ],
                 "type": "basic"
@@ -958,6 +1053,7 @@
                       "^com\\.vmware\\.horizon$",
                       "^com\\.vmware\\.fusion$",
                       "^com\\.thinomenon\\.RemoteDesktopConnection$",
+                      "^tv\\.parsec\\.www$",
                       "^com\\.teamviewer\\.TeamViewer$",
                       "^com\\.sublimetext\\.3$",
                       "^com\\.parallels\\.winapp\\.",
@@ -989,14 +1085,20 @@
                 "from": {
                   "key_code": "w",
                   "modifiers": {
-                    "mandatory": ["control"],
-                    "optional": ["any"]
+                    "mandatory": [
+                      "control"
+                    ],
+                    "optional": [
+                      "any"
+                    ]
                   }
                 },
                 "to": [
                   {
                     "key_code": "w",
-                    "modifiers": ["command"]
+                    "modifiers": [
+                      "command"
+                    ]
                   }
                 ],
                 "type": "basic"
@@ -1021,6 +1123,7 @@
                       "^com\\.vmware\\.horizon$",
                       "^com\\.vmware\\.fusion$",
                       "^com\\.thinomenon\\.RemoteDesktopConnection$",
+                      "^tv\\.parsec\\.www$",
                       "^com\\.teamviewer\\.TeamViewer$",
                       "^com\\.sublimetext\\.3$",
                       "^com\\.parallels\\.winapp\\.",
@@ -1052,14 +1155,20 @@
                 "from": {
                   "key_code": "n",
                   "modifiers": {
-                    "mandatory": ["control"],
-                    "optional": ["any"]
+                    "mandatory": [
+                      "control"
+                    ],
+                    "optional": [
+                      "any"
+                    ]
                   }
                 },
                 "to": [
                   {
                     "key_code": "n",
-                    "modifiers": ["command"]
+                    "modifiers": [
+                      "command"
+                    ]
                   }
                 ],
                 "type": "basic"
@@ -1084,6 +1193,7 @@
                       "^com\\.vmware\\.horizon$",
                       "^com\\.vmware\\.fusion$",
                       "^com\\.thinomenon\\.RemoteDesktopConnection$",
+                      "^tv\\.parsec\\.www$",
                       "^com\\.teamviewer\\.TeamViewer$",
                       "^com\\.sublimetext\\.3$",
                       "^com\\.parallels\\.winapp\\.",
@@ -1115,14 +1225,20 @@
                 "from": {
                   "key_code": "t",
                   "modifiers": {
-                    "mandatory": ["control"],
-                    "optional": ["any"]
+                    "mandatory": [
+                      "control"
+                    ],
+                    "optional": [
+                      "any"
+                    ]
                   }
                 },
                 "to": [
                   {
                     "key_code": "t",
-                    "modifiers": ["command"]
+                    "modifiers": [
+                      "command"
+                    ]
                   }
                 ],
                 "type": "basic"
@@ -1147,6 +1263,7 @@
                       "^com\\.vmware\\.horizon$",
                       "^com\\.vmware\\.fusion$",
                       "^com\\.thinomenon\\.RemoteDesktopConnection$",
+                      "^tv\\.parsec\\.www$",
                       "^com\\.teamviewer\\.TeamViewer$",
                       "^com\\.sublimetext\\.3$",
                       "^com\\.parallels\\.winapp\\.",
@@ -1178,14 +1295,20 @@
                 "from": {
                   "key_code": "c",
                   "modifiers": {
-                    "mandatory": ["left_control"],
-                    "optional": ["any"]
+                    "mandatory": [
+                      "left_control"
+                    ],
+                    "optional": [
+                      "any"
+                    ]
                   }
                 },
                 "to": [
                   {
                     "key_code": "c",
-                    "modifiers": ["command"]
+                    "modifiers": [
+                      "command"
+                    ]
                   }
                 ],
                 "type": "basic"
@@ -1212,14 +1335,21 @@
                 "from": {
                   "key_code": "c",
                   "modifiers": {
-                    "mandatory": ["control", "shift"],
-                    "optional": ["any"]
+                    "mandatory": [
+                      "control",
+                      "shift"
+                    ],
+                    "optional": [
+                      "any"
+                    ]
                   }
                 },
                 "to": [
                   {
                     "key_code": "c",
-                    "modifiers": ["command"]
+                    "modifiers": [
+                      "command"
+                    ]
                   }
                 ],
                 "type": "basic"
@@ -1244,6 +1374,7 @@
                       "^com\\.vmware\\.horizon$",
                       "^com\\.vmware\\.fusion$",
                       "^com\\.thinomenon\\.RemoteDesktopConnection$",
+                      "^tv\\.parsec\\.www$",
                       "^com\\.teamviewer\\.TeamViewer$",
                       "^com\\.sublimetext\\.3$",
                       "^com\\.parallels\\.winapp\\.",
@@ -1275,14 +1406,20 @@
                 "from": {
                   "key_code": "x",
                   "modifiers": {
-                    "mandatory": ["control"],
-                    "optional": ["any"]
+                    "mandatory": [
+                      "control"
+                    ],
+                    "optional": [
+                      "any"
+                    ]
                   }
                 },
                 "to": [
                   {
                     "key_code": "x",
-                    "modifiers": ["command"]
+                    "modifiers": [
+                      "command"
+                    ]
                   }
                 ],
                 "type": "basic"
@@ -1307,6 +1444,7 @@
                       "^com\\.vmware\\.horizon$",
                       "^com\\.vmware\\.fusion$",
                       "^com\\.thinomenon\\.RemoteDesktopConnection$",
+                      "^tv\\.parsec\\.www$",
                       "^com\\.teamviewer\\.TeamViewer$",
                       "^com\\.sublimetext\\.3$",
                       "^com\\.parallels\\.winapp\\.",
@@ -1338,14 +1476,20 @@
                 "from": {
                   "key_code": "z",
                   "modifiers": {
-                    "mandatory": ["control"],
-                    "optional": ["any"]
+                    "mandatory": [
+                      "control"
+                    ],
+                    "optional": [
+                      "any"
+                    ]
                   }
                 },
                 "to": [
                   {
                     "key_code": "z",
-                    "modifiers": ["command"]
+                    "modifiers": [
+                      "command"
+                    ]
                   }
                 ],
                 "type": "basic"
@@ -1370,6 +1514,7 @@
                       "^com\\.vmware\\.horizon$",
                       "^com\\.vmware\\.fusion$",
                       "^com\\.thinomenon\\.RemoteDesktopConnection$",
+                      "^tv\\.parsec\\.www$",
                       "^com\\.teamviewer\\.TeamViewer$",
                       "^com\\.sublimetext\\.3$",
                       "^com\\.parallels\\.winapp\\.",
@@ -1401,14 +1546,20 @@
                 "from": {
                   "key_code": "v",
                   "modifiers": {
-                    "mandatory": ["control"],
-                    "optional": ["any"]
+                    "mandatory": [
+                      "control"
+                    ],
+                    "optional": [
+                      "any"
+                    ]
                   }
                 },
                 "to": [
                   {
                     "key_code": "v",
-                    "modifiers": ["command"]
+                    "modifiers": [
+                      "command"
+                    ]
                   }
                 ],
                 "type": "basic"
@@ -1435,14 +1586,21 @@
                 "from": {
                   "key_code": "v",
                   "modifiers": {
-                    "mandatory": ["control", "shift"],
-                    "optional": ["any"]
+                    "mandatory": [
+                      "control",
+                      "shift"
+                    ],
+                    "optional": [
+                      "any"
+                    ]
                   }
                 },
                 "to": [
                   {
                     "key_code": "v",
-                    "modifiers": ["command"]
+                    "modifiers": [
+                      "command"
+                    ]
                   }
                 ],
                 "type": "basic"
@@ -1467,6 +1625,7 @@
                       "^com\\.vmware\\.horizon$",
                       "^com\\.vmware\\.fusion$",
                       "^com\\.thinomenon\\.RemoteDesktopConnection$",
+                      "^tv\\.parsec\\.www$",
                       "^com\\.teamviewer\\.TeamViewer$",
                       "^com\\.sublimetext\\.3$",
                       "^com\\.parallels\\.winapp\\.",
@@ -1498,14 +1657,20 @@
                 "from": {
                   "key_code": "f",
                   "modifiers": {
-                    "mandatory": ["control"],
-                    "optional": ["any"]
+                    "mandatory": [
+                      "control"
+                    ],
+                    "optional": [
+                      "any"
+                    ]
                   }
                 },
                 "to": [
                   {
                     "key_code": "f",
-                    "modifiers": ["command"]
+                    "modifiers": [
+                      "command"
+                    ]
                   }
                 ],
                 "type": "basic"
@@ -1530,6 +1695,7 @@
                       "^com\\.vmware\\.horizon$",
                       "^com\\.vmware\\.fusion$",
                       "^com\\.thinomenon\\.RemoteDesktopConnection$",
+                      "^tv\\.parsec\\.www$",
                       "^com\\.teamviewer\\.TeamViewer$",
                       "^com\\.sublimetext\\.3$",
                       "^com\\.parallels\\.winapp\\.",
@@ -1561,14 +1727,20 @@
                 "from": {
                   "key_code": "a",
                   "modifiers": {
-                    "mandatory": ["control"],
-                    "optional": ["any"]
+                    "mandatory": [
+                      "control"
+                    ],
+                    "optional": [
+                      "any"
+                    ]
                   }
                 },
                 "to": [
                   {
                     "key_code": "a",
-                    "modifiers": ["command"]
+                    "modifiers": [
+                      "command"
+                    ]
                   }
                 ],
                 "type": "basic"
@@ -1579,16 +1751,30 @@
             "description": "Change caps_lock key to command+control+option+shift. (Post escape key when pressed alone)",
             "manipulators": [
               {
+                "conditions": [
+                  {
+                    "bundle_identifiers": [
+                      "^tv\\.parsec\\.www$"
+                    ],
+                    "type": "frontmost_application_unless"
+                  }
+                ],
                 "from": {
                   "key_code": "caps_lock",
                   "modifiers": {
-                    "optional": ["any"]
+                    "optional": [
+                      "any"
+                    ]
                   }
                 },
                 "to": [
                   {
                     "key_code": "left_shift",
-                    "modifiers": ["left_command", "left_control", "left_option"]
+                    "modifiers": [
+                      "left_command",
+                      "left_control",
+                      "left_option"
+                    ]
                   }
                 ],
                 "to_if_alone": [
