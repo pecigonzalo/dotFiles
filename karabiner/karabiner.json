@@ -981,6 +981,102 @@
                 "type": "basic"
               }
             ]
+          },
+          {
+            "description": "End",
+            "manipulators": [
+              {
+                "conditions": [
+                  {
+                    "bundle_identifiers": [
+                      "^org\\.virtualbox\\.app\\.VirtualBoxVM$",
+                      "^com\\.parallels\\.desktop\\.console$",
+                      "^org\\.vmware\\.fusion$",
+                      "^tv\\.parsec\\.www$",
+                      "^org\\.gnu\\.emacs$",
+                      "^com\\.jetbrains\\.intellij\\.ce$",
+                      "^com\\.jetbrains\\.PhpStorm$",
+                      "^com\\.jetbrains\\.pycharm$",
+                      "^com\\.jetbrains\\.rider$",
+                      "^com\\.microsoft\\.VSCode$",
+                      "^com\\.sublimetext\\.3$",
+                      "^com\\.citrix\\.XenAppViewer$",
+                      "^com\\.microsoft\\.rdc\\.macos$",
+                      "^io\\.alacritty$",
+                      "^co\\.zeit\\.hyper$",
+                      "^com\\.googlecode\\.iterm2$",
+                      "^com\\.apple\\.Terminal$"
+                    ],
+                    "type": "frontmost_application_unless"
+                  }
+                ],
+                "from": {
+                  "key_code": "end",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "right_arrow",
+                    "modifiers": [
+                      "command"
+                    ]
+                  }
+                ],
+                "type": "basic"
+              }
+            ]
+          },
+          {
+            "description": "Home",
+            "manipulators": [
+              {
+                "conditions": [
+                  {
+                    "bundle_identifiers": [
+                      "^org\\.virtualbox\\.app\\.VirtualBoxVM$",
+                      "^com\\.parallels\\.desktop\\.console$",
+                      "^org\\.vmware\\.fusion$",
+                      "^tv\\.parsec\\.www$",
+                      "^org\\.gnu\\.emacs$",
+                      "^com\\.jetbrains\\.intellij\\.ce$",
+                      "^com\\.jetbrains\\.PhpStorm$",
+                      "^com\\.jetbrains\\.pycharm$",
+                      "^com\\.jetbrains\\.rider$",
+                      "^com\\.microsoft\\.VSCode$",
+                      "^com\\.sublimetext\\.3$",
+                      "^com\\.citrix\\.XenAppViewer$",
+                      "^com\\.microsoft\\.rdc\\.macos$",
+                      "^io\\.alacritty$",
+                      "^co\\.zeit\\.hyper$",
+                      "^com\\.googlecode\\.iterm2$",
+                      "^com\\.apple\\.Terminal$"
+                    ],
+                    "type": "frontmost_application_unless"
+                  }
+                ],
+                "from": {
+                  "key_code": "home",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "left_arrow",
+                    "modifiers": [
+                      "command"
+                    ]
+                  }
+                ],
+                "type": "basic"
+              }
+            ]
           }
         ]
       },
@@ -1147,11 +1243,11 @@
           ]
         }
       ],
-      "name": "New",
+      "name": "Current",
       "parameters": {
         "delay_milliseconds_before_open_device": 1000
       },
-      "selected": false,
+      "selected": true,
       "simple_modifications": [],
       "virtual_hid_keyboard": {
         "country_code": 0,
