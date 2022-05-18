@@ -81,7 +81,12 @@ explain() {
 
 # Short aws-vault
 awsve() {
-  aws-vault exec --duration=3h $@
+  if [[ $# -eq 0 ]]; then
+    profile=$(aws-vault list | grep '\-vault' | cut -d' ' -f1| fzf) 
+    aws-vault exec --duration=1h $profile --
+  else
+    aws-vault exec --duration=1h $@
+  fi
 }
 
 # Short aws-vault login
