@@ -13,14 +13,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
-    strategy:
-      fail-fast: false
-      matrix:
-        os:
-          - ubuntu-latest
-          - macos-latest
-    runs-on: ${{ matrix.os }}
+  build-macos:
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
       - uses: cachix/install-nix-action@v17
@@ -29,8 +23,6 @@ jobs:
         with:
           name: pecigonzalo
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-      # - name: Enable incremental cache upload
-      #   run: cachix watch-store pecigonzalo &
 
       - name: Build system
-        run: nix flake check -v --show-trace
+        run: nix build '.#darwinConfigurations.gonzalopeci.system'
