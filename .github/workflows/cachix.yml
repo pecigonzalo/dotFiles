@@ -29,7 +29,7 @@ jobs:
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
 
       - name: Build system
-        run: nix run '.#darwinConfigurations.bootstrap-arm.system' || nix log /nix/store/hh3xahbir2r05i2m24l1d4ys1chb904n-nmd.drv
+        run: nix run '.#darwinConfigurations.bootstrap-arm.system' || nix log /nix/store/sidwmjh02gj5jg1brr84w4mfvnfi0zg5-activate-system-start.drv
 
       - name: Build system
         run: nix build '.#darwinConfigurations.gonzalopeci.system' || nix log /nix/store/hh3xahbir2r05i2m24l1d4ys1chb904n-nmd.drv
