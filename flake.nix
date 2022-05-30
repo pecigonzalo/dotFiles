@@ -151,6 +151,7 @@
           system = "aarch64-darwin";
           modules = commonDarwinConfig ++ [
             ({ lib, ... }: {
+              networking.hostName = "runner";
               homebrew.enable = lib.mkForce false;
               nix.useDaemon = lib.mkForce false;
               services.nix-daemon.enable = lib.mkForce false;
