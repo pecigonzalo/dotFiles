@@ -214,7 +214,7 @@
             name = system;
             value = {
               gonzalopeci =
-                self.darwinConfigurations.gonzalopeci.config.system.build.toplevel;
+                self.darwinConfigurations.gonzalopeci.system;
             };
           })
           [ "aarch64-darwin" ]) ++

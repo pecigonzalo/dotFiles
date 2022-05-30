@@ -1,17 +1,13 @@
 { config, lib, pkgs, ... }:
-let
-  brewPrefix = if pkgs.stdenv.hostPlatform.isDarwin then "/opt/homebrew/bin" else "/usr/local/bin";
-in
 {
-  environment.shellInit = ''
-    eval "$(${brewPrefix}/brew shellenv)"
-  '';
+  environment.systemPath = [
+    config.homebrew.brewPrefix
+  ];
   homebrew = {
     enable = true;
     autoUpdate = false;
 
     cleanup = "zap";
-    brewPrefix = brewPrefix;
 
     global.brewfile = true;
     global.noLock = true;
@@ -41,7 +37,7 @@ in
     ];
 
     brews = [
-      "fishtown-analytics/dbt/dbt" # TODO: Replace with Docker
+      "dbt-labs/dbt" # TODO: Replace with Docker
       "snyk/tap/snyk"
     ];
 

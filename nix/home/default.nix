@@ -131,10 +131,36 @@ in
 
   home.packages = with pkgs; [
     # Nix
-    nix
     nixpkgs-fmt
     rnix-lsp
-    # comma # Run without installing by using ,
+
+    # Common
+    htop
+    nano
+    nmap
+    ngrep
+    neofetch
+    netcat-gnu
+    wget
+    curl
+    which
+    ldns
+    dnsutils
+    unixtools.watch
+
+    # Build tools
+    pkgconfig
+    autoconf
+    coreutils
+    findutils
+    diffutils
+    binutils
+    gnumake
+    gnugrep
+    gnused
+    gnutar
+    gnupg
+    gawk
 
     # Misc
     parallel
@@ -280,8 +306,9 @@ in
     _1password
     teleport
 
-    # Lima
+    # Container runtimes
     lima
+    colima
 
     # parquet
     # parquet-tools

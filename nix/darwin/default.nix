@@ -3,6 +3,7 @@
   imports = [
     # Minimal config of Nix related options and shells
     ./bootstrap.nix
+    ./nix.nix
 
     # Other nix-darwin configuration
     ./homebrew.nix
@@ -34,40 +35,6 @@
     enableMouse = true;
     enableSensible = true;
   };
-
-  environment.systemPackages = with pkgs; [
-    # Common
-    htop
-    nano
-    nmap
-    ngrep
-    neofetch
-    netcat-gnu
-    wget
-    curl
-    which
-    ldns
-    dnsutils
-    unixtools.watch
-
-    # Build tools
-    pkgconfig
-    autoconf
-    coreutils
-    findutils
-    diffutils
-    binutils
-    gnumake
-    gnugrep
-    gnused
-    gnutar
-    gnupg
-    gawk
-
-    # Container runtimes
-    lima
-    colima
-  ];
 
   # https://github.com/nix-community/home-manager/issues/423
   environment.variables = {

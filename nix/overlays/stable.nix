@@ -10,5 +10,6 @@ final: prev:
     neovim
     deno
     httpie
+    procs
     ;
 }

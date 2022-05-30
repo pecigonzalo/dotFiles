@@ -4,14 +4,6 @@
   # $ darwin-rebuild changelog
   system.stateVersion = 4;
 
-  users.nix.configureBuildUsers = true;
-  nix.trustedUsers = [
-    "@admin"
-  ];
-
-  # Auto upgrade nix package and the daemon service.
-  services.nix-daemon.enable = true;
-
   environment.shells = with pkgs; [
     bashInteractive
     fish
@@ -21,8 +13,6 @@
   environment.variables.SHELL = "${pkgs.zsh}/bin/zsh";
 
   nix = {
-    useDaemon = true;
-
     extraOptions = ''
       extra-platforms = aarch64-darwin x86_64-darwin
 
