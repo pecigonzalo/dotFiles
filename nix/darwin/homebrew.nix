@@ -13,7 +13,7 @@
     global.noLock = true;
 
     taps = [
-      "fishtown-analytics/dbt"
+      "dbt-labs/dbt"
       "homebrew/bundle"
       "homebrew/cask"
       "homebrew/core"
