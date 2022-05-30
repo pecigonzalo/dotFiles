@@ -152,6 +152,10 @@
           modules = commonDarwinConfig ++ [
             ({ lib, ... }: {
               homebrew.enable = lib.mkForce false;
+              nix.useDaemon = lib.mkForce false;
+              services.nix-daemon.enable = lib.mkForce false;
+              services.nix-daemon.enableSocketListener = lib.mkForce false;
+              users.nix.configureBuildUsers = lib.mkForce false;
             })
           ];
         };
@@ -223,7 +227,7 @@
             name = system;
             value = {
               gonzalopeci =
-                self.darwinConfigurations.gonzalopeci.system;
+                self.darwinConfigurations.githubCI.system;
             };
           })
           nixpkgs.lib.platforms.darwin) ++
