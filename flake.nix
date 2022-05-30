@@ -147,6 +147,15 @@
         };
         bootstrap-arm = bootstrap-x86.override { system = "aarch64-darwin"; };
 
+        githubCI = darwinSystem {
+          system = "aarch64-darwin";
+          modules = commonDarwinConfig ++ [
+            ({ lib, ... }: {
+              homebrew.enable = lib.mkForce false;
+            })
+          ];
+        };
+
         # Apple Silicon macOS
         gonzalopeci = darwinSystem {
           system = "aarch64-darwin";
@@ -217,7 +226,7 @@
                 self.darwinConfigurations.gonzalopeci.system;
             };
           })
-          [ "aarch64-darwin" ]) ++
+          nixpkgs.lib.platforms.darwin) ++
         # linux checks
         (map
           (system: {
@@ -226,7 +235,7 @@
               wslfish = self.homeConfigurations.wslfish.activationPackage;
             };
           })
-          [ "x86_64-linux" ])
+          nixpkgs.lib.platforms.linux)
       );
     };
 }
