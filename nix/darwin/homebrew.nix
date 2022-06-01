@@ -32,12 +32,10 @@
       "snowflake-snowsql"
       "wireshark"
       "kitty"
-      "docker"
       "parsec"
     ];
 
     brews = [
-      "dbt-labs/dbt/dbt" # TODO: Replace with Docker
       "snyk/tap/snyk"
     ];
 
