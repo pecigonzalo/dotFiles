@@ -37,7 +37,7 @@
     ];
 
     brews = [
-      "dbt-labs/dbt" # TODO: Replace with Docker
+      "dbt-labs/dbt/dbt" # TODO: Replace with Docker
       "snyk/tap/snyk"
     ];
 
