@@ -11,5 +11,7 @@ final: prev:
     deno
     httpie
     procs
+    awscli2
+    pre-commit
     ;
 }
