@@ -227,7 +227,7 @@ in
     jsonnet-bundler
 
     # Python
-    pythonEnv
+    python-with-env
     poetry
     pipenv
 
