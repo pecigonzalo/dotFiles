@@ -13,7 +13,6 @@
     global.noLock = true;
 
     taps = [
-      "dbt-labs/dbt"
       "homebrew/bundle"
       "homebrew/cask"
       "homebrew/core"
@@ -37,14 +36,7 @@
     ];
 
     brews = [
-      "dbt-labs/dbt" # TODO: Replace with Docker
       "snyk/tap/snyk"
     ];
-
-    masApps = {
-      # "Xcode" = 497799835;
-      "Amphetamine" = 937984704;
-      "Steam Link" = 1246969117;
-    };
   };
 }
