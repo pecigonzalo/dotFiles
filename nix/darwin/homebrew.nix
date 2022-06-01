@@ -13,7 +13,6 @@
     global.noLock = true;
 
     taps = [
-      "dbt-labs/dbt"
       "homebrew/bundle"
       "homebrew/cask"
       "homebrew/core"
@@ -32,6 +31,7 @@
       "snowflake-snowsql"
       "wireshark"
       "kitty"
+      "docker"
       "parsec"
     ];
 
