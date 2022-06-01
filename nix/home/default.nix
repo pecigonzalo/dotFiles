@@ -264,7 +264,7 @@ in
     deno
 
     # Git
-    gitAndTools.pre-commit
+    pre-commit
     git-filter-repo
 
     # Docker
@@ -292,7 +292,7 @@ in
     go
     gopls
     goreleaser
-    golangci-lint
+    # golangci-lint
 
     # Java
     gradle
