@@ -60,6 +60,7 @@ in
 {
   programs.kitty = {
     enable = true;
+    package = pkgs.zsh; # Fake package as we only need the config for now
 
     font.name = "FiraCode Nerd Font";
 
