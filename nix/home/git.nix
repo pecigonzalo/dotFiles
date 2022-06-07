@@ -3,8 +3,6 @@
   programs.ssh = {
     matchBlocks = {
       "github.com" = {
-        hostname = "ssh.github.com";
-        port = 443;
         serverAliveInterval = 60;
         extraOptions = {
           ControlMaster = "auto";
