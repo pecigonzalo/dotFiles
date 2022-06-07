@@ -1,5 +1,19 @@
 { ... }:
 {
+  programs.ssh = {
+    matchBlocks = {
+      "github.com" = {
+        hostname = "ssh.github.com";
+        port = 443;
+        serverAliveInterval = 60;
+        extraOptions = {
+          ControlMaster = "auto";
+          ControlPersist = "yes";
+        };
+      };
+    };
+  };
+
   programs.gh = {
     enable = true;
 
@@ -32,6 +46,13 @@
       init = {
         templatedir = "~/dotFiles/.git_template/template";
         defaultBranch = "main";
+      };
+
+      branch = {
+        # Automatic remote tracking.
+        autoSetupMerge = "always";
+        # Automatically use rebase for new branches.
+        autoSetupRebase = "always";
       };
 
       status.showuntrackedfiles = "all";
@@ -78,12 +99,21 @@
       };
 
       rebase = {
-        autoSquash = true;
-        autoStash = true;
+        # Support fixup and squash commits.
+        autoSquash = "true";
+        # Stash dirty worktree before rebase.
+        autoStash = "true";
+      };
+
+      # Reuse recorded resolutions.
+      rerere = {
+        enabled = "true";
+        autoUpdate = "true";
       };
     };
 
     aliases = {
+      unstage = "reset HEAD";
       gist = "log --graph --oneline --all --decorate --date-order";
       find = "log --graph --oneline --all --decorate --date-order --regexp-ignore-case --extended-regexp --grep";
       rfind = "log --graph --oneline --all --decorate --date-order --regexp-ignore-case --extended-regexp --invert-grep --grep";
