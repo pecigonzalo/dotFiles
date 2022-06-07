@@ -6,7 +6,7 @@
     compression = true;
 
     controlMaster = "auto";
-    controlPersist = "10m";
+    controlPersist = "1m";
     controlPath = "~/.ssh/%C.control";
 
     includes = [
