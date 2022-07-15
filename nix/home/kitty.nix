@@ -93,28 +93,31 @@ in
     keybindings = {
       # Copy Paste
       "ctrl+c" = "copy_and_clear_or_interrupt";
-      "ctrl+v" = "paste_from_clipboard";
-
-      # Split conf
-      "ctrl+shift+enter" = "launch --location=hsplit";
-      "ctrl+enter" = "launch --location=vsplit";
+      "ctrl+shift+v" = "paste_from_clipboard";
 
       # Clear all
       "ctrl+k" = "combine : clear_terminal active : send_text normal \\x0c";
 
       # Fzf
       ## Scrollback search
-      "ctrl+f" = "launch --type=overlay --location=hsplit --stdin-source=@screen_scrollback fzf --no-sort --no-mouse -i --tac";
+      "ctrl+f" = "launch --allow-remote-control kitty +kitten kitty-kitten-search/search.py @active-kitty-window-id";
+
+      # Split conf
+      "ctrl+shift+enter" = "launch --location=hsplit --cwd=current";
+      "ctrl+enter" = "launch --location=vsplit --cwd=current";
 
       # Window management
       "ctrl+left" = "neighboring_window left";
-      # "ctrl+up" = "neighboring_window up";
-      # "ctrl+down" = "neighboring_window down";
+      "ctrl+up" = "neighboring_window up";
+      "ctrl+down" = "neighboring_window down";
       "ctrl+right" = "neighboring_window right";
       "shift+left" = "move_window right";
       "shift+up" = "move_window down";
       "shift+down" = "move_window up";
       "shift+right" = "move_window left";
+      "ctrl+shift+z" = "toggle_layout stack";
+      "f1" = "create_marker";
+      "f2" = "remove_marker";
     };
   };
   # # https://github.com/nix-community/home-manager/issues/423
