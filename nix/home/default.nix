@@ -60,6 +60,9 @@ in
     };
 
     sessionVariables = {
+      # TODO: REMOVE ME
+      GODEBUG="asyncpreemptoff=1";
+
       # Editor
       EDITOR = "nvim";
       VISUAL = "code";
@@ -287,6 +290,10 @@ in
     kubeval
     kompose
     kubernetes-helm
+    kubeseal
+
+    # DB tools
+    postgresql
 
     # Go
     go
