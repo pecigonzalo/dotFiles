@@ -31,7 +31,6 @@
       "snowflake-snowsql"
       "wireshark"
       "kitty"
-      "docker"
       "parsec"
     ];
 
