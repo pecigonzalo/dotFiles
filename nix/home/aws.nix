@@ -11,7 +11,6 @@
     awscli2
     # ssm-session-manager-plugin
     aws-nuke
-    awless
     eksctl
   ];
 }
