@@ -1,8 +1,7 @@
 final: prev:
 
 let
-  stable = final.pkgs-stable;
-  unstable = final.pkgs;
+  stable = final.pkgs-21-11;
 in
 {
   python-with-env = stable.python3.withPackages (ps: with ps;

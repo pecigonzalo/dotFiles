@@ -56,7 +56,7 @@
         };
 
         stable = final: prev: rec {
-          pkgs-stable = pkgs-21-11;
+          pkgs-stable = pkgs-22-05;
           pkgs-22-05 = import inputs.nixpkgs-22-05 {
             inherit (prev.stdenv) system;
             inherit (nixpkgsConfig) config;
