@@ -82,7 +82,7 @@ explain() {
 # Short aws-vault
 awsve() {
   if [[ $# -eq 0 ]]; then
-    profile=$(aws-vault list | grep '\-vault' | cut -d' ' -f1| fzf) 
+    profile=$(aws-vault list | grep '\-vault' | cut -d' ' -f1| fzf)
     aws-vault exec --duration=1h $profile --
   else
     aws-vault exec --duration=1h $@
@@ -98,16 +98,15 @@ awsvl() {
   fi
 
   if [[ $TOKEN =~ "signin.aws.amazon.com" ]]; then
-    local cache=$(mktemp -d /tmp/google-chrome-XXXXXX)
-    local data=$(mktemp -d /tmp/google-chrome-XXXXXX)
+    local data=$(mktemp -d -t google-chrome-XXXXXX)
     open -na "Google Chrome" --args \
      --no-first-run \
-     --disk-cache-dir=$cache \
-     --user-data-dir=$data \
+     --user-data-dir="$data" \
+    --load-extension='~/dotFiles/.aws/chrome-color-helper/' \
      $TOKEN
-    rm -rf $cache $data
+    rm -rf "$data"
   else
-    echo $TOKEN
+    echo "$TOKEN"
   fi
 }
 
