@@ -44,9 +44,6 @@
         region_aliases = {
           eu-central-1 = "eu1";
         };
-        profile_aliases = {
-          "app-dev-vault" = "**vault";
-        };
       };
 
       gcloud = {
