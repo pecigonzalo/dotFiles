@@ -118,6 +118,7 @@ in
       "ctrl+shift+z" = "toggle_layout stack";
       "f1" = "create_marker";
       "f2" = "remove_marker";
+      "f3" = "launch --allow-remote-control kitty +kitten broadcast --match-tab state:focused";
     };
   };
   # # https://github.com/nix-community/home-manager/issues/423

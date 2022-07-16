@@ -1,7 +1,7 @@
 final: prev:
 
 let
-  stable = final.pkgs-21-11;
+  stable = final.pkgs-stable;
   unstable = final.pkgs;
 in
 {

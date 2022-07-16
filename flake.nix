@@ -3,6 +3,7 @@
   inputs = {
     # Package sets
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixpkgs-22-05.url = "github:nixos/nixpkgs/22.05";
     nixpkgs-21-11.url = "github:nixos/nixpkgs/21.11";
     nixpkgs-21-05.url = "github:nixos/nixpkgs/21.05";
 
@@ -39,7 +40,11 @@
             inherit system;
             inherit (nixpkgsConfig) config;
           };
-          pkgs-x86-stable = pkgs-x86-21-11;
+          pkgs-x86-stable = pkgs-x86-22-05;
+          pkgs-x86-22-05 = import inputs.nixpkgs-22-05 {
+            inherit system;
+            inherit (nixpkgsConfig) config;
+          };
           pkgs-x86-21-11 = import inputs.nixpkgs-21-11 {
             inherit system;
             inherit (nixpkgsConfig) config;
@@ -52,6 +57,10 @@
 
         stable = final: prev: rec {
           pkgs-stable = pkgs-21-11;
+          pkgs-22-05 = import inputs.nixpkgs-22-05 {
+            inherit (prev.stdenv) system;
+            inherit (nixpkgsConfig) config;
+          };
           pkgs-21-11 = import inputs.nixpkgs-21-11 {
             inherit (prev.stdenv) system;
             inherit (nixpkgsConfig) config;
@@ -102,12 +111,12 @@
         nix = {
           registry = {
             nixpkgs.flake = nixpkgs;
-            nixpkgs-21-11.flake = inputs.nixpkgs-21-11;
+            nixpkgs-22-05.flake = inputs.nixpkgs-22-05;
           };
 
           nixPath = [
             "nixpkgs=${inputs.nixpkgs}"
-            "nixpkgs-21-11=${inputs.nixpkgs-21-11}"
+            "nixpkgs-22-05=${inputs.nixpkgs-22-05}"
             "darwin=${inputs.darwin}"
             "home-manager=${inputs.home-manager}"
           ];
