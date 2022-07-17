@@ -5,12 +5,11 @@ final: prev:
     dnsutils# https://github.com/NixOS/nixpkgs/issues/152056
     ;
   inherit (final.pkgs-21-11)
-    ansible_2_9
-    awscli2
-    httpie
     pre-commit
+    httpie
     ;
   inherit (final.pkgs-stable)
+    ansible
     curlie
     starship
     neovim

@@ -302,7 +302,7 @@ in
     gradle-completion
 
     # Ansible
-    ansible_2_9
+    ansible
     # ansible-lint
 
     # Other CLIs
