@@ -22,15 +22,6 @@
       inherit (nixpkgs.lib) attrValues makeOverridable optionalAttrs;
       inherit (builtins) listToAttrs;
 
-      dynamicOverlays =
-        let path = ./nix/overlays; in
-        with builtins;
-        map (overlay: import (path + ("/" + overlay)))
-          (
-            filter (overlay: match ".*\\.nix" overlay != null || pathExists (path + ("/" + overlay + "/default.nix")))
-              (attrNames (readDir path))
-          );
-
       namedOverlays = attrValues {
         # Overlay useful on Macs with Apple Silicon
         apple-silicon = final: prev: optionalAttrs (prev.stdenv.system == "aarch64-darwin") rec {
@@ -42,10 +33,6 @@
           };
           pkgs-x86-stable = pkgs-x86-22-05;
           pkgs-x86-22-05 = import inputs.nixpkgs-22-05 {
-            inherit system;
-            inherit (nixpkgsConfig) config;
-          };
-          pkgs-x86-21-11 = import inputs.nixpkgs-21-11 {
             inherit system;
             inherit (nixpkgsConfig) config;
           };
@@ -74,15 +61,27 @@
         packages = import ./nix/nixpkgs;
       };
 
+      dynamicOverlays =
+        let path = ./nix/overlays; in
+        with builtins;
+        map (overlay: import (path + ("/" + overlay)))
+          (
+            filter (overlay: match ".*\\.nix" overlay != null || pathExists (path + ("/" + overlay + "/default.nix")))
+              (attrNames (readDir path))
+          );
+
       nixpkgsConfig = with inputs; {
         config = {
           allowUnfree = true;
-          allowBroken = false;
           allowInsecure = false;
           allowUnsupportedSystem = true;
           # NOTE: Fixes unfree problem, remove when
           # https://github.com/nix-community/home-manager/issues/2942
           allowUnfreePredicate = (pkg: true);
+          # # TODO: Remove when `python3Packages.pyopenssl` issues are resolved
+          # # https://github.com/NixOS/nixpkgs/issues/175875
+          # allowBroken = true;
+          allowBroken = false;
         };
         # Dynamic list of patches
         # patches =
@@ -97,7 +96,7 @@
         overlays = namedOverlays ++ dynamicOverlays;
       };
 
-      homeManagerStateVersion = "22.05";
+      homeManagerStateVersion = "22.11";
       commonHomeManagerConfig = {
         imports = [
           ./nix/home

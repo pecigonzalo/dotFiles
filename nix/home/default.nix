@@ -61,7 +61,7 @@ in
 
     sessionVariables = {
       # TODO: REMOVE ME
-      GODEBUG="asyncpreemptoff=1";
+      GODEBUG = "asyncpreemptoff=1";
 
       # Editor
       EDITOR = "nvim";
@@ -206,10 +206,6 @@ in
 
     # ASDF
     asdf-vm
-
-    # Buildkite
-    buildkite-agent
-    buildkite-cli
 
     # Kafka
     kcli

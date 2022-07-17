@@ -11,9 +11,16 @@ final: prev:
     pre-commit
     ;
   inherit (final.pkgs-stable)
+    curlie
     starship
     neovim
     deno
     procs
+    unrar
+    _1password
+    dive
+    kail
+    kompose
+    kubeval
     ;
 }
