@@ -21,13 +21,11 @@ in
       ./zsh.nix
       ./fzf.nix
       ./direnv.nix
-      ./git.nix
       ./editor.nix
       ./tmux.nix
       ./starship.nix
       ./kitty.nix
       ./fonts.nix
-      ./aws.nix
     ];
 
   xdg.enable = true;
@@ -35,15 +33,13 @@ in
     terraform.enable = true;
     aws.enable = true;
     gcp.enable = true;
+    git.enable = true;
   };
 
   home = {
     shellAliases = {
       # Follow tail
       "tailf" = "tail -f";
-
-      # gitg remove console output
-      "gitg" = "gitg >> /dev/null 2>&1";
 
       # exa
       "exa" = "exa --icons --color=always";
@@ -253,9 +249,6 @@ in
     # vagrant
     packer
 
-    # GitHub
-    act
-
     # Node
     nodejs
     yarn
@@ -263,10 +256,6 @@ in
 
     # Deno
     deno
-
-    # Git
-    pre-commit
-    git-filter-repo
 
     # Docker
     docker
