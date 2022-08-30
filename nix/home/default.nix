@@ -103,7 +103,11 @@ in
 
     ".asdfrc".source = mkOutOfStoreSymlink "${dotfiles}/.asdfrc";
     ".tool-versions".source = mkOutOfStoreSymlink "${dotfiles}/.tool-versions";
-    ".default-cloud-sdk-components".source = mkOutOfStoreSymlink "${dotfiles}/.default-cloud-sdk-components";
+    ".default-cloud-sdk-components".text = ''
+      alpha
+      beta
+      cloud_sql_proxy
+    '';
 
     ".terraformrc".source = mkOutOfStoreSymlink "${dotfiles}/.terraformrc";
 
