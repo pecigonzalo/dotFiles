@@ -18,9 +18,6 @@ in
   imports =
     [
       ./ssh.nix
-      ./zsh.nix
-      ./fzf.nix
-      ./direnv.nix
       ./editor.nix
       ./tmux.nix
       ./starship.nix
@@ -34,6 +31,7 @@ in
     aws.enable = true;
     gcp.enable = true;
     git.enable = true;
+    betterShell.enable = true;
   };
 
   home = {
