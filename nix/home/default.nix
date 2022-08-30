@@ -312,11 +312,5 @@ in
     # Container runtimes
     lima
     colima
-
-    # parquet
-    # parquet-tools
-
-    # # Libs
-    # openblas
   ];
 }
