@@ -5,8 +5,10 @@
 }:
 let
   inherit (config.lib.file) mkOutOfStoreSymlink;
-  homedir = config.home.homeDirectory;
-  dotfiles = "${config.home.homeDirectory}/dotFiles";
+  tomlFormat = pkgs.formats.toml { };
+
+  homeDir = config.home.homeDirectory;
+  dotFilesDir = "${homeDir}/dotFiles";
 in
 {
   news.display = "silent";
@@ -28,10 +30,12 @@ in
       ./aws.nix
     ];
 
+  xdg.enable = true;
+
   home = {
     shellAliases = {
       # Google Apps CLI
-      "gam" = "/home/gonzalo.peci/bin/gam/gam";
+      "gam" = "${homeDir}/bin/gam/gam";
 
       # Follow tail
       "tailf" = "tail -f";
@@ -72,7 +76,7 @@ in
       LESS = "-FRSX";
 
       # Go
-      GOPATH = "${homedir}/Workspace/go";
+      GOPATH = "${homeDir}/Workspace/go";
 
       # Disable virtualenv in prompt autoconfig
       VIRTUAL_ENV_DISABLE_PROMPT = 1;
@@ -94,32 +98,49 @@ in
       TZ_LIST = "Europe/Madrid;Home,US/Pacific;PDT";
 
       # Kubeconfig
-      KUBECONFIG = "${homedir}/.kube/config:${homedir}/.kube/direct-config";
+      KUBECONFIG = "${homeDir}/.kube/config:${homeDir}/.kube/direct-config";
     };
   };
 
   home.file = {
-    ".xprofile".source = mkOutOfStoreSymlink "${dotfiles}/.xprofile";
+    ".xprofile".source = mkOutOfStoreSymlink "${dotFilesDir}/.xprofile";
+    ".tool-versions".source = mkOutOfStoreSymlink "${dotFilesDir}/.tool-versions";
+    ".gemrc".source = mkOutOfStoreSymlink "${dotFilesDir}/.gemrc";
 
-    ".asdfrc".source = mkOutOfStoreSymlink "${dotfiles}/.asdfrc";
-    ".tool-versions".source = mkOutOfStoreSymlink "${dotfiles}/.tool-versions";
+    ".numpy-site.cfg".text = ''
+      [ALL]
+      library_dirs = ${homeDir}/.nix-profile/lib
+      include_dirs = ${homeDir}/.nix-profile/include
+
+      [DEFAULT]
+      library_dirs = ${homeDir}/.nix-profile/lib
+      include_dirs = ${homeDir}/.nix-profile/include
+    '';
+
+    ".terraformrc".text = ''
+      plugin_cache_dir   = "${config.xdg.cacheHome}/terraform/plugin-cache"
+      disable_checkpoint = true
+    '';
+
+    ".asdfrc".text = ''
+      legacy_version_file = yes
+    '';
+
     ".default-cloud-sdk-components".text = ''
       alpha
       beta
       cloud_sql_proxy
     '';
 
-    ".terraformrc".source = mkOutOfStoreSymlink "${dotfiles}/.terraformrc";
-
-    ".gemrc".source = mkOutOfStoreSymlink "${dotfiles}/.gemrc";
-
-    ".numpy-site.cfg".source = mkOutOfStoreSymlink "${dotfiles}/.numpy-site.cfg";
-
     ".parallel/will-cite".text = ""; # Stop `parallel` from displaying citation warning
   };
 
   xdg.configFile = {
-    "pypoetry/config.toml".source = mkOutOfStoreSymlink "${dotfiles}/.config/pypoetry/config.toml";
+    "pypoetry/config.toml".source = tomlFormat.generate "config.toml" {
+      virtualenvs = {
+        in-project = true;
+      };
+    };
   };
 
   programs.bash.enable = true;
