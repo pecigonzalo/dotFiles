@@ -1,6 +1,6 @@
 { config, ... }:
 {
   services.cachix-agent = {
-    enable = true;
+    enable = false; # Something is not working with it
   };
 }
