@@ -77,7 +77,7 @@ in
       italic_font = "auto";
       bold_italic_font = "auto";
 
-      enabled_layouts = "splits";
+      enabled_layouts = "splits, stack";
 
       strip_trailing_spaces = "smart";
 
