@@ -1,3 +1,4 @@
+kubectl system
 terraform system
 terraform-docs system
 shfmt system
