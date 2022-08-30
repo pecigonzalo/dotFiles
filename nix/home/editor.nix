@@ -37,11 +37,11 @@ in
       plugins = with pkgs.vimPlugins; [
         vim-commentary
         dracula-vim
-        editorconfig-nvim
       ] ++ mapper [
+        editorconfig-nvim
         # Treesitter
         {
-          plugin = nvim-treesitter.withPlugins (plugins: pkgs.tree-sitter.allGrammars);
+          plugin = nvim-treesitter.withPlugins (_: pkgs.tree-sitter.allGrammars);
           type = "lua";
           config = builtins.readFile ./neovim/treesitter.lua;
         }
@@ -82,6 +82,7 @@ in
         shfmt
         rnix-lsp
         terraform-ls
+        kotlin-language-server
       ];
 
       extraConfig = builtins.readFile ./neovim/.vimrc;
