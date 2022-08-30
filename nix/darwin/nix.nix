@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 {
-  users.nix.configureBuildUsers = true;
-  nix.trustedUsers = [
+  nix.configureBuildUsers = true;
+  nix.settings.trusted-users = [
     "@admin"
   ];
 
