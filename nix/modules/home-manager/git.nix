@@ -19,9 +19,9 @@ in
       act
     ];
 
-    home.shellAliases = {
+    home.shellAliases = mkIf (! isSillicon) {
       # gitg remove console output
-      "gitg" = "gitg >> /dev/null 2>&1";
+      "gitg" = "${pkgs.gitg}/bin/gitg >> /dev/null 2>&1";
     };
 
     programs.ssh = {
