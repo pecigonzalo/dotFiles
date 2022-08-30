@@ -12,7 +12,8 @@ final: prev:
     ansible
     curlie
     starship
-    neovim
+    # neovim
+    # vimPlugins
     deno
     procs
     unrar
