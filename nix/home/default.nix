@@ -31,12 +31,14 @@ in
     ];
 
   xdg.enable = true;
+  my = {
+    terraform.enable = true;
+    aws.enable = true;
+    gcp.enable = true;
+  };
 
   home = {
     shellAliases = {
-      # Google Apps CLI
-      "gam" = "${homeDir}/bin/gam/gam";
-
       # Follow tail
       "tailf" = "tail -f";
 
@@ -56,17 +58,11 @@ in
       # bat
       "cat" = "bat -p";
 
-      # terraform
-      "tf" = "terraform";
-
       # Kubectl
       "k" = "kubectl";
     };
 
     sessionVariables = {
-      # TODO: REMOVE ME
-      GODEBUG = "asyncpreemptoff=1";
-
       # Editor
       EDITOR = "nvim";
       VISUAL = "code";
@@ -117,19 +113,8 @@ in
       include_dirs = ${homeDir}/.nix-profile/include
     '';
 
-    ".terraformrc".text = ''
-      plugin_cache_dir   = "${config.xdg.cacheHome}/terraform/plugin-cache"
-      disable_checkpoint = true
-    '';
-
     ".asdfrc".text = ''
       legacy_version_file = yes
-    '';
-
-    ".default-cloud-sdk-components".text = ''
-      alpha
-      beta
-      cloud_sql_proxy
     '';
 
     ".parallel/will-cite".text = ""; # Stop `parallel` from displaying citation warning
@@ -266,15 +251,7 @@ in
 
     # Hashi
     # vagrant
-    terraform
-    terraform-ls
-    terraform-docs
-    tflint
     packer
-    nodePackages.cdktf-cli
-
-    # GCP
-    berglas
 
     # GitHub
     act

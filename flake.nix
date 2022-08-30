@@ -99,6 +99,7 @@
       homeManagerStateVersion = "22.11";
       commonHomeManagerConfig = {
         imports = [
+          ./nix/modules/home-manager
           ./nix/home
           {
             home.stateVersion = homeManagerStateVersion;
@@ -128,10 +129,10 @@
           homeDirectory = "/Users/${user}";
         in
         [
+          home-manager.darwinModules.home-manager
           nixGlobal
           ./nix/common
           ./nix/darwin
-          home-manager.darwinModules.home-manager
           {
             nixpkgs = nixpkgsConfig;
             # home-manager config
