@@ -4,6 +4,7 @@ let
   cfg = config.my.betterShell;
 
   homeDir = config.home.homeDirectory;
+  dotFilesDir = "${homeDir}/dotFiles";
   isDarwin = pkgs.stdenv.hostPlatform.isDarwin;
   isSillicon = pkgs.stdenv.hostPlatform.isDarwin
     && pkgs.stdenv.hostPlatform.isAarch64;
@@ -141,10 +142,37 @@ in
 
         # ASDF
         source "${homeDir}/.nix-profile/etc/profile.d/asdf-prepare.sh"
+      '' + ''
+        # ZSH profiling
+        autoload -U colors && colors
 
-        # Dynamic load
-        source "${homeDir}/dotFiles/zsh/zshrc"
+        # Load env
+        source "${dotFilesDir}/zsh/env.zsh"
 
+        # Get funtions
+        source "${dotFilesDir}/zsh/functions.zsh"
+
+        # If on WSL, load
+        if [[ -n "$WSL_DISTRO_NAME" ]]; then
+          source "${dotFilesDir}/wsl/wslrc.zsh"
+        fi
+
+        if [[ $(uname) == "Darwin" ]]; then
+          source "${dotFilesDir}/macOS/macosrc.zsh"
+        fi
+
+        # Set ZSH opts
+        source "${dotFilesDir}/zsh/opts.zsh"
+
+        # Set ZSH zstyle
+        source "${dotFilesDir}/zsh/zstyle.zsh"
+
+        # Set Keyboard
+        source "${dotFilesDir}/zsh/keyboard.zsh"
+
+        # Set Local
+        source "${dotFilesDir}/zsh/local.zsh"
+      '' + ''
         # ZSH profiling save
         zprof >/tmp/zprof
       '';
