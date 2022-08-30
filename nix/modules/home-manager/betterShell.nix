@@ -141,7 +141,7 @@ in
         }
 
         # ASDF
-        source "${homeDir}/.nix-profile/etc/profile.d/asdf-prepare.sh"
+        source "${pkgs.asdf-vm}/etc/profile.d/asdf-prepare.sh"
       '' + ''
         # ZSH profiling
         autoload -U colors && colors
@@ -156,11 +156,9 @@ in
         if [[ -n "$WSL_DISTRO_NAME" ]]; then
           source "${dotFilesDir}/wsl/wslrc.zsh"
         fi
-
-        if [[ $(uname) == "Darwin" ]]; then
-          source "${dotFilesDir}/macOS/macosrc.zsh"
-        fi
-
+      '' + pkgs.lib.optionalString isDarwin ''
+        source "${dotFilesDir}/macOS/macosrc.zsh"
+      '' + ''
         # Set ZSH opts
         source "${dotFilesDir}/zsh/opts.zsh"
 
