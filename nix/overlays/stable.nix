@@ -22,5 +22,6 @@ final: prev:
     kail
     kompose
     kubeval
+    yabai
     ;
 }

@@ -5,6 +5,8 @@
 
     compression = true;
 
+    serverAliveInterval = 60;
+    
     controlMaster = "auto";
     controlPersist = "1m";
     controlPath = "~/.ssh/%C.control";
