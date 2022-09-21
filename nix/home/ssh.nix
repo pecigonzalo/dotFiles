@@ -7,9 +7,9 @@
 
     serverAliveInterval = 60;
     
-    controlMaster = "auto";
+    controlMaster = "no";
     controlPersist = "1m";
-    controlPath = "~/.ssh/%C.control";
+    controlPath = "~/.ssh/control/%C.control";
 
     includes = [
       "*.config"
