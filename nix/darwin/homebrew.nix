@@ -5,12 +5,15 @@
   ];
   homebrew = {
     enable = true;
-    autoUpdate = false;
-
-    cleanup = "zap";
-
-    global.brewfile = true;
-    global.noLock = true;
+    onActivation = {
+      upgrade = true;
+      autoUpdate = true;
+      cleanup = "zap";
+    };
+    global = {
+      autoUpdate = false;
+      brewfile = true;
+    };
 
     taps = [
       "homebrew/bundle"
