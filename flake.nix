@@ -182,19 +182,18 @@
       homeConfigurations = rec {
         pecigonzalo = wslfish; # Alias
         wslfish = home-manager.lib.homeManagerConfiguration {
-          system = "x86_64-linux";
-          stateVersion = homeManagerStateVersion;
-          homeDirectory = "/home/davyjones";
-          username = "davyjones";
-          configuration = {
-            imports = [
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          modules = [
+            {
+              home = {
+                username = "davyjones";
+                homeDirectory = "/home/davyjones";
+                stateVersion = homeManagerStateVersion;
+              };
+              nixpkgs = nixpkgsConfig;
+            }
               commonHomeManagerConfig
-              {
-                targets.genericLinux.enable = true;
-              }
-            ];
-            nixpkgs = nixpkgsConfig;
-          };
+          ];
         };
 
         devel = home-manager.lib.homeManagerConfiguration {
