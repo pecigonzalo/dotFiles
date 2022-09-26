@@ -1,5 +1,6 @@
 { pkgs, ... }:
 {
+  security.pam.enableSudoTouchIdAuth = true;
   system.defaults.dock = {
     orientation = "left";
     autohide = true;

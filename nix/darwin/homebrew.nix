@@ -35,6 +35,7 @@
       "wireshark"
       "kitty"
       "parsec"
+      "obsidian"
     ];
 
     brews = [
