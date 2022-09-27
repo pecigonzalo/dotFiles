@@ -36,6 +36,7 @@
       "kitty"
       "parsec"
       "obsidian"
+      "tailscale"
     ];
 
     brews = [
