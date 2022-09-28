@@ -186,8 +186,8 @@
           modules = [
             {
               home = {
-                username = "davyjones";
-                homeDirectory = "/home/davyjones";
+                username = "pecigonzalo";
+                homeDirectory = "/home/pecigonzalo";
                 stateVersion = homeManagerStateVersion;
               };
               nixpkgs = nixpkgsConfig;
@@ -197,35 +197,33 @@
         };
 
         devel = home-manager.lib.homeManagerConfiguration {
-          system = "x86_64-linux";
-          stateVersion = homeManagerStateVersion;
-          homeDirectory = "/home/devel";
-          username = "devel";
-          configuration = {
-            imports = [
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          modules = [
+            {
+              home = {
+                username = "devel";
+                homeDirectory = "/home/devel";
+                stateVersion = homeManagerStateVersion;
+              };
+              nixpkgs = nixpkgsConfig;
+            }
               commonHomeManagerConfig
-              {
-                targets.genericLinux.enable = true;
-              }
-            ];
-            nixpkgs = nixpkgsConfig;
-          };
+          ];
         };
 
         revel = home-manager.lib.homeManagerConfiguration {
-          system = "x86_64-linux";
-          stateVersion = homeManagerStateVersion;
-          homeDirectory = "/home/ubuntu";
-          username = "ubuntu";
-          configuration = {
-            imports = [
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          modules = [
+            {
+              home = {
+                username = "ubuntu";
+                homeDirectory = "/home/ubuntu";
+                stateVersion = homeManagerStateVersion;
+              };
+              nixpkgs = nixpkgsConfig;
+            }
               commonHomeManagerConfig
-              {
-                targets.genericLinux.enable = true;
-              }
-            ];
-            nixpkgs = nixpkgsConfig;
-          };
+          ];
         };
       };
 

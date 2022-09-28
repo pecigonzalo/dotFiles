@@ -301,5 +301,8 @@ in
     # Container runtimes
     lima
     colima
+
+    # WSL
+    wslu
   ];
 }
