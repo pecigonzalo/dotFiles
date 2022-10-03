@@ -26,6 +26,41 @@ let
   };
 in
 {
+  editorconfig = {
+    enable = true;
+    settings = {
+      "*" = {
+        indent_size = 2;
+        indent_style = "space";
+        end_of_line = "lf";
+        trim_trailing_whitespace = true;
+        insert_final_newline = true;
+      };
+      "*.md" = {
+        trim_trailing_whitespace = false;
+        max_line_length = 80;
+      };
+      "*.{fs,cs}" = {
+        indent_size = 4;
+      };
+      "*.{csproj,vcxproj,vcxproj.user}" = {
+        indent_style = "space";
+        indent_size = 2;
+      };
+      "*.{yml,yaml}" = {
+        indent_style = "space";
+        indent_size = 2;
+      };
+      "{Makefile,*.mak}" = {
+        indent_style = "tab";
+      };
+      "*.py" = {
+        indent_style = "space";
+        indent_size = 4;
+        trim_trailing_spaces = true;
+      };
+    };
+  };
   programs.neovim =
     {
       enable = true;
