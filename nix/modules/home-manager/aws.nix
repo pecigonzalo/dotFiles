@@ -19,6 +19,7 @@ in
       # ssm-session-manager-plugin
       aws-nuke
       eksctl
+      steampipe
     ];
   };
 }

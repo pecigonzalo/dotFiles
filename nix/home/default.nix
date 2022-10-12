@@ -156,7 +156,7 @@ in
     unixtools.watch
 
     # Build tools
-    pkgconfig
+    pkg-config
     autoconf
     coreutils
     findutils
@@ -170,6 +170,7 @@ in
     gawk
 
     # Misc
+    goaccess # Access log analyzer
     parallel
     jq
     yq-go

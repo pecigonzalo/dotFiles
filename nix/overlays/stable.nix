@@ -12,6 +12,7 @@ final: prev:
     ansible
     curlie
     starship
+    teleport
     # neovim
     # vimPlugins
     deno
