@@ -19,8 +19,8 @@ in
       GODEBUG = "asyncpreemptoff=1";
     };
     home.file.".terraformrc".text = ''
-      plugin_cache_dir   = "${config.xdg.cacheHome}/terraform/plugin-cache"
-      disable_checkpoint = true
+       plugin_cache_dir   = "${config.xdg.cacheHome}/terraform/plugin-cache"
+       disable_checkpoint = true
     '';
     home.packages = with pkgs; [
       terraform
