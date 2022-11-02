@@ -9,4 +9,5 @@ in
   shell-functools = callPackage ./shell-functools { };
   loro = callPackage ./loro { };
   iamlive = callPackage ./iamlive { };
+  jl = callPackage ./jl { };
 }

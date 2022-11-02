@@ -236,6 +236,7 @@ in
     pipenv
 
     # Local
+    jl # JSON structured logs parser
     loro
     iamlive
     shell-functools # a collection of functional programming tools for the shell
