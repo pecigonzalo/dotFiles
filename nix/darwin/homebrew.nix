@@ -19,7 +19,6 @@
       "homebrew/bundle"
       "homebrew/cask"
       "homebrew/core"
-      "snyk/tap"
     ];
 
     casks = [
@@ -37,10 +36,6 @@
       "parsec"
       "obsidian"
       "tailscale"
-    ];
-
-    brews = [
-      "snyk/tap/snyk"
     ];
   };
 }

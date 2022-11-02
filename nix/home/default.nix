@@ -306,5 +306,8 @@ in
 
     # WSL
     wslu
+
+    # Security
+    nodePackages.snyk # Snyk CLI
   ];
 }
