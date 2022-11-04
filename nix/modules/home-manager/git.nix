@@ -230,20 +230,22 @@ in
       ];
     };
 
-    my.shell.gitHubPlugins = [
-      {
-        name = "forgit";
-        owner = "wfxr";
-        rev = "eed197948cc58b5bc388c1ebb1559431898a6221";
-      }
-    ];
-    my.shell.omzLibs = [
-      { name = "git"; }
-    ];
-    my.shell.omzPlugins = [
-      { name = "git-auto-fetch"; }
-      { name = "git-flow"; }
-      { name = "git"; }
-    ];
+    my.shell = {
+      gitHubPlugins = [
+        {
+          name = "forgit";
+          owner = "wfxr";
+          rev = "eed197948cc58b5bc388c1ebb1559431898a6221";
+        }
+      ];
+      omzLibs = [
+        { name = "git"; }
+      ];
+      omzPlugins = [
+        { name = "git-auto-fetch"; }
+        { name = "git-flow"; }
+        { name = "git"; }
+      ];
+    };
   };
 }

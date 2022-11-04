@@ -31,7 +31,7 @@ in
     aws.enable = true;
     gcp.enable = true;
     git.enable = true;
-    zsh.enable = true;
+    shell.enable = true;
     direnv.enable = true;
     fzf.enable = true;
   };
@@ -200,7 +200,7 @@ in
     ripgrep # grep
     exa # ls
     fd # find
-    httpie # curl
+    # httpie # curl
     curlie # curl
     tealdeer # TLDR
     du-dust # du

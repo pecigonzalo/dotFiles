@@ -4,7 +4,7 @@
     ./aws.nix
     ./gcp.nix
     ./git.nix
-    ./zsh.nix
+    ./shell.nix
     ./direnv.nix
     ./fzf.nix
   ];

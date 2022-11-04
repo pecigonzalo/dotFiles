@@ -1,20 +1,19 @@
 final: prev:
 {
   inherit (final.pkgs-21-05)
-    sshuttle
     dnsutils# https://github.com/NixOS/nixpkgs/issues/152056
     ;
   inherit (final.pkgs-21-11)
     pre-commit
-    httpie
     ;
   inherit (final.pkgs-stable)
+    # pre-commit
+    sshuttle
+
     ansible
     curlie
     starship
     teleport
-    # neovim
-    # vimPlugins
     deno
     procs
     unrar
