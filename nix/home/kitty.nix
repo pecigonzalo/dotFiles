@@ -121,8 +121,4 @@ in
       "f3" = "launch --allow-remote-control kitty +kitten broadcast --match-tab state:focused";
     };
   };
-  # # https://github.com/nix-community/home-manager/issues/423
-  # environment.variables = {
-  #   TERMINFO_DIRS = "${pkgs.kitty.terminfo.outPath}/share/terminfo";
-  # };
 }

@@ -4,6 +4,8 @@
     ./aws.nix
     ./gcp.nix
     ./git.nix
-    ./betterShell.nix
+    ./zsh.nix
+    ./direnv.nix
+    ./fzf.nix
   ];
 }

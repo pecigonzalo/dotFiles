@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 with lib;
 let
-  cfg = config.my.betterShell;
+  cfg = config.my.shell;
 
   homeDir = config.home.homeDirectory;
   dotFilesDir = "${homeDir}/dotFiles";
@@ -10,24 +10,25 @@ let
     && pkgs.stdenv.hostPlatform.isAarch64;
 
   omzRev = "6d48309cd7da1b91038cf08be7865fb5bb9bc5ea";
-  omzPlugin = { name }: {
+  omzPlugin = { name, rev ? omzRev }: {
     name = "ohmyzsh-plugin-${name}";
     src = builtins.fetchGit {
+      inherit rev;
       url = "https://github.com/ohmyzsh/ohmyzsh";
-      rev = omzRev;
     };
     file = "plugins/${name}/${name}.plugin.zsh";
   };
-  omzLib = { name }: {
+  omzLib = { name, rev ? omzRev }: {
     name = "ohmyzsh-lib-${name}";
     src = builtins.fetchGit {
+      inherit rev;
       url = "https://github.com/ohmyzsh/ohmyzsh";
-      rev = omzRev;
     };
     file = "lib/${name}.zsh";
   };
-  gitHubPlugin = { name, owner, rev, file ? "${name}.plugin.zsh" }: {
-    inherit name file;
+  gitHubPlugin = { name, owner, rev, file ? null }: {
+    inherit name;
+    file = if file == null then "${name}.plugin.zsh" else file;
     src = builtins.fetchGit {
       inherit rev;
       url = "https://github.com/${owner}/${name}";
@@ -35,78 +36,60 @@ let
   };
 in
 {
-  options.my.betterShell = {
-    enable = mkEnableOption "a Better Shell";
+  options.my.shell = {
+    enable = mkEnableOption "Super Shell";
+    gitHubPlugins = mkOption {
+      type = types.listOf
+        (types.submodule {
+          options = {
+            name = mkOption {
+              type = types.str;
+            };
+            owner = mkOption {
+              type = types.str;
+            };
+            rev = mkOption {
+              type = types.str;
+            };
+            file = mkOption {
+              type = types.nullOr types.str;
+              default = null;
+            };
+          };
+        });
+      default = [ ];
+    };
+    omzLibs = mkOption {
+      type = types.listOf (types.submodule {
+        options = {
+          name = mkOption {
+            type = types.str;
+          };
+          rev = mkOption {
+            type = types.str;
+            default = omzRev;
+          };
+        };
+      });
+      default = [ ];
+    };
+    omzPlugins = mkOption {
+      type = types.listOf (types.submodule {
+        options = {
+          name = mkOption {
+            type = types.str;
+          };
+          rev = mkOption {
+            type = types.str;
+            default = omzRev;
+          };
+        };
+      });
+      default = [ ];
+    };
   };
 
   config = mkIf cfg.enable {
-    programs.direnv = {
-      enable = true;
-      enableZshIntegration = true;
-      nix-direnv.enable = true;
-
-      config = {
-        global = {
-          strict_env = true;
-        };
-
-        whitelist = {
-          prefix = [
-            "${homeDir}/Workspace/"
-          ];
-        };
-      };
-
-      stdlib = ''
-        layout_poetry() {
-          if [[ ! -f pyproject.toml ]]; then
-            log_error 'No pyproject.toml found. Use `poetry new` or `poetry init` to create one first.'
-            exit 2
-          fi
-
-          # Create venv if it doesn't exist
-          poetry env use python
-
-          export VIRTUAL_ENV=$(poetry env info --path)
-          export POETRY_ACTIVE=1
-          PATH_add "$VIRTUAL_ENV/bin"
-        }
-      '';
-    };
-
-    programs.fzf = {
-      enable = true;
-      enableZshIntegration = true;
-
-      defaultCommand = "fd --type f --hidden --follow --exclude .git --color=always";
-      defaultOptions = [
-        "--multi"
-        "--ansi"
-        "--height=50%"
-        "--min-height=15"
-        "--reverse"
-        "--color=bg:-1,fg:-1,prompt:1,info:3,hl:2,hl+:2"
-      ];
-
-      historyWidgetOptions = [
-        "--preview 'echo {}'"
-        "--preview-window down:3:hidden:wrap"
-        "--bind '?:toggle-preview'"
-      ];
-
-      # fileWidgetCommand = "";
-      fileWidgetOptions = [
-        "--preview '(bat --style=numbers --color=always --line-range :500 {} || exa --tree --level=4 {}) 2> /dev/null'"
-        "--select-1"
-        "--exit-0"
-      ];
-
-      changeDirWidgetCommand = "fd --type directory --color=always . ${homeDir}";
-      changeDirWidgetOptions = [
-        "--preview 'exa --tree --level=4 {} | head -200'"
-      ];
-    };
-
     programs.zsh = {
       enable = true;
 
@@ -130,19 +113,6 @@ in
 
 
       initExtra = ''
-        ## Others
-        _fzf_compgen_path() {
-          fd --hidden --follow --exclude ".git" . "$1"
-        }
-
-        # Use fd to generate the list for directory completion
-        _fzf_compgen_dir() {
-          fd --type d --hidden --follow --exclude ".git" . "$1"
-        }
-
-        # ASDF
-        source "${pkgs.asdf-vm}/etc/profile.d/asdf-prepare.sh"
-      '' + ''
         # ZSH profiling
         autoload -U colors && colors
 
@@ -248,23 +218,21 @@ in
 
       plugins =
         (map (name: omzLib { name = name; }) [
-          "git"
           "key-bindings"
           "clipboard"
           "termsupport"
         ]) ++
+        (map omzLib cfg.omzLibs) ++
         (map (name: omzPlugin { name = name; }) [
           "aws"
           "common-aliases"
           "docker-compose"
-          "git-auto-fetch"
-          "git-flow"
-          "git"
           "rsync"
           "ssh-agent"
           "urltools"
           "vscode"
         ]) ++
+        (map omzPlugin cfg.omzPlugins) ++
         [
           (gitHubPlugin {
             name = "zsh-z";
@@ -275,16 +243,6 @@ in
             name = "emoji-cli";
             owner = "b4b4r07";
             rev = "0fbb2e48e07218c5a2776100a4c708b21cb06688";
-          })
-          (gitHubPlugin {
-            name = "fzf-tab";
-            owner = "Aloxaf";
-            rev = "103330fdbeba07416d5f90b391eee680cd20d2d6";
-          })
-          (gitHubPlugin {
-            name = "forgit";
-            owner = "wfxr";
-            rev = "eed197948cc58b5bc388c1ebb1559431898a6221";
           })
           (gitHubPlugin {
             name = "jq-zsh-plugin";
@@ -298,7 +256,8 @@ in
             rev = "594eab4642cc6dcfe063ecd51d76478bd84e2878";
             file = "tipz.zsh";
           })
-        ];
+        ] ++
+        (map gitHubPlugin cfg.gitHubPlugins);
     };
   };
 }

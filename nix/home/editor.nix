@@ -108,7 +108,6 @@ in
       ];
 
       extraPackages = with pkgs; [
-        # nvim-treesitter
         gcc
         tree-sitter
 

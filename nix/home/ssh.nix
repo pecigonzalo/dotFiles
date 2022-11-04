@@ -6,7 +6,7 @@
     compression = true;
 
     serverAliveInterval = 60;
-    
+
     controlMaster = "no";
     controlPersist = "1m";
     controlPath = "~/.ssh/control/%C.control";
@@ -16,6 +16,6 @@
     ];
   };
 
-  # TODO: We have to disable openssh as ssh-add does not work with macOS
-  # home.packages = with pkgs; [ openssh ];
+  # Don't install openssh in MacOS as it does not support `UseKeychain`
+  home.packages = if !pkgs.stdenv.isDarwin then with pkgs; [ openssh ] else [ ];
 }

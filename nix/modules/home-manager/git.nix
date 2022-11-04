@@ -229,5 +229,21 @@ in
         # End of https://www.gitignore.io/api/code,windows,linux,osx,direnv
       ];
     };
+
+    my.shell.gitHubPlugins = [
+      {
+        name = "forgit";
+        owner = "wfxr";
+        rev = "eed197948cc58b5bc388c1ebb1559431898a6221";
+      }
+    ];
+    my.shell.omzLibs = [
+      { name = "git"; }
+    ];
+    my.shell.omzPlugins = [
+      { name = "git-auto-fetch"; }
+      { name = "git-flow"; }
+      { name = "git"; }
+    ];
   };
 }

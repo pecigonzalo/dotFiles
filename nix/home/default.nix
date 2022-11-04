@@ -31,7 +31,9 @@ in
     aws.enable = true;
     gcp.enable = true;
     git.enable = true;
-    betterShell.enable = true;
+    zsh.enable = true;
+    direnv.enable = true;
+    fzf.enable = true;
   };
 
   home = {

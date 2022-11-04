@@ -58,8 +58,9 @@
           };
         };
 
-        packages = import ./nix/nixpkgs;
+        packages = import ./nix/pkgs;
       };
+
 
       dynamicOverlays =
         let path = ./nix/overlays; in
@@ -192,7 +193,7 @@
               };
               nixpkgs = nixpkgsConfig;
             }
-              commonHomeManagerConfig
+            commonHomeManagerConfig
           ];
         };
 
@@ -207,7 +208,7 @@
               };
               nixpkgs = nixpkgsConfig;
             }
-              commonHomeManagerConfig
+            commonHomeManagerConfig
           ];
         };
 
@@ -222,7 +223,7 @@
               };
               nixpkgs = nixpkgsConfig;
             }
-              commonHomeManagerConfig
+            commonHomeManagerConfig
           ];
         };
       };
