@@ -7,9 +7,7 @@ final: prev:
     pre-commit
     ;
   inherit (final.pkgs-stable)
-    # pre-commit
     sshuttle
-
     ansible
     curlie
     starship

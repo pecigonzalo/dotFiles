@@ -84,15 +84,6 @@
           # allowBroken = true;
           allowBroken = false;
         };
-        # Dynamic list of patches
-        # patches =
-        #   let path = ./nix/patches; in
-        #   with builtins;
-        #   map (patch: path + "/${patch}")
-        #     (
-        #       filter (x: x != ".keep")
-        #       (attrNames (readDir path))
-        #     );
         # Dynamic list of overlays
         overlays = namedOverlays ++ dynamicOverlays;
       };

@@ -17,8 +17,10 @@
     # "/sbin"
     "/lib"
     "/include"
-    "/libexec"
-    "/share/zsh" # Completions
+    # Completions
+    "/share/fish"
+    "/share/bash-completion"
+    "/share/zsh"
   ];
 
   services.yabai = {
