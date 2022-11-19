@@ -36,6 +36,8 @@
       "parsec"
       "obsidian"
       "tailscale"
+      "visual-studio-code"
+      "spotify"
     ];
   };
 }
