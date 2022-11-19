@@ -117,7 +117,7 @@
 
       commonDarwinConfig =
         let
-          user = "gonzalopeci";
+          user = "pecigonzalo";
           homeDirectory = "/Users/${user}";
         in
         [
@@ -163,10 +163,10 @@
         };
 
         # Apple Silicon macOS
-        gonzalopeci = darwinSystem {
+        pecigonzalo = darwinSystem {
           system = "aarch64-darwin";
           modules = commonDarwinConfig ++ [
-            { networking.hostName = "gonzalopeci"; }
+            { networking.hostName = "pecigonzalo"; }
           ];
         };
       };
@@ -225,7 +225,7 @@
           (system: {
             name = system;
             value = {
-              gonzalopeci =
+              pecigonzalo =
                 self.darwinConfigurations.githubCI.system;
             };
           })
