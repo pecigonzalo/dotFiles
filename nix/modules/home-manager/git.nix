@@ -144,6 +144,9 @@ in
       };
 
       ignores = [
+        ".idea"
+        ".fleet"
+
         # .NET
         ".ionide"
 
