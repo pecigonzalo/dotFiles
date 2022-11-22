@@ -59,12 +59,7 @@
         symbol = "☸ ";
         context_aliases = {
           "(?P<cluster>[\\\\w-]+).data-platform-cluster" = "$cluster";
-          "development-development" = "development";
-          "development-eks-development" = "eks-development";
-          "staging-staging*" = "staging";
-          "staging-eks-staging" = "eks-staging";
-          "production-production" = "production";
-          "production-eks-production" = "eks-production";
+          "(?P<cluster>\w+-?\w+)-.+" = "$cluster";
         };
       };
 
