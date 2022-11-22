@@ -59,6 +59,7 @@
         symbol = "☸ ";
         context_aliases = {
           "(?P<cluster>[\\\\w-]+).data-platform-cluster" = "$cluster";
+          "(?P<cluster>\w+-?\w+)-.+" = "$cluster";
         };
       };
 
