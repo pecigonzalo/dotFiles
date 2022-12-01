@@ -5,7 +5,7 @@ let
       nonVSCodePlugin
         {
           plugin = x.plugin;
-          type = if x ? type then x.type else null;
+          type = if x ? type then x.type else "lua";
           config = x.config;
         }
     else
@@ -112,15 +112,15 @@ in
         # Which key
         {
           plugin = which-key-nvim;
-          config = """
+          config = "
             vim.opt.timeoutlen = 500
 
-            require "which-key".setup {
+            require('which-key').setup {
                 window = {
-                    border = "rounded",
+                    border = 'rounded',
                 },
             }
-          """;
+          ";
         }
         
         # Git signals
