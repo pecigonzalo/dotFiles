@@ -5,7 +5,7 @@ let
       nonVSCodePlugin
         {
           plugin = x.plugin;
-          type = x.type;
+          type = if x ? type then x.type else null;
           config = x.config;
         }
     else
@@ -77,7 +77,6 @@ in
         # Treesitter
         {
           plugin = nvim-treesitter.withPlugins (_: pkgs.tree-sitter.allGrammars);
-          type = "lua";
           config = builtins.readFile ./neovim/treesitter.lua;
         }
         # LSP
@@ -90,7 +89,6 @@ in
         cmp-nvim-lsp
         {
           plugin = nvim-cmp;
-          type = "lua";
           config = builtins.readFile ./neovim/cmp.lua;
         }
 
@@ -102,7 +100,6 @@ in
         nvim-web-devicons
         {
           plugin = nvim-tree-lua;
-          type = "lua";
           config = builtins.readFile ./neovim/explorer.lua;
         }
 
@@ -110,8 +107,26 @@ in
         telescope-fzf-native-nvim
         {
           plugin = telescope-nvim;
-          type = "lua";
           config = builtins.readFile ./neovim/telescope.lua;
+        }
+        # Which key
+        {
+          plugin = which-key-nvim;
+          config = """
+            vim.opt.timeoutlen = 500
+
+            require "which-key".setup {
+                window = {
+                    border = "rounded",
+                },
+            }
+          """;
+        }
+        
+        # Git signals
+        {
+          plugin = gitsigns-nvim;
+          config = builtins.readFile ./neovim/gitsigns.lua;
         }
       ];
 
