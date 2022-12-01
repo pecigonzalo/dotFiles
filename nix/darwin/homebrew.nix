@@ -37,6 +37,7 @@
       "obsidian"
       "tailscale"
       "visual-studio-code"
+      "intellij-idea"
       "spotify"
     ];
   };
