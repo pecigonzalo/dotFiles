@@ -7,6 +7,7 @@ final: prev:
     pre-commit
     ;
   inherit (final.pkgs-stable)
+    kcli
     sshuttle
     ansible
     curlie
