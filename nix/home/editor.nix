@@ -105,6 +105,14 @@ in
           type = "lua";
           config = builtins.readFile ./neovim/explorer.lua;
         }
+
+        # Telescope
+        telescope-fzf-native-nvim
+        {
+          plugin = telescope-nvim;
+          type = "lua";
+          config = builtins.readFile ./neovim/telescope.lua;
+        }
       ];
 
       extraPackages = with pkgs; [
