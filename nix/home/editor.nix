@@ -1,4 +1,5 @@
 { pkgs, lib, ... }:
+
 let
   mapper = map (x:
     if (x ? plugin) then
@@ -61,6 +62,7 @@ in
       };
     };
   };
+  xdg.configFile."nvim/init.lua".text = builtins.readFile ./neovim/init.lua;
   programs.neovim =
     {
       enable = true;
@@ -91,6 +93,12 @@ in
           plugin = nvim-cmp;
           config = builtins.readFile ./neovim/cmp.lua;
         }
+        {
+          plugin = fidget-nvim; # LSP Progress
+          config = ''
+            require('fidget').setup{}
+          '';
+        }
 
         vim-visual-multi # Multiple cursors
 
@@ -112,7 +120,7 @@ in
         # Which key
         {
           plugin = which-key-nvim;
-          config = "
+          config = ''
             vim.opt.timeoutlen = 500
 
             require('which-key').setup {
@@ -120,14 +128,43 @@ in
                     border = 'rounded',
                 },
             }
-          ";
+          '';
         }
-        
+
         # Git signals
         {
           plugin = gitsigns-nvim;
           config = builtins.readFile ./neovim/gitsigns.lua;
         }
+        # Color indentation
+        {
+          plugin = indent-blankline-nvim;
+          config = ''
+            -- Display characters
+            vim.opt.list = false
+            vim.opt.listchars = {
+              space = "∙",
+              tab = "→ ",
+              eol = "↲",
+              trail = "∙",
+              extends = "❯",
+              precedes = "❮"
+            }
+            require('indent_blankline').setup {
+              show_trailing_blankline_indent = false,
+              space_char_blankline = ' ',
+              char_highlight_list = {
+                "IndentBlanklineIndent1",
+                "IndentBlanklineIndent2",
+                "IndentBlanklineIndent3",
+                "IndentBlanklineIndent4",
+                "IndentBlanklineIndent5",
+                "IndentBlanklineIndent6",
+              },
+            }
+          '';
+        }
+        #
       ];
 
       extraPackages = with pkgs; [
@@ -140,8 +177,7 @@ in
         rnix-lsp
         terraform-ls
         kotlin-language-server
+        sumneko-lua-language-server
       ];
-
-      extraConfig = builtins.readFile ./neovim/.vimrc;
     };
 }
