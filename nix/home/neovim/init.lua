@@ -56,7 +56,6 @@ opt.incsearch = true
 opt.smartcase = true
 opt.swapfile = false
 opt.backup = false
-opt.undodir = "~/.vim/undodir"
 opt.undofile = true
 
 
