@@ -63,15 +63,22 @@ opt.backup = false
 opt.undofile = true
 
 -- Keybindings
+
 vim.g.mapleader = ' '
+local nmap = function(keys, func, desc)
+  if desc then
+    desc = desc
+  end
+  vim.keymap.set('n', keys, func, { noremap = true, desc = desc })
+end
+
 vim.keymap.set({ 'n', 'x' }, 'cp', '"+y') -- Copy to clipboard.
 vim.keymap.set({ 'n', 'x' }, 'cv', '"+p') -- Paste from clipboard
 vim.keymap.set({ 'n', 'x' }, 'x', '"_x') -- Disable yank on delete
-vim.keymap.set('n', '<leader>a', ':keepjumps normal! ggVG<cr>') -- Select all text in buffer
-
-vim.keymap.set('n', '<leader>w', vim.cmd.write) -- Write buffer
-vim.keymap.set('n', '<leader>bq', vim.cmd.bdelete) -- Delete buffer
-vim.keymap.set('n', '<leader>bl', vim.cmd.buffer('#')) -- Go to last buffer
+nmap('<leader>a', ':keepjumps normal! ggVG<cr>', 'Select [a]ll') -- Select all text in buffer
+nmap('<leader>w', vim.cmd.write, '[w]rite buffer') -- Write buffer
+nmap('<leader>bq', vim.cmd.bdelete, '[b]uffer [q]uit') -- Delete buffer
+nmap('<leader>bl', function() vim.cmd.buffer("#") end, '[b]uffer [l]ast') -- Go to last buffer
 
 -- User commands
 local group = vim.api.nvim_create_augroup('user_cmds', { clear = true })

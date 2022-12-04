@@ -31,9 +31,16 @@ require('telescope').setup {
 
 local builtin = require('telescope.builtin')
 
-vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
-vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
-vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
-vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
-vim.keymap.set('n', '<leader>fs', builtin.current_buffer_fuzzy_find, {})
-vim.keymap.set('n', '<leader>fd', builtin.diagnostics, {})
+local nmap = function(keys, func, desc)
+  if desc then
+    desc = ': ' .. desc
+  end
+  vim.keymap.set('n', keys, func, { noremap = true, desc = desc })
+end
+
+nmap('<leader>ff', builtin.find_files, '[f]ind [f]iles')
+nmap('<leader>fg', builtin.live_grep, '[f]ind [g]rep')
+nmap('<leader>fb', builtin.buffers, '[f]ind [b]uffer')
+nmap('<leader>fh', builtin.help_tags, '[f]ind [h]elp tags')
+nmap('<leader>fs', builtin.current_buffer_fuzzy_find, '[f]ind [s]earch buffer')
+nmap('<leader>fd', builtin.diagnostics, '[f]ind [d]iagnostics')
