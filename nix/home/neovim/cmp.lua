@@ -37,10 +37,10 @@ cmp.setup({
     ['<Up>'] = cmp.mapping.select_prev_item(select_opts),
     ['<Down>'] = cmp.mapping.select_next_item(select_opts),
 
-    ['<C-p>'] = cmp.mapping.select_prev_item(select_opts),
-    ['<C-n>'] = cmp.mapping.select_next_item(select_opts),
+    ['<C-k>'] = cmp.mapping.select_prev_item(select_opts),
+    ['<C-j>'] = cmp.mapping.select_next_item(select_opts),
 
-    ['<C-u>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
 
     ['<C-e>'] = cmp.mapping.abort(),
@@ -73,6 +73,8 @@ cmp.setup({
 
       if cmp.visible() then
         cmp.select_next_item(select_opts)
+      elseif luasnip.expand_or_locally_jumpable() then
+        luasnip.expand_or_jump()
       elseif col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
         fallback()
       else
@@ -93,6 +95,7 @@ cmp.setup({
     { name = 'nvim_lsp', keyword_length = 3 },
     { name = 'buffer', keyword_length = 3 },
     { name = 'luasnip', keyword_length = 2, option = { show_autosnippets = true } }, -- For vsnip users.
+    { name = 'treesitter', keyword_length = 3 },
   }, {
     { name = 'buffer' },
   })

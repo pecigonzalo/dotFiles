@@ -131,6 +131,11 @@ in
               window = {
                 border = 'rounded',
               },
+              icons = {
+                breadcrumb = '»',
+                separator = '->',
+                group = '',
+              },
             }
           '';
         }
@@ -148,17 +153,28 @@ in
             -- Display characters
             vim.opt.list = true
             vim.opt.listchars = {
-              space = "∙",
               tab = "→ ",
               eol = "↲",
               trail = "∙",
               extends = "❯",
-              precedes = "❮"
+              precedes = "❮",
             }
 
             require('indent_blankline').setup {
+              char = "▏",
+              context_char = "▎",
+              filetype_exclude = {
+                "lspinfo",
+                "packer",
+                "checkhealth",
+                "help",
+                "man",
+                "dashboard",
+                "NvimTree",
+                "text",
+              },
+
               use_treesitter = true,
-              use_treesitter_scope = true,
 
               show_trailing_blankline_indent = false,
               show_first_indent_level = false,
@@ -167,15 +183,6 @@ in
               show_current_context_start = true,
 
               space_char_blankline = " ",
-
-              char_highlight_list = {
-                "IndentBlanklineIndent1",
-                "IndentBlanklineIndent2",
-                "IndentBlanklineIndent3",
-                "IndentBlanklineIndent4",
-                "IndentBlanklineIndent5",
-                "IndentBlanklineIndent6",
-              },
             }
           '';
         }
@@ -187,7 +194,10 @@ in
             require('toggleterm').setup({
               open_mapping = '<C-g>',
               direction = 'float',
-              shade_terminals = true
+              shade_terminals = true,
+              float_opts = {
+                border = 'curved',
+              },
             })
           '';
         }
