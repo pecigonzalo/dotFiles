@@ -54,7 +54,6 @@ let
     # Marks
     "mark1_foreground" = "#282a36";
     "mark1_background" = "#ff5555";
-
   };
 in
 {
@@ -87,7 +86,15 @@ in
 
       allow_hyperlinks = true;
       copy_on_select = true;
+
     } // dracula-colors;
+
+    # Neovim
+    extraConfig = ''
+      modify_font underline_position 2
+      modify_font underline_thickness 150%
+      modify_font strikethrough_position 2px
+    '';
 
     keybindings = {
       # Copy Paste

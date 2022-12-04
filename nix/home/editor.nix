@@ -62,7 +62,12 @@ in
       };
     };
   };
-  xdg.configFile."nvim/init.lua".text = builtins.readFile ./neovim/init.lua;
+
+  xdg.configFile."nvim/init.lua".text = lib.mkMerge [
+    (lib.mkBefore (builtins.readFile ./neovim/init.lua))
+    (lib.mkAfter (builtins.readFile ./neovim/final.lua))
+  ];
+
   programs.neovim =
     {
       enable = true;
@@ -71,24 +76,22 @@ in
       withNodeJs = true;
       withPython3 = true;
 
-      plugins = with pkgs.vimPlugins; [
-        vim-commentary
-        dracula-vim
-      ] ++ mapper [
-        editorconfig-nvim
+      plugins = with pkgs.vimPlugins; mapper [
         # Treesitter
         {
           plugin = nvim-treesitter.withPlugins (_: pkgs.tree-sitter.allGrammars);
           config = builtins.readFile ./neovim/treesitter.lua;
         }
+
         # LSP
         nvim-lspconfig
         cmp-buffer
         cmp-path
         cmp-cmdline
-        cmp-vsnip
-        vim-vsnip
         cmp-nvim-lsp
+        luasnip
+        friendly-snippets
+        cmp_luasnip
         {
           plugin = nvim-cmp;
           config = builtins.readFile ./neovim/cmp.lua;
@@ -100,10 +103,6 @@ in
           '';
         }
 
-        vim-visual-multi # Multiple cursors
-
-        vim-nix
-
         # Treexplorer
         nvim-web-devicons
         {
@@ -112,11 +111,16 @@ in
         }
 
         # Telescope
-        telescope-fzf-native-nvim
+        plenary-nvim
         {
           plugin = telescope-nvim;
           config = builtins.readFile ./neovim/telescope.lua;
         }
+        {
+          plugin = telescope-fzf-native-nvim;
+          config = ''require('telescope').load_extension('fzf')'';
+        }
+
         # Which key
         {
           plugin = which-key-nvim;
@@ -124,9 +128,9 @@ in
             vim.opt.timeoutlen = 500
 
             require('which-key').setup {
-                window = {
-                    border = 'rounded',
-                },
+              window = {
+                border = 'rounded',
+              },
             }
           '';
         }
@@ -136,12 +140,13 @@ in
           plugin = gitsigns-nvim;
           config = builtins.readFile ./neovim/gitsigns.lua;
         }
+
         # Color indentation
         {
           plugin = indent-blankline-nvim;
           config = ''
             -- Display characters
-            vim.opt.list = false
+            vim.opt.list = true
             vim.opt.listchars = {
               space = "∙",
               tab = "→ ",
@@ -150,9 +155,19 @@ in
               extends = "❯",
               precedes = "❮"
             }
+
             require('indent_blankline').setup {
-              show_trailing_blankline_indent = false,
-              space_char_blankline = ' ',
+              use_treesitter = true,
+              use_treesitter_scope = true,
+
+              show_trailing_blankline_indent = true,
+              show_first_indent_level = false,
+
+              show_current_context = true,
+              show_current_context_start = true,
+
+              space_char_blankline = " ",
+
               char_highlight_list = {
                 "IndentBlanklineIndent1",
                 "IndentBlanklineIndent2",
@@ -164,7 +179,81 @@ in
             }
           '';
         }
-        #
+
+        # Quick Terminal
+        {
+          plugin = toggleterm-nvim;
+          config = ''
+            require('toggleterm').setup({
+              open_mapping = '<C-g>',
+              direction = 'float',
+              shade_terminals = true
+            })
+          '';
+        }
+
+        # Theme
+        {
+          plugin = dracula-vim;
+          config = ''
+            vim.g.dracula_colorterm = 0
+            vim.cmd [[ colorscheme dracula ]]
+          '';
+        }
+        {
+          plugin = bufferline-nvim;
+          config = ''
+            require('bufferline').setup({
+              options = {
+                mode = 'buffers',
+                offsets = {
+                  {filetype = 'NvimTree'}
+                },
+              },
+              highlights = {
+                buffer_selected = {
+                  italic = false
+                },
+                indicator_selected = {
+                  fg = {attribute = 'fg', highlight = 'Function'},
+                  italic = false
+                }
+              }
+            })
+          '';
+        }
+        {
+          plugin = lualine-nvim;
+          config = ''
+            vim.opt.showmode = false
+            vim.opt.cmdheight = 0
+            require('lualine').setup({
+              options = {
+                theme = 'dracula',
+                icons_enabled = true,
+                component_separators = '|',
+                section_separators = "",
+                globalstatus = true,
+              },
+              sections = {
+                lualine_a = {'mode'},
+                lualine_b = {'branch', 'diff', 'diagnostics'},
+                lualine_c = {'filename'},
+                lualine_x = {'filetype'},
+                lualine_y = {'progress'},
+                lualine_z = {'location'}
+              },
+            })
+          '';
+        }
+
+        vim-visual-multi # Multiple cursors
+        vim-nix # Nix
+        editorconfig-nvim # Editorconfig
+        {
+          plugin = comment-nvim; # Commenting lines
+          config = ''require('Comment').setup({})'';
+        }
       ];
 
       extraPackages = with pkgs; [

@@ -1,8 +1,5 @@
 local opt = vim.opt
 
-vim.g.dracula_colorterm = 0
-vim.cmd [[ colorscheme dracula ]]
-
 opt.syntax = "enable" -- Syntax highlight
 
 -- Display settings
@@ -10,11 +7,13 @@ opt.termguicolors = true -- Truecolor
 opt.mouse = "a" -- Enable mouse support
 opt.scrolloff = 5 -- 2 lines above/below cursor when scrolling
 opt.showmatch = true -- Show matching bracket (briefly jump)
-opt.showmode = true -- Show mode in the status bar (insert/replace/...)
-opt.showcmd = true -- Show typed command in status bar
 opt.title = true -- Show file in titlebar
 opt.matchtime = 2 -- Show matching bracket for 0.2 seconds
-vim.wo.wrap = false
+opt.wrap = true -- Wrap long lines
+opt.breakindent = true -- Preserve the indentation of a virtual line. These "virtual lines" are the ones only visible when wrap is enabled.
+opt.showcmd = true
+opt.cmdheight = 0
+opt.laststatus = 3 -- Use a global statusbar
 
 -- Set relative numbers in NORMAL but switch to absolute in INSERT
 opt.number = true
@@ -41,11 +40,16 @@ vim.api.nvim_create_autocmd({ "BufLeave", "FocusLost", "InsertEnter", "CmdlineEn
   end,
 })
 
+-- Search config
+opt.ignorecase = true -- Ignore uppercase letters when executing a search
+opt.smartcase = true -- Ignore uppercase letters unless the search term has an uppercase letter
+opt.hlsearch = false -- Disable highlights the results of the previous search
+
 -- Default Indentation
 opt.smartindent = true
-opt.tabstop = 4
-opt.softtabstop = 4
-opt.shiftwidth = 4
+opt.tabstop = 2
+opt.shiftwidth = 2
+opt.softtabstop = 2
 opt.expandtab = true
 
 -- No noise
@@ -58,12 +62,31 @@ opt.swapfile = false
 opt.backup = false
 opt.undofile = true
 
+-- Keybindings
+vim.g.mapleader = ' '
+vim.keymap.set({ 'n', 'x' }, 'cp', '"+y') -- Copy to clipboard.
+vim.keymap.set({ 'n', 'x' }, 'cv', '"+p') -- Paste from clipboard
+vim.keymap.set({ 'n', 'x' }, 'x', '"_x') -- Disable yank on delete
+vim.keymap.set('n', '<leader>a', ':keepjumps normal! ggVG<cr>') -- Select all text in buffer
 
--- indent-blankline-nvim
--- NOTE: Has to run at the end to avoid being overriden
-vim.cmd [[highlight IndentBlanklineIndent1 guifg=#E06C75 gui=nocombine]]
-vim.cmd [[highlight IndentBlanklineIndent2 guifg=#E5C07B gui=nocombine]]
-vim.cmd [[highlight IndentBlanklineIndent3 guifg=#98C379 gui=nocombine]]
-vim.cmd [[highlight IndentBlanklineIndent4 guifg=#56B6C2 gui=nocombine]]
-vim.cmd [[highlight IndentBlanklineIndent5 guifg=#61AFEF gui=nocombine]]
-vim.cmd [[highlight IndentBlanklineIndent6 guifg=#C678DD gui=nocombine]]
+vim.keymap.set('n', '<leader>w', vim.cmd.write) -- Write buffer
+vim.keymap.set('n', '<leader>bq', vim.cmd.bdelete) -- Delete buffer
+vim.keymap.set('n', '<leader>bl', vim.cmd.buffer('#')) -- Go to last buffer
+
+-- User commands
+local group = vim.api.nvim_create_augroup('user_cmds', { clear = true })
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'help', 'man' },
+  group = group,
+  desc = 'Use q to close the window',
+  command = 'nnoremap <buffer> q <cmd>quit<cr>'
+})
+
+vim.api.nvim_create_autocmd('TextYankPost', {
+  group = group,
+  desc = 'Highlight on yank',
+  callback = function(event)
+    vim.highlight.on_yank({ higroup = 'Visual', timeout = 200 })
+  end
+})
