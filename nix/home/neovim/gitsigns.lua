@@ -18,5 +18,14 @@ require 'gitsigns'.setup {
       gs.toggle_deleted()
       gs.toggle_linehl()
     end, 'Inline [d]iff')
-  end
+  end;
+
+  signs = {
+    add = { text = "▎" },
+    change = { text = "▎" },
+    delete = { text = "▎" },
+    topdelete = { text = "契" },
+    changedelete = { text = "▎" },
+    untracked = { text = "▎" },
+  },
 }
