@@ -92,6 +92,7 @@ in
         luasnip
         friendly-snippets
         cmp_luasnip
+        SchemaStore-nvim
         {
           plugin = nvim-cmp;
           config = builtins.readFile ./neovim/cmp.lua;
@@ -234,27 +235,7 @@ in
         }
         {
           plugin = lualine-nvim;
-          config = ''
-            vim.opt.showmode = false
-            vim.opt.cmdheight = 0
-            require('lualine').setup({
-              options = {
-                theme = 'dracula',
-                icons_enabled = true,
-                component_separators = '|',
-                section_separators = "",
-                globalstatus = true,
-              },
-              sections = {
-                lualine_a = {'mode'},
-                lualine_b = {'branch', 'diff', 'diagnostics'},
-                lualine_c = {'filename'},
-                lualine_x = {'filetype'},
-                lualine_y = {'progress'},
-                lualine_z = {'location'}
-              },
-            })
-          '';
+          config = builtins.readFile ./neovim/lualine.lua;
         }
 
         vim-visual-multi # Multiple cursors
@@ -277,6 +258,7 @@ in
         terraform-ls
         kotlin-language-server
         sumneko-lua-language-server
+        nodePackages.vscode-langservers-extracted
       ];
     };
 }

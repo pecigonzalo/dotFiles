@@ -73,7 +73,9 @@ cmp.setup({
 
       if cmp.visible() then
         cmp.select_next_item(select_opts)
-      elseif luasnip.expand_or_locally_jumpable() then
+      elseif luasnip.expandable() then
+        luasnip.expand()
+      elseif luasnip.expand_or_jumpable() then
         luasnip.expand_or_jump()
       elseif col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
         fallback()
@@ -84,7 +86,9 @@ cmp.setup({
     -- If the completion menu is visible, move to the previous item
     ['<S-Tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
-        cmp.select_prev_item(select_opts)
+        cmp.select_prev_item()
+      elseif luasnip.jumpable(-1) then
+        luasnip.jump(-1)
       else
         fallback()
       end
@@ -142,6 +146,20 @@ lspconfig.terraformls.setup {}
 
 -- Kotlin
 lspconfig.kotlin_language_server.setup {}
+
+-- JSON
+lspconfig.jsonls.setup {
+  settings = {
+    json = {
+      schemas = require('schemastore').json.schemas(),
+      validate = { enable = true },
+    },
+  },
+}
+-- CSSLS, ESLint, HTML
+lspconfig.cssls.setup {}
+lspconfig.eslint.setup {}
+lspconfig.html.setup {}
 
 -- Lua
 -- Make runtime files discoverable to the server
@@ -217,6 +235,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
   pattern = "*",
   callback = function()
-    vim.lsp.buf.format()
+    vim.lsp.buf.format({ timeout_ms = 10000 })
   end,
 })

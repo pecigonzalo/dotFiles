@@ -255,6 +255,7 @@ in
     nodejs
     yarn
     nodePackages.typescript
+    nodePackages.vscode-json-languageserver
 
     # Deno
     deno
