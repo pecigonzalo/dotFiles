@@ -56,11 +56,9 @@ opt.expandtab = true
 opt.errorbells = false
 
 -- Misc
-opt.incsearch = true
-opt.smartcase = true
-opt.swapfile = false
+opt.swapfile = false -- Disable use of swapfile for the buffer
 opt.backup = false
-opt.undofile = true
+opt.undofile = true -- Enable persistent undo
 
 -- Keybindings
 
@@ -72,8 +70,9 @@ local nmap = function(keys, func, desc)
   vim.keymap.set('n', keys, func, { noremap = true, desc = desc })
 end
 
-vim.keymap.set({ 'n', 'x' }, 'cp', '"+y') -- Copy to clipboard.
-vim.keymap.set({ 'n', 'x' }, 'cv', '"+p') -- Paste from clipboard
+opt.clipboard = "unnamedplus" -- Connection to the system clipboard
+opt.preserveindent = true -- Preserve indent structure as much as possible
+opt.copyindent = true -- Copy the previous indentation on autoindenting
 vim.keymap.set({ 'n', 'x' }, 'x', '"_x') -- Disable yank on delete
 nmap('<leader>a', ':keepjumps normal! ggVG<cr>', 'Select [a]ll') -- Select all text in buffer
 nmap('<leader>w', vim.cmd.write, '[w]rite buffer') -- Write buffer
