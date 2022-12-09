@@ -77,7 +77,16 @@ in
       withPython3 = true;
 
       plugins = with pkgs.vimPlugins; mapper [
+        # Theme
+        {
+          plugin = dracula-nvim;
+          config = ''
+            vim.cmd [[ colorscheme dracula ]]
+          '';
+        }
+
         # Treesitter
+        nvim-treesitter-textobjects
         {
           plugin = nvim-treesitter.withPlugins (_: pkgs.tree-sitter.allGrammars);
           config = builtins.readFile ./neovim/treesitter.lua;
@@ -96,12 +105,6 @@ in
         {
           plugin = nvim-cmp;
           config = builtins.readFile ./neovim/cmp.lua;
-        }
-        {
-          plugin = fidget-nvim; # LSP Progress
-          config = ''
-            require('fidget').setup{}
-          '';
         }
 
         # Treexplorer
@@ -203,14 +206,7 @@ in
           '';
         }
 
-        # Theme
-        {
-          plugin = dracula-vim;
-          config = ''
-            vim.g.dracula_colorterm = 0
-            vim.cmd [[ colorscheme dracula ]]
-          '';
-        }
+        # Bufferline
         {
           plugin = bufferline-nvim;
           config = ''
@@ -233,6 +229,7 @@ in
             })
           '';
         }
+        lualine-lsp-progress
         {
           plugin = lualine-nvim;
           config = builtins.readFile ./neovim/lualine.lua;
