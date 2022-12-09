@@ -86,11 +86,11 @@ in
         }
 
         # Treesitter
-        nvim-treesitter-textobjects
         {
           plugin = nvim-treesitter.withPlugins (_: pkgs.tree-sitter.allGrammars);
           config = builtins.readFile ./neovim/treesitter.lua;
         }
+        nvim-treesitter-textobjects
 
         # LSP
         nvim-lspconfig
@@ -105,6 +105,32 @@ in
         {
           plugin = nvim-cmp;
           config = builtins.readFile ./neovim/cmp.lua;
+        }
+
+        # Diagnostics
+        {
+          plugin = trouble-nvim;
+          config = ''require("trouble").setup({})'';
+        }
+        {
+          plugin = null-ls-nvim; # Inject LSP diagnostics, code actions, and more via Lua
+          config = ''
+            local null_ls = require("null-ls")
+            null_ls.setup({
+              sources = {
+                null_ls.builtins.code_actions.shellcheck,
+                null_ls.builtins.code_actions.gitsigns,
+                null_ls.builtins.completion.luasnip,
+                null_ls.builtins.diagnostics.flake8,
+                null_ls.builtins.diagnostics.ktlint,
+                null_ls.builtins.diagnostics.mypy,
+                null_ls.builtins.diagnostics.shellcheck,
+                null_ls.builtins.formatting.black,
+                null_ls.builtins.formatting.isort,
+                null_ls.builtins.formatting.ktlint,
+              }
+            })
+          '';
         }
 
         # Treexplorer
@@ -233,6 +259,12 @@ in
         {
           plugin = lualine-nvim;
           config = builtins.readFile ./neovim/lualine.lua;
+        }
+
+        # Additinal motion helpers
+        {
+          plugin = nvim-surround;
+          config = ''require("nvim-surround").setup({})'';
         }
 
         vim-visual-multi # Multiple cursors
