@@ -161,6 +161,12 @@ lspconfig.cssls.setup {}
 lspconfig.eslint.setup {}
 lspconfig.html.setup {}
 
+-- Nix
+lspconfig.rnix.setup {}
+
+-- Python
+lspconfig.pyright.setup {}
+
 -- Lua
 -- Make runtime files discoverable to the server
 local runtime_path = vim.split(package.path, ';')

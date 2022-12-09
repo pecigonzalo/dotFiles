@@ -259,6 +259,7 @@ in
         kotlin-language-server
         sumneko-lua-language-server
         nodePackages.vscode-langservers-extracted
+        nodePackages.pyright
       ];
     };
 }
