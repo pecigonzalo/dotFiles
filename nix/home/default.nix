@@ -312,5 +312,7 @@ in
 
     # Security
     nodePackages.snyk # Snyk CLI
+    cilium-cli
+    hubble
   ];
 }

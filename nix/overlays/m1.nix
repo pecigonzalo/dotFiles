@@ -20,4 +20,23 @@ if isSillicon then {
     ;
   inherit (final.pkgs-x86-stable)
     ;
+  hubble = prev.hubble.overrideAttrs (self: {
+    meta = self.meta // { broken = false; };
+  });
+  # colima = (prev.colima.override { buildGoModule = prev.buildGoModule; }).overrideAttrs
+  #   (old: rec {
+  #     version = "1c742bc5a2715af5727a5a5f2926187abfbe9f76";
+  #     src = prev.fetchFromGitHub {
+  #       owner = "abiosoft";
+  #       repo = "colima";
+  #       rev = "${version}";
+  #       sha256 = "sha256-N2uKw2B1FkkRlSUA/aIK42XPpkT+qhIYbda2JMKXMhE=";
+  #       leaveDotGit = true;
+  #       postFetch = ''
+  #         git -C $out rev-parse --short HEAD > $out/.git-revision
+  #         rm -rf $out/.git
+  #       '';
+  #     };
+  #   });
+
 } else { }
