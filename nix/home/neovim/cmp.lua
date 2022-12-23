@@ -141,6 +141,9 @@ lsp_defaults.lsp_flags = {
   debounce_text_changes = 150,
 }
 
+-- Golang
+lspconfig.gopls.setup {}
+
 -- Terraform
 lspconfig.terraformls.setup {}
 
