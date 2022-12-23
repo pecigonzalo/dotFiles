@@ -85,7 +85,6 @@ in
         difftool.prompt = false;
 
         core = {
-          editor = "code --wait";
           whitespace = "trailing-space,space-before-tab";
         };
 

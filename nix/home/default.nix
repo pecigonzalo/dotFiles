@@ -61,7 +61,7 @@ in
     sessionVariables = {
       # Editor
       EDITOR = "nvim";
-      VISUAL = "code";
+      # VISUAL = "code";
 
       # Pager
       PAGER = "less";
