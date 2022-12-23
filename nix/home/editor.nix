@@ -117,6 +117,7 @@ in
           config = ''
             local null_ls = require("null-ls")
             null_ls.setup({
+              border = "rounded",
               sources = {
                 null_ls.builtins.code_actions.shellcheck,
                 null_ls.builtins.code_actions.gitsigns,
@@ -142,13 +143,11 @@ in
 
         # Telescope
         plenary-nvim
+        telescope-fzf-native-nvim
+        dressing-nvim
         {
           plugin = telescope-nvim;
           config = builtins.readFile ./neovim/telescope.lua;
-        }
-        {
-          plugin = telescope-fzf-native-nvim;
-          config = ''require('telescope').load_extension('fzf')'';
         }
 
         # Which key
@@ -273,6 +272,16 @@ in
         {
           plugin = comment-nvim; # Commenting lines
           config = ''require('Comment').setup({})'';
+        }
+
+        # Lua Development
+        {
+          plugin = neodev-nvim;
+          config = ''
+            require("neodev").setup({
+              -- add any options here, or leave empty to use the default settings
+            })
+          '';
         }
       ];
 

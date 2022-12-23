@@ -60,9 +60,18 @@ opt.swapfile = false -- Disable use of swapfile for the buffer
 opt.backup = false
 opt.undofile = true -- Enable persistent undo
 
--- Keybindings
+-- Decrease update time
+vim.o.updatetime = 250
+vim.wo.signcolumn = 'yes'
 
+-- Keybindings
+-- NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
+
+-- Disable space in N and V
+vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
+
 local nmap = function(keys, func, desc)
   if desc then
     desc = desc
@@ -70,7 +79,6 @@ local nmap = function(keys, func, desc)
   vim.keymap.set('n', keys, func, { noremap = true, desc = desc })
 end
 
-opt.clipboard = "unnamedplus" -- Connection to the system clipboard
 opt.preserveindent = true -- Preserve indent structure as much as possible
 opt.copyindent = true -- Copy the previous indentation on autoindenting
 vim.keymap.set({ 'n', 'x' }, 'x', '"_x') -- Disable yank on delete
@@ -96,3 +104,23 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     vim.highlight.on_yank({ higroup = 'Visual', timeout = 200 })
   end
 })
+
+-- Configure diagnostics and windows
+vim.diagnostic.config({
+  severity_sort = true,
+  float = {
+    focusable = true,
+    style = "minimal",
+    border = "rounded",
+  },
+})
+
+vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
+  vim.lsp.handlers.hover,
+  { border = 'rounded', style = "minimal", focusable = true, }
+)
+
+vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
+  vim.lsp.handlers.signature_help,
+  { border = 'rounded', style = "minimal", focusable = true, }
+)

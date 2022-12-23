@@ -91,7 +91,7 @@ in
 
     # Neovim
     extraConfig = ''
-      modify_font underline_position 2
+      modify_font underline_position 6
       modify_font underline_thickness 250%
     '';
 
@@ -100,12 +100,9 @@ in
       "ctrl+c" = "copy_and_clear_or_interrupt";
       "ctrl+shift+v" = "paste_from_clipboard";
 
-      # Clear all
-      "ctrl+k" = "combine : clear_terminal active : send_text normal \\x0c";
-
       # Fzf
       ## Scrollback search
-      "ctrl+f" = "launch --allow-remote-control kitty +kitten kitty-kitten-search/search.py @active-kitty-window-id";
+      "ctrl+shift+f" = "launch --allow-remote-control kitty +kitten kitty-kitten-search/search.py @active-kitty-window-id";
 
       # Split conf
       "ctrl+shift+enter" = "launch --location=hsplit --cwd=current";

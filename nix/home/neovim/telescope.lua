@@ -1,5 +1,6 @@
 local actions = require("telescope.actions")
 local telescope_config = require("telescope.config")
+local trouble = require("trouble.providers.telescope")
 
 -- Clone the default Telescope configuration
 local vimgrep_arguments = { unpack(telescope_config.values.vimgrep_arguments) }
@@ -17,7 +18,11 @@ require('telescope').setup {
     mappings = {
       i = {
         ["<esc>"] = actions.close,
-        ["<C-h>"] = "which_key"
+        ["<C-h>"] = "which_key",
+        ["<c-t>"] = trouble.open_with_trouble,
+      },
+      n = {
+        ["<c-t>"] = trouble.open_with_trouble,
       },
     },
   },
@@ -29,18 +34,27 @@ require('telescope').setup {
   },
 }
 
+require('telescope').load_extension('fzf')
+
 local builtin = require('telescope.builtin')
 
-local nmap = function(keys, func, desc)
+local nman = function(keys, func, desc)
   if desc then
     desc = ': ' .. desc
   end
   vim.keymap.set('n', keys, func, { noremap = true, desc = desc })
 end
 
+nmap('<leader>?', builtin.oldfiles, '[?] Find recently changed files')
+nmap('<leader><space>', builtin.buffers, '[ ] Find existing buffers')
+nmap('<leader>/', function()
+  require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+    winblend = 10,
+    previewer = false,
+  })
+end, '[/] Fuzzy current buffer')
 nmap('<leader>ff', builtin.find_files, '[f]ind [f]iles')
 nmap('<leader>fg', builtin.live_grep, '[f]ind [g]rep')
-nmap('<leader>fb', builtin.buffers, '[f]ind [b]uffer')
 nmap('<leader>fh', builtin.help_tags, '[f]ind [h]elp tags')
-nmap('<leader>fs', builtin.current_buffer_fuzzy_find, '[f]ind [s]earch buffer')
 nmap('<leader>fd', builtin.diagnostics, '[f]ind [d]iagnostics')
+nmap('<leader>fw', builtin.grep_string, '[f]ind current [s]tring')
