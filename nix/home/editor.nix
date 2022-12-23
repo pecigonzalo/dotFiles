@@ -110,7 +110,7 @@ in
         # Diagnostics
         {
           plugin = trouble-nvim;
-          config = ''require("trouble").setup({})'';
+          config = builtins.readFile ./neovim/trouble.lua;
         }
         {
           plugin = null-ls-nvim; # Inject LSP diagnostics, code actions, and more via Lua
