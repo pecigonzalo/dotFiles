@@ -254,7 +254,6 @@ in
             })
           '';
         }
-        lualine-lsp-progress
         {
           plugin = lualine-nvim;
           config = builtins.readFile ./neovim/lualine.lua;
