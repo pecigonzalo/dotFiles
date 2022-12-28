@@ -61,16 +61,19 @@ opt.backup = false
 opt.undofile = true -- Enable persistent undo
 
 -- Decrease update time
-vim.o.updatetime = 250
+opt.updatetime = 250
 vim.wo.signcolumn = 'yes'
+
+-- Copy/Paste
+opt.preserveindent = true -- Preserve indent structure as much as possible
+opt.copyindent = true -- Copy the previous indentation on autoindenting
+vim.keymap.set({ 'n', 'x' }, 'cp', '"+y') -- Copy to clipboard
+vim.keymap.set({ 'n', 'x' }, 'cv', '"+p') -- Paste from clipboard
 
 -- Keybindings
 -- NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
-
--- Disable space in N and V
-vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
 local nmap = function(keys, func, desc)
   if desc then
@@ -79,8 +82,9 @@ local nmap = function(keys, func, desc)
   vim.keymap.set('n', keys, func, { noremap = true, desc = desc })
 end
 
-opt.preserveindent = true -- Preserve indent structure as much as possible
-opt.copyindent = true -- Copy the previous indentation on autoindenting
+
+vim.keymap.set({ 'n', 'x', 'o' }, '<leader>h', '^') -- Quick jump to start
+vim.keymap.set({ 'n', 'x', 'o' }, '<leader>l', 'g_') -- Quick jump to end
 vim.keymap.set({ 'n', 'x' }, 'x', '"_x') -- Disable yank on delete
 nmap('<leader>a', ':keepjumps normal! ggVG<cr>', 'Select [a]ll') -- Select all text in buffer
 nmap('<leader>w', vim.cmd.write, '[w]rite buffer') -- Write buffer
