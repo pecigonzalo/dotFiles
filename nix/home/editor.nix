@@ -266,7 +266,6 @@ in
           config = ''require("nvim-surround").setup({})'';
         }
 
-        vim-visual-multi # Multiple cursors
         vim-nix # Nix
         editorconfig-nvim # Editorconfig
         {
