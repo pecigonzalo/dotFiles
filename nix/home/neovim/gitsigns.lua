@@ -11,9 +11,9 @@ gitsigns.setup {
       vim.keymap.set(mode, keys, func, { buffer = bufnr, desc = desc })
     end
 
-    map({ 'n', 'v' }, '<leader>hs', gs.stage_hunk, '[h]unk [s]tage')
+    map({ 'n', 'v' }, '<leader>hs', ':Gitsigns stage_hunk<CR>', '[h]unk [s]tage') -- The :Gitsigns calls automatically respects visual select
     map("n", "hS", gs.stage_buffer, '[h]unk [A]ll in buffer')
-    map({ 'n', 'v' }, '<leader>hr', gs.reset_hunk, '[h]unk [r]eset')
+    map({ 'n', 'v' }, '<leader>hr', ':Gitsigns reset_hunk<CR>', '[h]unk [r]eset') -- The :Gitsigns calls automatically respects visual select
     map('n', '<leader>hR', gs.reset_buffer, '[h]unk [r]eset buffer')
     map("n", "<leader>hu", gs.undo_stage_hunk, '[h]unk undo stage')
 
