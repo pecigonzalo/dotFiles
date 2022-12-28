@@ -237,6 +237,22 @@ vim.api.nvim_create_autocmd('LspAttach', {
     nmap('<leader>wl', function()
       print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
     end, '[w]orkspace [l]ist Folders')
+
+    -- Show hints on hol wd
+    vim.api.nvim_create_autocmd("CursorHold", {
+      buffer = vim.api.nvim_get_current_buf(),
+      callback = function()
+        local opts = {
+          focusable = false,
+          close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+          border = 'rounded',
+          source = 'always',
+          prefix = ' ',
+          scope = 'cursor',
+        }
+        vim.diagnostic.open_float(nil, opts)
+      end
+    })
   end
 })
 
