@@ -102,6 +102,7 @@ in
         friendly-snippets
         cmp_luasnip
         SchemaStore-nvim
+        neodev-nvim
         {
           plugin = nvim-cmp;
           config = builtins.readFile ./neovim/cmp.lua;
@@ -271,16 +272,6 @@ in
         {
           plugin = comment-nvim; # Commenting lines
           config = ''require('Comment').setup({})'';
-        }
-
-        # Lua Development
-        {
-          plugin = neodev-nvim;
-          config = ''
-            require("neodev").setup({
-              -- add any options here, or leave empty to use the default settings
-            })
-          '';
         }
       ];
 

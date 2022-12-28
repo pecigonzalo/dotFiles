@@ -73,8 +73,6 @@ cmp.setup({
 
       if cmp.visible() then
         cmp.select_next_item(select_opts)
-      elseif luasnip.expandable() then
-        luasnip.expand()
       elseif luasnip.expand_or_jumpable() then
         luasnip.expand_or_jump()
       elseif col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
@@ -171,31 +169,31 @@ lspconfig.rnix.setup {}
 lspconfig.pyright.setup {}
 
 -- Lua
--- Make runtime files discoverable to the server
-local runtime_path = vim.split(package.path, ';')
--- Neovim lua files, config and plugins
-table.insert(runtime_path, 'lua/?.lua')
-table.insert(runtime_path, 'lua/?/init.lua')
--- paths for meta/3rd libraries
-table.insert(runtime_path, 'library/?.lua')
-table.insert(runtime_path, 'library/?/init.lua')
-
-lspconfig.sumneko_lua.setup {
+require("neodev").setup({
+  override = function(root_dir, library)
+    if root_dir:match("dotFiles") then
+      library.enabled = true
+      library.plugins = true
+    end
+  end,
+})
+lspconfig.sumneko_lua.setup({
   settings = {
     Lua = {
       runtime = {
         -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
         version = 'LuaJIT',
-        path = runtime_path
       },
-      completion = { callSnippet = "Replace" },
       diagnostics = {
         -- Get the language server to recognize the `vim` global
         globals = { 'vim' },
       },
       workspace = {
         -- Make the server aware of Neovim runtime files
-        library = vim.api.nvim_get_runtime_file('', true)
+        library = vim.api.nvim_get_runtime_file("", true),
+      },
+      completion = {
+        callSnippet = "Replace"
       },
       -- Do not send telemetry data containing a randomized but unique identifier
       telemetry = {
@@ -203,7 +201,7 @@ lspconfig.sumneko_lua.setup {
       },
     },
   },
-}
+})
 
 -- Configure LSP bindings
 vim.api.nvim_create_autocmd('LspAttach', {
