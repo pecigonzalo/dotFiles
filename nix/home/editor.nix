@@ -260,14 +260,17 @@ in
           config = builtins.readFile ./neovim/lualine.lua;
         }
 
-        # Additinal motion helpers
-        {
-          plugin = nvim-surround;
-          config = ''require("nvim-surround").setup({})'';
-        }
-
         vim-nix # Nix
         editorconfig-nvim # Editorconfig
+        {
+          plugin = mini-nvim; # Collection of small additions https://github.com/echasnovski/mini.nvim
+          config = ''
+            require('mini.ai').setup() -- Additional text objects, sort of like target.vim
+            require('mini.cursorword').setup() -- Highlight word under cursor
+            require('mini.pairs').setup() -- Minimal and fast autopairs
+            require('mini.surround').setup() -- Fast and feature-rich surround plugin
+          '';
+        }
         {
           plugin = comment-nvim; # Commenting lines
           config = ''require('Comment').setup({})'';
