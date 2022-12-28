@@ -187,6 +187,7 @@ in
     pandoc
     vale # Prose linter
     zsh-completions
+    nushell
 
     # Compression
     m4
