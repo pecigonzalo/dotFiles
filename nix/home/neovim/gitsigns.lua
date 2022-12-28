@@ -8,7 +8,7 @@ gitsigns.setup {
       if desc then
         desc = ': ' .. desc
       end
-      vim.keymap.set(mode, keys, func, { noremap = true, buffer = bufnr, desc = desc })
+      vim.keymap.set(mode, keys, func, { buffer = bufnr, desc = desc })
     end
 
     map({ 'n', 'v' }, '<leader>hs', gs.stage_hunk, '[h]unk [s]tage')
@@ -25,6 +25,8 @@ gitsigns.setup {
     map("n", "<leader>hD", gs.diffthis, '[h] Buffer [d]iff') -- Diff in seperate buffer
     map({ 'o', 'x' }, 'ih', gs.select_hunk, 'Select [i]n [h]unk')
   end;
+
+  numhl = true, -- Highlight line numbers for git
 
   signs = {
     add = { text = "▎" },
