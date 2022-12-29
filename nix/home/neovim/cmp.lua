@@ -237,7 +237,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
       print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
     end, '[w]orkspace [l]ist Folders')
 
-    -- Show hints on hol wd
+    -- Show hints on hold
     vim.api.nvim_create_autocmd("CursorHold", {
       buffer = vim.api.nvim_get_current_buf(),
       callback = function()
@@ -262,27 +262,3 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
     vim.lsp.buf.format({ timeout_ms = 10000 })
   end,
 })
-
--- Configure diagnostics and windows
-vim.diagnostic.config({
-  virtual_text = true,
-  signs = true,
-  underline = true,
-  update_in_insert = true,
-  severity_sort = true,
-  float = {
-    focusable = true,
-    style = "minimal",
-    border = "rounded",
-    source = "always", -- Show source
-  },
-})
-
--- Set rounded windows
--- Overriding vim.lsp.util.open_floating_preview
-local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
----@diagnostic disable-next-line: duplicate-set-field
-function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
-  opts = opts or { border = 'rounded', style = "minimal", focusable = true, }
-  return orig_util_open_floating_preview(contents, syntax, opts, ...)
-end
