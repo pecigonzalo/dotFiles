@@ -98,6 +98,8 @@ in
         cmp-path
         cmp-cmdline
         cmp-nvim-lsp
+        cmp-nvim-lsp-signature-help
+        cmp-emoji
         luasnip
         friendly-snippets
         cmp_luasnip
@@ -122,7 +124,6 @@ in
               sources = {
                 null_ls.builtins.code_actions.shellcheck,
                 null_ls.builtins.code_actions.gitsigns,
-                null_ls.builtins.completion.luasnip,
                 null_ls.builtins.diagnostics.flake8,
                 null_ls.builtins.diagnostics.ktlint,
                 null_ls.builtins.diagnostics.mypy,
@@ -271,7 +272,18 @@ in
           config = ''
             require('mini.ai').setup() -- Additional text objects, sort of like target.vim
             require('mini.cursorword').setup() -- Highlight word under cursor
-            require('mini.pairs').setup() -- Minimal and fast autopairs
+            -- Minimal and fast autopairs
+            require('mini.pairs').setup({
+              mappings = {
+                ['('] = { action = 'open', pair = '()', neigh_pattern = '[^\\][^%)]' },
+                ['['] = { action = 'open', pair = '[]', neigh_pattern = '[^\\][^%]]' },
+                ['{'] = { action = 'open', pair = '{}', neigh_pattern = '[^\\][^%}]' },
+
+                ['"'] = { action = 'closeopen', pair = '""', neigh_pattern = '[^%a\\].', register = { cr = false } },
+                ["'"] = { action = 'closeopen', pair = "'''", neigh_pattern = '[^%a\\].', register = { cr = false } },
+                ['`'] = { action = 'closeopen', pair = '``', neigh_pattern = '[^%a\\].', register = { cr = false } },
+              }
+            })
             require('mini.surround').setup() -- Fast and feature-rich surround plugin
           '';
         }
@@ -297,3 +309,4 @@ in
       ];
     };
 }
+

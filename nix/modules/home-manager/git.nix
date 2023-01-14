@@ -75,6 +75,9 @@ in
           autoSetupMerge = "always";
           # Automatically use rebase for new branches.
           autoSetupRebase = "always";
+          # It is useful if by default you want new branches to be pushed to the default remote
+          # and you also want the upstream tracking to be set
+          autoSetupRemote = true;
         };
 
         status.showuntrackedfiles = "all";

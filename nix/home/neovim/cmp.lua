@@ -8,6 +8,48 @@ require('luasnip.loaders.from_vscode').lazy_load()
 
 local select_opts = { behavior = cmp.SelectBehavior.Select }
 
+local has_words_before = function()
+  unpack = unpack or table.unpack
+  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+end
+
+local kind_icons = {
+  Text = "",
+  Method = "",
+  Function = "",
+  Constructor = "",
+  Field = "",
+  Variable = "",
+  Class = "ﴯ",
+  Interface = "",
+  Module = "",
+  Property = "ﰠ",
+  Unit = "",
+  Value = "",
+  Enum = "",
+  Keyword = "",
+  Snippet = "",
+  Color = "",
+  File = "",
+  Reference = "",
+  Folder = "",
+  EnumMember = "",
+  Constant = "",
+  Struct = "",
+  Event = "",
+  Operator = "",
+  TypeParameter = ""
+}
+
+local menu_icon = {
+  nvim_lsp_signature_help = '',
+  nvim_lsp = 'λ',
+  luasnip = '⋗',
+  buffer = 'Ω',
+  path = '',
+}
+
 -- CMP configuration
 cmp.setup({
   snippet = {
@@ -20,19 +62,13 @@ cmp.setup({
     documentation = cmp.config.window.bordered(),
   },
   formatting = {
-    fields = { 'menu', 'abbr', 'kind' },
     format = function(entry, item)
-      local menu_icon = {
-        nvim_lsp = 'λ',
-        luasnip = '⋗',
-        buffer = 'Ω',
-        path = '',
-      }
-
+      item.kind = string.format('%s %s', kind_icons[item.kind], item.kind) -- This concatonates the icons with the name of the item kind
       item.menu = menu_icon[entry.source.name]
       return item
     end,
   },
+
   mapping = cmp.mapping.preset.insert({
     ['<C-Space>'] = cmp.mapping.complete(),
     ['<Up>'] = cmp.mapping.select_prev_item(select_opts),
@@ -69,19 +105,17 @@ cmp.setup({
     -- If the completion menu is visible, move to the next item
     -- If the line is "empty", insert a Tab character
     -- If the cursor is inside a word, trigger the completion menu
-    ['<Tab>'] = cmp.mapping(function(fallback)
-      local col = vim.fn.col('.') - 1
-
+    ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
-        cmp.select_next_item(select_opts)
+        cmp.select_next_item()
       elseif luasnip.expand_or_jumpable() then
         luasnip.expand_or_jump()
-      elseif col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
-        fallback()
-      else
+      elseif has_words_before() then
         cmp.complete()
+      else
+        fallback()
       end
-    end, { 'i', 's' }),
+    end, { "i", "s" }),
     -- If the completion menu is visible, move to the previous item
     ['<S-Tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
@@ -94,31 +128,29 @@ cmp.setup({
     end, { 'i', 's' }),
   }),
   sources = cmp.config.sources({
-    { name = 'path' },
-    { name = 'nvim_lsp', keyword_length = 3 },
-    { name = 'buffer', keyword_length = 3 },
-    { name = 'luasnip', keyword_length = 2, option = { show_autosnippets = true } }, -- For vsnip users.
-    { name = 'treesitter', keyword_length = 3 },
-  }, {
-    { name = 'buffer' },
+    { name = 'nvim_lsp_signature_help', priority = 101 },
+    { name = 'nvim_lsp', priority = 100 },
+    { name = 'luasnip', priority = 50, keyword_length = 2, option = { show_autosnippets = true } },
+    { name = 'path', priority = 30 },
+    { name = 'buffer', priority = 10 },
+    { name = 'emoji', priority = 1 },
   })
 })
 
 -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline('/', {
-  -- mapping = cmp.mapping.preset.cmdline(),
-  sources = {
-    { name = 'buffer' }
-  }
+cmp.setup.cmdline({ '/', '?' }, {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = cmp.config.sources({
+    { name = 'buffer' },
+  })
 })
 
 -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline(':', {
-  -- mapping = cmp.mapping.preset.cmdline(),
+  mapping = cmp.mapping.preset.cmdline(),
   sources = cmp.config.sources({
-    { name = 'path' }
-  }, {
-    { name = 'cmdline' }
+    { name = 'path' },
+    { name = 'cmdline' },
   })
 })
 
@@ -141,13 +173,16 @@ lsp_defaults.lsp_flags = {
 }
 
 -- Golang
-lspconfig.gopls.setup {}
+lspconfig.gopls.setup({})
 
 -- Terraform
-lspconfig.terraformls.setup {}
+lspconfig.terraformls.setup({})
 
 -- Kotlin
-lspconfig.kotlin_language_server.setup {}
+lspconfig.kotlin_language_server.setup({})
+
+-- Deno
+lspconfig.denols.setup({})
 
 -- JSON
 lspconfig.jsonls.setup {
@@ -159,15 +194,15 @@ lspconfig.jsonls.setup {
   },
 }
 -- CSSLS, ESLint, HTML
-lspconfig.cssls.setup {}
-lspconfig.eslint.setup {}
-lspconfig.html.setup {}
+lspconfig.cssls.setup({})
+lspconfig.eslint.setup({})
+lspconfig.html.setup({})
 
 -- Nix
-lspconfig.rnix.setup {}
+lspconfig.rnix.setup({})
 
 -- Python
-lspconfig.pyright.setup {}
+lspconfig.pyright.setup({})
 
 -- Lua
 require("neodev").setup({
