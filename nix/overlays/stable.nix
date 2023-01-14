@@ -13,7 +13,6 @@ final: prev:
     curlie
     starship
     teleport
-    deno
     procs
     unrar
     _1password
