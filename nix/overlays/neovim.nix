@@ -1,5 +1,15 @@
 final: prev:
 {
+  # Example of custom plugin
+  # easygrep = pkgs.vimUtils.buildVimPluginFrom2Nix {
+  #   name = "vim-easygrep";
+  #   src = pkgs.fetchFromGitHub {
+  #     owner = "dkprice";
+  #     repo = "vim-easygrep";
+  #     rev = "d0c36a77cc63c22648e792796b1815b44164653a";
+  #     hash = "sha256-bL33/S+caNmEYGcMLNCanFZyEYUOUmSsedCVBn4tV3g=";
+  #   };
+  # };
   tree-sitter = prev.tree-sitter.override {
     extraGrammars = {
       tree-sitter-kotlin = {

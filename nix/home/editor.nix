@@ -259,6 +259,10 @@ in
           plugin = lualine-nvim;
           config = builtins.readFile ./neovim/lualine.lua;
         }
+        {
+          plugin = nvim-notify;
+          config = builtins.readFile ./neovim/notify.lua;
+        }
 
         vim-nix # Nix
         editorconfig-nvim # Editorconfig

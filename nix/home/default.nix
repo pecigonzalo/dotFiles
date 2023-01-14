@@ -73,7 +73,7 @@ in
       # Disable virtualenv in prompt autoconfig
       VIRTUAL_ENV_DISABLE_PROMPT = 1;
       # Pipenv
-      PIPENV_VENV_IN_PROJECT = true;
+      PIPENV_VENV_IN_PROJECT = "true";
 
       # Docker
       DOCKER_BUILDKIT = 1;
