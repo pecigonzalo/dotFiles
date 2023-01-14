@@ -209,6 +209,7 @@ in
     procs # ps
     dogdns # dig
     gping # ping with a graph
+    sad # CLI search and replace | Space Age seD
 
     jo # JSON objects made easy https://github.com/jpmens/jo
 
