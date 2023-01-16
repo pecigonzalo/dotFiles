@@ -13,6 +13,8 @@ final: prev:
   };
   tree-sitter = prev.tree-sitter.override {
     extraGrammars = {
+      # NOTE: Reference a release once one is ready
+      # NOTE: https://github.com/nvim-treesitter/nvim-treesitter/issues/4088
       tree-sitter-terraform = {
         url = "https://github.com/MichaHoffmann/tree-sitter-hcl";
         location = "dialects/terraform";
