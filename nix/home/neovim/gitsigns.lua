@@ -11,18 +11,20 @@ gitsigns.setup {
       vim.keymap.set(mode, keys, func, { buffer = bufnr, desc = desc })
     end
 
-    map({ 'n', 'v' }, '<leader>hs', ':Gitsigns stage_hunk<CR>', '[h]unk [s]tage') -- The :Gitsigns calls automatically respects visual select
-    map("n", "hS", gs.stage_buffer, '[h]unk [A]ll in buffer')
-    map({ 'n', 'v' }, '<leader>hr', ':Gitsigns reset_hunk<CR>', '[h]unk [r]eset') -- The :Gitsigns calls automatically respects visual select
-    map('n', '<leader>hR', gs.reset_buffer, '[h]unk [r]eset buffer')
-    map("n", "<leader>hu", gs.undo_stage_hunk, '[h]unk undo stage')
+    -- NOTE: The :Gitsigns calls automatically respects visual select
+    map({ 'n', 'v' }, '<leader>ghs', ':Gitsigns stage_hunk<CR>', '[h]unk [s]tage')
+    map({ 'n', 'v' }, '<leader>ghr', ':Gitsigns reset_hunk<CR>', '[h]unk [r]eset')
+    map("n", "ghS", gs.stage_buffer, '[h]unk [S]tage buffer')
+    map("n", "<leader>ghu", gs.undo_stage_hunk, '[h]unk [u]ndo stage')
+    map('n', '<leader>ghR', gs.reset_buffer, '[h]unk [R]eset buffer')
+    map('n', '<leader>ghp', gs.reset_buffer, '[h]unk [p]review')
 
-    map("n", "<leader>hb", gs.toggle_current_line_blame, '[h] Toggle [b]lame')
-    map("n", "<leader>hd", function() -- Inline diff
+    map("n", "<leader>ghb", gs.toggle_current_line_blame, '[h] Toggle [b]lame')
+    map("n", "<leader>ghd", function() -- Inline diff
       gs.toggle_deleted()
       gs.toggle_linehl()
     end, '[h] Inline [d]iff')
-    map("n", "<leader>hD", gs.diffthis, '[h] Buffer [d]iff') -- Diff in seperate buffer
+    map("n", "<leader>ghD", gs.diffthis, '[h] Buffer [d]iff') -- Diff in seperate buffer
     map({ 'o', 'x' }, 'ih', gs.select_hunk, 'Select [i]n [h]unk')
   end;
 

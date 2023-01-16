@@ -131,6 +131,7 @@ in
                 null_ls.builtins.formatting.black,
                 null_ls.builtins.formatting.isort,
                 null_ls.builtins.formatting.ktlint,
+                null_ls.builtins.formatting.goimports
               }
             })
           '';
@@ -152,13 +153,15 @@ in
           config = builtins.readFile ./neovim/telescope.lua;
         }
 
+        { plugin = fidget-nvim; config = ''require('fidget').setup({})''; }
+
         # Which key
         {
           plugin = which-key-nvim;
           config = ''
             vim.opt.timeoutlen = 500
 
-            require('which-key').setup {
+            require('which-key').setup({
               window = {
                 border = 'rounded',
               },
@@ -167,7 +170,7 @@ in
                 separator = '->',
                 group = '',
               },
-            }
+            })
           '';
         }
 
@@ -191,7 +194,7 @@ in
               precedes = "❮",
             }
 
-            require('indent_blankline').setup {
+            require('indent_blankline').setup({
               char = "▏",
               context_char = "▎",
               filetype_exclude = {
@@ -214,7 +217,7 @@ in
               show_current_context_start = true,
 
               space_char_blankline = " ",
-            }
+            })
           '';
         }
 
@@ -233,7 +236,7 @@ in
           '';
         }
 
-        # Bufferline
+        # UI
         {
           plugin = bufferline-nvim;
           config = ''
@@ -262,7 +265,15 @@ in
         }
         {
           plugin = nvim-notify;
-          config = builtins.readFile ./neovim/notify.lua;
+          config = ''
+            require("notify").setup({
+              fps = 60,
+              timeout = 2000,
+              top_down = true,
+              level = 2,
+            })
+            vim.notify = require("notify")
+          '';
         }
 
         vim-nix # Nix
@@ -270,8 +281,8 @@ in
         {
           plugin = mini-nvim; # Collection of small additions https://github.com/echasnovski/mini.nvim
           config = ''
-            require('mini.ai').setup() -- Additional text objects, sort of like target.vim
-            require('mini.cursorword').setup() -- Highlight word under cursor
+            require('mini.ai').setup({}) -- Additional text objects, sort of like target.vim
+            require('mini.cursorword').setup({}) -- Highlight word under cursor
             -- Minimal and fast autopairs
             require('mini.pairs').setup({
               mappings = {
@@ -284,7 +295,7 @@ in
                 ['`'] = { action = 'closeopen', pair = '``', neigh_pattern = '[^%a\\].', register = { cr = false } },
               }
             })
-            require('mini.surround').setup() -- Fast and feature-rich surround plugin
+            require('mini.surround').setup({}) -- Fast and feature-rich surround plugin
           '';
         }
         {

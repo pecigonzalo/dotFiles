@@ -67,29 +67,48 @@ vim.wo.signcolumn = 'yes'
 -- Copy/Paste
 opt.preserveindent = true -- Preserve indent structure as much as possible
 opt.copyindent = true -- Copy the previous indentation on autoindenting
-vim.keymap.set({ 'n', 'x' }, 'cp', '"+y') -- Copy to clipboard
-vim.keymap.set({ 'n', 'x' }, 'cv', '"+p') -- Paste from clipboard
 
 -- Keybindings
 -- NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
+vim.keymap.set("", "<Space>", "<Nop>", { noremap = true, silent = true })
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
-local nmap = function(keys, func, desc)
+local keymap = function(mode, keys, func, desc)
+  local opts = {
+    noremap = true,
+    silent = true,
+  }
   if desc then
-    desc = desc
+    opts.desc = desc
   end
-  vim.keymap.set('n', keys, func, { noremap = true, desc = desc })
+  vim.keymap.set(mode, keys, func, opts)
 end
 
+keymap({ "n", "x" }, "cy", '"+y') -- Copy to clipboard
+keymap({ "n", "x" }, "cp", '"+p') -- Paste from clipboard
+keymap({ "n", "x", "o" }, "<leader>h", "^") -- Quick jump to start
+keymap({ "n", "x", "o" }, "<leader>l", "g_") -- Quick jump to end
+keymap({ "n", "x" }, "x", '"_x') -- Disable yank on delete
+keymap("n", "<leader>a", ":keepjumps normal! ggVG<cr>", "Select [a]ll") -- Select all text in buffer
+keymap("n", "<leader>w", vim.cmd.write, "[w]rite buffer") -- Write buffer
+keymap("n", "<leader>bq", vim.cmd.bdelete, "[b]uffer [q]uit") -- Delete buffer
+keymap("n", "<leader>bl", function() vim.cmd.buffer("#") end, "[b]uffer [l]ast") -- Go to last buffer
 
-vim.keymap.set({ 'n', 'x', 'o' }, '<leader>h', '^') -- Quick jump to start
-vim.keymap.set({ 'n', 'x', 'o' }, '<leader>l', 'g_') -- Quick jump to end
-vim.keymap.set({ 'n', 'x' }, 'x', '"_x') -- Disable yank on delete
-nmap('<leader>a', ':keepjumps normal! ggVG<cr>', 'Select [a]ll') -- Select all text in buffer
-nmap('<leader>w', vim.cmd.write, '[w]rite buffer') -- Write buffer
-nmap('<leader>bq', vim.cmd.bdelete, '[b]uffer [q]uit') -- Delete buffer
-nmap('<leader>bl', function() vim.cmd.buffer("#") end, '[b]uffer [l]ast') -- Go to last buffer
+-- Keep selection on indent
+keymap("v", "<", "<gv")
+keymap("v", ">", ">gv")
+
+-- Keep center when scrolling
+keymap("n", "<C-d>", "<C-d>zz")
+keymap("n", "<C-u>", "<C-u>zz")
+
+-- Paste over currently selected text without yanking it
+keymap("v", "p", '"_dP')
+
+-- Move selected line / block of text in visual mode
+keymap("x", "K", ":move '<-2<CR>gv=gv")
+keymap("x", "J", ":move '>+1<CR>gv=gv")
 
 -- User commands
 local group = vim.api.nvim_create_augroup('user_cmds', { clear = true })

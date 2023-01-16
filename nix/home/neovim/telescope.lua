@@ -38,7 +38,7 @@ require('telescope').load_extension('fzf')
 
 local builtin = require('telescope.builtin')
 
-local nman = function(keys, func, desc)
+local nmap = function(keys, func, desc)
   if desc then
     desc = ': ' .. desc
   end

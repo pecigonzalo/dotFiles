@@ -2,8 +2,13 @@
 vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
 
 local cmp = require('cmp')
-local luasnip = require('luasnip')
 
+-- LuaSnip
+local luasnip = require('luasnip')
+luasnip.config.set_config {
+  history = false, -- Disable return to completion after exit
+  update_events = "TextChanged,TextChangedI",
+}
 require('luasnip.loaders.from_vscode').lazy_load()
 
 local select_opts = { behavior = cmp.SelectBehavior.Select }
@@ -52,6 +57,7 @@ local menu_icon = {
 
 -- CMP configuration
 cmp.setup({
+  completion = { completeopt = "menu,menuone,noinsert", keyword_length = 1 },
   snippet = {
     expand = function(args)
       luasnip.lsp_expand(args.body)
@@ -173,7 +179,53 @@ lsp_defaults.lsp_flags = {
 }
 
 -- Golang
-lspconfig.gopls.setup({})
+lspconfig.gopls.setup({
+  settings = {
+    gopls = {
+      -- more settings: https://github.com/golang/tools/blob/master/gopls/doc/settings.md
+      analyses = {
+        unreachable = true,
+        nilness = true,
+        unusedparams = true,
+        useany = true,
+        unusedwrite = true,
+        ST1003 = true,
+        undeclaredname = true,
+        fillreturns = true,
+        nonewvars = true,
+        fieldalignment = false,
+        shadow = true,
+        unused = true,
+      },
+      codelenses = {
+        generate = true, -- show the `go generate` lens.
+        gc_details = true, -- Show a code lens toggling the display of gc's choices.
+        test = true,
+        tidy = true,
+        vendor = true,
+        regenerate_cgo = true,
+        upgrade_dependency = true,
+      },
+      usePlaceholders = true,
+      completeUnimported = true,
+      staticcheck = true,
+      matcher = 'Fuzzy',
+      diagnosticsDelay = '500ms',
+      symbolMatcher = 'fuzzy',
+      buildFlags = { '-tags', 'integration' },
+      -- TODO: LSP Complains unusported
+      -- hints = {
+      --   assignVariableTypes = true,
+      --   compositeLiteralFields = true,
+      --   compositeLiteralTypes = true,
+      --   constantValues = true,
+      --   functionTypeParameters = true,
+      --   parameterNames = true,
+      --   rangeVariableTypes = true,
+      -- },
+    },
+  },
+})
 
 -- Terraform
 lspconfig.terraformls.setup({})
@@ -213,12 +265,16 @@ require("neodev").setup({
     end
   end,
 })
+local runtime_path = vim.split(package.path, ';')
+table.insert(runtime_path, 'lua/?.lua')
+table.insert(runtime_path, 'lua/?/init.lua')
 lspconfig.sumneko_lua.setup({
   settings = {
     Lua = {
       runtime = {
         -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
         version = 'LuaJIT',
+        path = runtime_path,
       },
       diagnostics = {
         -- Get the language server to recognize the `vim` global
@@ -227,6 +283,7 @@ lspconfig.sumneko_lua.setup({
       workspace = {
         -- Make the server aware of Neovim runtime files
         library = vim.api.nvim_get_runtime_file("", true),
+        checkThirdParty = false,
       },
       completion = {
         callSnippet = "Replace"
