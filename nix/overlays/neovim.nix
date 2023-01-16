@@ -1,17 +1,25 @@
 final: prev:
 {
   # Example of custom plugin
-  # easygrep = pkgs.vimUtils.buildVimPluginFrom2Nix {
-  #   name = "vim-easygrep";
-  #   src = pkgs.fetchFromGitHub {
-  #     owner = "dkprice";
-  #     repo = "vim-easygrep";
-  #     rev = "d0c36a77cc63c22648e792796b1815b44164653a";
-  #     hash = "sha256-bL33/S+caNmEYGcMLNCanFZyEYUOUmSsedCVBn4tV3g=";
-  #   };
-  # };
+  go-nvim = prev.vimUtils.buildVimPluginFrom2Nix {
+    pname = "go.nvim";
+    version = "793b0d1ede7693952644c8655bba1edc243a450f";
+    src = prev.fetchFromGitHub {
+      owner = "ray-x";
+      repo = "go.nvim";
+      rev = "793b0d1ede7693952644c8655bba1edc243a450f";
+      hash = "sha256-TvUFhwfd1u28q3aTQYKnwt15oiVPHtxcRDUY/ymwC/M=";
+    };
+  };
   tree-sitter = prev.tree-sitter.override {
     extraGrammars = {
+      tree-sitter-terraform = {
+        url = "https://github.com/MichaHoffmann/tree-sitter-hcl";
+        location = "dialects/terraform";
+        rev = "0ff887f2a60a147452d52db060de6b42f42f1441";
+        sha256 = "sha256-L4B2qtGqrtyLHyUMx1p0t4aKncm72dUE+e19Fv5iqUA=";
+        fetchSubmodules = false;
+      };
       tree-sitter-kotlin = {
         url = "https://github.com/fwcd/tree-sitter-kotlin";
         rev = "b953dbdd05257fcb2b64bc4d9c1578fac12e3c28";
