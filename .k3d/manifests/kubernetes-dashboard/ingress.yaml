@@ -1,4 +1,4 @@
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: kubernetes-dashboard-ingress
@@ -7,13 +7,15 @@ metadata:
     traefik.ingress.kubernetes.io/router.middlewares: default-kubernetes-dashboard-stripprefix@kubernetescrd
 spec:
   rules:
-  - http:
-      paths:
-      - pathType: ImplementationSpecific
-        path: /k8s
-        backend:
-          serviceName: kubernetes-dashboard
-          servicePort: http
+    - http:
+        paths:
+          - pathType: ImplementationSpecific
+            path: /k8s
+            backend:
+              service:
+                name: kubernetes-dashboard
+                port:
+                  name: http
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware

@@ -2,12 +2,13 @@ create:
 	k3d cluster create \
 	--servers=3 \
 	--agents=2 \
-	-p8080:80@loadbalancer \
-	-p8443:443@loadbalancer \
+	-p80:80@loadbalancer \
+	-p443:443@loadbalancer \
+	-i "rancher/k3s:v1.26.0-k3s2" \
 	-v ~/.k3d/storage:/var/lib/rancher/k3s/storage \
 	-v ~/.k3d/registries.yaml:/etc/rancher/k3s/registries.yaml \
-	-v ~/.k3d/manifests/:/var/lib/rancher/k3s/server/manifests/mounted@server[*] \
-	--k3s-server-arg "--no-deploy=traefik" \
+	-v ~/.k3d/manifests/:/var/lib/rancher/k3s/server/manifests/mounted@server:* \
+	--k3s-arg "--disable=traefik@server:*" \
 	--wait
 
 	docker network connect k3d-k3s-default registry.local || true
@@ -31,4 +32,4 @@ clean:
 	sudo rm -rf ~/.k3d/storage/*
 
 get-token:
-	kubectl -n kubernetes-dashboard describe secret admin-user-token | grep '^token'
+	kubectl -n kubernetes-dashboard create token admin-user
