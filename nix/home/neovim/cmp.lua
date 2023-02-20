@@ -232,9 +232,22 @@ lspconfig.terraformls.setup({})
 
 -- Kotlin
 lspconfig.kotlin_language_server.setup({})
+-- Java
+lspconfig.java_language_server.setup({})
 
 -- Deno
 lspconfig.denols.setup({})
+
+-- YAML
+lspconfig.yamlls.setup({
+    settings = {
+        yaml = {
+            format = {
+                enable = true,
+            },
+        },
+    },
+})
 
 -- JSON
 lspconfig.jsonls.setup({

@@ -87,7 +87,7 @@ in
 
         # Treesitter
         {
-          plugin = nvim-treesitter.withPlugins (_: pkgs.tree-sitter.allGrammars);
+          plugin = nvim-treesitter.withPlugins (_: nvim-treesitter.allGrammars);
           config = builtins.readFile ./neovim/treesitter.lua;
         }
         nvim-treesitter-textobjects
@@ -127,13 +127,14 @@ in
                 null_ls.builtins.diagnostics.flake8,
                 null_ls.builtins.diagnostics.ktlint,
                 null_ls.builtins.diagnostics.mypy,
+                null_ls.builtins.diagnostics.pylint,
                 null_ls.builtins.diagnostics.selene,
                 null_ls.builtins.diagnostics.shellcheck,
-                null_ls.builtins.diagnostics.pylint,
                 null_ls.builtins.formatting.black,
                 null_ls.builtins.formatting.goimports,
                 null_ls.builtins.formatting.isort,
                 null_ls.builtins.formatting.ktlint,
+                null_ls.builtins.formatting.prettier,
                 null_ls.builtins.formatting.stylua,
               }
             })
@@ -318,12 +319,15 @@ in
 
         # LSPs
         gopls
-        rnix-lsp
-        terraform-ls
+        jdt-language-server
         kotlin-language-server
-        sumneko-lua-language-server
-        nodePackages.vscode-langservers-extracted
+        nodePackages.prettier
         nodePackages.pyright
+        nodePackages.vscode-langservers-extracted
+        nodePackages.yaml-language-server
+        rnix-lsp
+        sumneko-lua-language-server
+        terraform-ls
       ];
     };
 }

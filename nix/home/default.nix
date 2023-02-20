@@ -136,6 +136,7 @@ in
     config = {
       theme = "Dracula";
     };
+    extraPackages = with pkgs.bat-extras; [ batdiff batman batgrep batwatch ];
   };
 
   home.packages = with pkgs; [
@@ -291,7 +292,8 @@ in
     go
     gopls
     goreleaser
-    # golangci-lint
+    gotools
+    golangci-lint
 
     # Java
     gradle
