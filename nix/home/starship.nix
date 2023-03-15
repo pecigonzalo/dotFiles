@@ -13,8 +13,6 @@
       elm.symbol = " ";
       erlang.symbol = " ";
       golang.symbol = " ";
-      helm.symbol = "⎈ ";
-      hg_branch.symbol = " ";
       java.symbol = " ";
       julia.symbol = " ";
       kotlin.symbol = " ";
@@ -23,7 +21,7 @@
       package.symbol = " ";
       python.symbol = " ";
       ruby.symbol = " ";
-      terraform.symbol = "𝗧 ";
+      terraform.symbol = "󱁢 ";
       vagrant.symbol = "𝗩 ";
 
       directory = {
@@ -56,7 +54,7 @@
 
       kubernetes = {
         disabled = false;
-        symbol = "☸ ";
+        symbol = "󱃾 ";
         context_aliases = {
           "(?P<cluster>[\\\\w-]+).data-platform-cluster" = "$cluster";
           "(?P<cluster>\\\\w+-?\\\\w+)-.+" = "$cluster";
