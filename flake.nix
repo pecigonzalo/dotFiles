@@ -2,10 +2,9 @@
   description = "Gonzalo's darwin configuration";
   inputs = {
     # Package sets
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    nixpkgs-22-05.url = "github:nixos/nixpkgs/22.05";
-    nixpkgs-21-11.url = "github:nixos/nixpkgs/21.11";
-    nixpkgs-21-05.url = "github:nixos/nixpkgs/21.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable-small";
+    nixpkgs-22-11.url = "github:nixos/nixpkgs/nixos-22.11-small";
+    nixpkgs-21-11.url = "github:nixos/nixpkgs/nixos-21.11-small";
 
     # Environment/system management
     darwin.url = "github:lnl7/nix-darwin";
@@ -37,28 +36,24 @@
             inherit system;
             inherit (nixpkgsConfig) config;
           };
-          pkgs-x86-stable = pkgs-x86-22-05;
-          pkgs-x86-22-05 = import inputs.nixpkgs-22-05 {
+          pkgs-x86-stable = pkgs-x86-22-11;
+          pkgs-x86-22-11 = import inputs.nixpkgs-22-11 {
             inherit system;
             inherit (nixpkgsConfig) config;
           };
-          pkgs-x86-21-05 = import inputs.nixpkgs-21-05 {
+          pkgs-x86-21-11 = import inputs.nixpkgs-21-11 {
             inherit system;
             inherit (nixpkgsConfig) config;
           };
         };
 
         stable = final: prev: rec {
-          pkgs-stable = pkgs-22-05;
-          pkgs-22-05 = import inputs.nixpkgs-22-05 {
+          pkgs-stable = pkgs-22-11;
+          pkgs-22-11 = import inputs.nixpkgs-22-11 {
             inherit (prev.stdenv) system;
             inherit (nixpkgsConfig) config;
           };
           pkgs-21-11 = import inputs.nixpkgs-21-11 {
-            inherit (prev.stdenv) system;
-            inherit (nixpkgsConfig) config;
-          };
-          pkgs-21-05 = import inputs.nixpkgs-21-05 {
             inherit (prev.stdenv) system;
             inherit (nixpkgsConfig) config;
           };
@@ -85,9 +80,6 @@
           # NOTE: Fixes unfree problem, remove when
           # https://github.com/nix-community/home-manager/issues/2942
           allowUnfreePredicate = (pkg: true);
-          # # TODO: Remove when `python3Packages.pyopenssl` issues are resolved
-          # # https://github.com/NixOS/nixpkgs/issues/175875
-          # allowBroken = true;
           allowBroken = false;
         };
         # Dynamic list of overlays
@@ -113,12 +105,12 @@
         nix = {
           registry = {
             nixpkgs.flake = nixpkgs;
-            nixpkgs-22-05.flake = inputs.nixpkgs-22-05;
+            nixpkgs-22-11.flake = inputs.nixpkgs-22-11;
           };
 
           nixPath = [
             "nixpkgs=${inputs.nixpkgs}"
-            "nixpkgs-22-05=${inputs.nixpkgs-22-05}"
+            "nixpkgs-22-11=${inputs.nixpkgs-22-11}"
             "darwin=${inputs.darwin}"
             "home-manager=${inputs.home-manager}"
           ];
