@@ -15,6 +15,12 @@
 
     # Flake Utils
     flake-utils.url = "github:numtide/flake-utils";
+
+    # Link macOS apps
+    mkalias = {
+      url = "github:reckenrode/mkalias";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs = { self, nixpkgs, darwin, home-manager, flake-utils, ... }@inputs:
     let
@@ -85,7 +91,11 @@
           allowBroken = false;
         };
         # Dynamic list of overlays
-        overlays = namedOverlays ++ dynamicOverlays;
+        overlays = namedOverlays ++ dynamicOverlays ++ [
+          (final: prev: {
+            mkalias = inputs.mkalias.outputs.apps.${prev.stdenv.system}.default.program;
+          })
+        ];
       };
 
       homeManagerStateVersion = "22.11";
@@ -134,6 +144,7 @@
               useUserPackages = false;
               verbose = false;
               users.${user} = commonHomeManagerConfig;
+              extraSpecialArgs = { inherit inputs; };
             };
           }
         ];
