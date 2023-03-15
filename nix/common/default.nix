@@ -21,7 +21,8 @@
         "pecigonzalo.cachix.org-1:KIojNF24XoRSCGsQu+fwzY/fJhEtANoxKB1Tu45hid8="
       ];
 
-      auto-optimise-store = true;
+      # TODO: https://github.com/NixOS/nix/issues/7273
+      auto-optimise-store = false;
     };
   };
 }
