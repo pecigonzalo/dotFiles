@@ -4,6 +4,7 @@
     # Package sets
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable-small";
     nixpkgs-22-11.url = "github:nixos/nixpkgs/nixos-22.11-small";
+    nixpkgs-22-05.url = "github:nixos/nixpkgs/nixos-22.05-small";
     nixpkgs-21-11.url = "github:nixos/nixpkgs/nixos-21.11-small";
 
     # Environment/system management
@@ -50,6 +51,10 @@
         stable = final: prev: rec {
           pkgs-stable = pkgs-22-11;
           pkgs-22-11 = import inputs.nixpkgs-22-11 {
+            inherit (prev.stdenv) system;
+            inherit (nixpkgsConfig) config;
+          };
+          pkgs-22-05 = import inputs.nixpkgs-22-05 {
             inherit (prev.stdenv) system;
             inherit (nixpkgsConfig) config;
           };

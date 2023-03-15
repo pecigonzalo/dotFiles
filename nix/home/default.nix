@@ -306,7 +306,7 @@ in
 
     # Other CLIs
     _1password
-    teleport
+    teleport-9
 
     # Container runtimes
     lima
