@@ -7,5 +7,6 @@
     ./shell.nix
     ./direnv.nix
     ./fzf.nix
+    ./darwin.nix
   ];
 }

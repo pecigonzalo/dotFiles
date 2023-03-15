@@ -21,7 +21,7 @@ in
       ./editor.nix
       ./tmux.nix
       ./starship.nix
-      ./kitty.nix
+      ./terminal.nix
       ./fonts.nix
     ];
 
@@ -287,6 +287,7 @@ in
 
     # DB tools
     postgresql
+    redis
 
     # Go
     go

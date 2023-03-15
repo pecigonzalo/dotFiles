@@ -32,13 +32,14 @@
       "signal"
       "snowflake-snowsql"
       "wireshark"
-      "kitty"
+      # "kitty"
       "parsec"
       "obsidian"
       "tailscale"
       "visual-studio-code"
       "intellij-idea"
       "spotify"
+      # "wezterm"
     ];
   };
 }
