@@ -11,6 +11,16 @@ final: prev:
       hash = "sha256-TvUFhwfd1u28q3aTQYKnwt15oiVPHtxcRDUY/ymwC/M=";
     };
   };
+  gopher-nvim = prev.vimUtils.buildVimPluginFrom2Nix {
+    pname = "gopher.nvim";
+    version = "cc46546a93c7ccea39f1e008e6804b93559bec29";
+    src = prev.fetchFromGitHub {
+      owner = "olexsmir";
+      repo = "gopher.nvim";
+      rev = "cc46546a93c7ccea39f1e008e6804b93559bec29";
+      hash = "sha256-wfY29g9PShWZgnlQzXGfzZvJb06ifQuaNkiEtkBKikQ=";
+    };
+  };
   # Example of updating or adding garmmars
   tree-sitter = prev.tree-sitter.override {
     extraGrammars = {

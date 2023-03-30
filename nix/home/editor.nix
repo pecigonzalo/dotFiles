@@ -106,6 +106,10 @@ in
         SchemaStore-nvim
         neodev-nvim
         {
+          plugin = pkgs.gopher-nvim;
+          config = ''require("gopher").setup({})'';
+        }
+        {
           plugin = nvim-cmp;
           config = builtins.readFile ./neovim/cmp.lua;
         }
