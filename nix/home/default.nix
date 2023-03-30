@@ -291,12 +291,19 @@ in
 
     # Go
     go
+    ginkgo
+    go-mockery
+    golangci-lint
+    gomodifytags
     gopls
     goreleaser
     gotools
-    golangci-lint
+    iferr
+    impl
+    reftools
 
     # Java
+    jdk17_headless
     gradle
     gradle-completion
 
