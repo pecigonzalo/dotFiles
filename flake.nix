@@ -111,11 +111,15 @@
           registry = {
             nixpkgs.flake = nixpkgs;
             nixpkgs-22-11.flake = inputs.nixpkgs-22-11;
+            nixpkgs-22-05.flake = inputs.nixpkgs-22-05;
+            nixpkgs-21-11.flake = inputs.nixpkgs-21-11;
           };
 
           nixPath = [
             "nixpkgs=${inputs.nixpkgs}"
             "nixpkgs-22-11=${inputs.nixpkgs-22-11}"
+            "nixpkgs-22-05=${inputs.nixpkgs-22-05}"
+            "nixpkgs-21-11=${inputs.nixpkgs-21-11}"
             "darwin=${inputs.darwin}"
             "home-manager=${inputs.home-manager}"
           ];
