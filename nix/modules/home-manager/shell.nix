@@ -9,7 +9,7 @@ let
   isSillicon = pkgs.stdenv.hostPlatform.isDarwin
     && pkgs.stdenv.hostPlatform.isAarch64;
 
-  omzRev = "6d48309cd7da1b91038cf08be7865fb5bb9bc5ea";
+  omzRev = "4586808f86bf3bfdf97685380472b63597ce43c0";
   omzPlugin = { name, rev ? omzRev }: {
     name = "ohmyzsh-plugin-${name}";
     src = builtins.fetchGit {
@@ -218,6 +218,7 @@ in
 
       plugins =
         (map (name: omzLib { name = name; }) [
+          "functions"
           "key-bindings"
           "clipboard"
           "termsupport"
