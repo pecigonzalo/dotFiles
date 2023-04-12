@@ -4,4 +4,10 @@
     enable = true;
     extraConfig = builtins.readFile ./wezterm/config.lua;
   };
+
+  programs.zsh = {
+    initExtra = ''
+      source "${pkgs.wezterm}/etc/profile.d/wezterm.sh"
+    '';
+  };
 }

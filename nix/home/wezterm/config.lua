@@ -36,14 +36,28 @@ local keys = {
   },
 }
 
+local main_font = wezterm.font({ family = "FiraCode Nerd Font" })
+
 return {
   color_scheme = "Dracula (Official)",
-  window_frame = {
-    font = wezterm.font({ family = "FiraCode Nerd Font" }),
-    font_size = 14,
-  },
-  font = wezterm.font({ family = "FiraCode Nerd Font" }),
+  font = main_font,
   font_size = 14,
   scrollback_lines = 10000,
   keys = keys,
+  -- Window options
+  adjust_window_size_when_changing_font_size = false,
+  use_fancy_tab_bar = true,
+  tab_max_width = 24,
+  tab_bar_at_bottom = false,
+  window_frame = {
+    font = main_font,
+    font_size = 14,
+  },
+  window_decorations = "RESIZE",
+  window_padding = {
+    left = 0,
+    right = 0,
+    top = 0,
+    bottom = 0,
+  },
 }
