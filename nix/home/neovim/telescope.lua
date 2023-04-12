@@ -1,20 +1,43 @@
 local actions = require("telescope.actions")
-local telescope_config = require("telescope.config")
 local trouble = require("trouble.providers.telescope")
 
--- Clone the default Telescope configuration
-local vimgrep_arguments = { unpack(telescope_config.values.vimgrep_arguments) }
-
--- I want to search in hidden/dot files.
-table.insert(vimgrep_arguments, "--hidden")
--- I don't want to search in the `.git` directory.
-table.insert(vimgrep_arguments, "--glob")
-table.insert(vimgrep_arguments, "!**/.git/*")
+-- Add additional filetypes for plenary, so syntax highlighting works in Telescope
+-- NOTE: add_table is not documented, but its what add_file (documented) calls
+require("plenary.filetype").add_table({
+  extension = {
+    -- extension = filetype
+    -- example:
+    -- ["jl"] = "julia",
+    ["tf"] = "terraform",
+  },
+  file_name = {
+    -- special filenames, likes .bashrc
+    -- we provide a decent amount
+    -- name = filetype
+    -- example:
+    -- [".bashrc"] = "bash",
+  },
+  shebang = {
+    -- Shebangs are supported as well. Currently we provide
+    -- sh, bash, zsh, python, perl with different prefixes like
+    -- /usr/bin, /bin/, /usr/bin/env, /bin/env
+    -- shebang = filetype
+    -- example:
+    -- ["/usr/bin/node"] = "javascript",
+  },
+})
 
 require("telescope").setup({
   defaults = {
     -- `hidden = true` is not supported in text grep commands.
-    vimgrep_arguments = vimgrep_arguments,
+    vimgrep_arguments = {
+      "rg",
+      "--vimgrep",
+      "--smart-case",
+      "--hidden",
+      "--glog",
+      "!**/.git/*",
+    },
     mappings = {
       i = {
         ["<esc>"] = actions.close,
@@ -29,7 +52,8 @@ require("telescope").setup({
   pickers = {
     find_files = {
       -- `hidden = true` will still show the inside of `.git/` as it's not `.gitignore`d.
-      find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
+      -- find_command = { "rg", "--smart-case", "--files", "--hidden", "--glob", "!**/.git/*" },
+      find_command = { "fd", "--type", "f", "--hidden", "--exclude", ".git" },
     },
   },
 })
@@ -81,6 +105,9 @@ nmap("<leader>gs", telescope_builtin.git_status, "[g]it [s]tatus")
 -- search
 nmap("<leader>sa", telescope_builtin.autocommands, "[s]earch [a]utocommands")
 nmap("<leader>sc", telescope_builtin.commands, "[s]earch [c]ommands")
-nmap("<leader>sd", telescope_builtin.diagnostics, "[s]earch [d]iagnostics")
+nmap("<leader>sd", function()
+  telescope_builtin.diagnostics({ bufnr = 0 })
+end, "[s]earch [d]iagnostics")
+nmap("<leader>sD", telescope_builtin.diagnostics, "[s]earch [d]iagnostics")
 nmap("<leader>sk", telescope_builtin.keymaps, "[s]earch [k]eymaps")
 nmap("<leader>sm", telescope_builtin.marks, "[s]earch [m]arks")
