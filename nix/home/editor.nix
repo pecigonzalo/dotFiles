@@ -145,6 +145,22 @@ in
           '';
         }
 
+        # Copilot
+        {
+          # Use lua version
+          plugin = copilot-lua;
+          config = ''
+            require("copilot").setup({
+              suggestion = { enabled = false },
+              panel = { enabled = false },
+            })
+          '';
+        }
+        {
+          plugin = copilot-cmp;
+          config = ''require("copilot_cmp").setup({})'';
+        }
+
         # Treexplorer
         nvim-web-devicons
         {

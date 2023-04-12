@@ -45,6 +45,7 @@ local kind_icons = {
   Event = "",
   Operator = "",
   TypeParameter = "",
+  Copilot = "",
 }
 
 local menu_icon = {
@@ -53,6 +54,7 @@ local menu_icon = {
   luasnip = "⋗",
   buffer = "Ω",
   path = "",
+  copilot = "",
 }
 
 -- CMP configuration
@@ -129,9 +131,10 @@ cmp.setup({
   sources = cmp.config.sources({
     { name = "nvim_lsp_signature_help", priority = 101 },
     { name = "nvim_lsp",                priority = 100 },
+    { name = "copilot",                 priority = 99 },
     { name = "luasnip",                 priority = 50, keyword_length = 2, option = { show_autosnippets = true } },
     { name = "path",                    priority = 30 },
-    { name = "buffer",                  priority = 10 },
+    { name = "buffer",                  priority = 10, keyword_length = 3 },
     { name = "emoji",                   priority = 1 },
   }),
 })
