@@ -35,7 +35,7 @@ require("telescope").setup({
       "--vimgrep",
       "--smart-case",
       "--hidden",
-      "--glog",
+      "--glob",
       "!**/.git/*",
     },
     mappings = {
