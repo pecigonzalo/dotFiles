@@ -1,2 +1,0 @@
-[[ -f ~/.Xmodmap ]] && xmodmap ~/.Xmodmap
-
