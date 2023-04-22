@@ -1,7 +1,0 @@
-SUBSYSTEM!="sound", GOTO="pulseaudio_end"
-ACTION!="change", GOTO="pulseaudio_end"
-KERNEL!="card*", GOTO="pulseaudio_end"
-
-SUBSYSTEMS=="usb" ATTRS{idVendor}=="0bda", ATTRS{idProduct}=="4014", ENV{PULSE_PROFILE_SET}="dell-dock-wd15-usb-audio.conf"
-
-LABEL="pulseaudio_end"
