@@ -90,7 +90,7 @@ in
           plugin = nvim-treesitter.withPlugins (_: nvim-treesitter.allGrammars);
           config = builtins.readFile ./neovim/treesitter.lua;
         }
-        nvim-treesitter-textobjects
+        pkgs.nvim-treesitter-textobjects
 
         # LSP
         nvim-lspconfig

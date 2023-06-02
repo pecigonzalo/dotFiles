@@ -21,6 +21,16 @@ final: prev:
       hash = "sha256-GeMvWb/5/e9TMycPNKS+ZvY8ODiWJA7wvP5wan+9CL4=";
     };
   };
+  nvim-treesitter-textobjects = prev.vimUtils.buildVimPluginFrom2Nix {
+    pname = "nvim-treesitter-textobjects";
+    version = "23e883b99228f8d438254e5ef8c897e5e60e75d1";
+    src = prev.fetchFromGitHub {
+      owner = "nvim-treesitter";
+      repo = "nvim-treesitter-textobjects";
+      rev = "23e883b99228f8d438254e5ef8c897e5e60e75d1";
+      sha256 = "sha256-SE9oKrGezJ5a3KsrIaHXJbQnaHX+NEgD2LKa9ABUXPY=";
+    };
+  };
   # Example of updating or adding garmmars
   tree-sitter = prev.tree-sitter.override {
     extraGrammars = {
