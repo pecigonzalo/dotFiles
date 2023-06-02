@@ -219,7 +219,8 @@ in
     asdf-vm
 
     # Kafka
-    kcli
+    # TODO: kcli is broken
+    # kcli
 
     # Elm
     elmPackages.elm

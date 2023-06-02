@@ -1,8 +1,5 @@
 final: prev:
 {
-  inherit (final.pkgs-21-11)
-    kcli
-    ;
   inherit (final.pkgs-stable)
     dnsutils# https://github.com/NixOS/nixpkgs/issues/152056
     _1password

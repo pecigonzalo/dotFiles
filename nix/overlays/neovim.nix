@@ -13,12 +13,12 @@ final: prev:
   };
   gopher-nvim = prev.vimUtils.buildVimPluginFrom2Nix {
     pname = "gopher.nvim";
-    version = "cc46546a93c7ccea39f1e008e6804b93559bec29";
+    version = "03cabf675ce129c28bd855969a3e569edcf63366";
     src = prev.fetchFromGitHub {
       owner = "olexsmir";
       repo = "gopher.nvim";
-      rev = "cc46546a93c7ccea39f1e008e6804b93559bec29";
-      hash = "sha256-wfY29g9PShWZgnlQzXGfzZvJb06ifQuaNkiEtkBKikQ=";
+      rev = "03cabf675ce129c28bd855969a3e569edcf63366";
+      hash = "sha256-GeMvWb/5/e9TMycPNKS+ZvY8ODiWJA7wvP5wan+9CL4=";
     };
   };
   # Example of updating or adding garmmars

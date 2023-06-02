@@ -17,8 +17,6 @@
 
     taps = [
       "homebrew/bundle"
-      "homebrew/cask"
-      "homebrew/core"
     ];
 
     casks = [
@@ -29,7 +27,6 @@
       "keycastr"
       "microsoft-remote-desktop"
       "scroll-reverser"
-      "signal"
       "snowflake-snowsql"
       "wireshark"
       "parsec"
