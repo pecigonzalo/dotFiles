@@ -233,10 +233,6 @@ in
     vegeta
     hyperfine # CLI benchmarking
 
-    # jsonnet
-    jsonnet
-    jsonnet-bundler
-
     # Python
     python-with-env
     poetry
