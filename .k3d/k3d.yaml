@@ -1,0 +1,44 @@
+apiVersion: k3d.io/v1alpha4
+kind: Simple
+metadata:
+  name: default
+servers: 1
+agents: 3
+ports:
+  - port: 80:80
+    nodeFilters:
+      - loadbalancer
+  - port: 443:443
+    nodeFilters:
+      - loadbalancer
+volumes:
+  - volume: $HOME/.k3d/storage:/var/lib/rancher/k3s/storage
+  - volume: $HOME/.k3d/manifests/:/var/lib/rancher/k3s/server/manifests/mounted
+    nodeFilters:
+      - server:*
+registries:
+  create:
+    name: registry.localhost
+    host: "0.0.0.0"
+    hostPort: "5000"
+options:
+  k3d:
+    wait: true
+  k3s:
+    nodeLabels:
+      - label: topology.kubernetes.io/zone=az1
+        nodeFilters:
+          - agent:0
+      - label: topology.kubernetes.io/zone=az2
+        nodeFilters:
+          - agent:1
+      - label: topology.kubernetes.io/zone=az3
+        nodeFilters:
+          - agent:2
+    extraArgs:
+      - arg: "--disable=traefik"
+        nodeFilters:
+          - server:*
+  kubeconfig:
+    updateDefaultKubeconfig: true
+    switchCurrentContext: true
