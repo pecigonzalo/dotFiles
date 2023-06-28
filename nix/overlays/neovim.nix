@@ -31,6 +31,17 @@ final: prev:
       sha256 = "sha256-SE9oKrGezJ5a3KsrIaHXJbQnaHX+NEgD2LKa9ABUXPY=";
     };
   };
+  nvim-lsp-notify = prev.vimUtils.buildVimPluginFrom2Nix
+    {
+      pname = "nvim-lsp-notify";
+      version = "9986955e0423f2f5cdb3bd4f824bc980697646a0";
+      src = prev.fetchFromGitHub {
+        owner = "mrded";
+        repo = "nvim-lsp-notify";
+        rev = "9986955e0423f2f5cdb3bd4f824bc980697646a0";
+        sha256 = "sha256-J6PRYS62r4edMO6UDZKrOv2x6RFox5k3pqvVqlnz6hs";
+      };
+    };
   # Example of updating or adding garmmars
   tree-sitter = prev.tree-sitter.override {
     extraGrammars = {
