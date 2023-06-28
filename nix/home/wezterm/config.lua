@@ -18,9 +18,10 @@ local keys = {
   },
   { key = "Enter", mods = "CTRL",       action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
   { key = "Enter", mods = "CTRL|SHIFT", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
+  { key = "l",     mods = "CTRL|SHIFT", action = wezterm.action.ShowDebugOverlay },
   {
-    key = "P",
-    mods = "CTRL",
+    key = "p",
+    mods = "CTRL|SHIFT",
     action = wezterm.action({
       QuickSelectArgs = {
         patterns = {
