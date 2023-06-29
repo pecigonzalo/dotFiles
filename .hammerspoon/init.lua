@@ -1,8 +1,13 @@
-hs.alert('Loading the Hammer')
-local hyper = {"rightctrl", "rightalt", "rightcmd", "rightshift"}
+hs.alert("Loading the Hammer")
+
+-- Load EmmyLua
+hs.loadSpoon("EmmyLua")
+
+local hyper = { "rightctrl", "rightalt", "rightcmd", "rightshift" }
 local chrome = require("chrome")
 
 require("targets")
+local window = hs.getObjectMetatable("hs.window")
 
 hs.hotkey.bind(hyper, "R", function()
   hs.reload()
@@ -114,7 +119,5 @@ hs.hotkey.bind(hyper, "`", function()
 end)
 
 hs.hotkey.bind(hyper, "M", function()
-  chrome.jump(
-    "meet.google.com"
-  )
+  chrome.jump("meet.google.com")
 end)

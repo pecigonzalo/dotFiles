@@ -1,8 +1,9 @@
+local window = hs.getObjectMetatable("hs.window")
+
 hs.window.animationDuration = 0
-window = hs.getObjectMetatable("hs.window")
 
 function half(x)
-  return math.floor(x/2)
+  return math.floor(x / 2)
 end
 
 -- +-----------------+

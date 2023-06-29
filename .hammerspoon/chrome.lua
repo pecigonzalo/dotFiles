@@ -1,6 +1,6 @@
 -- Chrome
 --
--- Some utility functions for controlling Brave Browser.
+-- Some utility functions for controlling Chrome Browser.
 --
 -- NOTE: May require you enable View -> Developer -> Allow Javascript from
 -- Apple Events in Brave's menu.

@@ -275,8 +275,8 @@ require("neodev").setup({
   end,
 })
 local runtime_path = vim.split(package.path, ";")
-table.insert(runtime_path, "lua/?.lua")
-table.insert(runtime_path, "lua/?/init.lua")
+table.insert(runtime_path, "?.lua")
+table.insert(runtime_path, "?/init.lua")
 lspconfig.lua_ls.setup({
   settings = {
     Lua = {
@@ -287,12 +287,17 @@ lspconfig.lua_ls.setup({
       },
       diagnostics = {
         -- Get the language server to recognize the `vim` global
-        globals = { "vim" },
+        globals = { "vim", "hs" },
       },
       workspace = {
         -- Make the server aware of Neovim runtime files
-        library = vim.api.nvim_get_runtime_file("", true),
-        checkThirdParty = false,
+        library = {
+          vim.fn.expand("$VIMRUNTIME/lua/vim/lsp"),
+          vim.fn.expand("$VIMRUNTIME/lua"),
+          "/Applications/Hammerspoon.app/Contents/Resources/extensions/hs/",
+          string.format("%s/.hammerspoon/Spoons/EmmyLua.spoon/annotations", os.getenv("HOME")),
+        },
+        checkThirdParty = true,
       },
       completion = {
         callSnippet = "Replace",
