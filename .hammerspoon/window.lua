@@ -1,8 +1,8 @@
-local M = {}
+local M = hs.getObjectMetatable("hs.window")
 
 hs.window.animationDuration = 0
 
-function half(x)
+local function half(x)
   return math.floor(x / 2)
 end
 
