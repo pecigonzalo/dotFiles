@@ -1,4 +1,4 @@
-local window = hs.getObjectMetatable("hs.window")
+local M = {}
 
 hs.window.animationDuration = 0
 
@@ -11,7 +11,7 @@ end
 -- |  HERE  |        |
 -- |        |        |
 -- +-----------------+
-function window.left(win)
+function M.left(win)
   local f = win:frame()
   local screen = win:screen()
   local max = screen:frame()
@@ -28,7 +28,7 @@ end
 -- |        |  HERE  |
 -- |        |        |
 -- +-----------------+
-function window.right(win)
+function M.right(win)
   local f = win:frame()
   local screen = win:screen()
   local max = screen:frame()
@@ -45,7 +45,7 @@ end
 -- +-----------------+
 -- |                 |
 -- +-----------------+
-function window.up(win)
+function M.up(win)
   local f = win:frame()
   local screen = win:screen()
   local max = screen:frame()
@@ -62,7 +62,7 @@ end
 -- +-----------------+
 -- |      HERE       |
 -- +-----------------+
-function window.down(win)
+function M.down(win)
   local f = win:frame()
   local screen = win:screen()
   local max = screen:frame()
@@ -79,7 +79,7 @@ end
 -- +--------+        |
 -- |                 |
 -- +-----------------+
-function window.upLeft(win)
+function M.upLeft(win)
   local f = win:frame()
   local screen = win:screen()
   local max = screen:frame()
@@ -96,7 +96,7 @@ end
 -- +--------+        |
 -- |  HERE  |        |
 -- +-----------------+
-function window.downLeft(win)
+function M.downLeft(win)
   local f = win:frame()
   local screen = win:screen()
   local max = screen:frame()
@@ -113,7 +113,7 @@ end
 -- |        +--------|
 -- |        |  HERE  |
 -- +-----------------+
-function window.downRight(win)
+function M.downRight(win)
   local f = win:frame()
   local screen = win:screen()
   local max = screen:frame()
@@ -130,7 +130,7 @@ end
 -- |        +--------|
 -- |                 |
 -- +-----------------+
-function window.upRight(win)
+function M.upRight(win)
   local f = win:frame()
   local screen = win:screen()
   local max = screen:frame()
@@ -141,3 +141,5 @@ function window.upRight(win)
   f.h = half(max.h)
   return f
 end
+
+return M

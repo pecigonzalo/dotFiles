@@ -1,19 +1,17 @@
 hs.alert("Loading the Hammer")
 
 -- Load EmmyLua
-hs.loadSpoon("EmmyLua")
+-- hs.loadSpoon("EmmyLua")
 
-local hyper = { "rightctrl", "rightalt", "rightcmd", "rightshift" }
 local chrome = require("chrome")
+local window = require("window")
+local hyper = require("hyper")
 
-require("targets")
-local window = hs.getObjectMetatable("hs.window")
-
-hs.hotkey.bind(hyper, "R", function()
+hyper.bind({}, "R", function()
   hs.reload()
 end)
 
-hs.hotkey.bind(hyper, "Left", function()
+hyper.bind({}, "Left", function()
   local win = hs.window.focusedWindow()
   local f = win:frame()
 
@@ -34,7 +32,7 @@ hs.hotkey.bind(hyper, "Left", function()
   win:setFrame(window.left(win))
 end)
 
-hs.hotkey.bind(hyper, "Right", function()
+hyper.bind({}, "Right", function()
   local win = hs.window.focusedWindow()
   local f = win:frame()
 
@@ -55,7 +53,7 @@ hs.hotkey.bind(hyper, "Right", function()
   win:setFrame(window.right(win))
 end)
 
-hs.hotkey.bind(hyper, "Up", function()
+hyper.bind({}, "Up", function()
   local win = hs.window.focusedWindow()
   local f = win:frame()
 
@@ -79,7 +77,7 @@ hs.hotkey.bind(hyper, "Up", function()
   win:setFrame(window.up(win))
 end)
 
-hs.hotkey.bind(hyper, "Down", function()
+hyper.bind({}, "Down", function()
   local win = hs.window.focusedWindow()
   local f = win:frame()
 
@@ -101,7 +99,7 @@ hs.hotkey.bind(hyper, "Down", function()
 end)
 
 -- Debug hotkey
-hs.hotkey.bind(hyper, "`", function()
+hyper.bind({}, "`", function()
   local win = hs.window.focusedWindow()
 
   print("x: " .. win:frame().x)
@@ -118,6 +116,6 @@ hs.hotkey.bind(hyper, "`", function()
   -- print(window.upRight(win))
 end)
 
-hs.hotkey.bind(hyper, "M", function()
+hyper.bind({}, "M", function()
   chrome.jump("meet.google.com")
 end)
