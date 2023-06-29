@@ -1,6 +1,11 @@
 local window = require("window")
 local chrome = require("chrome")
 
+local isInTerminal = function()
+  local app = hs.application.frontmostApplication():name()
+  return app == "iTerm2" or app == "Terminal" or app == "WezTerm"
+end
+
 return {
   hyper = {
     {
@@ -34,6 +39,7 @@ return {
         win:setFrame(window.left(win))
       end,
     },
+
     {
       {},
       "Right",
@@ -139,6 +145,21 @@ return {
       "M",
       function()
         chrome.jump("meet.google.com")
+      end,
+    },
+
+    {
+      {},
+      "T",
+      function()
+        hs.application.open("WezTerm")
+      end,
+    },
+    {
+      {},
+      "S",
+      function()
+        hs.application.open("Slack")
       end,
     },
   },

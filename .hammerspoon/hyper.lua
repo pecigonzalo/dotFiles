@@ -16,7 +16,7 @@ end
 function M.exitHyperMode()
   M.hyper:exit()
   if not M.hyper.triggered then
-    hs.eventtap.keyStroke({}, "ESCAPE", 1)
+    hs.eventtap.keyStroke({}, "ESCAPE", 0)
   end
 end
 
