@@ -139,6 +139,15 @@ in
     extraPackages = with pkgs.bat-extras; [ batdiff batman batgrep batwatch ];
   };
 
+  programs.ripgrep = {
+    enable = true;
+    arguments = [
+      "--smart-case"
+      "--follow"
+      "--hidde"
+    ];
+  };
+
   home.packages = with pkgs; [
     # Nix
     nixpkgs-fmt
@@ -189,7 +198,9 @@ in
     vale # Prose linter
     zsh-completions
     (nushell.override
-      { additionalFeatures = (p: p ++ [ "dataframe" ]); })
+      {
+        additionalFeatures = (p: p ++ [ "dataframe" ]);
+      })
 
     # Compression
     m4
@@ -217,10 +228,6 @@ in
 
     # ASDF
     asdf-vm
-
-    # Kafka
-    # TODO: kcli is broken
-    # kcli
 
     # Elm
     elmPackages.elm
