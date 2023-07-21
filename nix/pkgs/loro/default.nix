@@ -4,7 +4,7 @@
 }:
 buildGoModule rec {
   pname = "loro";
-  version = "0.2.3";
+  version = "0.3.0";
 
   subPackages = [ "." ];
 
@@ -12,10 +12,10 @@ buildGoModule rec {
     owner = "pecigonzalo";
     repo = pname;
     rev = "${version}";
-    sha256 = "sha256-6qZz1RddX2La+uKb0VFnTmH8DY5B/cKMV41uWHk4qy8=";
+    sha256 = "sha256-GzXJyEUS6CWJBg+0yPpFPOPxUb9kilo8BPpJqJUt2TU=";
   };
 
-  vendorSha256 = "sha256-xuJKybJNvsccZ/+JuTZF+yowJK6pNkLgViugM7e3CCE=";
+  vendorSha256 = "sha256-DYOUxdxACiCX5i4HZAdf3F9lGC5+OHT6pa2RfdKQ4J0=";
 
   nativeBuildInputs = [ installShellFiles ];
 
