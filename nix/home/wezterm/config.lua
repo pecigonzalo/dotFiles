@@ -37,6 +37,10 @@ local keys = {
   },
 }
 
+local quick_select_patterns = {
+  "sha256-[0-9a-zA-Z+=]{44}",
+}
+
 local main_font = wezterm.font({ family = "FiraCode Nerd Font" })
 
 return {
@@ -61,4 +65,5 @@ return {
     top = 0,
     bottom = 0,
   },
+  quick_select_patterns = quick_select_patterns,
 }
