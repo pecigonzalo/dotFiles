@@ -4,7 +4,7 @@
 }:
 buildGoModule rec {
   pname = "loro";
-  version = "0.3.0";
+  version = "0.3.1";
 
   subPackages = [ "." ];
 
@@ -12,7 +12,7 @@ buildGoModule rec {
     owner = "pecigonzalo";
     repo = pname;
     rev = "${version}";
-    sha256 = "sha256-GzXJyEUS6CWJBg+0yPpFPOPxUb9kilo8BPpJqJUt2TU=";
+    sha256 = "sha256-oar6+pEXFvx/vvEVAo2+/OXcDqTX9CIl+tbPowFdY+0=";
   };
 
   vendorSha256 = "sha256-DYOUxdxACiCX5i4HZAdf3F9lGC5+OHT6pa2RfdKQ4J0=";
