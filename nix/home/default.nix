@@ -223,11 +223,12 @@ in
     dogdns # dig
     gping # ping with a graph
     sad # CLI search and replace | Space Age seD
-
+    glow # Markdown reader
     jo # JSON objects made easy https://github.com/jpmens/jo
 
-    # ASDF
+    # Package managers
     asdf-vm
+    devbox
 
     # Elm
     elmPackages.elm
