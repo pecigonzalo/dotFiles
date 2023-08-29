@@ -12,13 +12,24 @@ isElementLoaded('button[data-testid="awsc-copy-accountid"]').then(
       ""
     );
 
-    color = accountColors[accountId];
+    account = accounts[accountId];
+    console.log(`Account: ${account.name} - ${account.color}`);
 
-    if (color !== undefined) {
+    const accountColor = account.color;
+    if (accountColor !== undefined) {
       document.querySelector("#awsc-nav-header>nav").style.backgroundColor =
-        color;
+        accountColor;
     } else {
       console.log("Account color not found");
+    }
+
+    const accountName = account.name;
+    if (accountName !== undefined) {
+      document.querySelector(
+        '[data-testid="awsc-nav-account-menu-button"]>span[title]'
+      ).textContent = accountName;
+    } else {
+      console.log("Account name not found");
     }
   }
 );
