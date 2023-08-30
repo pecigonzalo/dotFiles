@@ -98,7 +98,7 @@ in
       # This is taken care of by zinit
       enableCompletion = true;
       enableAutosuggestions = true;
-      enableSyntaxHighlighting = true;
+      syntaxHighlighting.enable = true;
       envExtra = "skip_global_compinit=1";
 
       dotDir = ".config/zsh";

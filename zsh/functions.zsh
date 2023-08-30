@@ -32,7 +32,7 @@ ex() {
 
 # -------------------------------------------------------------------
 # display a neatly formatted path
-# ------------------------------>
+# -------------------------------------------------------------------
 path() {
   echo "$PATH" | tr ":" "\n" |
     awk "{ sub(\"/usr\",   \"$fg_no_bold[green]/usr$reset_color\"); \
@@ -100,10 +100,10 @@ awsvl() {
   if [[ $TOKEN =~ "signin.aws.amazon.com" ]]; then
     local data=$(mktemp -d -t google-chrome-XXXXXX)
     open -na "Google Chrome" --args \
-     --no-first-run \
-     --user-data-dir="$data" \
-    --load-extension='~/dotFiles/.aws/chrome-color-helper/' \
-     $TOKEN
+      --no-first-run \
+      --user-data-dir="$data" \
+      --load-extension='~/dotFiles/.aws/chrome-color-helper/' \
+      $TOKEN
     rm -rf "$data"
   else
     echo "$TOKEN"
