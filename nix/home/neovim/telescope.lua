@@ -40,7 +40,6 @@ require("telescope").setup({
     },
     mappings = {
       i = {
-        ["<esc>"] = actions.close,
         ["<C-h>"] = "which_key",
         ["<c-t>"] = trouble.open_with_trouble,
       },

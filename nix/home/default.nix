@@ -212,7 +212,7 @@ in
     # CLI Replacements
     bat # cat
     ripgrep # grep
-    exa # ls
+    eza # ls
     fd # find
     # httpie # curl
     curlie # curl
@@ -319,7 +319,7 @@ in
 
     # Other CLIs
     _1password
-    teleport-9
+    teleport
 
     # Container runtimes
     lima
@@ -329,7 +329,7 @@ in
     wslu
 
     # Security
-    nodePackages.snyk # Snyk CLI
+    # nodePackages.snyk # Snyk CLI
     cilium-cli
     hubble
   ];
