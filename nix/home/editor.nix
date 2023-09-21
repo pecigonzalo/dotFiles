@@ -91,7 +91,7 @@ in
           plugin = nvim-treesitter.withPlugins (_: nvim-treesitter.allGrammars);
           config = builtins.readFile ./neovim/treesitter.lua;
         }
-        pkgs.nvim-treesitter-textobjects
+        nvim-treesitter-textobjects
 
         # LSP
         nvim-lspconfig
@@ -107,7 +107,7 @@ in
         SchemaStore-nvim
         neodev-nvim
         {
-          plugin = pkgs.gopher-nvim;
+          plugin = gopher-nvim;
           config = ''require("gopher").setup({})'';
         }
         {
@@ -327,7 +327,7 @@ in
           '';
         }
         {
-          plugin = pkgs.nvim-lsp-notify;
+          plugin = nvim-lsp-notify;
           config = ''require("lsp-notify").setup({})'';
         }
 

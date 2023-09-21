@@ -80,7 +80,7 @@ in
           autoSetupRemote = true;
         };
 
-        status.showuntrackedfiles = "all";
+        status.showUntrackedFiles = "all";
         push.default = "current";
         pull.rebase = true;
         fetch.prune = true;
