@@ -88,16 +88,52 @@ in
 
         # Treesitter
         {
-          plugin = nvim-treesitter.withPlugins (_: nvim-treesitter.allGrammars);
+          # plugin = nvim-treesitter.withPlugins (_: nvim-treesitter.allGrammars);
+          plugin = nvim-treesitter.withPlugins (p: [
+            p.bash
+            p.comment
+            p.cue
+            p.dockerfile
+            p.fish
+            p.go
+            p.gomod
+            p.graphql
+            p.hcl
+            p.hjson
+            p.html
+            p.http
+            p.java
+            p.javascript
+            p.json
+            p.json5
+            p.jsonnet
+            p.kotlin
+            p.lua
+            p.make
+            # p.markdown
+            p.nix
+            p.python
+            p.regex
+            p.rego
+            p.rust
+            p.sql
+            p.toml
+            p.typescript
+            p.yaml
+          ]);
           config = builtins.readFile ./neovim/treesitter.lua;
         }
         nvim-treesitter-textobjects
+        {
+          plugin = nvim-treesitter-context;
+          config = ''require("treesitter-context").setup({})'';
+        }
 
         # LSP
         nvim-lspconfig
         cmp-buffer
         cmp-path
-        cmp-cmdline
+        # cmp-cmdline
         cmp-nvim-lsp
         cmp-nvim-lsp-signature-help
         cmp-emoji
@@ -180,22 +216,13 @@ in
           config = builtins.readFile ./neovim/explorer.lua;
         }
 
-        # Telescope
-        plenary-nvim
-        telescope-fzf-native-nvim
-        dressing-nvim
-        {
-          plugin = telescope-nvim;
-          config = builtins.readFile ./neovim/telescope.lua;
-        }
-
         # Which key
         {
           plugin = which-key-nvim;
           config = ''
             vim.opt.timeoutlen = 500
 
-            require('which-key').setup({
+            require("which-key").setup({
               window = {
                 border = 'rounded',
               },
@@ -214,69 +241,11 @@ in
           config = builtins.readFile ./neovim/gitsigns.lua;
         }
 
-        # Color indentation
-        {
-          plugin = indent-blankline-nvim;
-          config = ''
-            -- Display characters
-            vim.opt.list = true
-            vim.opt.listchars = {
-              tab = "→ ",
-              eol = "↲",
-              trail = "∙",
-              extends = "❯",
-              precedes = "❮",
-            }
-
-            vim.api.nvim_set_hl(0, "IndentBlanklineIndent1",     { fg="#E06C75", nocombine=true })
-            vim.api.nvim_set_hl(0, "IndentBlanklineIndent2",     { fg="#E5C07B", nocombine=true })
-            vim.api.nvim_set_hl(0, "IndentBlanklineIndent3",     { fg="#98C379", nocombine=true })
-            vim.api.nvim_set_hl(0, "IndentBlanklineIndent4",     { fg="#56B6C2", nocombine=true })
-            vim.api.nvim_set_hl(0, "IndentBlanklineIndent5",     { fg="#61AFEF", nocombine=true })
-            vim.api.nvim_set_hl(0, "IndentBlanklineIndent6",     { fg="#C678DD", nocombine=true })
-            vim.api.nvim_set_hl(0, "IndentBlanklineContextChar", { fg="#FF5555", nocombine=true })
-
-            require('indent_blankline').setup({
-              char = "│",
-              context_char = "┃",
-              filetype_exclude = {
-                "lspinfo",
-                "packer",
-                "checkhealth",
-                "help",
-                "man",
-                "dashboard",
-                "NvimTree",
-                "text",
-              },
-
-              use_treesitter = true,
-
-              char_highlight_list = {
-                "IndentBlanklineIndent1",
-                "IndentBlanklineIndent2",
-                "IndentBlanklineIndent3",
-                "IndentBlanklineIndent4",
-                "IndentBlanklineIndent5",
-                "IndentBlanklineIndent6",
-              },
-
-              show_trailing_blankline_indent = false,
-              show_first_indent_level = false,
-
-              show_current_context = true,
-              show_current_context_start = false,
-
-              space_char_blankline = " ",
-            })
-          '';
-        }
-
         # Quick Terminal
         {
           plugin = toggleterm-nvim;
           config = ''
-            require('toggleterm').setup({
+            require("toggleterm").setup({
               open_mapping = '<C-g>',
               direction = 'float',
               shade_terminals = true,
@@ -287,59 +256,17 @@ in
           '';
         }
 
-        # UI
-        {
-          plugin = bufferline-nvim;
-          config = ''
-            require('bufferline').setup({
-              options = {
-                mode = 'buffers',
-                offsets = {
-                  {filetype = 'NvimTree'}
-                },
-              },
-              highlights = {
-                buffer_selected = {
-                  italic = false
-                },
-                indicator_selected = {
-                  fg = {attribute = 'fg', highlight = 'Function'},
-                  italic = false
-                }
-              }
-            })
-          '';
-        }
-        {
-          plugin = lualine-nvim;
-          config = builtins.readFile ./neovim/lualine.lua;
-        }
-        {
-          plugin = nvim-notify;
-          config = ''
-            require("notify").setup({
-              fps = 60,
-              timeout = 2000,
-              top_down = true,
-              level = 2,
-            })
-            vim.notify = require("notify")
-          '';
-        }
-        {
-          plugin = nvim-lsp-notify;
-          config = ''require("lsp-notify").setup({})'';
-        }
-
         vim-nix # Nix
         editorconfig-nvim # Editorconfig
+        inc-rename-nvim # Incremental rename
+        # diffview-nvim # Diff
         {
           plugin = mini-nvim; # Collection of small additions https://github.com/echasnovski/mini.nvim
           config = ''
-            require('mini.ai').setup({}) -- Additional text objects, sort of like target.vim
-            require('mini.cursorword').setup({}) -- Highlight word under cursor
+            require("mini.ai").setup({}) -- Additional text objects, sort of like target.vim
+            require("mini.cursorword").setup({}) -- Highlight word under cursor
             -- Minimal and fast autopairs
-            require('mini.pairs').setup({
+            require("mini.pairs").setup({
               mappings = {
                 ['('] = { action = 'open', pair = '()', neigh_pattern = '[^\\][^%)]' },
                 ['['] = { action = 'open', pair = '[]', neigh_pattern = '[^\\][^%]]' },
@@ -350,12 +277,32 @@ in
                 ['`'] = { action = 'closeopen', pair = '``', neigh_pattern = '[^%a\\].', register = { cr = false } },
               }
             })
-            require('mini.surround').setup({}) -- Fast and feature-rich surround plugin
+            require("mini.surround").setup({}) -- Fast and feature-rich surround plugin
           '';
         }
         {
           plugin = comment-nvim; # Commenting lines
-          config = ''require('Comment').setup({})'';
+          config = ''require("Comment").setup({})'';
+        }
+
+        # UI
+        indent-blankline-nvim
+        nvim-notify
+        nui-nvim
+        bufferline-nvim
+        lualine-nvim
+        dressing-nvim
+        {
+          plugin = noice-nvim;
+          config = builtins.readFile ./neovim/ui.lua;
+        }
+
+        # Telescope
+        plenary-nvim
+        telescope-fzf-native-nvim
+        {
+          plugin = telescope-nvim;
+          config = builtins.readFile ./neovim/telescope.lua;
         }
       ];
 

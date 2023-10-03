@@ -136,17 +136,21 @@ autocmd("TextYankPost", {
 -- Configure diagnostics and windows
 -- These have to configured before plugins and tools hook into them
 vim.diagnostic.config({
-  virtual_text = true,
   signs = true,
   underline = true,
-  update_in_insert = true,
-  severity_sort = true,
+  update_in_insert = false,
   float = {
     focusable = true,
     style = "minimal",
     border = "rounded",
     source = "always",     -- Show source
   },
+  virtual_text = {
+    spacing = 4,
+    source = "if_many",
+    prefix = "●",
+  },
+  severity_sort = true,
 })
 
 -- Set rounded windows

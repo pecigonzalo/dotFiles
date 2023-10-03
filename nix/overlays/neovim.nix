@@ -1,5 +1,7 @@
 final: prev:
 let
+  buildVimPluginFrom2Nix = prev.vimUtils.buildVimPluginFrom2Nix;
+  fetchFromGitHub = prev.fetchFromGitHub;
   overlayPlugins = {
     # Example of custom plugin
     go-nvim = prev.vimUtils.buildVimPluginFrom2Nix {
@@ -32,17 +34,6 @@ let
         sha256 = "sha256-SE9oKrGezJ5a3KsrIaHXJbQnaHX+NEgD2LKa9ABUXPY=";
       };
     };
-    nvim-lsp-notify = prev.vimUtils.buildVimPluginFrom2Nix
-      {
-        pname = "nvim-lsp-notify";
-        version = "9986955e0423f2f5cdb3bd4f824bc980697646a0";
-        src = prev.fetchFromGitHub {
-          owner = "mrded";
-          repo = "nvim-lsp-notify";
-          rev = "9986955e0423f2f5cdb3bd4f824bc980697646a0";
-          sha256 = "sha256-J6PRYS62r4edMO6UDZKrOv2x6RFox5k3pqvVqlnz6hs";
-        };
-      };
     # Example of updating or adding garmmars
     tree-sitter = prev.tree-sitter.override {
       extraGrammars = {
@@ -54,16 +45,39 @@ let
         # };
       };
     };
+
     nvim-notify = prev.vimUtils.buildVimPluginFrom2Nix {
       pname = "nvim-notify";
-      version = "ea9c8ce7a37f2238f934e087c255758659948e0f";
+      version = "e4a2022f4fec2d5ebc79afa612f96d8b11c627b3";
       src = prev.fetchFromGitHub {
         owner = "rcarriga";
         repo = "nvim-notify";
-        rev = "ea9c8ce7a37f2238f934e087c255758659948e0f";
-        sha256 = "sha256-Rr2tzuEr06M9ZbvQbC07qcxkyjFJFYdABwRpYelKBFI=";
+        rev = "e4a2022f4fec2d5ebc79afa612f96d8b11c627b3";
+        sha256 = "sha256-1tWvzE4x1lgldg6vAHCQy9XDMcxJ6G9bZPSG1pEn+qg=";
       };
       meta.homepage = "https://github.com/rcarriga/nvim-notify/";
+    };
+    nui-nvim = buildVimPluginFrom2Nix {
+      pname = "nui.nvim";
+      version = "c8de23342caf8d50b15d6b28368d36a56a69d76f";
+      src = fetchFromGitHub {
+        owner = "MunifTanjim";
+        repo = "nui.nvim";
+        rev = "c8de23342caf8d50b15d6b28368d36a56a69d76f";
+        sha256 = "sha256-Ao+xnowsZPR9x3Wm439l1QIlgt3Rt6n9DZIqkUKsR1k=";
+      };
+      meta.homepage = "https://github.com/MunifTanjim/nui.nvim/";
+    };
+    noice-nvim = prev.vimUtils.buildVimPluginFrom2Nix {
+      pname = "noice.nvim";
+      version = "8d775bc8ac1a594a2ecdb80e092330afd916e4c3";
+      src = fetchFromGitHub {
+        owner = "folke";
+        repo = "noice.nvim";
+        rev = "8d775bc8ac1a594a2ecdb80e092330afd916e4c3";
+        sha256 = "sha256-NH6wD9sCtGnvRxQGDC0kMs7SIIxgOzTVo+89PGwGoTU=";
+      };
+      meta.homepage = "https://github.com/folke/noice.nvim/";
     };
   };
 in

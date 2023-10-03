@@ -28,7 +28,9 @@ require("nvim-tree").setup({
   },
 })
 
-vim.api.nvim_set_keymap("n", "<C-\\>", ":NvimTreeToggle<CR>", {})
+vim.keymap.set("n", "<C-\\>", function()
+  require("nvim-tree.api").tree.toggle()
+end)
 
 -- Open NVIM if directory and switch to folder
 local function open_nvim_tree(data)
