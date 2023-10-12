@@ -21,7 +21,7 @@ require("bufferline").setup({
     diagnostics = "nvim_lsp",
     always_show_bufferline = false,
     offsets = {
-      { filetype = "NvimTree" },
+      { filetype = "nvimtree" },
     },
   },
   highlights = {
@@ -29,7 +29,7 @@ require("bufferline").setup({
       italic = false,
     },
     indicator_selected = {
-      fg = { attribute = "fg", highlight = "Function" },
+      fg = { attribute = "fg", highlight = "function" },
       italic = false,
     },
   },
@@ -130,7 +130,7 @@ require("noice").setup({
       filter = {
         event = "msg_show",
         any = {
-          { find = "%d+L, %d+B" },
+          { find = "%d+l, %d+b" },
           { find = "; after #%d+" },
           { find = "; before #%d+" },
         },
