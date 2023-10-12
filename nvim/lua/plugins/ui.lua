@@ -48,6 +48,7 @@ return {
       "nvim-tree/nvim-web-devicons",
       "echasnovski/mini.bufremove",
     },
+    event = { "BufReadPost", "BufNewFile", "BufWritePre" },
     keys = {
       { "<leader>bp", "<Cmd>BufferLineTogglePin<CR>",            desc = "Toggle pin" },
       { "<leader>bP", "<Cmd>BufferLineGroupClose ungrouped<CR>", desc = "Delete non-pinned buffers" },
@@ -65,7 +66,12 @@ return {
           diagnostics = "nvim_lsp",
           always_show_bufferline = false,
           offsets = {
-            { filetype = "nvimtree" },
+            {
+              filetype = "NvimTree",
+              text = "File Explorer",
+              text_align = "left",
+              separator = true,
+            },
           },
         },
         highlights = {
@@ -79,18 +85,8 @@ return {
         },
       }
     end,
-    -- config = function(_, opts)
-    --   require("bufferline").setup(opts)
-    --   -- Fix bufferline when restoring a session
-    --   vim.api.nvim_create_autocmd("BufAdd", {
-    --     callback = function()
-    --       vim.schedule(function()
-    --         pcall("nvim_bufferline")
-    --       end)
-    --     end,
-    --   })
-    -- end,
   },
+
   -- Bottom line
   {
     "nvim-lualine/lualine.nvim",

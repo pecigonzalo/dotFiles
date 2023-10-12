@@ -85,7 +85,7 @@ in
       viAlias = true;
       vimAlias = true;
       vimdiffAlias = true;
-      withNodeJs = true;
+      withNodeJs = false;
       withPython3 = true;
 
       plugins = with pkgs.vimPlugins; [
@@ -109,9 +109,14 @@ in
             })
           '';
         }
+      ];
 
 
       extraPackages = with pkgs; [
+        # NodeJS
+        nodejs
+
+        # Treesitter
         gcc
         tree-sitter
 
