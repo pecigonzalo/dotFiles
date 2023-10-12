@@ -5,9 +5,9 @@ return {
     "nvim-lua/plenary.nvim",
     "nvim-tree/nvim-web-devicons",
     {
-      'nvim-telescope/telescope-fzf-native.nvim',
+      "nvim-telescope/telescope-fzf-native.nvim",
       build =
-      'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
+      "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
     },
   },
   config = function()
@@ -44,8 +44,8 @@ return {
         file_ignore_patterns = {
           "node_modules/",
           "vendor/",
-          ".git/"
-        }
+          ".git/",
+        },
       },
     })
 
@@ -57,7 +57,7 @@ return {
 
     local nmap = function(keys, func, desc)
       if desc then
-        desc = ": " .. desc
+        desc = desc
       end
       vim.keymap.set("n", keys, func, { noremap = true, desc = desc })
     end
