@@ -22,26 +22,30 @@ opt.laststatus = 3 -- Use a global statusbar
 opt.number = true
 opt.relativenumber = true
 
+-- Completion
+opt.completeopt = "menu,menuone,noselect"
+
+-- Dynamic number
 local numbertoggle_group = augroup("numbertoggle", { clear = true })
 autocmd({ "BufEnter", "FocusGained", "InsertLeave", "CmdlineLeave", "WinEnter" }, {
-    pattern = "*",
-    group = numbertoggle_group,
-    callback = function()
-        if vim.o.nu and vim.api.nvim_get_mode().mode ~= "i" then
-            vim.opt.relativenumber = true
-        end
-    end,
+  pattern = "*",
+  group = numbertoggle_group,
+  callback = function()
+    if vim.o.nu and vim.api.nvim_get_mode().mode ~= "i" then
+      vim.opt.relativenumber = true
+    end
+  end,
 })
 
 autocmd({ "BufLeave", "FocusLost", "InsertEnter", "CmdlineEnter", "WinLeave" }, {
-    pattern = "*",
-    group = numbertoggle_group,
-    callback = function()
-        if vim.o.nu then
-            vim.opt.relativenumber = false
-            vim.cmd("redraw")
-        end
-    end,
+  pattern = "*",
+  group = numbertoggle_group,
+  callback = function()
+    if vim.o.nu then
+      vim.opt.relativenumber = false
+      vim.cmd("redraw")
+    end
+  end,
 })
 
 -- Search config
@@ -79,14 +83,14 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 local keymap = function(mode, keys, func, desc)
-    local opts = {
-        noremap = true,
-        silent = true,
-    }
-    if desc then
-        opts.desc = desc
-    end
-    vim.keymap.set(mode, keys, func, opts)
+  local opts = {
+    noremap = true,
+    silent = true,
+  }
+  if desc then
+    opts.desc = desc
+  end
+  vim.keymap.set(mode, keys, func, opts)
 end
 
 keymap({ "n", "x" }, "cy", '"+y') -- Copy to clipboard
@@ -98,7 +102,7 @@ keymap("n", "<leader>a", ":keepjumps normal! ggVG<cr>", "Select [a]ll") -- Selec
 keymap("n", "<leader>w", vim.cmd.write, "[w]rite buffer") -- Write buffer
 keymap("n", "<leader>bq", vim.cmd.bdelete, "[b]uffer [q]uit") -- Delete buffer
 keymap("n", "<leader>bl", function()
-    vim.cmd.buffer("#")
+  vim.cmd.buffer("#")
 end, "[b]uffer [l]ast") -- Go to last buffer
 
 -- Keep selection on indent
@@ -120,38 +124,38 @@ keymap("x", "J", ":move '>+1<CR>gv=gv")
 local user_group = augroup("user", { clear = true })
 
 autocmd("FileType", {
-    group = user_group,
-    pattern = { "help", "man" },
-    desc = "Use q to close the window",
-    command = "nnoremap <buffer> q <cmd>quit<cr>",
+  group = user_group,
+  pattern = { "help", "man" },
+  desc = "Use q to close the window",
+  command = "nnoremap <buffer> q <cmd>quit<cr>",
 })
 
 autocmd("TextYankPost", {
-    group = augroup("highlightyank", { clear = true }),
-    desc = "Highlight on yank",
-    callback = function()
-        vim.highlight.on_yank({ higroup = "Visual", timeout = 500 })
-    end,
+  group = augroup("highlightyank", { clear = true }),
+  desc = "Highlight on yank",
+  callback = function()
+    vim.highlight.on_yank({ higroup = "Visual", timeout = 500 })
+  end,
 })
 
 -- Configure diagnostics and windows
 -- These have to configured before plugins and tools hook into them
 vim.diagnostic.config({
-    signs = true,
-    underline = true,
-    update_in_insert = false,
-    float = {
-        focusable = true,
-        style = "minimal",
-        border = "rounded",
-        source = "always", -- Show source
-    },
-    virtual_text = {
-        spacing = 4,
-        source = "if_many",
-        prefix = "●",
-    },
-    severity_sort = true,
+  signs = true,
+  underline = true,
+  update_in_insert = false,
+  float = {
+    focusable = true,
+    style = "minimal",
+    border = "rounded",
+    source = "always", -- Show source
+  },
+  virtual_text = {
+    spacing = 4,
+    source = "if_many",
+    prefix = "●",
+  },
+  severity_sort = true,
 })
 
 -- Set rounded windows
@@ -159,7 +163,7 @@ vim.diagnostic.config({
 local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
 ---@diagnostic disable-next-line: duplicate-set-field
 function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
-    opts = opts or { border = "rounded", style = "minimal", focusable = true }
-    opts.border = opts.border or "rounded"
-    return orig_util_open_floating_preview(contents, syntax, opts, ...)
+  opts = opts or { border = "rounded", style = "minimal", focusable = true }
+  opts.border = opts.border or "rounded"
+  return orig_util_open_floating_preview(contents, syntax, opts, ...)
 end

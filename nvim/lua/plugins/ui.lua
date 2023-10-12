@@ -1,13 +1,56 @@
 return {
+  -- Better `vim.notify()`
+  {
+    "rcarriga/nvim-notify",
+    keys = {
+      {
+        "<leader>un",
+        function()
+          require("notify").dismiss({ silent = true, pending = true })
+        end,
+        desc = "Dismiss all Notifications",
+      },
+    },
+    opts = {
+      timeout = 3000,
+      max_height = function()
+        return math.floor(vim.o.lines * 0.75)
+      end,
+      max_width = function()
+        return math.floor(vim.o.columns * 0.75)
+      end,
+      on_open = function(win)
+        vim.api.nvim_win_set_config(win, { zindex = 100 })
+      end,
+    },
+  },
+  -- Better UI
   {
     "stevearc/dressing.nvim",
-    event = "VeryLazy",
+    lazy = true,
+    init = function()
+      ---@diagnostic disable-next-line: duplicate-set-field
+      vim.ui.select = function(...)
+        require("lazy").load({ plugins = { "dressing.nvim" } })
+        return vim.ui.select(...)
+      end
+      ---@diagnostic disable-next-line: duplicate-set-field
+      vim.ui.input = function(...)
+        require("lazy").load({ plugins = { "dressing.nvim" } })
+        return vim.ui.input(...)
+      end
+    end,
   },
+  -- Tabs
   {
     "akinsho/bufferline.nvim",
     dependencies = {
       "nvim-tree/nvim-web-devicons",
       "echasnovski/mini.bufremove",
+    },
+    keys = {
+      { "<leader>bp", "<Cmd>BufferLineTogglePin<CR>", desc = "Toggle pin" },
+      { "<leader>bP", "<Cmd>BufferLineGroupClose ungrouped<CR>", desc = "Delete non-pinned buffers" },
     },
     opts = function()
       return {
@@ -36,14 +79,38 @@ return {
         },
       }
     end,
+    -- config = function(_, opts)
+    --   require("bufferline").setup(opts)
+    --   -- Fix bufferline when restoring a session
+    --   vim.api.nvim_create_autocmd("BufAdd", {
+    --     callback = function()
+    --       vim.schedule(function()
+    --         pcall("nvim_bufferline")
+    --       end)
+    --     end,
+    --   })
+    -- end,
   },
+  -- Bottom line
   {
     "nvim-lualine/lualine.nvim",
     dependencies = {
       "nvim-tree/nvim-web-devicons",
       "folke/noice.nvim",
     },
+    event = { "BufReadPost", "BufNewFile", "BufWritePre" },
+    init = function()
+      vim.g.lualine_laststatus = vim.o.laststatus
+      if vim.fn.argc(-1) > 0 then
+        -- set an empty statusline till lualine loads
+        vim.o.statusline = " "
+      else
+        -- hide the statusline on the starter page
+        vim.o.laststatus = 0
+      end
+    end,
     opts = function()
+      vim.o.laststatus = vim.g.lualine_laststatus
       return {
         options = {
           theme = "dracula-nvim",
@@ -54,8 +121,8 @@ return {
         },
         sections = {
           lualine_a = { "mode" },
-          lualine_b = { "diff", "diagnostics" },
-          lualine_c = { { "filename", path = 1 } },
+          lualine_b = { "diff" },
+          lualine_c = { { "diagnostics" }, { "filename", path = 1 } },
           lualine_x = {
             {
               require("noice").api.status.command.get,
@@ -69,14 +136,43 @@ return {
             },
             { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
           },
-          lualine_y = { "progress" },
+          lualine_y = {
+            { "progress", separator = " ", padding = { left = 1, right = 0 } },
+            { "location", padding = { left = 0, right = 1 } },
+          },
           lualine_z = { "branch" },
         },
       }
     end,
   },
+
+  -- Displays a popup with possible key bindings of the command you started typing
+  {
+    "folke/which-key.nvim",
+    event = "VeryLazy",
+    init = function()
+      vim.o.timeout = true
+      vim.o.timeoutlen = 500
+    end,
+    opts = {
+      window = {
+        border = "rounded",
+      },
+      icons = {
+        breadcrumb = "»",
+        separator = "->",
+        group = "",
+      },
+    },
+  },
+
+  -- Revamp many UI elements
   {
     "folke/noice.nvim",
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      "rcarriga/nvim-notify",
+    },
     event = "VeryLazy",
     opts = {
       lsp = {
@@ -106,10 +202,6 @@ return {
         inc_rename = true,
         lsp_doc_border = true,
       },
-    },
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-      "rcarriga/nvim-notify",
     },
   },
 }
