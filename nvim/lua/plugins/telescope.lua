@@ -3,8 +3,12 @@ return {
   tag = "0.1.4",
   dependencies = {
     "nvim-lua/plenary.nvim",
-    { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
     "nvim-tree/nvim-web-devicons",
+    {
+      'nvim-telescope/telescope-fzf-native.nvim',
+      build =
+      'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
+    },
   },
   config = function()
     local telescope = require("telescope")
@@ -17,24 +21,31 @@ return {
       },
     })
 
+    local telescopeConfig = require("telescope.config")
+
+    -- Clone the default Telescope configuration
+    local vimgrep_arguments = { unpack(telescopeConfig.values.vimgrep_arguments) }
+    -- I want to search in hidden/dot files.
+    table.insert(vimgrep_arguments, "--hidden")
+    -- I don't want to search in the `.git` directory.
+    table.insert(vimgrep_arguments, "--glob")
+    table.insert(vimgrep_arguments, "!**/.git/*")
+
     telescope.setup({
       defaults = {
-        path_display = { "truncate " },
-        vimgrep_arguments = {
-          "rg",
-          "--vimgrep",
-          "--smart-case",
-          "--hidden",
-          "--glob",
-          "!**/.git/*",
-        },
         mappings = {
           i = {
             ["<C-k>"] = actions.move_selection_previous, -- move to prev result
-            ["<C-j>"] = actions.move_selection_next, -- move to next result
+            ["<C-j>"] = actions.move_selection_next,     -- move to next result
             ["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
           },
         },
+        vimgrep_arguments = vimgrep_arguments,
+        file_ignore_patterns = {
+          "node_modules/",
+          "vendor/",
+          ".git/"
+        }
       },
     })
 
