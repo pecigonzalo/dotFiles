@@ -1,23 +1,24 @@
-local opt = vim.opt
+local o = vim.o
 local augroup = vim.api.nvim_create_augroup
 local aucmd = vim.api.nvim_create_autocmd
 
 -- Display settings
-opt.title = true         -- Show file in titlebar
-opt.termguicolors = true -- Truecolor
-opt.scrolloff = 5        -- Lines above/below cursor when scrolling
-opt.showmatch = true     -- Show matching bracket (briefly jump)
-opt.matchtime = 2        -- Show matching bracket for 0.2 seconds
-opt.wrap = true          -- Wrap long lines
-opt.linebreak = true     -- Wrap long lines at characters in breakat
-opt.breakindent = true   -- Preserve the indentation of a virtual line. These "virtual lines" are the ones only visible when wrap is enabled.
+o.title = true         -- Show file in titlebar
+o.termguicolors = true -- Truecolor
+o.scrolloff = 5        -- Lines above/below cursor when scrolling
+o.showmatch = true     -- Show matching bracket (briefly jump)
+o.matchtime = 2        -- Show matching bracket for 0.2 seconds
+o.wrap = true          -- Wrap long lines
+o.linebreak = true     -- Wrap long lines at characters in breakat
+o.breakindent = true   -- Preserve the indentation of a virtual line. These "virtual lines" are the ones only visible when wrap is enabled.
+o.cursorline = false   -- Disable highlighting of the current line
 -- opt.showcmd = true
 -- opt.cmdheight = 0
 -- opt.laststatus = 3 -- Use a global statusbar
 --
 -- Set relative numbers in NORMAL but switch to absolute in INSERT
-opt.number = true
-opt.relativenumber = true
+o.number = true
+o.relativenumber = true
 
 -- Dynamic number
 local numbertoggle_group = augroup("numbertoggle", { clear = true })
@@ -43,22 +44,22 @@ aucmd({ "BufLeave", "FocusLost", "InsertEnter", "CmdlineEnter", "WinLeave" }, {
 })
 
 -- Search config
-opt.hlsearch = false -- Disable highlights the results of the previous search
+o.hlsearch = false -- Disable highlights the results of the previous search
 
 -- Default Indentation
-opt.tabstop = 2
-opt.shiftwidth = 2
-opt.softtabstop = 2
-opt.expandtab = true
+o.tabstop = 2
+o.shiftwidth = 2
+o.softtabstop = 2
+o.expandtab = true
 
 -- No noise
-opt.errorbells = false
+o.errorbells = false
 
 -- Misc
-opt.swapfile = false -- Disable use of swapfile for the buffer
+o.swapfile = false -- Disable use of swapfile for the buffer
 
 -- Decrease update time
-opt.updatetime = 250
+o.updatetime = 250
 
 -- -- Copy/Paste
 -- opt.preserveindent = true -- Preserve indent structure as much as possible
@@ -101,9 +102,9 @@ keymap("n", "<C-u>", "<C-u>zz")
 -- Paste over currently selected text without yanking it
 keymap("v", "p", '"_dP')
 
--- -- Move selected line / block of text in visual mode
--- keymap("x", "K", ":move '<-2<CR>gv=gv")
--- keymap("x", "J", ":move '>+1<CR>gv=gv")
+-- Move selected line / block of text in visual mode
+keymap("x", "K", ":move '<-2<CR>gv=gv")
+keymap("x", "J", ":move '>+1<CR>gv=gv")
 
 -- User commands
 local user_group = augroup("user", { clear = true })
@@ -144,7 +145,7 @@ vim.diagnostic.config({
 })
 
 -- Syntax
-opt.syntax = "enable"     -- Syntax highlight
+o.syntax = "enable"       -- Syntax highlight
 vim.g.editorconfig = true -- Enable EditorConfig support
 
 -- -- Set rounded windows
