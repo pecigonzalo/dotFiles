@@ -59,6 +59,13 @@ return {
   {
     "echasnovski/mini.comment",
     event = "VeryLazy",
+    init = function()
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = { "hcl", "terraform" },
+        desc = "terraform/hcl commentstring configuration",
+        command = "setlocal commentstring=#\\ %s",
+      })
+    end,
     opts = {
       options = {
         custom_commentstring = function()

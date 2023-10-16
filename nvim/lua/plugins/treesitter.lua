@@ -1,15 +1,17 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
+    version = false,
     dependencies = {
       "nvim-treesitter/nvim-treesitter-textobjects",
+      "JoosepAlviste/nvim-ts-context-commentstring",
     },
     event = { "BufReadPre", "BufNewFile", "VeryLazy" },
     cmd = { "TSUpdateSync", "TSUpdate", "TSInstall" },
     build = ":TSUpdate",
     keys = {
       { "<c-space>", desc = "Increment selection" },
-      { "<bs>", desc = "Decrement selection", mode = "x" },
+      { "<bs>",      desc = "Decrement selection", mode = "x" },
     },
     config = function()
       -- import nvim-treesitter plugin
@@ -59,6 +61,9 @@ return {
           "typescript",
           "vim",
           "yaml",
+        },
+        context_commentstring = {
+          enable = true,
         },
         incremental_selection = {
           enable = true,

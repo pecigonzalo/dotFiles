@@ -6,7 +6,7 @@ return {
     config = true,
   },
   -- Highlight word under cursor
-  { "echasnovski/mini.cursorword", version = "*" },
+  { "echasnovski/mini.cursorword", version = "*", config = true },
   -- Smart buffer removal
   {
     "echasnovski/mini.bufremove",
