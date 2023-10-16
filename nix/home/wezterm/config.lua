@@ -16,9 +16,9 @@ local keys = {
       end
     end),
   },
-  { key = "Enter", mods = "CTRL",       action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
+  { key = "Enter", mods = "CTRL", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
   { key = "Enter", mods = "CTRL|SHIFT", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
-  { key = "l",     mods = "CTRL|SHIFT", action = wezterm.action.ShowDebugOverlay },
+  { key = "l", mods = "CTRL|SHIFT", action = wezterm.action.ShowDebugOverlay },
   {
     key = "p",
     mods = "CTRL|SHIFT",

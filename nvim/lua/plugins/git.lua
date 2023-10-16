@@ -13,18 +13,21 @@ return {
       end
 
       -- NOTE: The :Gitsigns calls automatically respects visual select
+      map("n", "]h", gs.next_hunk, "Next Hunk")
+      map("n", "[h", gs.prev_hunk, "Prev Hunk")
+
       map({ "n", "v" }, "<leader>ghs", ":Gitsigns stage_hunk<CR>", "Git Stage")
       map({ "n", "v" }, "<leader>ghr", ":Gitsigns reset_hunk<CR>", "Git Reset")
       map("n", "ghS", gs.stage_buffer, "Stage Git Buffer")
-      map("n", "<leader>ghu", gs.undo_stage_hunk, "Undo Git Stage")
+      map("n", "<leader>ghu", gs.undo_stage_hunk, "Undo Stage Hunk")
       map("n", "<leader>ghR", gs.reset_buffer, "Reset Git Buffer")
+      map("n", "<leader>ghp", gs.preview_hunk, "Preview Hunk")
 
       map("n", "<leader>ghb", gs.toggle_current_line_blame, "Git Blame")
-      map("n", "<leader>ghd", function() -- Inline diff
-        gs.toggle_deleted()
-        gs.toggle_linehl()
-      end, "Inline Diff")
-      map("n", "<leader>ghD", gs.diffthis, "Buffer Diff") -- Diff in seperate buffer
+      map("n", "<leader>ghd", gs.diffthis, "Diff This")
+      map("n", "<leader>ghD", function()
+        gs.diffthis("~")
+      end, "Diff This ~")
       map({ "o", "x" }, "ih", gs.select_hunk, "Select Git Hunk")
     end,
 

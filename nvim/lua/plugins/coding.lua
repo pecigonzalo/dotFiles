@@ -27,7 +27,7 @@ return {
   {
     "echasnovski/mini.surround",
     keys = {
-      { "gsa", desc = "Add surrounding",                     mode = { "n", "v" } },
+      { "gsa", desc = "Add surrounding", mode = { "n", "v" } },
       { "gsd", desc = "Delete surrounding" },
       { "gsf", desc = "Find right surrounding" },
       { "gsF", desc = "Find left surrounding" },
@@ -37,12 +37,12 @@ return {
     },
     opts = {
       mappings = {
-        add = "gsa",            -- Add surrounding in Normal and Visual modes
-        delete = "gsd",         -- Delete surrounding
-        find = "gsf",           -- Find surrounding (to the right)
-        find_left = "gsF",      -- Find surrounding (to the left)
-        highlight = "gsh",      -- Highlight surrounding
-        replace = "gsr",        -- Replace surrounding
+        add = "gsa", -- Add surrounding in Normal and Visual modes
+        delete = "gsd", -- Delete surrounding
+        find = "gsf", -- Find surrounding (to the right)
+        find_left = "gsF", -- Find surrounding (to the left)
+        highlight = "gsh", -- Highlight surrounding
+        replace = "gsr", -- Replace surrounding
         update_n_lines = "gsn", -- Update `n_lines`
       },
     },
@@ -177,16 +177,16 @@ return {
     version = false,
     event = "InsertEnter",
     dependencies = {
-      "hrsh7th/cmp-buffer",                  -- source for text in buffer
-      "hrsh7th/cmp-path",                    -- source for file system paths
-      "hrsh7th/cmp-cmdline",                 -- source for cmdline
-      "hrsh7th/cmp-nvim-lsp",                -- source for LSP
+      "hrsh7th/cmp-buffer", -- source for text in buffer
+      "hrsh7th/cmp-path", -- source for file system paths
+      "hrsh7th/cmp-cmdline", -- source for cmdline
+      "hrsh7th/cmp-nvim-lsp", -- source for LSP
       "hrsh7th/cmp-nvim-lsp-signature-help", -- source for signatures from LSP
-      "b0o/schemastore.nvim",                -- source for JSON schemas
-      "hrsh7th/cmp-emoji",                   -- source for Emoji
-      "L3MON4D3/LuaSnip",                    -- snippet engine
-      "saadparwaiz1/cmp_luasnip",            -- for autocompletion
-      "rafamadriz/friendly-snippets",        -- useful snippets
+      "b0o/schemastore.nvim", -- source for JSON schemas
+      "hrsh7th/cmp-emoji", -- source for Emoji
+      "L3MON4D3/LuaSnip", -- snippet engine
+      "saadparwaiz1/cmp_luasnip", -- for autocompletion
+      "rafamadriz/friendly-snippets", -- useful snippets
     },
     opts = function()
       local cmp = require("cmp")
@@ -250,7 +250,7 @@ return {
           ["<C-b>"] = cmp.mapping.scroll_docs(-4),
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
 
-          ["<C-e>"] = cmp.mapping.abort(),                   -- close completion window
+          ["<C-e>"] = cmp.mapping.abort(), -- close completion window
 
           ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
           ["<S-CR>"] = cmp.mapping.confirm({
@@ -267,9 +267,9 @@ return {
           -- Group 1
           { name = "nvim_lsp_signature_help" },
           { name = "nvim_lsp" },
-          { name = "luasnip",                keyword_lenght = 2, options = { show_autosnippets = true } }, -- snippets
-          { name = "path" },                                                                -- file system paths
-          { name = "copilot" },                                                             -- Github Copilot
+          { name = "luasnip", keyword_lenght = 2, options = { show_autosnippets = true } }, -- snippets
+          { name = "path" }, -- file system paths
+          { name = "copilot" }, -- Github Copilot
         }, {
           -- Group 2
           { name = "emoji" },

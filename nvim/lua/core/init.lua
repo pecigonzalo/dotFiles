@@ -3,15 +3,15 @@ local augroup = vim.api.nvim_create_augroup
 local aucmd = vim.api.nvim_create_autocmd
 
 -- Display settings
-o.title = true         -- Show file in titlebar
+o.title = true -- Show file in titlebar
 o.termguicolors = true -- Truecolor
-o.scrolloff = 5        -- Lines above/below cursor when scrolling
-o.showmatch = true     -- Show matching bracket (briefly jump)
-o.matchtime = 2        -- Show matching bracket for 0.2 seconds
-o.wrap = true          -- Wrap long lines
-o.linebreak = true     -- Wrap long lines at characters in breakat
-o.breakindent = true   -- Preserve the indentation of a virtual line. These "virtual lines" are the ones only visible when wrap is enabled.
-o.cursorline = false   -- Disable highlighting of the current line
+o.scrolloff = 5 -- Lines above/below cursor when scrolling
+o.showmatch = true -- Show matching bracket (briefly jump)
+o.matchtime = 2 -- Show matching bracket for 0.2 seconds
+o.wrap = true -- Wrap long lines
+o.linebreak = true -- Wrap long lines at characters in breakat
+o.breakindent = true -- Preserve the indentation of a virtual line. These "virtual lines" are the ones only visible when wrap is enabled.
+o.cursorline = false -- Disable highlighting of the current line
 -- opt.showcmd = true
 -- opt.cmdheight = 0
 -- opt.laststatus = 3 -- Use a global statusbar
@@ -82,11 +82,11 @@ local keymap = function(mode, keys, func, desc)
   vim.keymap.set(mode, keys, func, opts)
 end
 
-keymap({ "n", "x", "o" }, "<leader>h", "^")                           -- Quick jump to start
-keymap({ "n", "x", "o" }, "<leader>l", "g_")                          -- Quick jump to end
-keymap({ "n", "x" }, "x", '"_x')                                      -- Disable yank on delete
+keymap({ "n", "x", "o" }, "<leader>h", "^") -- Quick jump to start
+keymap({ "n", "x", "o" }, "<leader>l", "g_") -- Quick jump to end
+keymap({ "n", "x" }, "x", '"_x') -- Disable yank on delete
 keymap("n", "<leader>a", ":keepjumps normal! ggVG<cr>", "Select All") -- Select all text in buffer
-keymap("n", "<leader>w", vim.cmd.write, "Write Buffer")               -- Write buffer
+keymap("n", "<leader>w", vim.cmd.write, "Write Buffer") -- Write buffer
 keymap("n", "<leader>bl", function()
   vim.cmd.buffer("#")
 end, "Last Buffer") -- Go to last buffer
@@ -145,7 +145,7 @@ vim.diagnostic.config({
 })
 
 -- Syntax
-o.syntax = "enable"       -- Syntax highlight
+o.syntax = "enable" -- Syntax highlight
 vim.g.editorconfig = true -- Enable EditorConfig support
 
 -- -- Set rounded windows
