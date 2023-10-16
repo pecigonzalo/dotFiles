@@ -37,27 +37,27 @@ return {
             vim.keymap.set("n", keys, func, { buffer = true, desc = desc })
           end
 
-          nmap("<leader>rn", vim.lsp.buf.rename, "[r]e[n]ame")
-          nmap("<leader>ca", vim.lsp.buf.code_action, "[c]ode [a]ction")
+          nmap("<leader>rn", vim.lsp.buf.rename, "Rename")
+          nmap("<leader>ca", vim.lsp.buf.code_action, "Code Action")
 
-          nmap("gd", vim.lsp.buf.definition, "[g]oto [d]efinition")
-          nmap("gi", vim.lsp.buf.implementation, "[g]oto [i]mplementation")
-          nmap("gr", require("telescope.builtin").lsp_references, "[g]oto [r]eferences")
-          nmap("<leader>ds", require("telescope.builtin").lsp_document_symbols, "[d]ocument [s]ymbols")
-          nmap("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[w]orkspace [s]ymbols")
+          nmap("gd", vim.lsp.buf.definition, "Go to Definition")
+          nmap("gi", vim.lsp.buf.implementation, "Go to Implementation")
+          nmap("gr", require("telescope.builtin").lsp_references, "Go to Refereces")
+          nmap("<leader>ds", require("telescope.builtin").lsp_document_symbols, "Document Symbols")
+          nmap("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "Workspace Symbols")
 
           -- See `:help K` for why this keymap
           nmap("K", vim.lsp.buf.hover, "Hover Documentation")
           nmap("<C-k>", vim.lsp.buf.signature_help, "Signature Documentation")
 
           -- Lesser used LSP functionality
-          nmap("gD", vim.lsp.buf.declaration, "[g]oto [D]eclaration")
-          nmap("<leader>D", vim.lsp.buf.type_definition, "Type [D]efinition")
-          nmap("<leader>wa", vim.lsp.buf.add_workspace_folder, "[w]orkspace [a]dd Folder")
-          nmap("<leader>wr", vim.lsp.buf.remove_workspace_folder, "[w]orkspace [r]emove Folder")
+          nmap("gD", vim.lsp.buf.declaration, "Go to Declaration")
+          nmap("<leader>D", vim.lsp.buf.type_definition, "Type Definition")
+          nmap("<leader>wa", vim.lsp.buf.add_workspace_folder, "Add Workspace Folder")
+          nmap("<leader>wr", vim.lsp.buf.remove_workspace_folder, "Remove Workspace Folder")
           nmap("<leader>wl", function()
             print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-          end, "[w]orkspace [l]ist Folders")
+          end, "List Workspace Folders")
 
           -- Show hints on hold
           vim.api.nvim_create_autocmd("CursorHold", {
