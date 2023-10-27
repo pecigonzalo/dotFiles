@@ -34,6 +34,7 @@ return {
           "go",
           "gomod",
           "graphql",
+          "gleam",
           "hcl",
           "hjson",
           "html",

@@ -172,6 +172,7 @@ return {
         denols = {},
         dockerls = {},
         eslint = {},
+        gleam = {},
         html = {},
         java_language_server = {},
         kotlin_language_server = {},
