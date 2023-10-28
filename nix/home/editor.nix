@@ -117,6 +117,7 @@ in
         nodejs
 
         # Treesitter
+        cmake
         gcc
         tree-sitter
 
