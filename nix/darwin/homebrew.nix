@@ -27,14 +27,14 @@
       "keycastr"
       "microsoft-remote-desktop"
       "scroll-reverser"
-      "snowflake-snowsql"
       "wireshark"
       "parsec"
       "obsidian"
       "tailscale"
       "visual-studio-code"
-      "intellij-idea"
       "spotify"
+      "1password"
+      "microsoft-edge"
     ];
   };
 }
