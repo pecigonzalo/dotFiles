@@ -43,6 +43,7 @@
       "scroll-reverser"
       # Notes
       "obsidian"
+      "notion"
       # Media
       "spotify"
       # Editor
