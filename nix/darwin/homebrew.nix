@@ -20,21 +20,33 @@
     ];
 
     casks = [
+      # Security
+      "1password"
+      "wireshark"
+      "tailscale"
+      # Browsers
+      "microsoft-edge"
+      "firefox"
+      "google-chrome"
+      # Remoting
+      "microsoft-remote-desktop"
+      "parsec"
+      # Communication
+      "slack"
+      "discord"
+      # macOS Tooling
       "dozer"
       "hammerspoon"
       "kap"
       "karabiner-elements"
       "keycastr"
-      "microsoft-remote-desktop"
       "scroll-reverser"
-      "wireshark"
-      "parsec"
+      # Notes
       "obsidian"
-      "tailscale"
-      "visual-studio-code"
+      # Media
       "spotify"
-      "1password"
-      "microsoft-edge"
+      # Editor
+      "visual-studio-code"
     ];
   };
 }
