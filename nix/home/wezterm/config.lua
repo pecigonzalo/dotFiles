@@ -1,15 +1,7 @@
 local wezterm = require("wezterm")
 local act = wezterm.action
 
-local key_tables = {
-  neovim = {
-    { key = "h", action = act.ActivatePaneDirection("Left") },
-    { key = "l", action = act.ActivatePaneDirection("Right") },
-    { key = "j", action = act.ActivatePaneDirection("Down") },
-    { key = "k", action = act.ActivatePaneDirection("Up") },
-  },
-}
-wezterm.on("WindowLeader", function(window, pane)
+wezterm.on("NeovimWindowLeader", function(window, pane)
   local isVim = pane:get_foreground_process_name():find("n?vim") ~= nil
   if isVim then
     window:perform_action(act.SendKey({ key = "w", mods = "CTRL" }), pane)
@@ -24,11 +16,35 @@ wezterm.on("WindowLeader", function(window, pane)
   end
 end)
 
+local key_tables = {
+  neovim = {
+    { key = "h", action = act.ActivatePaneDirection("Left") },
+    { key = "l", action = act.ActivatePaneDirection("Right") },
+    { key = "j", action = act.ActivatePaneDirection("Down") },
+    { key = "k", action = act.ActivatePaneDirection("Up") },
+    {
+      key = "r",
+      action = act.ActivateKeyTable({
+        name = "resize",
+        one_shot = false,
+      }),
+    },
+    { key = "Escape", action = act.PopKeyTable },
+  },
+  resize = {
+    { key = "h", action = act.AdjustPaneSize({ "Left", 5 }) },
+    { key = "l", action = act.AdjustPaneSize({ "Right", 5 }) },
+    { key = "j", action = act.AdjustPaneSize({ "Down", 5 }) },
+    { key = "k", action = act.AdjustPaneSize({ "Up", 5 }) },
+    { key = "Escape", action = act.PopKeyTable },
+  },
+}
+
 local keys = {
   {
     key = "w",
     mods = "CTRL",
-    action = act.EmitEvent("WindowLeader"),
+    action = act.EmitEvent("NeovimWindowLeader"),
   },
   {
     key = "c",
