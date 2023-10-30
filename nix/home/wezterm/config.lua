@@ -1,7 +1,35 @@
 local wezterm = require("wezterm")
 local act = wezterm.action
 
+local key_tables = {
+  neovim = {
+    { key = "h", action = act.ActivatePaneDirection("Left") },
+    { key = "l", action = act.ActivatePaneDirection("Right") },
+    { key = "j", action = act.ActivatePaneDirection("Down") },
+    { key = "k", action = act.ActivatePaneDirection("Up") },
+  },
+}
+wezterm.on("WindowLeader", function(window, pane)
+  local isVim = pane:get_foreground_process_name():find("n?vim") ~= nil
+  if isVim then
+    window:perform_action(act.SendKey({ key = "w", mods = "CTRL" }), pane)
+  else
+    window:perform_action(
+      act.ActivateKeyTable({
+        name = "neovim",
+        timeout_milliseconds = 1000,
+      }),
+      pane
+    )
+  end
+end)
+
 local keys = {
+  {
+    key = "w",
+    mods = "CTRL",
+    action = act.EmitEvent("WindowLeader"),
+  },
   {
     key = "c",
     mods = "CTRL",
@@ -18,11 +46,11 @@ local keys = {
   },
   { key = "Enter", mods = "CTRL", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
   { key = "Enter", mods = "CTRL|SHIFT", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
-  { key = "l", mods = "CTRL|SHIFT", action = wezterm.action.ShowDebugOverlay },
+  { key = "l", mods = "CTRL|SHIFT", action = act.ShowDebugOverlay },
   {
     key = "p",
     mods = "CTRL|SHIFT",
-    action = wezterm.action({
+    action = act({
       QuickSelectArgs = {
         patterns = {
           "https?://\\S+",
@@ -49,6 +77,7 @@ return {
   font_size = 14,
   scrollback_lines = 10000,
   keys = keys,
+  key_tables = key_tables,
   -- Window options
   adjust_window_size_when_changing_font_size = false,
   use_fancy_tab_bar = true,

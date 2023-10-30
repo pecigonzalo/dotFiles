@@ -112,4 +112,49 @@ return {
       }
     end,
   },
+  {
+    "numToStr/Navigator.nvim",
+    opts = {
+      -- Disable navigation when the current mux pane is zoomed in
+      disable_on_zoom = true,
+    },
+    keys = {
+      {
+        "<C-w>h",
+        function()
+          require("Navigator").left()
+        end,
+        desc = "NavigatorLeft",
+        silent = true,
+        mode = { "n", "t" },
+      },
+      {
+        "<C-w>l",
+        function()
+          require("Navigator").right()
+        end,
+        desc = "NavigatorRight",
+        silent = true,
+        mode = { "n", "t" },
+      },
+      {
+        "<C-w>k",
+        function()
+          require("Navigator").up()
+        end,
+        desc = "NavigatorUp",
+        silent = true,
+        mode = { "n", "t" },
+      },
+      {
+        "<C-w>j",
+        function()
+          require("Navigator").down()
+        end,
+        desc = "NavigatorDown",
+        silent = true,
+        mode = { "n", "t" },
+      },
+    },
+  },
 }
