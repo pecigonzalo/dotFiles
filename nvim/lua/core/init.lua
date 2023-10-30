@@ -157,3 +157,4 @@ vim.g.editorconfig = true -- Enable EditorConfig support
 --   opts.border = opts.border or "rounded"
 --   return orig_util_open_floating_preview(contents, syntax, opts, ...)
 -- end
+--
