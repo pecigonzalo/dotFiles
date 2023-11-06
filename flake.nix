@@ -20,6 +20,9 @@
       url = "github:reckenrode/mkalias";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Neovim
+    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
   };
   outputs = { self, nixpkgs, darwin, home-manager, flake-utils, ... }@inputs:
     let
@@ -83,6 +86,9 @@
           (final: prev: {
             mkalias = inputs.mkalias.outputs.apps.${prev.stdenv.system}.default.program;
           })
+        ] ++ [
+          # TODO: https://github.com/nix-community/neovim-nightly-overlay/issues/332
+          # inputs.neovim-nightly-overlay.overlay
         ];
       };
 
