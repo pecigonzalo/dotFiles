@@ -152,6 +152,7 @@ in
     # Nix
     nixpkgs-fmt
     rnix-lsp
+    cachix
 
     # Common
     htop
@@ -312,6 +313,9 @@ in
     jdk17_headless
     gradle
     gradle-completion
+
+    # Markdown
+    glow
 
     # Ansible
     ansible
