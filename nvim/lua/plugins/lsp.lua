@@ -169,6 +169,7 @@ return {
         ansiblels = {},
         bashls = {},
         cssls = {},
+        clangd = {},
         denols = {},
         dockerls = {},
         eslint = {},

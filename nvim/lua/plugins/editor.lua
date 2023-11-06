@@ -131,7 +131,9 @@ return {
     },
     cmd = { "TodoTrouble", "TodoTelescope" },
     event = { "BufReadPost", "BufNewFile", "BufWritePre" },
-    config = true,
+    opts = {
+      sign_priority = 5,
+    },
     -- stylua: ignore
     keys = {
       { "]t",         function() require("todo-comments").jump_next() end, desc = "Next todo comment" },

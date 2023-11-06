@@ -30,13 +30,21 @@ return {
     table.insert(vimgrep_arguments, "--glob")
     table.insert(vimgrep_arguments, "!**/.git/*")
 
+    local open_with_trouble = function(...)
+      return require("trouble.providers.telescope").open_with_trouble(...)
+    end
+    local open_selected_with_trouble = function(...)
+      return require("trouble.providers.telescope").open_selected_with_trouble(...)
+    end
+
     telescope.setup({
       defaults = {
         mappings = {
           i = {
             ["<C-k>"] = actions.move_selection_previous, -- move to prev result
             ["<C-j>"] = actions.move_selection_next, -- move to next result
-            ["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
+            ["c-t"] = open_with_trouble,
+            ["a-t"] = open_selected_with_trouble,
           },
         },
         vimgrep_arguments = vimgrep_arguments,

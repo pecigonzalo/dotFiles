@@ -17,7 +17,7 @@ return {
         "willothy/wezterm.nvim",
         init = function()
           -- TODO: Remove once we upgrade to Neovim 0.10
-          vim.system = vim._system
+          vim.system = require("gitsigns.system.compat")
         end,
       },
     },
