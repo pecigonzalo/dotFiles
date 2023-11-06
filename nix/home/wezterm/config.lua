@@ -1,21 +1,6 @@
 local wezterm = require("wezterm")
 local act = wezterm.action
 
-wezterm.on("NeovimWindowLeader", function(window, pane)
-  local isVim = pane:get_foreground_process_name():find("n?vim") ~= nil
-  if isVim then
-    window:perform_action(act.SendKey({ key = "w", mods = "CTRL" }), pane)
-  else
-    window:perform_action(
-      act.ActivateKeyTable({
-        name = "neovim",
-        timeout_milliseconds = 1000,
-      }),
-      pane
-    )
-  end
-end)
-
 local key_tables = {
   neovim = {
     { key = "h", action = act.ActivatePaneDirection("Left") },
@@ -44,7 +29,20 @@ local keys = {
   {
     key = "w",
     mods = "CTRL",
-    action = act.EmitEvent("NeovimWindowLeader"),
+    action = wezterm.action_callback(function(window, pane)
+      local isVim = pane:get_foreground_process_name():find("n?vim") ~= nil
+      if isVim then
+        window:perform_action(act.SendKey({ key = "w", mods = "CTRL" }), pane)
+      else
+        window:perform_action(
+          act.ActivateKeyTable({
+            name = "neovim",
+            timeout_milliseconds = 500,
+          }),
+          pane
+        )
+      end
+    end),
   },
   {
     key = "c",
