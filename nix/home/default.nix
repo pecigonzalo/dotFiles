@@ -198,10 +198,10 @@ in
     pandoc
     vale # Prose linter
     zsh-completions
-    (nushell.override
-      {
-        additionalFeatures = (p: p ++ [ "dataframe" ]);
-      })
+    # (nushell.override
+    #   {
+    #     additionalFeatures = (p: p ++ [ "dataframe" ]);
+    #   })
 
     # Compression
     m4
