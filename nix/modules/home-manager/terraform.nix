@@ -27,7 +27,7 @@ in
       terraform-ls
       terraform-docs
       tflint
-      nodePackages.cdktf-cli
+      # nodePackages.cdktf-cli
     ];
   };
 }
