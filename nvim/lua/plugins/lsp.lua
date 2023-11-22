@@ -77,112 +77,120 @@ return {
         end,
       })
     end,
-    opts = {
-      -- LSP Server Settings
-      ---@type lspconfig.options
-      servers = {
-        lua_ls = {
-          settings = {
-            Lua = {
-              format = {
-                enable = false,
-              },
-              workspace = {
-                checkThirdParty = false,
-              },
-              completion = {
-                callSnippet = "Replace",
-              },
-              -- Do not send telemetry data containing a randomized but unique identifier
-              telemetry = {
-                enable = false,
+    opts = function()
+      local nvim_lsp = require("lspconfig")
+      return {
+        -- LSP Server Settings
+        ---@type lspconfig.options
+        servers = {
+          lua_ls = {
+            settings = {
+              Lua = {
+                format = {
+                  enable = false,
+                },
+                workspace = {
+                  checkThirdParty = false,
+                },
+                completion = {
+                  callSnippet = "Replace",
+                },
+                -- Do not send telemetry data containing a randomized but unique identifier
+                telemetry = {
+                  enable = false,
+                },
               },
             },
           },
-        },
-        gopls = {
-          -- more settings: https://github.com/golang/tools/blob/master/gopls/doc/settings.md
-          analyses = {
-            unreachable = true,
-            nilness = true,
-            unusedparams = true,
-            useany = true,
-            unusedwrite = true,
-            ST1003 = true,
-            undeclaredname = true,
-            fillreturns = true,
-            nonewvars = true,
-            fieldalignment = false,
-            shadow = true,
-            unused = true,
-          },
-          codelenses = {
-            generate = true, -- show the `go generate` lens.
-            gc_details = true, -- Show a code lens toggling the display of gc's choices.
-            test = true,
-            tidy = true,
-            vendor = true,
-            regenerate_cgo = true,
-            upgrade_dependency = true,
-          },
-          usePlaceholders = true,
-          completeUnimported = true,
-          staticcheck = true,
-          matcher = "Fuzzy",
-          diagnosticsDelay = "500ms",
-          symbolMatcher = "fuzzy",
-          buildFlags = { "-tags", "integration" },
-          hints = {
-            assignVariableTypes = true,
-            compositeLiteralFields = true,
-            compositeLiteralTypes = true,
-            constantValues = true,
-            functionTypeParameters = true,
-            parameterNames = true,
-            rangeVariableTypes = true,
-          },
-        },
-        jsonls = {
-          settings = {
-            json = {
-              schemas = require("schemastore").json.schemas(),
-              validate = { enable = true },
+          gopls = {
+            -- more settings: https://github.com/golang/tools/blob/master/gopls/doc/settings.md
+            analyses = {
+              unreachable = true,
+              nilness = true,
+              unusedparams = true,
+              useany = true,
+              unusedwrite = true,
+              ST1003 = true,
+              undeclaredname = true,
+              fillreturns = true,
+              nonewvars = true,
+              fieldalignment = false,
+              shadow = true,
+              unused = true,
+            },
+            codelenses = {
+              generate = true, -- show the `go generate` lens.
+              gc_details = true, -- Show a code lens toggling the display of gc's choices.
+              test = true,
+              tidy = true,
+              vendor = true,
+              regenerate_cgo = true,
+              upgrade_dependency = true,
+            },
+            usePlaceholders = true,
+            completeUnimported = true,
+            staticcheck = true,
+            matcher = "Fuzzy",
+            diagnosticsDelay = "500ms",
+            symbolMatcher = "fuzzy",
+            buildFlags = { "-tags", "integration" },
+            hints = {
+              assignVariableTypes = true,
+              compositeLiteralFields = true,
+              compositeLiteralTypes = true,
+              constantValues = true,
+              functionTypeParameters = true,
+              parameterNames = true,
+              rangeVariableTypes = true,
             },
           },
-        },
-        yamlls = {
-          settings = {
-            yaml = {
-              format = { enable = true },
-              keyOrdering = false,
-              schemaStore = {
-                -- You must disable built-in schemaStore support if you want to use
-                -- this plugin and its advanced options like `ignore`.
-                enable = false,
-                -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
-                url = "",
+          jsonls = {
+            settings = {
+              json = {
+                schemas = require("schemastore").json.schemas(),
+                validate = { enable = true },
               },
-              schemas = require("schemastore").yaml.schemas(),
             },
           },
+          yamlls = {
+            settings = {
+              yaml = {
+                format = { enable = true },
+                keyOrdering = false,
+                schemaStore = {
+                  -- You must disable built-in schemaStore support if you want to use
+                  -- this plugin and its advanced options like `ignore`.
+                  enable = false,
+                  -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
+                  url = "",
+                },
+                schemas = require("schemastore").yaml.schemas(),
+              },
+            },
+          },
+          ansiblels = {},
+          bashls = {},
+          cssls = {},
+          clangd = {},
+          denols = {
+            root_dir = nvim_lsp.util.root_pattern("deno.json"),
+          },
+          tsserver = {
+            -- root_dir = nvim_lsp.util.root_pattern("package.json"),
+          },
+          dockerls = {},
+          eslint = {},
+          gleam = {},
+          html = {},
+          java_language_server = {},
+          kotlin_language_server = {},
+          pyright = {},
+          rnix = {},
+          terraformls = {},
         },
-        ansiblels = {},
-        bashls = {},
-        cssls = {},
-        clangd = {},
-        denols = {},
-        dockerls = {},
-        eslint = {},
-        gleam = {},
-        html = {},
-        java_language_server = {},
-        kotlin_language_server = {},
-        pyright = {},
-        rnix = {},
-        terraformls = {},
-      },
-      setup = {},
-    },
+        setup = {},
+      }
+    end,
     config = function(_, opts)
       local servers = opts.servers
 
