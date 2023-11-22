@@ -308,6 +308,7 @@ in
     iferr
     impl
     reftools
+    (gomplate.override { buildGoModule = buildGo120Module; })
 
     # Java
     jdk17_headless
