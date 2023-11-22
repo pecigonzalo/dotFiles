@@ -48,6 +48,8 @@
       "spotify"
       # Editor
       "visual-studio-code"
+      # Files
+      "google-drive"
     ];
   };
 }
