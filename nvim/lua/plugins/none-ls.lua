@@ -10,9 +10,13 @@ return {
     return {
       border = "rounded",
       sources = {
+        -- Git
         null_ls.builtins.code_actions.gitsigns,
+
+        -- Shell
         null_ls.builtins.code_actions.shellcheck,
         null_ls.builtins.diagnostics.shellcheck,
+        null_ls.builtins.formatting.shfmt,
 
         -- Go
         null_ls.builtins.code_actions.gomodifytags,
