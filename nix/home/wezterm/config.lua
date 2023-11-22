@@ -26,6 +26,14 @@ local key_tables = {
 }
 
 local keys = {
+  -- Open in current cwd
+  { key = "t", mods = "CTRL", action = act.SpawnTab("CurrentPaneDomain") },
+  -- Open in home
+  {
+    key = "t",
+    mods = "SHIFT|CTRL",
+    action = act.SpawnCommandInNewTab({ cwd = wezterm.home_dir, domain = "CurrentPaneDomain" }),
+  },
   {
     key = "w",
     mods = "CTRL",
