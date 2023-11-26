@@ -198,10 +198,10 @@ in
     pandoc
     vale # Prose linter
     zsh-completions
-    # (nushell.override
-    #   {
-    #     additionalFeatures = (p: p ++ [ "dataframe" ]);
-    #   })
+    (nushell.override
+      {
+        additionalFeatures = (p: p ++ [ "dataframe" ]);
+      })
 
     # Compression
     m4
@@ -246,6 +246,7 @@ in
     python-with-env
     poetry
     pipenv
+    ruff
 
     # Local
     jl # JSON structured logs parser
@@ -266,6 +267,7 @@ in
     yarn
     nodePackages.typescript
     nodePackages.vscode-json-languageserver
+    xo
 
     # Deno
     deno

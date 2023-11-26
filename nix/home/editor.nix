@@ -133,6 +133,10 @@ in
         kotlin-language-server
         nodePackages.prettier
         nodePackages.pyright
+        xo
+        prettierd
+        ruff
+        ruff-lsp
         nodePackages.vscode-langservers-extracted
         nodePackages.yaml-language-server
         nodePackages.dockerfile-language-server-nodejs

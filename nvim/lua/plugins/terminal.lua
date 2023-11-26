@@ -69,10 +69,6 @@ return {
           should_block = function(argv)
             return vim.tbl_contains(argv, "-b")
           end,
-          -- should_nest = function(argv)
-          --   -- return vim.tbl_contains(argv, "-n")
-          --   return false
-          -- end,
           pre_open = function()
             local term = require("toggleterm.terminal")
             local id = term.get_focused_id()
