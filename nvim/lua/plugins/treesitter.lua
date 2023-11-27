@@ -4,7 +4,15 @@ return {
     version = false,
     dependencies = {
       "nvim-treesitter/nvim-treesitter-textobjects",
-      "JoosepAlviste/nvim-ts-context-commentstring",
+      {
+        "JoosepAlviste/nvim-ts-context-commentstring",
+        init = function()
+          vim.g.skip_ts_context_commentstring_module = true
+        end,
+        opts = {
+          enable_autocmd = false,
+        },
+      },
     },
     event = { "BufReadPre", "BufNewFile", "VeryLazy" },
     cmd = { "TSUpdateSync", "TSUpdate", "TSInstall" },
@@ -22,6 +30,10 @@ return {
       highlight = { enable = true },
       -- enable indentation
       indent = { enable = true },
+      -- enable context comment string
+      context_commentstring = {
+        enable = true,
+      },
       -- ensure these language parsers are installed
       ensure_installed = {
         "bash",
@@ -62,9 +74,6 @@ return {
         "typescript",
         "vim",
         "yaml",
-      },
-      context_commentstring = {
-        enable = true,
       },
       incremental_selection = {
         enable = true,
