@@ -4,15 +4,6 @@ return {
     version = false,
     dependencies = {
       "nvim-treesitter/nvim-treesitter-textobjects",
-      {
-        "JoosepAlviste/nvim-ts-context-commentstring",
-        init = function()
-          vim.g.skip_ts_context_commentstring_module = true
-        end,
-        opts = {
-          enable_autocmd = false,
-        },
-      },
     },
     event = { "BufReadPre", "BufNewFile", "VeryLazy" },
     cmd = { "TSUpdateSync", "TSUpdate", "TSInstall" },
