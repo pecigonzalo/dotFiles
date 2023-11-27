@@ -267,7 +267,10 @@ in
     yarn
     nodePackages.typescript
     nodePackages.vscode-json-languageserver
-    xo
+    nodePackages_latest.eslint
+    eslint_d
+    nodePackages_latest.prettier
+    prettierd
 
     # Deno
     deno

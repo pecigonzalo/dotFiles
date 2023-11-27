@@ -39,9 +39,11 @@ return {
         null_ls.builtins.formatting.ruff_format,
 
         -- Typescript
-        null_ls.builtins.code_actions.xo,
-        null_ls.builtins.diagnostics.xo,
-        null_ls.builtins.formatting.prettier,
+        -- These are provided by the VSCode integrated ESLint LSP
+        -- null_ls.builtins.code_actions.eslint_d,
+        -- null_ls.builtins.diagnostics.eslint_d,
+        -- null_ls.builtins.formatting.eslint_d,
+        null_ls.builtins.formatting.prettierd,
 
         -- Lua
         null_ls.builtins.diagnostics.selene,

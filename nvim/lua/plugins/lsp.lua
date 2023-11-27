@@ -187,6 +187,7 @@ return {
           pyright = {},
           rnix = {},
           terraformls = {},
+          helm_ls = {},
           ruff_lsp = {
             on_attach = function(client, _)
               client.server_capabilities.hoverProvider = false
@@ -197,6 +198,22 @@ return {
       }
     end,
     config = function(_, opts)
+      local configs = require("lspconfig.configs")
+      local util = require("lspconfig.util")
+
+      if not configs.helm_ls then
+        configs.helm_ls = {
+          default_config = {
+            cmd = { "helm_ls", "serve" },
+            filetypes = { "gotmpl" },
+            root_dir = function(fname)
+              return util.root_pattern("Chart.yaml")(fname)
+            end,
+          },
+        }
+      end
+
+      -- Init servers
       local servers = opts.servers
 
       local has_cmp, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")

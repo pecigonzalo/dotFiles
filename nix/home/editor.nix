@@ -129,11 +129,14 @@ in
         # LSPs
         ansible-language-server
         gopls
+        helm-ls
         jdt-language-server
         kotlin-language-server
         nodePackages.prettier
         nodePackages.pyright
-        xo
+        nodePackages_latest.eslint
+        eslint_d
+        nodePackages_latest.prettier
         prettierd
         ruff
         ruff-lsp
