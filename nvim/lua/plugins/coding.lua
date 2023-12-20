@@ -69,6 +69,7 @@ return {
         command = "setlocal commentstring=#\\ %s",
       })
     end,
+    config = true,
   },
 
   -- Better text-objects

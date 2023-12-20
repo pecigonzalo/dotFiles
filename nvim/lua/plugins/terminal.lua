@@ -39,6 +39,10 @@ return {
           local nvim = vim.env.NVIM
           if nvim then
             return nvim
+          else
+            -- TODO: This will break further checking
+            -- remove once we have addresed all the gh and other cli integrations
+            return
           end
 
           -- If running in a Wezterm terminal,
@@ -67,7 +71,7 @@ return {
         },
         callbacks = {
           should_block = function(argv)
-            return vim.tbl_contains(argv, "-b")
+            return vim.tbl_contains(argv, "--block")
           end,
           pre_open = function()
             local term = require("toggleterm.terminal")
