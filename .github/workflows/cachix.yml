@@ -52,4 +52,4 @@ jobs:
 
       - name: Build system
         run: |
-          nix build --print-build-logs .#darwinConfigurations.pecigonzalo.system
+          nix build --print-build-logs .#darwinConfigurations.githubCI.system
