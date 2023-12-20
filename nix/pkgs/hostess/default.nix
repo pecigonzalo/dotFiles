@@ -10,7 +10,7 @@ buildGoModule rec {
     sha256 = "1izszf60nsa6pyxx3kd8qdrz3h47ylm17r9hzh9wk37f61pmm42j";
   };
 
-  vendorSha256 = "0sjjj9z1dhilhpc8pq4154czrb79z9cm044jvn75kxcjv6v5l2m5";
+  vendorHash = "0sjjj9z1dhilhpc8pq4154czrb79z9cm044jvn75kxcjv6v5l2m5";
 
   meta = with lib; {
     homepage = "https://github.com/cbednarski/hostess";

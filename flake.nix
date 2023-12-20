@@ -2,9 +2,8 @@
   description = "Gonzalo's darwin configuration";
   inputs = {
     # Package sets
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable-small";
-    nixpkgs-23-05.url = "github:nixos/nixpkgs/nixos-23.05-small";
-    nixpkgs-22-05.url = "github:nixos/nixpkgs/nixos-22.05-small";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-23-11.url = "github:nixos/nixpkgs/nixos-23.11";
 
     # Environment/system management
     darwin.url = "github:lnl7/nix-darwin";
@@ -39,20 +38,16 @@
             inherit system;
             inherit (nixpkgsConfig) config;
           };
-          pkgs-x86-stable = pkgs-x86-23-05;
-          pkgs-x86-23-05 = import inputs.nixpkgs-23-05 {
+          pkgs-x86-stable = pkgs-x86-23-11;
+          pkgs-x86-23-11 = import inputs.nixpkgs-23-11 {
             inherit system;
             inherit (nixpkgsConfig) config;
           };
         };
 
         stable = final: prev: rec {
-          pkgs-stable = pkgs-23-05;
-          pkgs-23-05 = import inputs.nixpkgs-23-05 {
-            inherit (prev.stdenv) system;
-            inherit (nixpkgsConfig) config;
-          };
-          pkgs-22-05 = import inputs.nixpkgs-22-05 {
+          pkgs-stable = pkgs-23-11;
+          pkgs-23-11 = import inputs.nixpkgs-23-11 {
             inherit (prev.stdenv) system;
             inherit (nixpkgsConfig) config;
           };
@@ -107,14 +102,12 @@
         nix = {
           registry = {
             nixpkgs.flake = nixpkgs;
-            nixpkgs-23-05.flake = inputs.nixpkgs-23-05;
-            nixpkgs-22-05.flake = inputs.nixpkgs-22-05;
+            nixpkgs-23-11.flake = inputs.nixpkgs-23-11;
           };
 
           nixPath = [
             "nixpkgs=${inputs.nixpkgs}"
-            "nixpkgs-23-05=${inputs.nixpkgs-23-05}"
-            "nixpkgs-22-05=${inputs.nixpkgs-22-05}"
+            "nixpkgs-23-11=${inputs.nixpkgs-23-11}"
             "darwin=${inputs.darwin}"
             "home-manager=${inputs.home-manager}"
           ];

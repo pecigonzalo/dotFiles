@@ -16,7 +16,7 @@ in
       aws-vault
       chamber
       awscli2
-      # ssm-session-manager-plugin
+      ssm-session-manager-plugin
       aws-nuke
       eksctl
       steampipe
