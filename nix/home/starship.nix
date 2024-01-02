@@ -99,6 +99,7 @@
         "$rust"
         "$kubernetes"
         "$terraform"
+        "$pulumi"
         "$nix_shell"
         "$memory_usage"
         "$gcloud"
