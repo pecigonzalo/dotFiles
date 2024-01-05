@@ -5,31 +5,6 @@ let
 
   homeDir = config.home.homeDirectory;
   dotFilesDir = "${homeDir}/dotFiles";
-
-  mapper = map (x:
-    if (x ? plugin) then
-      nonVSCodePlugin
-        {
-          plugin = x.plugin;
-          type = if x ? type then x.type else "lua";
-          config = x.config;
-        }
-    else
-      nonVSCodePlugin {
-        plugin = x;
-      }
-  );
-  nonVSCodePlugin = { plugin, type ? "lua", config ? "" }: {
-    plugin = plugin;
-    optional = true;
-    type = type;
-    config = ''
-      if not vim.g.vscode then
-        vim.cmd('packadd ${plugin.pname}')
-        ${config}
-      end
-    '';
-  };
 in
 {
   editorconfig = {
@@ -105,6 +80,9 @@ in
               },
               change_detection = {
                 notify = false,
+              },
+              ui = {
+                border = "rounded"
               },
             })
           '';
