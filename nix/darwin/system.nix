@@ -29,7 +29,7 @@
 
     NSScrollAnimationEnabled = true;
 
-    AppleShowScrollBars = "Automatic";
+    AppleShowScrollBars = "WhenScrolling";
 
     _HIHideMenuBar = false;
 
