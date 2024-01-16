@@ -65,7 +65,12 @@ return {
     init = function()
       vim.api.nvim_create_autocmd("FileType", {
         pattern = { "hcl", "terraform" },
-        desc = "terraform/hcl commentstring configuration",
+        desc = "Terraform/HCL commentstring configuration",
+        command = "setlocal commentstring=#\\ %s",
+      })
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = { "nix" },
+        desc = "Nix commentstring configuration",
         command = "setlocal commentstring=#\\ %s",
       })
     end,

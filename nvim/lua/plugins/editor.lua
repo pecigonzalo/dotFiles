@@ -87,6 +87,11 @@ return {
       })
     end,
   },
+  -- Additional text edit operators
+  -- - Exchange text
+  -- - Replace text
+  -- - Sort text
+  { "echasnovski/mini.operators", version = "*" },
   -- Active indent guide and indent text objects. When you're browsing
   -- code, this highlights the current level of indentation, and animates
   -- the highlighting.
