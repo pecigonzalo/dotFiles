@@ -64,7 +64,7 @@ in
       {
         name = "fzf-tab";
         owner = "Aloxaf";
-        rev = "103330fdbeba07416d5f90b391eee680cd20d2d6";
+        rev = "c2b4aa5ad2532cca91f23908ac7f00efb7ff09c9";
       }
     ];
   };
