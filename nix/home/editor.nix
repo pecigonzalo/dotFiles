@@ -19,7 +19,6 @@ in
       };
       "*.md" = {
         trim_trailing_whitespace = false;
-        max_line_length = 80;
       };
       "*.{fs,cs}" = {
         indent_size = 4;
