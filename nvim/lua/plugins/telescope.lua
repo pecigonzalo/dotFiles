@@ -8,8 +8,15 @@ return {
       "nvim-telescope/telescope-fzf-native.nvim",
       build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
     },
+    {
+      "nvim-telescope/telescope-live-grep-args.nvim",
+      -- This will not install any breaking changes.
+      -- For major updates, this must be adjusted manually.
+      version = "^1.0.0",
+    },
   },
   config = function()
+    require("telescope").load_extension("live_grep_args")
     local telescope = require("telescope")
     local actions = require("telescope.actions")
 
@@ -54,6 +61,11 @@ return {
           ".git/",
         },
       },
+      extensions = {
+        file_browser = {
+          hidden = { file_browser = true, folder_browser = true },
+        },
+      },
     })
 
     telescope.load_extension("fzf")
@@ -85,7 +97,10 @@ return {
     nmap("<leader>fF", function()
       telescope_builtin.find_files({ cwd = telescope_utils.buffer_dir() })
     end, "Find Files (cwd)")
-    nmap("<leader>fg", telescope_builtin.live_grep, "Find Grep")
+    -- nmap("<leader>fg", telescope_builtin.live_grep, "Find Grep")
+    nmap("<leader>fg", function()
+      require("telescope").extensions.live_grep_args.live_grep_args()
+    end, "Find Grep")
     nmap("<leader>fG", function()
       telescope_builtin.live_grep({ cwd = telescope_utils.buffer_dir() })
     end, "Find Grep (cwd)")
@@ -94,7 +109,6 @@ return {
     nmap("<leader>fW", function()
       telescope_builtin.grep_string({ cwd = telescope_utils.buffer_dir() })
     end, "Find Current String (cwd)")
-    nmap("<leader>fb", telescope_builtin.buffers, "Find Current Buffers")
     nmap("<leader>fr", telescope_builtin.oldfiles, "Find Current Recent")
 
     -- git
