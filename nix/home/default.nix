@@ -300,6 +300,7 @@ in
     # DB tools
     postgresql
     redis
+    duckdb
 
     # Go
     go
