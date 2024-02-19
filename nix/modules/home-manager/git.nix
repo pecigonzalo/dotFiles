@@ -41,7 +41,7 @@ in
 
       settings = {
         git_protocol = "ssh";
-        editor = "nvim";
+        editor = "nvim -b";
 
         aliases = {
           co = "pr checkout";

@@ -39,9 +39,11 @@ return {
           local nvim = vim.env.NVIM
           if nvim then
             return nvim
-          else
-            -- TODO: This will break further checking
-            -- remove once we have addresed all the gh and other cli integrations
+          end
+
+          -- TODO: This will break further checking
+          -- remove once we have addresed all the gh and other cli integrations
+          do
             return
           end
 
@@ -69,9 +71,13 @@ return {
         one_per = {
           wezterm = true,
         },
+        block_for = {
+          gitcommit = true,
+          gitrebase = true,
+        },
         callbacks = {
           should_block = function(argv)
-            return vim.tbl_contains(argv, "--block")
+            return vim.tbl_contains(argv, "-b")
           end,
           pre_open = function()
             local term = require("toggleterm.terminal")
