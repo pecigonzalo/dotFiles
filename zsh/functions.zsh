@@ -242,14 +242,14 @@ mkt() {
 # Git Clean Squashed
 gitcleansquash() {
   currentBranch=$(git rev-parse --abbrev-ref HEAD)
-  git checkout -q master
+  git checkout -q main
   git for-each-ref refs/heads/ "--format=%(refname:short)" | while read branch; do
-    mergeBase=$(git merge-base master $branch)
-    if [[ $(git cherry master $(git commit-tree $(git rev-parse $branch\^{tree}) -p $mergeBase -m _)) == "-"* ]]; then
+    mergeBase=$(git merge-base main $branch)
+    if [[ $(git cherry main $(git commit-tree $(git rev-parse $branch\^{tree}) -p $mergeBase -m _)) == "-"* ]]; then
       if [[ $1 == "now" ]]; then
         git branch -D $branch
       else
-        echo "$branch is merged into master and can be deleted"
+        echo "$branch is merged into main and can be deleted"
       fi
     fi
   done
