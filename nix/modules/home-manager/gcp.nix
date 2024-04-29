@@ -18,7 +18,7 @@ in
     };
     home.packages = with pkgs; [
       berglas
-      # google-cloud-sdk
+      google-cloud-sdk
     ];
     home.    shellAliases = {
       # Google Apps CLI
