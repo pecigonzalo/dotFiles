@@ -70,6 +70,30 @@ in
           defaultBranch = "main";
         };
 
+        color = {
+          branch = "auto";
+          diff = "auto";
+          interactive = "auto";
+          status = "auto";
+          pager = true;
+          ui = "auto";
+        };
+
+        gpg = {
+          format = "ssh";
+        };
+
+        core = {
+          whitespace = "trailing-space,space-before-tab";
+        };
+
+        help = { autocorrect = 20; };
+
+        status = {
+          showUntrackedFiles = "all";
+          submoduleSumary = true;
+        };
+
         branch = {
           # Automatic remote tracking.
           autoSetupMerge = "always";
@@ -80,43 +104,36 @@ in
           autoSetupRemote = true;
         };
 
-        status.showUntrackedFiles = "all";
-        push.default = "current";
-        pull.rebase = true;
-        fetch.prune = true;
-        help.autocorrect = 20;
-        difftool.prompt = false;
-
-        core = {
-          whitespace = "trailing-space,space-before-tab";
-        };
-
-        color = {
-          branch = "auto";
-          diff = "auto";
-          interactive = "auto";
-          status = "auto";
-          pager = true;
-          ui = "auto";
-        };
+        push = { default = "current"; };
+        pull = { rebase = true; };
+        fetch = { prune = true; };
 
         diff = {
-          algorithm = "minimal";
+          tool = "nvimdiff";
+          algorithm = "histogram";
           compactionHeuristic = true;
           renames = "copies";
           mnemonicprefix = true;
-          tool = "vscode";
         };
 
         difftool = {
+          prompt = false;
           vscode = {
             cmd = "code --wait --diff $LOCAL $REMOTE";
           };
         };
 
-        merge.tool = "vscode";
+        merge = {
+          tool = "nvimdiff";
+          conflictstyle = "zdiff3";
+        };
+
         mergetool = {
+          prompt = false;
           keepBackup = false;
+          nvimdiff = {
+            cmd = "nvim -c \"DiffviewOpen\" \"$MERGE\"";
+          };
           vscode = {
             cmd = "code --wait $MERGED";
           };
