@@ -241,11 +241,6 @@ in
             rev = "b5e61d03a42a84e9690de12915a006b6745c2a5f";
           })
           (gitHubPlugin {
-            name = "emoji-cli";
-            owner = "b4b4r07";
-            rev = "0fbb2e48e07218c5a2776100a4c708b21cb06688";
-          })
-          (gitHubPlugin {
             name = "jq-zsh-plugin";
             owner = "reegnz";
             rev = "9de99b0bc6dd33b1a560ce9cfe755c52f4217f72";
