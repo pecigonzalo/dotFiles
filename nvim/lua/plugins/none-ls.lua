@@ -3,6 +3,8 @@ return {
   dependencies = {
     "nvim-lua/plenary.nvim",
     "gpanders/editorconfig.nvim",
+    "nvimtools/none-ls-extras.nvim",
+    "gbprod/none-ls-shellcheck.nvim",
   },
   event = { "BufReadPre", "BufNewFile" },
   opts = function()
@@ -17,8 +19,9 @@ return {
         null_ls.builtins.code_actions.gitsigns,
 
         -- Shell
-        null_ls.builtins.code_actions.shellcheck,
-        null_ls.builtins.diagnostics.shellcheck,
+        -- Use bashls once 5.3.X is released
+        require("none-ls-shellcheck.diagnostics"),
+        require("none-ls-shellcheck.code_actions"),
         null_ls.builtins.formatting.shfmt,
 
         -- Go
@@ -33,17 +36,13 @@ return {
 
         -- Python
         null_ls.builtins.diagnostics.mypy,
-        null_ls.builtins.diagnostics.pylint,
-        null_ls.builtins.diagnostics.ruff,
-        null_ls.builtins.formatting.ruff,
-        null_ls.builtins.formatting.ruff_format,
+        -- null_ls.builtins.diagnostics.pylint,
+        require("none-ls.diagnostics.ruff"),
+        require("none-ls.formatting.ruff"),
+        require("none-ls.formatting.ruff_format"),
 
         -- Typescript
-        -- These are provided by the VSCode integrated ESLint LSP
-        -- null_ls.builtins.code_actions.eslint_d,
-        -- null_ls.builtins.diagnostics.eslint_d,
-        -- null_ls.builtins.formatting.eslint_d,
-        null_ls.builtins.formatting.prettierd,
+        null_ls.builtins.formatting.prettier,
 
         -- Lua
         null_ls.builtins.diagnostics.selene,

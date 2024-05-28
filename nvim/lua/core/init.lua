@@ -19,6 +19,7 @@ o.cursorline = false -- Disable highlighting of the current line
 -- Set relative numbers in NORMAL but switch to absolute in INSERT
 o.number = true
 o.relativenumber = true
+o.fillchars = o.fillchars .. "diff:╱"
 
 -- Dynamic number
 local numbertoggle_group = augroup("numbertoggle", { clear = true })
