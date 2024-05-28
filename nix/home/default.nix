@@ -343,5 +343,6 @@ in
     # nodePackages.snyk # Snyk CLI
     cilium-cli
     hubble
+    cloudflared
   ];
 }
