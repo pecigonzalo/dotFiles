@@ -38,6 +38,7 @@ return {
         "gomod",
         "graphql",
         "gleam",
+        "templ",
         "hcl",
         "hjson",
         "html",

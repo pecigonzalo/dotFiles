@@ -18,6 +18,7 @@ return {
       },
     },
     init = function()
+      vim.filetype.add({ extension = { templ = "templ" } })
       -- Autoformat
       vim.api.nvim_create_autocmd({ "BufWritePre" }, {
         pattern = "*",
@@ -78,11 +79,22 @@ return {
       })
     end,
     opts = function()
-      local nvim_lsp = require("lspconfig")
+      local lspconfig = require("lspconfig")
+      local configs = require("lspconfig.configs")
+      if not configs.cluepls then
+        configs.cuepls = {
+          default_config = {
+            cmd = { "cuepls" },
+            root_dir = lspconfig.util.root_pattern(".git"),
+            filetypes = { "cue" },
+          },
+        }
+      end
       return {
         -- LSP Server Settings
         ---@type lspconfig.options
         servers = {
+          cuepls = {},
           lua_ls = {
             settings = {
               Lua = {
@@ -144,6 +156,7 @@ return {
               rangeVariableTypes = true,
             },
           },
+          templ = {},
           jsonls = {
             settings = {
               json = {
@@ -173,7 +186,7 @@ return {
           cssls = {},
           clangd = {},
           denols = {
-            root_dir = nvim_lsp.util.root_pattern("deno.json"),
+            root_dir = lspconfig.util.root_pattern("deno.json"),
           },
           tsserver = {
             -- root_dir = nvim_lsp.util.root_pattern("package.json"),
@@ -182,11 +195,13 @@ return {
           eslint = {},
           gleam = {},
           html = {},
+          htmx = {},
           java_language_server = {},
           kotlin_language_server = {},
           pyright = {},
           rnix = {},
           terraformls = {},
+          tailwindcss = {},
           helm_ls = {},
           ruff_lsp = {
             on_attach = function(client, _)
