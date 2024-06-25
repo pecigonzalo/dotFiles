@@ -109,8 +109,7 @@ in
         helm-ls
         jdt-language-server
         kotlin-language-server
-        nodePackages.prettier
-        nodePackages.pyright
+        pyright
         nodePackages_latest.eslint
         eslint_d
         nodePackages_latest.prettier
@@ -121,8 +120,8 @@ in
         nodePackages.yaml-language-server
         nodePackages.dockerfile-language-server-nodejs
         nodePackages.bash-language-server
-        rnix-lsp
         sumneko-lua-language-server
+        nixd
         terraform-ls
       ];
     };

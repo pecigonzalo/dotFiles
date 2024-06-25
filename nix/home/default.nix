@@ -151,7 +151,7 @@ in
   home.packages = with pkgs; [
     # Nix
     nixpkgs-fmt
-    rnix-lsp
+    nixd
     cachix
 
     # Common

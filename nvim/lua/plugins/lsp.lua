@@ -199,8 +199,8 @@ return {
           java_language_server = {},
           kotlin_language_server = {},
           pyright = {},
-          rnix = {},
           terraformls = {},
+          nixd = {},
           tailwindcss = {},
           helm_ls = {},
           ruff_lsp = {
