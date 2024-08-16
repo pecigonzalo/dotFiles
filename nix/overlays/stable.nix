@@ -1,7 +1,6 @@
 final: prev:
 {
   inherit (final.pkgs-stable)
-    dnsutils# https://github.com/NixOS/nixpkgs/issues/152056
     _1password
     ansible
     curlie
@@ -18,5 +17,8 @@ final: prev:
     yabai
     deno
     nushell
+    delta
+    wezterm
+    awscli2
     ;
 }

@@ -144,7 +144,6 @@ in
     arguments = [
       "--smart-case"
       "--follow"
-      "--hidden"
     ];
   };
 

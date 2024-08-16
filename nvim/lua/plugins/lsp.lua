@@ -201,7 +201,7 @@ return {
           pyright = {},
           terraformls = {},
           nixd = {},
-          tailwindcss = {},
+          -- tailwindcss = {},
           helm_ls = {},
           ruff_lsp = {
             on_attach = function(client, _)

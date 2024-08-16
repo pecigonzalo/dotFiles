@@ -89,10 +89,22 @@ return {
 
   -- Bottom line
   {
+    "smiteshp/nvim-navic",
+    config = function()
+      require("nvim-navic").setup({
+        lsp = {
+          auto_attach = true,
+        },
+        separator = " 󰁔 ",
+      })
+    end,
+  },
+  {
     "nvim-lualine/lualine.nvim",
     dependencies = {
       "nvim-tree/nvim-web-devicons",
       "folke/noice.nvim",
+      "smiteshp/nvim-navic",
     },
     event = { "BufReadPost", "BufNewFile", "BufWritePre" },
     init = function()
@@ -118,7 +130,19 @@ return {
         sections = {
           lualine_a = { "mode" },
           lualine_b = { "diff" },
-          lualine_c = { { "diagnostics" }, { "filename", path = 1 } },
+          lualine_c = {
+            { "diagnostics" },
+            { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
+            { "filename", path = 4, padding = { left = 0, right = 1 } },
+            {
+              function()
+                return require("nvim-navic").get_location()
+              end,
+              cond = function()
+                return package.loaded["nvim-navic"] and require("nvim-navic").is_available()
+              end,
+            },
+          },
           lualine_x = {
             {
               require("noice").api.status.command.get,

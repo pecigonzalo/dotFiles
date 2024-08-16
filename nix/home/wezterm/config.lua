@@ -102,19 +102,25 @@ return {
   key_tables = key_tables,
   -- Window options
   adjust_window_size_when_changing_font_size = false,
+
   use_fancy_tab_bar = true,
   tab_max_width = 24,
   tab_bar_at_bottom = false,
+
   window_frame = {
     font = main_font,
     font_size = 14,
   },
   window_decorations = "RESIZE",
+  animation_fps = 60,
+  max_fps = 120,
+
   window_padding = {
     left = 0,
     right = 0,
     top = 0,
     bottom = 0,
   },
+
   quick_select_patterns = quick_select_patterns,
 }
