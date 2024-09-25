@@ -1,6 +1,8 @@
 local wezterm = require("wezterm")
 local act = wezterm.action
 
+local hyper_mods = "SUPER|ALT|CTRL|SHIFT"
+
 local key_tables = {
   neovim = {
     { key = "h", action = act.ActivatePaneDirection("Left") },
@@ -85,6 +87,7 @@ local keys = {
       },
     }),
   },
+  { key = "z", mods = hyper_mods, action = act.TogglePaneZoomState },
 }
 
 local quick_select_patterns = {

@@ -44,7 +44,7 @@ local general = {}
 for _, key in ipairs({ "w", "n", "t", "c", "x", "z", "v", "f", "a" }) do
   table.insert(general, {
     { { "ctrl" }, key },
-    { { "cmd" },  key },
+    { { "cmd" }, key },
     function()
       return not isCurrentApp({
         "Code",
@@ -62,7 +62,7 @@ M.remap = {
   table.unpack(general),
   {
     { { "ctrl", "shift" }, "v" },
-    { { "cmd" },           "v" },
+    { { "cmd" }, "v" },
     nil,
   },
 }
@@ -222,6 +222,10 @@ M.hyper = {
       hs.application.open("Slack")
     end,
   },
+}
+
+M.hyperPassThrough = {
+  { "WezTerm", "z" },
 }
 
 return M

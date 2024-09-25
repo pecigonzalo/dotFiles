@@ -11,6 +11,10 @@ for _, value in ipairs(keymap.hyper) do
   local mod, key, fn = table.unpack(value)
   hyper.bind(mod, key, fn)
 end
+for _, value in ipairs(keymap.hyperPassThrough) do
+  local app, key = table.unpack(value)
+  hyper.bindPassThrough(app, key)
+end
 
 -- Remaps
 -- for _, value in ipairs(keymap.remap) do

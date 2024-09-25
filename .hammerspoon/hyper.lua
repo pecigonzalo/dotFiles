@@ -24,6 +24,14 @@ function M.bind(modifiers, key, pressedFn, releasedFn)
   M.hyper:bind(modifiers, key, pressedFn, releasedFn)
 end
 
+function M.bindPassThrough(app, key)
+  M.bind({}, key, nil, function()
+    if hs.application.frontmostApplication():name() == app then
+      hs.eventtap.keyStroke({ "shift", "ctrl", "cmd", "alt" }, key, 0)
+    end
+  end)
+end
+
 -- Bind the Hyper key
 hs.hotkey.bind({}, M.trigger, M.enterHyperMode, M.exitHyperMode)
 
