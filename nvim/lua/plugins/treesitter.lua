@@ -165,13 +165,25 @@ return {
     config = function()
       local query = require("vim.treesitter.query")
 
+      -- Set directive
+      query.add_directive("inject-go-tmpl!", function(_, _, bufnr, _, metadata)
+        local fname = vim.fs.basename(vim.api.nvim_buf_get_name(bufnr))
+        local _, _, ext, _ = string.find(fname, ".*%.(%a+)(%.%a+)")
+        if ext == nil then
+          _, _, ext, _ = string.find(fname, ".*%.(%a+)")
+          metadata["injection.language"] = ext
+        else
+          metadata["injection.language"] = ext
+        end
+      end, {})
+
       -- Set the queries
       query.set(
         "gotmpl",
         "injections",
         [[
         ((text) @injection.content
-          (#set! injection.language "yaml")
+          (#inject-go-tmpl!)
           (#set! injection.combined))
         ]]
       )
