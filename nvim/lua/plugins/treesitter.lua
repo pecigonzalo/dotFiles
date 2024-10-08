@@ -36,6 +36,7 @@ return {
         "gitignore",
         "go",
         "gomod",
+        "gotmpl",
         "graphql",
         "gleam",
         "templ",
@@ -149,10 +150,10 @@ return {
       vim.filetype.add({
         extension = {
           yaml = function(_, bufnr)
-            -- Limit search to only 10 lines
-            local content = vim.api.nvim_buf_get_lines(bufnr, 0, 10, false) or ""
+            -- Limit search to only 20 lines
+            local content = vim.api.nvim_buf_get_lines(bufnr, 0, 20, false) or ""
             for _, line in ipairs(content) do
-              if line:match([[{{ .+ }}]]) then
+              if line:match([[{{.+}}]]) then
                 return "gotmpl"
               end
             end
@@ -160,19 +161,20 @@ return {
           end,
         },
       })
-      require("nvim-treesitter.parsers").get_parser_configs().gotmpl = {
-        install_info = {
-          url = "https://github.com/ngalaiko/tree-sitter-go-template",
-          files = { "src/parser.c" },
-        },
-        filetype = "gotmpl",
-        used_by = { "gohtmltmpl", "gotexttmpl", "gotmpl", "yaml" },
-      }
     end,
     config = function()
-      -- Set the queries
       local query = require("vim.treesitter.query")
-      query.set("gotmpl", "injections", [[(text) @yaml]])
+
+      -- Set the queries
+      query.set(
+        "gotmpl",
+        "injections",
+        [[
+        ((text) @injection.content
+          (#set! injection.language "yaml")
+          (#set! injection.combined))
+        ]]
+      )
       query.set(
         "gotmpl",
         "highlights",
