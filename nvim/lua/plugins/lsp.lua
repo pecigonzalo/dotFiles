@@ -102,11 +102,17 @@ return {
                   enable = false,
                 },
                 workspace = {
+                  ignoreSubmodules = true,
                   checkThirdParty = false,
+                  library = {
+                    vim.fn.expand("$VIMRUNTIME/lua"),
+                    vim.fn.expand("$HOME/.hammerspoon/Spoons/EmmyLua.spoon/annotations"),
+                  },
                 },
                 completion = {
                   callSnippet = "Replace",
                 },
+                diagnostics = { globals = { "hs" } },
                 -- Do not send telemetry data containing a randomized but unique identifier
                 telemetry = {
                   enable = false,
@@ -188,7 +194,7 @@ return {
           denols = {
             root_dir = lspconfig.util.root_pattern("deno.json"),
           },
-          tsserver = {
+          ts_ls = {
             -- root_dir = nvim_lsp.util.root_pattern("package.json"),
           },
           dockerls = {},

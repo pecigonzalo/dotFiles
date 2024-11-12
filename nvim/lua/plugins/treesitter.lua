@@ -116,6 +116,7 @@ return {
     end,
   },
   -- Grammars
+  -- https://github.com/nvim-treesitter/nvim-treesitter/discussions/1917
   {
     "qvalentin/tree-sitter-go-template",
     dependencies = {

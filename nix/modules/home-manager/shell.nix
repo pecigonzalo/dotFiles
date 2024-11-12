@@ -9,7 +9,7 @@ let
   isSillicon = pkgs.stdenv.hostPlatform.isDarwin
     && pkgs.stdenv.hostPlatform.isAarch64;
 
-  omzRev = "4586808f86bf3bfdf97685380472b63597ce43c0";
+  omzRev = "9114853500ea66cff7c803b0e951754833946f3d";
   omzPlugin = { name, rev ? omzRev }: {
     name = "ohmyzsh-plugin-${name}";
     src = builtins.fetchGit {
@@ -240,20 +240,20 @@ in
           (gitHubPlugin {
             name = "zsh-z";
             owner = "agkozak";
-            rev = "b5e61d03a42a84e9690de12915a006b6745c2a5f";
+            rev = "afaf2965b41fdc6ca66066e09382726aa0b6aa04";
           })
           (gitHubPlugin {
             name = "jq-zsh-plugin";
             owner = "reegnz";
-            rev = "9de99b0bc6dd33b1a560ce9cfe755c52f4217f72";
+            rev = "ded47a1e51303fb2cb331288e134e18f637274a6";
             file = "jq.plugin.zsh";
           })
-          (gitHubPlugin {
-            name = "tipz";
-            owner = "molovo";
-            rev = "594eab4642cc6dcfe063ecd51d76478bd84e2878";
-            file = "tipz.zsh";
-          })
+          # (gitHubPlugin {
+          #   name = "tipz";
+          #   owner = "molovo";
+          #   rev = "594eab4642cc6dcfe063ecd51d76478bd84e2878";
+          #   file = "tipz.zsh";
+          # })
         ] ++
         (map gitHubPlugin cfg.gitHubPlugins);
     };

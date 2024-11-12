@@ -266,6 +266,7 @@ in
     yarn
     nodePackages.typescript
     nodePackages.vscode-json-languageserver
+    nodePackages_latest.typescript-language-server
     nodePackages_latest.eslint
     eslint_d
     nodePackages_latest.prettier
@@ -273,6 +274,8 @@ in
 
     # Deno
     deno
+    # Bun
+    bun
 
     # Docker
     docker

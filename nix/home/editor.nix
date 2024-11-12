@@ -120,6 +120,7 @@ in
         nodePackages.yaml-language-server
         nodePackages.dockerfile-language-server-nodejs
         nodePackages.bash-language-server
+        nodePackages_latest.typescript-language-server
         sumneko-lua-language-server
         nixd
         terraform-ls
