@@ -1,12 +1,6 @@
 local window = require("window")
-local chrome = require("chrome")
 
 local M = {}
-
-function M.keyPress(mod, key)
-  print("Sending keystroke: " .. hs.inspect(mod) .. " " .. key)
-  hs.eventtap.keyStroke(mod, key, 1)
-end
 
 local function Set(list)
   local set = {}
@@ -28,17 +22,17 @@ local function isCurrentApp(apps)
   return false
 end
 
-local function isRemote()
-  return isCurrentApp({ "Parsec" })
-end
-
-local function isInTerminal()
-  return isCurrentApp({ "iTerm2", "Terminal", "WezTerm" })
-end
-
-local function isEditor()
-  return isCurrentApp({ "Code" })
-end
+-- local function isRemote()
+--   return isCurrentApp({ "Parsec" })
+-- end
+--
+-- local function isInTerminal()
+--   return isCurrentApp({ "iTerm2", "Terminal", "WezTerm" })
+-- end
+--
+-- local function isEditor()
+--   return isCurrentApp({ "Code" })
+-- end
 
 local general = {}
 for _, key in ipairs({ "w", "n", "t", "c", "x", "z", "v", "f", "a" }) do
@@ -67,16 +61,19 @@ M.remap = {
   },
 }
 
+M.applications = {
+  t = "WezTerm",
+  c = "Slack",
+}
+
 M.hyper = {
+  { "R", hs.reload },
+
+  -- Grid
+  { "Space", hs.grid.show },
+
+  -- Simple Tiling
   {
-    {},
-    "R",
-    function()
-      hs.reload()
-    end,
-  },
-  {
-    {},
     "Left",
     function()
       local win = hs.window.focusedWindow()
@@ -101,7 +98,6 @@ M.hyper = {
   },
 
   {
-    {},
     "Right",
     function()
       local win = hs.window.focusedWindow()
@@ -126,7 +122,6 @@ M.hyper = {
   },
 
   {
-    {},
     "Up",
     function()
       local win = hs.window.focusedWindow()
@@ -154,7 +149,6 @@ M.hyper = {
   },
 
   {
-    {},
     "Down",
     function()
       local win = hs.window.focusedWindow()
@@ -180,7 +174,6 @@ M.hyper = {
 
   -- Debug hotkey
   {
-    {},
     "`",
     function()
       local win = hs.window.focusedWindow()
@@ -199,33 +192,6 @@ M.hyper = {
       -- print(window.upRight(win))
     end,
   },
-
-  {
-    {},
-    "M",
-    function()
-      chrome.jump("meet.google.com")
-    end,
-  },
-
-  {
-    {},
-    "T",
-    function()
-      hs.application.open("WezTerm")
-    end,
-  },
-  {
-    {},
-    "S",
-    function()
-      hs.application.open("Slack")
-    end,
-  },
-}
-
-M.hyperPassThrough = {
-  { "WezTerm", "z" },
 }
 
 return M

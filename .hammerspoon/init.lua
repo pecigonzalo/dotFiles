@@ -1,20 +1,31 @@
 hs.alert("Loading the Hammer")
+-- Generate annotations
+hs.loadSpoon("EmmyLua")
 
--- Load EmmyLua
--- hs.loadSpoon("EmmyLua")
+-- Configure the grid
+require("grid")
 
-local hyper = require("hyper")
+local hyper = { "cmd", "alt", "ctrl", "shift" }
 local keymap = require("keymap")
 
 -- Hyper shortcuts
 for _, value in ipairs(keymap.hyper) do
-  local mod, key, fn = table.unpack(value)
-  hyper.bind(mod, key, fn)
+  local key, fn = table.unpack(value)
+  hs.hotkey.bind(hyper, key, fn)
 end
-for _, value in ipairs(keymap.hyperPassThrough) do
-  local app, key = table.unpack(value)
-  hyper.bindPassThrough(app, key)
+
+-- Application Launcher
+for key, app in pairs(keymap.applications) do
+  hs.hotkey.bind(hyper, key, function()
+    hs.application.launchOrFocus(app)
+  end)
 end
+
+hs.hotkey.bind(hyper, "tab", function()
+  local win = hs.window.focusedWindow()
+  local nextScreen = win:screen():next()
+  win:moveToScreen(nextScreen)
+end)
 
 -- Remaps
 -- for _, value in ipairs(keymap.remap) do
