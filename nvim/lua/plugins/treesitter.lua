@@ -131,9 +131,7 @@ return {
         local queries_path = runtime_path .. "/after/queries"
         local lang_path = queries_path .. "/" .. "gotmpl"
 
-        if vim.fn.isdirectory(lang_path) == 0 then
-          vim.fn.mkdir(lang_path, "p")
-        end
+        if vim.fn.isdirectory(lang_path) == 0 then vim.fn.mkdir(lang_path, "p") end
 
         for _, query_name in ipairs({ "injections", "highlights" }) do
           local path = lang_path .. "/" .. query_name .. ".scm"
@@ -151,15 +149,11 @@ return {
       vim.filetype.add({
         extension = {
           yaml = function(path, bufnr)
-            if path:match("action.yaml") then
-              return "yaml"
-            end
+            if path:match("action.yaml") then return "yaml" end
             -- Limit search to only 20 lines
             local content = vim.api.nvim_buf_get_lines(bufnr, 0, 20, false) or ""
             for _, line in ipairs(content) do
-              if line:match([[{{.+}}]]) then
-                return "gotmpl"
-              end
+              if line:match([[{{.+}}]]) then return "gotmpl" end
             end
             return "yaml"
           end,

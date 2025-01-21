@@ -7,9 +7,7 @@ return {
       "nvim-tree/nvim-web-devicons",
     },
     opts = function()
-      vim.keymap.set("n", "<C-\\>", function()
-        require("nvim-tree.api").tree.toggle()
-      end)
+      vim.keymap.set("n", "<C-\\>", function() require("nvim-tree.api").tree.toggle() end)
       return {
         filters = {
           custom = { "^\\.git$" },
@@ -41,8 +39,6 @@ return {
     keys = {
       { "<space>fb", ":Telescope file_browser<CR>", desc = "File Browser" },
     },
-    init = function()
-      require("telescope").load_extension("file_browser")
-    end,
+    init = function() require("telescope").load_extension("file_browser") end,
   },
 }

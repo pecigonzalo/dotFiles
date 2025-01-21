@@ -22,9 +22,7 @@ return {
       -- Autoformat
       vim.api.nvim_create_autocmd({ "BufWritePre" }, {
         pattern = "*",
-        callback = function()
-          vim.lsp.buf.format({ timeout_ms = 10000 })
-        end,
+        callback = function() vim.lsp.buf.format({ timeout_ms = 10000 }) end,
       })
 
       -- Configure LSP bindings
@@ -32,9 +30,7 @@ return {
         desc = "LSP actions",
         callback = function()
           local nmap = function(keys, func, desc)
-            if desc then
-              desc = "LSP: " .. desc
-            end
+            if desc then desc = "LSP: " .. desc end
             vim.keymap.set("n", keys, func, { buffer = true, desc = desc })
           end
 
@@ -56,9 +52,11 @@ return {
           nmap("<leader>D", vim.lsp.buf.type_definition, "Type Definition")
           nmap("<leader>wa", vim.lsp.buf.add_workspace_folder, "Add Workspace Folder")
           nmap("<leader>wr", vim.lsp.buf.remove_workspace_folder, "Remove Workspace Folder")
-          nmap("<leader>wl", function()
-            print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-          end, "List Workspace Folders")
+          nmap(
+            "<leader>wl",
+            function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end,
+            "List Workspace Folders"
+          )
 
           -- Show hints on hold
           vim.api.nvim_create_autocmd("CursorHold", {
@@ -210,9 +208,7 @@ return {
           -- tailwindcss = {},
           helm_ls = {},
           ruff = {
-            on_attach = function(client, _)
-              client.server_capabilities.hoverProvider = false
-            end,
+            on_attach = function(client, _) client.server_capabilities.hoverProvider = false end,
           },
         },
         setup = {},
@@ -227,9 +223,7 @@ return {
           default_config = {
             cmd = { "helm_ls", "serve" },
             filetypes = { "gotmpl" },
-            root_dir = function(fname)
-              return util.root_pattern("Chart.yaml")(fname)
-            end,
+            root_dir = function(fname) return util.root_pattern("Chart.yaml")(fname) end,
           },
         }
       end
@@ -255,21 +249,15 @@ return {
         }, servers[server] or {})
 
         if opts.setup[server] then
-          if opts.setup[server](server, server_opts) then
-            return
-          end
+          if opts.setup[server](server, server_opts) then return end
         elseif opts.setup["*"] then
-          if opts.setup["*"](server, server_opts) then
-            return
-          end
+          if opts.setup["*"](server, server_opts) then return end
         end
         require("lspconfig")[server].setup(server_opts)
       end
 
       for server, server_opts in pairs(servers) do
-        if server_opts then
-          setup(server)
-        end
+        if server_opts then setup(server) end
       end
     end,
   },

@@ -66,9 +66,7 @@ return {
   {
     "JoosepAlviste/nvim-ts-context-commentstring",
     lazy = true,
-    init = function()
-      vim.g.skip_ts_context_commentstring_module = true
-    end,
+    init = function() vim.g.skip_ts_context_commentstring_module = true end,
     opts = {
       enable_autocmd = false,
     },
@@ -164,9 +162,7 @@ return {
         ret[#ret + 1] = { prefix, group = name }
         for _, obj in ipairs(objects) do
           local desc = obj.desc
-          if prefix:sub(1, 1) == "i" then
-            desc = desc:gsub(" with ws", "")
-          end
+          if prefix:sub(1, 1) == "i" then desc = desc:gsub(" with ws", "") end
           ret[#ret + 1] = { prefix .. obj[1], desc = obj.desc }
         end
       end
@@ -179,9 +175,7 @@ return {
     "L3MON4D3/LuaSnip",
     dependencies = {
       "rafamadriz/friendly-snippets",
-      config = function()
-        require("luasnip.loaders.from_vscode").lazy_load()
-      end,
+      config = function() require("luasnip.loaders.from_vscode").lazy_load() end,
     },
     opts = {
       history = true,
@@ -264,9 +258,7 @@ return {
       cmp.setup({
         completion = { completeopt = "menu,menuone,noinsert", keyword_length = 1 },
         snippet = {
-          expand = function(args)
-            require("luasnip").lsp_expand(args.body)
-          end,
+          expand = function(args) require("luasnip").lsp_expand(args.body) end,
         },
         window = {
           completion = cmp.config.window.bordered(),
@@ -341,9 +333,7 @@ return {
     keys = {
       {
         "<leader>sR",
-        function()
-          require("ssr").open()
-        end,
+        function() require("ssr").open() end,
         mode = { "n", "x" },
         desc = "Structural Replace",
       },

@@ -27,9 +27,7 @@ aucmd({ "BufEnter", "FocusGained", "InsertLeave", "CmdlineLeave", "WinEnter" }, 
   pattern = "*",
   group = numbertoggle_group,
   callback = function()
-    if vim.o.nu and vim.api.nvim_get_mode().mode ~= "i" then
-      vim.opt.relativenumber = true
-    end
+    if vim.o.nu and vim.api.nvim_get_mode().mode ~= "i" then vim.opt.relativenumber = true end
   end,
 })
 
@@ -77,9 +75,7 @@ local keymap = function(mode, keys, func, desc)
     noremap = true,
     silent = true,
   }
-  if desc then
-    opts.desc = desc
-  end
+  if desc then opts.desc = desc end
   vim.keymap.set(mode, keys, func, opts)
 end
 
@@ -88,9 +84,7 @@ keymap({ "n", "x", "o" }, "<leader>l", "g_") -- Quick jump to end
 keymap({ "n", "x" }, "x", '"_x') -- Disable yank on delete
 keymap("n", "<leader>a", ":keepjumps normal! ggVG<cr>", "Select All") -- Select all text in buffer
 keymap("n", "<leader>w", vim.cmd.write, "Write Buffer") -- Write buffer
-keymap("n", "<leader>bl", function()
-  vim.cmd.buffer("#")
-end, "Last Buffer") -- Go to last buffer
+keymap("n", "<leader>bl", function() vim.cmd.buffer("#") end, "Last Buffer") -- Go to last buffer
 
 -- Keep selection on indent
 keymap("v", "<", "<gv")
@@ -120,9 +114,7 @@ aucmd("FileType", {
 aucmd("TextYankPost", {
   group = augroup("highlightyank", { clear = true }),
   desc = "Highlight on yank",
-  callback = function()
-    vim.highlight.on_yank({ higroup = "Visual", timeout = 500 })
-  end,
+  callback = function() vim.highlight.on_yank({ higroup = "Visual", timeout = 500 }) end,
 })
 
 -- Configure diagnostics and windows

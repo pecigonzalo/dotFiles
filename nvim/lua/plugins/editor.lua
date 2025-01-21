@@ -118,9 +118,7 @@ return {
           "toggleterm",
           "lazyterm",
         },
-        callback = function()
-          vim.b.miniindentscope_disable = true
-        end,
+        callback = function() vim.b.miniindentscope_disable = true end,
       })
       vim.api.nvim_set_hl(0, "MiniIndentscopeSymbol", { fg = "#FF5555" })
     end,

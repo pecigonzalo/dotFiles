@@ -7,9 +7,7 @@ return {
         local gs = package.loaded.gitsigns
 
         local map = function(mode, keys, func, desc)
-          if desc then
-            desc = ": " .. desc
-          end
+          if desc then desc = ": " .. desc end
           vim.keymap.set(mode, keys, func, { buffer = bufnr, desc = desc })
         end
 
@@ -26,9 +24,7 @@ return {
 
         map("n", "<leader>ghb", gs.toggle_current_line_blame, "Git Blame")
         map("n", "<leader>ghd", gs.diffthis, "Diff This")
-        map("n", "<leader>ghD", function()
-          gs.diffthis("~")
-        end, "Diff This ~")
+        map("n", "<leader>ghD", function() gs.diffthis("~") end, "Diff This ~")
         map({ "o", "x" }, "ih", gs.select_hunk, "Select Git Hunk")
       end,
 

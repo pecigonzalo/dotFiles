@@ -37,9 +37,7 @@ return {
 
           -- If running in a terminal inside Neovim:
           local nvim = vim.env.NVIM
-          if nvim then
-            return nvim
-          end
+          if nvim then return nvim end
 
           -- TODO: This will break further checking
           -- remove once we have addresed all the gh and other cli integrations
@@ -50,22 +48,16 @@ return {
           -- If running in a Wezterm terminal,
           -- all tabs/windows/os-windows in the same instance of wezterm will open in the first neovim instance
           local wezterm = vim.env.WEZTERM_UNIX_SOCKET
-          if not wezterm then
-            return
-          end
+          if not wezterm then return end
           local sock = vim.env.WEZTERM_UNIX_SOCKET:match("gui%-sock%-(%d+)")
-          if sock == nil then
-            sock = "nopid"
-          end
+          if sock == nil then sock = "nopid" end
           -- SHA the path to get unique sockets per-dir
           local pwd = vim.fn.sha256(vim.fn.getcwd(-1)):sub(0, 8)
 
           -- Use TMPDIR as otherwise each neovim instance creates its own directory in neovim
           local temp = vim.env.TMPDIR
           local ret = flatten.try_address(temp .. "nvim.pecigonzalo/" .. "flatten.nvim." .. sock .. "." .. pwd, true)
-          if ret ~= nil then
-            return ret
-          end
+          if ret ~= nil then return ret end
         end,
         nest_if_no_args = true,
         one_per = {
@@ -76,9 +68,7 @@ return {
           gitrebase = true,
         },
         hooks = {
-          should_block = function(argv)
-            return vim.tbl_contains(argv, "-b")
-          end,
+          should_block = function(argv) return vim.tbl_contains(argv, "-b") end,
           pre_open = function()
             local term = require("toggleterm.terminal")
             local id = term.get_focused_id()
@@ -101,9 +91,7 @@ return {
               vim.api.nvim_create_autocmd("BufWritePost", {
                 buffer = bufnr,
                 once = true,
-                callback = vim.schedule_wrap(function()
-                  vim.api.nvim_buf_delete(bufnr, {})
-                end),
+                callback = vim.schedule_wrap(function() vim.api.nvim_buf_delete(bufnr, {}) end),
               })
             end
           end,
@@ -127,36 +115,28 @@ return {
     keys = {
       {
         "<C-w>h",
-        function()
-          require("Navigator").left()
-        end,
+        function() require("Navigator").left() end,
         desc = "NavigatorLeft",
         silent = true,
         mode = { "n", "t" },
       },
       {
         "<C-w>l",
-        function()
-          require("Navigator").right()
-        end,
+        function() require("Navigator").right() end,
         desc = "NavigatorRight",
         silent = true,
         mode = { "n", "t" },
       },
       {
         "<C-w>k",
-        function()
-          require("Navigator").up()
-        end,
+        function() require("Navigator").up() end,
         desc = "NavigatorUp",
         silent = true,
         mode = { "n", "t" },
       },
       {
         "<C-w>j",
-        function()
-          require("Navigator").down()
-        end,
+        function() require("Navigator").down() end,
         desc = "NavigatorDown",
         silent = true,
         mode = { "n", "t" },
