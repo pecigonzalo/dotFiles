@@ -69,6 +69,14 @@ M.applications = {
 M.hyper = {
   { "R", hs.reload },
 
+  -- Expose
+  {
+    "e",
+    function()
+      hs.expose.new(nil, { showThumbnails = true }):toggleShow()
+    end,
+  },
+
   -- Grid
   { "Space", hs.grid.show },
 
