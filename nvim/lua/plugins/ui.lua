@@ -1,4 +1,5 @@
 return {
+  -- Bufferline
   {
     "akinsho/bufferline.nvim",
     dependencies = {
@@ -43,25 +44,27 @@ return {
       }
     end,
   },
-
-  -- Bottom line
+  -- Winbar
   {
-    "smiteshp/nvim-navic",
+    "Bekaboo/dropbar.nvim",
+    -- optional, but required for fuzzy finder support
+    dependencies = {
+      "nvim-telescope/telescope-fzf-native.nvim",
+      build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
+    },
     config = function()
-      require("nvim-navic").setup({
-        lsp = {
-          auto_attach = true,
-        },
-        separator = " 󰁔 ",
-      })
+      local dropbar_api = require("dropbar.api")
+      vim.keymap.set("n", "<leader>;", dropbar_api.pick, { desc = "Pick symbols in winbar" })
+      vim.keymap.set("n", "[;", dropbar_api.goto_context_start, { desc = "Go to start of current context" })
+      vim.keymap.set("n", "];", dropbar_api.select_next_context, { desc = "Select next context" })
     end,
   },
+
+  -- Bottom line
   {
     "nvim-lualine/lualine.nvim",
     dependencies = {
       "nvim-tree/nvim-web-devicons",
-      "folke/noice.nvim",
-      "smiteshp/nvim-navic",
     },
     event = { "BufReadPost", "BufNewFile", "BufWritePre" },
     init = function()
@@ -90,15 +93,7 @@ return {
           lualine_c = {
             { "diagnostics" },
             { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
-            { "filename", path = 4, padding = { left = 0, right = 1 } },
-            {
-              function()
-                return require("nvim-navic").get_location()
-              end,
-              cond = function()
-                return package.loaded["nvim-navic"] and require("nvim-navic").is_available()
-              end,
-            },
+            { "filename", path = 1, padding = { left = 0, right = 1 } },
           },
           lualine_x = {
             { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
