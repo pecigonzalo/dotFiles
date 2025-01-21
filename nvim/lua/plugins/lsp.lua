@@ -37,12 +37,6 @@ return {
           nmap("<leader>rn", vim.lsp.buf.rename, "Rename")
           nmap("<leader>ca", vim.lsp.buf.code_action, "Code Action")
 
-          nmap("gd", vim.lsp.buf.definition, "Go to Definition")
-          nmap("gi", vim.lsp.buf.implementation, "Go to Implementation")
-          nmap("gr", require("telescope.builtin").lsp_references, "Go to Refereces")
-          nmap("<leader>ds", require("telescope.builtin").lsp_document_symbols, "Document Symbols")
-          nmap("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "Workspace Symbols")
-
           -- See `:help K` for why this keymap
           nmap("K", vim.lsp.buf.hover, "Hover Documentation")
           nmap("<C-k>", vim.lsp.buf.signature_help, "Signature Documentation")

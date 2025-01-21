@@ -199,7 +199,14 @@ return {
     },
     event = "VeryLazy",
     opts = {
+      views = {},
       lsp = {
+        progress = {
+          view = "notify",
+          opts = {
+            replace = true,
+          },
+        },
         override = {
           ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
           ["vim.lsp.util.stylize_markdown"] = true,
@@ -207,6 +214,13 @@ return {
         },
       },
       routes = {
+        {
+          filter = { event = "lsp", kind = "progress" },
+          view = "notify",
+          opts = {
+            replace = true,
+          },
+        },
         {
           filter = {
             event = "msg_show",
