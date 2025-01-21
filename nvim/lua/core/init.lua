@@ -101,22 +101,6 @@ keymap("v", "p", '"_dP')
 keymap("x", "K", ":move '<-2<CR>gv=gv")
 keymap("x", "J", ":move '>+1<CR>gv=gv")
 
--- User commands
-local user_group = augroup("user", { clear = true })
-
-aucmd("FileType", {
-  group = user_group,
-  pattern = { "help", "man" },
-  desc = "Use q to close the window",
-  command = "nnoremap <buffer> q <cmd>quit<cr>",
-})
-
-aucmd("TextYankPost", {
-  group = augroup("highlightyank", { clear = true }),
-  desc = "Highlight on yank",
-  callback = function() vim.highlight.on_yank({ higroup = "Visual", timeout = 500 }) end,
-})
-
 -- Configure diagnostics and windows
 -- These have to configured before plugins and tools hook into them
 vim.diagnostic.config({
@@ -141,13 +125,28 @@ vim.diagnostic.config({
 o.syntax = "enable" -- Syntax highlight
 vim.g.editorconfig = true -- Enable EditorConfig support
 
--- -- Set rounded windows
--- -- Overriding vim.lsp.util.open_floating_preview
--- local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
--- ---@diagnostic disable-next-line: duplicate-set-field
--- function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
---   opts = opts or { border = "rounded", style = "minimal", focusable = true }
---   opts.border = opts.border or "rounded"
---   return orig_util_open_floating_preview(contents, syntax, opts, ...)
--- end
---
+-- User commands
+local user_group = augroup("user", { clear = true })
+
+aucmd("FileType", {
+  desc = "Use q to close the window",
+  group = user_group,
+  pattern = { "help", "man" },
+  command = "nnoremap <buffer> q <cmd>quit<cr>",
+})
+
+aucmd("TextYankPost", {
+  desc = "Highlight on yank",
+  group = augroup("highlightyank", { clear = true }),
+  callback = function() vim.highlight.on_yank({ higroup = "Visual", timeout = 500 }) end,
+})
+
+-- Restore cursor to file position in previous editing session
+aucmd("BufReadPost", {
+  group = user_group,
+  callback = function(args)
+    local mark = vim.api.nvim_buf_get_mark(args.buf, '"')
+    local line_count = vim.api.nvim_buf_line_count(args.buf)
+    if mark[1] > 0 and mark[1] <= line_count then vim.cmd('normal! g`"zz') end
+  end,
+})
