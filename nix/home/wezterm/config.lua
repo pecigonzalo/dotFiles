@@ -100,7 +100,7 @@ return {
   color_scheme = "Dracula (Official)",
   font = main_font,
   font_size = 14,
-  scrollback_lines = 10000,
+  scrollback_lines = 100000,
   keys = keys,
   key_tables = key_tables,
   -- Window options

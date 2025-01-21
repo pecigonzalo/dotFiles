@@ -197,10 +197,7 @@ in
     pandoc
     vale # Prose linter
     zsh-completions
-    (nushell.override
-      {
-        additionalFeatures = (p: p ++ [ "dataframe" ]);
-      })
+    nushell
 
     # Compression
     m4
@@ -288,16 +285,12 @@ in
     kind
     krew
     k9s
-    kail
     kubectl
-    kubectl-example
     kustomize
     minikube
     skaffold
     kubeval
-    kompose
     kubernetes-helm
-    kubeseal
 
     # DB tools
     postgresql
@@ -320,8 +313,8 @@ in
 
     # Java
     jdk17_headless
-    gradle
-    gradle-completion
+    # gradle
+    # gradle-completion
 
     # Markdown
     glow
@@ -331,8 +324,7 @@ in
     # ansible-lint
 
     # Other CLIs
-    _1password
-    teleport
+    _1password-cli
 
     # Container runtimes
     lima

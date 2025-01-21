@@ -108,7 +108,7 @@ in
         gopls
         helm-ls
         jdt-language-server
-        kotlin-language-server
+        # kotlin-language-server
         pyright
         nodePackages_latest.eslint
         eslint_d
