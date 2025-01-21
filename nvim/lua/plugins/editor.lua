@@ -130,7 +130,6 @@ return {
     dependencies = {
       "nvim-lua/plenary.nvim",
       "folke/trouble.nvim",
-      "nvim-telescope/telescope.nvim",
     },
     cmd = { "TodoTrouble", "TodoTelescope" },
     event = { "BufReadPost", "BufNewFile", "BufWritePre" },

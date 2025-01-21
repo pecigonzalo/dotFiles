@@ -155,7 +155,6 @@ return {
         -- vim
         { "<leader>:", function() snacks.picker.command_history() end, desc = "Command History" },
         { "<leader><space>", function() snacks.picker.buffers() end, desc = "Buffers" },
-        { "<leader>/", function() snacks.picker.grep_buffers() end, desc = "Grep Open Buffers" },
         -- find
         { "<leader>fg", function() snacks.picker.grep() end, desc = "Grep" },
         { "<leader>ff", function() snacks.picker.files() end, desc = "Find Files" },
@@ -170,9 +169,26 @@ return {
         { "<leader>sa", function() snacks.picker.autocmds() end, desc = "Autocmds" },
         { "<leader>sc", function() snacks.picker.commands() end, desc = "Commands" },
         { "<leader>sd", function() snacks.picker.diagnostics() end, desc = "Diagnostics" },
+        { "<leader>sq", function() snacks.picker.qflist() end, desc = "Quickfix List" },
+        -- grep
+        { "<leader>/", function() snacks.picker.grep_buffers() end, desc = "Grep Open Buffers" },
+        { "<leader>sb", function() snacks.picker.lines() end, desc = "Buffer Lines" },
         -- git
         { "<leader>gc", function() snacks.picker.git_log() end, desc = "Git Log" },
         { "<leader>gs", function() snacks.picker.git_status() end, desc = "Git Status" },
+        -- LSP
+        { "gd", function() snacks.picker.lsp_definitions() end, desc = "Goto Definition" },
+        { "gr", function() snacks.picker.lsp_references() end, nowait = true, desc = "References" },
+        { "gI", function() snacks.picker.lsp_implementations() end, desc = "Goto Implementation" },
+        { "gy", function() snacks.picker.lsp_type_definitions() end, desc = "Goto T[y]pe Definition" },
+        { "<leader>ss", function() snacks.picker.lsp_symbols() end, desc = "LSP Symbols" },
+        -- TODO
+        { "<leader>st", function() snacks.picker.todo_comments() end, desc = "Todo" },
+        {
+          "<leader>sT",
+          function() snacks.picker.todo_comments({ keywords = { "TODO", "FIX", "FIXME" } }) end,
+          desc = "Todo/Fix/Fixme",
+        },
       }
     end,
   },
