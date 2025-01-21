@@ -110,6 +110,41 @@ awsvl() {
   fi
 }
 
+awsvlf() {
+  if [[ $# -eq 0 ]]; then
+    local ACCOUNT="$(aws-vault list | grep '\-vault' | cut -d' ' -f1| fzf)"
+    local TOKEN="$(aws-vault login -d 1h -s ${ACCOUNT})"
+  else
+    local ACCOUNT="${1}"
+    local TOKEN="$(aws-vault login -d 1h -s ${1})"
+  fi
+
+  # Set color for account
+  case "$ACCOUNT" in
+    *prd*|*prod*|*main*) 
+      COLOR="red"
+    ;;
+    *stg*|*stage*|*staging*)
+      COLOR="yellow"
+    ;;
+    *dev*)
+      COLOR="green"
+    ;;
+    *)
+      COLOR="pink"
+    ;;
+  esac
+  
+  if [[ $TOKEN =~ "signin.aws.amazon.com" ]]; then
+    ENCODED_URL="${TOKEN//&/%26}"
+    URI_HANDLER="ext+container:name=${ACCOUNT}&color=${COLOR}&url=${ENCODED_URL}"
+    open -na "Firefox" --args \
+      "${URI_HANDLER}"
+  else
+    echo "$TOKEN"
+  fi
+}
+
 # Login to ECR repositories
 ecr-login() {
   region=${1:-eu-central-1}
