@@ -1,47 +1,4 @@
 return {
-  -- Better `vim.notify()`
-  {
-    "rcarriga/nvim-notify",
-    keys = {
-      {
-        "<leader>un",
-        function()
-          require("notify").dismiss({ silent = true, pending = true })
-        end,
-        desc = "Dismiss all Notifications",
-      },
-    },
-    opts = {
-      timeout = 3000,
-      max_height = function()
-        return math.floor(vim.o.lines * 0.75)
-      end,
-      max_width = function()
-        return math.floor(vim.o.columns * 0.75)
-      end,
-      on_open = function(win)
-        vim.api.nvim_win_set_config(win, { zindex = 100 })
-      end,
-    },
-  },
-  -- Better UI
-  {
-    "stevearc/dressing.nvim",
-    lazy = true,
-    init = function()
-      ---@diagnostic disable-next-line: duplicate-set-field
-      vim.ui.select = function(...)
-        require("lazy").load({ plugins = { "dressing.nvim" } })
-        return vim.ui.select(...)
-      end
-      ---@diagnostic disable-next-line: duplicate-set-field
-      vim.ui.input = function(...)
-        require("lazy").load({ plugins = { "dressing.nvim" } })
-        return vim.ui.input(...)
-      end
-    end,
-  },
-  -- Tabs
   {
     "akinsho/bufferline.nvim",
     dependencies = {
@@ -144,16 +101,6 @@ return {
             },
           },
           lualine_x = {
-            {
-              require("noice").api.status.command.get,
-              cond = require("noice").api.status.command.has,
-              color = { fg = "#ff9e64" },
-            },
-            {
-              require("noice").api.status.mode.get,
-              cond = require("noice").api.status.mode.has,
-              color = { fg = "#ff9e64" },
-            },
             { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
           },
           lualine_y = {
@@ -203,10 +150,17 @@ return {
 
   -- Revamp many UI elements
   {
+    "folke/snacks.nvim",
+    priority = 1000,
+    lazy = false,
+    opts = {
+      notifier = { enabled = true },
+    },
+  },
+  {
     "folke/noice.nvim",
     dependencies = {
       "MunifTanjim/nui.nvim",
-      "rcarriga/nvim-notify",
     },
     event = "VeryLazy",
     opts = {
@@ -239,12 +193,4 @@ return {
       },
     },
   },
-  -- Movement animations
-  -- {
-  --   "echasnovski/mini.animate",
-  --   version = "*",
-  --   config = function()
-  --     require("mini.animate").setup()
-  --   end,
-  -- },
 }
