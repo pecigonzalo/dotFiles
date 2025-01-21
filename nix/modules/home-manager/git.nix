@@ -70,6 +70,14 @@ in
           defaultBranch = "main";
         };
 
+        url = {
+          "ssh://git@github.com" = {
+            insteadOf = [
+              "https://github.com"
+            ];
+          };
+        };
+
         color = {
           branch = "auto";
           diff = "auto";
