@@ -75,7 +75,7 @@ return {
           gitcommit = true,
           gitrebase = true,
         },
-        callbacks = {
+        hooks = {
           should_block = function(argv)
             return vim.tbl_contains(argv, "-b")
           end,
