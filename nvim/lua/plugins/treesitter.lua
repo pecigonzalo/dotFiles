@@ -150,7 +150,10 @@ return {
     init = function()
       vim.filetype.add({
         extension = {
-          yaml = function(_, bufnr)
+          yaml = function(path, bufnr)
+            if path:match("action.yaml") then
+              return "yaml"
+            end
             -- Limit search to only 20 lines
             local content = vim.api.nvim_buf_get_lines(bufnr, 0, 20, false) or ""
             for _, line in ipairs(content) do
