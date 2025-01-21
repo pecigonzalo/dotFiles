@@ -15,12 +15,8 @@ return {
       return {
         options = {
           mode = "buffers",
-          close_command = function(n)
-            require("mini.bufremove").delete(n, false)
-          end,
-          right_mouse_command = function(n)
-            require("mini.bufremove").delete(n, false)
-          end,
+          close_command = function(n) require("mini.bufremove").delete(n, false) end,
+          right_mouse_command = function(n) require("mini.bufremove").delete(n, false) end,
           diagnostics = "nvim_lsp",
           always_show_bufferline = false,
           offsets = {
@@ -149,8 +145,36 @@ return {
     priority = 1000,
     lazy = false,
     opts = {
+      input = { enabled = true },
       notifier = { enabled = true },
+      picker = { enabled = true },
     },
+    keys = function()
+      local snacks = require("snacks")
+      return {
+        -- vim
+        { "<leader>:", function() snacks.picker.command_history() end, desc = "Command History" },
+        { "<leader><space>", function() snacks.picker.buffers() end, desc = "Buffers" },
+        { "<leader>/", function() snacks.picker.grep_buffers() end, desc = "Grep Open Buffers" },
+        -- find
+        { "<leader>fg", function() snacks.picker.grep() end, desc = "Grep" },
+        { "<leader>ff", function() snacks.picker.files() end, desc = "Find Files" },
+        -- search
+        { "<leader>sh", function() snacks.picker.help() end, desc = "Help Pages" },
+        {
+          "<leader>sw",
+          function() snacks.picker.grep_word() end,
+          desc = "Visual selection or word",
+          mode = { "n", "x" },
+        },
+        { "<leader>sa", function() snacks.picker.autocmds() end, desc = "Autocmds" },
+        { "<leader>sc", function() snacks.picker.commands() end, desc = "Commands" },
+        { "<leader>sd", function() snacks.picker.diagnostics() end, desc = "Diagnostics" },
+        -- git
+        { "<leader>gc", function() snacks.picker.git_log() end, desc = "Git Log" },
+        { "<leader>gs", function() snacks.picker.git_status() end, desc = "Git Status" },
+      }
+    end,
   },
   {
     "folke/noice.nvim",
