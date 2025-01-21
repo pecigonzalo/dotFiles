@@ -29,8 +29,9 @@
       "firefox"
       "google-chrome"
       # Remoting
-      "microsoft-remote-desktop"
+      "windows-app"
       "parsec"
+      "moonlight"
       # Communication
       "slack"
       "discord"
