@@ -13,6 +13,9 @@ return {
           custom = { "^\\.git$" },
         },
         hijack_cursor = true,
+        update_focused_file = {
+          enable = true,
+        },
         renderer = {
           icons = {
             glyphs = {

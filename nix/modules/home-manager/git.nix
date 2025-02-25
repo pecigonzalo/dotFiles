@@ -93,6 +93,8 @@ in
 
         core = {
           whitespace = "trailing-space,space-before-tab";
+          fsmonitor = true;
+          untrackedCache = true;
         };
 
         help = { autocorrect = 20; };
@@ -103,6 +105,7 @@ in
         };
 
         branch = {
+          sort = "-committerdate";
           # Automatic remote tracking.
           autoSetupMerge = "always";
           # Automatically use rebase for new branches.
@@ -112,14 +115,25 @@ in
           autoSetupRemote = true;
         };
 
-        push = { default = "current"; };
+        tag = {
+          sort = "version:refname";
+        };
+
+        push = {
+          default = "simple";
+          autoSetupMerge = true;
+        };
         pull = { rebase = true; };
-        fetch = { prune = true; };
+        fetch = {
+          prune = true;
+          all = true;
+        };
 
         diff = {
           tool = "nvimdiff";
           algorithm = "histogram";
           compactionHeuristic = true;
+          colorMoved = "plain";
           renames = "copies";
           mnemonicprefix = true;
         };
@@ -149,15 +163,16 @@ in
 
         rebase = {
           # Support fixup and squash commits.
-          autoSquash = "true";
+          autoSquash = true;
           # Stash dirty worktree before rebase.
-          autoStash = "true";
+          autoStash = true;
+          updateRefs = true;
         };
 
         # Reuse recorded resolutions.
         rerere = {
-          enabled = "true";
-          autoUpdate = "true";
+          enabled = true;
+          autoUpdate = true;
         };
       };
 

@@ -10,4 +10,8 @@
       source "${pkgs.wezterm}/etc/profile.d/wezterm.sh"
     '';
   };
+
+  programs.fish = {
+    enable = true;
+  };
 }
