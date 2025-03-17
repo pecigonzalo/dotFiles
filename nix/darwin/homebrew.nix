@@ -21,36 +21,36 @@
 
     casks = [
       # Security
-      "1password"
-      "wireshark"
+      # "1password"
+      # "wireshark"
       "tailscale"
       # Browsers
       "microsoft-edge"
       "firefox"
-      "google-chrome"
+      # "google-chrome"
       # Remoting
       "windows-app"
       "parsec"
       "moonlight"
       # Communication
-      "slack"
-      "discord"
+      # "slack"
+      # "discord"
       # macOS Tooling
-      "dozer"
+      # "dozer"
       "hammerspoon"
       "kap"
       "karabiner-elements"
       "keycastr"
       "scroll-reverser"
       # Notes
-      "obsidian"
-      "notion"
+      # "obsidian"
+      # "notion"
       # Media
-      "spotify"
+      # "spotify"
       # Editor
       "visual-studio-code"
       # Files
-      "google-drive"
+      # "google-drive"
     ];
   };
 }

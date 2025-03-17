@@ -28,7 +28,7 @@
     # Neovim
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
   };
-  outputs = { self, nixpkgs, darwin, home-manager, flake-utils, ... }@inputs:
+  outputs = { self, nixpkgs, darwin, home-manager, ... }@inputs:
     let
       inherit (darwin.lib) darwinSystem;
       inherit (nixpkgs.lib) attrValues makeOverridable optionalAttrs;
