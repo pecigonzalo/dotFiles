@@ -54,6 +54,7 @@ return {
         "make",
         "markdown",
         "markdown_inline",
+        "nu",
         "nix",
         "python",
         "query",

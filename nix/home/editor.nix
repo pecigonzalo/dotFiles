@@ -101,6 +101,7 @@ in
         # Formatters and Linters
         selene
         shfmt
+        nufmt
         stylua
 
         # LSPs
