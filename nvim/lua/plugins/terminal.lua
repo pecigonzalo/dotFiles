@@ -23,7 +23,7 @@ return {
     },
     -- Ensure that it runs first to minimize delay when opening file from terminal
     lazy = false,
-    priority = 1000,
+    priority = 1001,
     opts = function()
       ---@type Terminal?
       local saved_terminal
@@ -80,7 +80,7 @@ return {
               saved_terminal:close()
             elseif not is_diff then
               -- If it's a normal file, just switch to its window
-              vim.api.nvim_set_current_win(winnr)
+              -- vim.api.nvim_set_current_win(winnr)
               -- If it's not in the current wezterm pane, switch to that pane.
               require("wezterm").switch_pane.id(tonumber(os.getenv("WEZTERM_PANE")))
             end

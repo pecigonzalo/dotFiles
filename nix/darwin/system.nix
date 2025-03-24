@@ -1,6 +1,9 @@
 { pkgs, ... }:
 {
-  security.pam.enableSudoTouchIdAuth = true;
+  security.pam.services.sudo_local = {
+    text = "auth sufficient pam_tid.so.2";
+  };
+
   system.defaults.dock = {
     orientation = "left";
     autohide = true;

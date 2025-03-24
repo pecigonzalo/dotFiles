@@ -27,6 +27,7 @@
       # Browsers
       "microsoft-edge"
       "firefox"
+      "zen-browser"
       # "google-chrome"
       # Remoting
       "windows-app"

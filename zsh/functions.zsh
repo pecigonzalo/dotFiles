@@ -82,7 +82,7 @@ explain() {
 # Short aws-vault
 awsve() {
   if [[ $# -eq 0 ]]; then
-    profile=$(aws-vault list | grep '\-vault' | cut -d' ' -f1| fzf)
+    profile=$(aws-vault list | grep 'vault' | cut -d' ' -f1| fzf)
     aws-vault exec --duration=1h $profile --
   else
     aws-vault exec --duration=1h $@
@@ -92,7 +92,7 @@ awsve() {
 # Short aws-vault login
 awsvl() {
   if [[ $# -eq 0 ]]; then
-    local TOKEN="$(aws-vault list | grep '\-vault' | cut -d' ' -f1| fzf | xargs aws-vault login -d 1h -s)"
+    local TOKEN="$(aws-vault list | grep 'vault' | cut -d' ' -f1| fzf | xargs aws-vault login -d 1h -s)"
   else
     local TOKEN="$(aws-vault login -d 1h -s $@)"
   fi
@@ -112,7 +112,7 @@ awsvl() {
 
 awsvlf() {
   if [[ $# -eq 0 ]]; then
-    local ACCOUNT="$(aws-vault list | grep '\-vault' | cut -d' ' -f1| fzf)"
+    local ACCOUNT="$(aws-vault list | grep 'vault' | cut -d' ' -f1| fzf)"
     local TOKEN="$(aws-vault login -d 1h -s ${ACCOUNT})"
   else
     local ACCOUNT="${1}"
@@ -121,7 +121,7 @@ awsvlf() {
 
   # Set color for account
   case "$ACCOUNT" in
-    *prd*|*prod*|*main*) 
+    *prd*|*prod*|*main*)
       COLOR="red"
     ;;
     *stg*|*stage*|*staging*)
@@ -134,7 +134,7 @@ awsvlf() {
       COLOR="pink"
     ;;
   esac
-  
+
   if [[ $TOKEN =~ "signin.aws.amazon.com" ]]; then
     ENCODED_URL="${TOKEN//&/%26}"
     URI_HANDLER="ext+container:name=${ACCOUNT}&color=${COLOR}&url=${ENCODED_URL}"

@@ -91,6 +91,18 @@ in
           format = "ssh";
         };
 
+        user = {
+          signingkey = "~/.ssh/pecigonzalo_ed25519.pub";
+        };
+
+        commit = {
+          gpgsign = true;
+        };
+
+        tab = {
+          gpgsign = true;
+        };
+
         core = {
           whitespace = "trailing-space,space-before-tab";
           fsmonitor = true;

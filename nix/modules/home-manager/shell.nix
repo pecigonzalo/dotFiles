@@ -90,6 +90,27 @@ in
   };
 
   config = mkIf cfg.enable {
+    home.shell.enableZshIntegration = true;
+    home.shell.enableFishIntegration = true;
+    home.shell.enableNushellIntegration = true;
+
+    programs.fish = {
+      enable = true;
+    };
+    programs.nushell = {
+      enable = true;
+      plugins = with pkgs.nushellPlugins; [
+        formats
+        query
+      ];
+      settings = {
+        show_banner = false;
+        completions.external = {
+          enable = true;
+          max_results = 200;
+        };
+      };
+    };
     programs.zsh = {
       enable = true;
 
@@ -161,6 +182,7 @@ in
           "* --help"
           "man *"
           "zstyle *"
+          "gcmsg"
         ];
       };
 

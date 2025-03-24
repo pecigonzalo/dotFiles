@@ -197,7 +197,6 @@ in
     pandoc
     vale # Prose linter
     zsh-completions
-    nushell
 
     # Compression
     m4
@@ -338,5 +337,6 @@ in
     cilium-cli
     hubble
     cloudflared
+    teleport
   ];
 }
