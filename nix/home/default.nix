@@ -242,6 +242,7 @@ in
     poetry
     pipenv
     ruff
+    rye
 
     # Local
     jl # JSON structured logs parser
