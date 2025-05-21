@@ -1,4 +1,8 @@
-{ buildPythonApplication, fetchFromGitHub, lib }:
+{
+  buildPythonApplication,
+  fetchFromGitHub,
+  lib,
+}:
 buildPythonApplication {
   pname = "shell-functools";
   version = "HEAD";

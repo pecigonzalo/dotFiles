@@ -1,9 +1,7 @@
 final: prev:
 let
   inherit (prev) lib;
-  callPackage = lib.callPackageWith (
-    prev // prev.python3.pkgs
-  );
+  callPackage = lib.callPackageWith (prev // prev.python3.pkgs);
 in
 {
   shell-functools = callPackage ./shell-functools { };

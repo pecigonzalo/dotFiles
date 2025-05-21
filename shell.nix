@@ -1,7 +1,7 @@
-
 { pkgs }:
 let
 
-in pkgs.mkShell {
+in
+pkgs.mkShell {
   buildInputs = [ pkgs.nixFlakes ];
 }

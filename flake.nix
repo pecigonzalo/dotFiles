@@ -28,7 +28,14 @@
     # Neovim
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
   };
-  outputs = { self, nixpkgs, darwin, home-manager, ... }@inputs:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      darwin,
+      home-manager,
+      ...
+    }@inputs:
     let
       inherit (darwin.lib) darwinSystem;
       inherit (nixpkgs.lib) attrValues makeOverridable optionalAttrs;
@@ -36,23 +43,25 @@
 
       namedOverlays = attrValues {
         # Overlay useful on Macs with Apple Silicon
-        apple-silicon = final: prev: optionalAttrs (prev.stdenv.system == "aarch64-darwin") rec {
-          # Add access to x86 packages system is running Apple Silicon
-          system = "x86_64-darwin";
-          pkgs-x86 = import inputs.nixpkgs {
-            inherit system;
-            inherit (nixpkgsConfig) config;
+        apple-silicon =
+          final: prev:
+          optionalAttrs (prev.stdenv.system == "aarch64-darwin") rec {
+            # Add access to x86 packages system is running Apple Silicon
+            system = "x86_64-darwin";
+            pkgs-x86 = import inputs.nixpkgs {
+              inherit system;
+              inherit (nixpkgsConfig) config;
+            };
+            pkgs-x86-stable = pkgs-x86-24-05;
+            pkgs-x86-23-11 = import inputs.nixpkgs-23-11 {
+              inherit system;
+              inherit (nixpkgsConfig) config;
+            };
+            pkgs-x86-24-05 = import inputs.nixpkgs-24-05 {
+              inherit system;
+              inherit (nixpkgsConfig) config;
+            };
           };
-          pkgs-x86-stable = pkgs-x86-24-05;
-          pkgs-x86-23-11 = import inputs.nixpkgs-23-11 {
-            inherit system;
-            inherit (nixpkgsConfig) config;
-          };
-          pkgs-x86-24-05 = import inputs.nixpkgs-24-05 {
-            inherit system;
-            inherit (nixpkgsConfig) config;
-          };
-        };
 
         stable = final: prev: rec {
           pkgs-stable = pkgs-24-05;
@@ -65,15 +74,16 @@
         packages = import ./nix/pkgs;
       };
 
-
       dynamicOverlays =
-        let path = ./nix/overlays; in
+        let
+          path = ./nix/overlays;
+        in
         with builtins;
-        map (overlay: import (path + ("/" + overlay)))
-          (
-            filter (overlay: match ".*\\.nix" overlay != null || pathExists (path + ("/" + overlay + "/default.nix")))
-              (attrNames (readDir path))
-          );
+        map (overlay: import (path + ("/" + overlay))) (
+          filter (
+            overlay: match ".*\\.nix" overlay != null || pathExists (path + ("/" + overlay + "/default.nix"))
+          ) (attrNames (readDir path))
+        );
 
       nixpkgsConfig = with inputs; {
         config = {
@@ -86,14 +96,17 @@
           allowBroken = false;
         };
         # Dynamic list of overlays
-        overlays = namedOverlays ++ dynamicOverlays ++ [
-          (final: prev: {
-            mkalias = inputs.mkalias.outputs.apps.${prev.stdenv.system}.default.program;
-          })
-        ] ++ [
-          # TODO: https://github.com/nix-community/neovim-nightly-overlay/issues/332
-          # inputs.neovim-nightly-overlay.overlay
-        ];
+        overlays =
+          namedOverlays
+          ++ dynamicOverlays
+          ++ [
+            (final: prev: {
+              mkalias = inputs.mkalias.outputs.apps.${prev.stdenv.system}.default.program;
+            })
+          ]
+          ++ [
+            # inputs.neovim-nightly-overlay.overlays.default
+          ];
       };
 
       homeManagerStateVersion = "23.05";
@@ -156,21 +169,27 @@
         # Mininal configurations to bootstrap systems
         bootstrap-x86 = makeOverridable darwinSystem {
           system = "x86_64-darwin";
-          modules = [ ./nix/darwin/bootstrap.nix { nixpkgs = nixpkgsConfig; } ];
+          modules = [
+            ./nix/darwin/bootstrap.nix
+            { nixpkgs = nixpkgsConfig; }
+          ];
         };
         bootstrap-arm = bootstrap-x86.override { system = "aarch64-darwin"; };
 
         githubCI = darwinSystem {
           system = "aarch64-darwin";
           modules = commonDarwinConfig ++ [
-            ({ lib, ... }: {
-              networking.hostName = "runner";
-              homebrew.enable = lib.mkForce false;
-              nix.useDaemon = lib.mkForce false;
-              services.nix-daemon.enable = lib.mkForce false;
-              services.nix-daemon.enableSocketListener = lib.mkForce false;
-              users.nix.configureBuildUsers = lib.mkForce false;
-            })
+            (
+              { lib, ... }:
+              {
+                networking.hostName = "runner";
+                homebrew.enable = lib.mkForce false;
+                nix.useDaemon = lib.mkForce false;
+                services.nix-daemon.enable = lib.mkForce false;
+                services.nix-daemon.enableSocketListener = lib.mkForce false;
+                users.nix.configureBuildUsers = lib.mkForce false;
+              }
+            )
           ];
         };
 
@@ -233,24 +252,20 @@
 
       checks = listToAttrs (
         # darwin checks
-        (map
-          (system: {
-            name = system;
-            value = {
-              pecigonzalo =
-                self.darwinConfigurations.githubCI.system;
-            };
-          })
-          nixpkgs.lib.platforms.darwin) ++
-        # linux checks
-        (map
-          (system: {
+        (map (system: {
+          name = system;
+          value = {
+            pecigonzalo = self.darwinConfigurations.githubCI.system;
+          };
+        }) nixpkgs.lib.platforms.darwin)
+        ++
+          # linux checks
+          (map (system: {
             name = system;
             value = {
               wslfish = self.homeConfigurations.wslfish.activationPackage;
             };
-          })
-          nixpkgs.lib.platforms.linux)
+          }) nixpkgs.lib.platforms.linux)
       );
     };
 }

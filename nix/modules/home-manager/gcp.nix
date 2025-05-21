@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 with lib;
 let
   cfg = config.my.gcp;
@@ -20,7 +25,7 @@ in
       berglas
       google-cloud-sdk
     ];
-    home.    shellAliases = {
+    home.shellAliases = {
       # Google Apps CLI
       "gam" = "${config.home.homeDirectory}/bin/gam/gam";
     };

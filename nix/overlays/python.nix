@@ -4,8 +4,8 @@ let
   stable = prev.pkgs-stable;
 in
 {
-  python-with-env = stable.python3.withPackages (ps: with ps;
-    [
+  python-with-env = stable.python3.withPackages (
+    ps: with ps; [
       pip
 
       isort
@@ -22,5 +22,6 @@ in
       ipython
 
       pipx
-    ]);
+    ]
+  );
 }

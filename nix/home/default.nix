@@ -1,7 +1,8 @@
-{ config
-, lib
-, pkgs
-, ...
+{
+  config,
+  lib,
+  pkgs,
+  ...
 }:
 let
   inherit (config.lib.file) mkOutOfStoreSymlink;
@@ -15,15 +16,14 @@ in
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
-  imports =
-    [
-      ./ssh.nix
-      ./editor.nix
-      ./tmux.nix
-      ./starship.nix
-      ./terminal.nix
-      ./fonts.nix
-    ];
+  imports = [
+    ./ssh.nix
+    ./editor.nix
+    ./tmux.nix
+    ./starship.nix
+    ./terminal.nix
+    ./fonts.nix
+  ];
 
   xdg.enable = true;
   my = {
@@ -136,7 +136,12 @@ in
     config = {
       theme = "Dracula";
     };
-    extraPackages = with pkgs.bat-extras; [ batdiff batman batgrep batwatch ];
+    extraPackages = with pkgs.bat-extras; [
+      batdiff
+      batman
+      batgrep
+      batwatch
+    ];
   };
 
   programs.ripgrep = {
@@ -149,9 +154,9 @@ in
 
   home.packages = with pkgs; [
     # Nix
-    nixpkgs-fmt
     nixd
     cachix
+    nixfmt-rfc-style
 
     # Common
     htop

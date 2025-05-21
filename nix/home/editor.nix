@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   inherit (config.lib.file) mkOutOfStoreSymlink;
@@ -53,79 +58,76 @@ in
     recursive = true;
   };
 
-  programs.neovim =
-    {
-      enable = true;
-      viAlias = true;
-      vimAlias = true;
-      vimdiffAlias = true;
-      withNodeJs = false;
-      withPython3 = true;
+  programs.neovim = {
+    enable = true;
+    viAlias = true;
+    vimAlias = true;
+    vimdiffAlias = true;
+    withNodeJs = false;
+    withPython3 = true;
 
-      plugins = with pkgs.vimPlugins; [
-        {
-          plugin = lazy-nvim;
-          type = "lua";
-          config = ''
-            require("core")
+    plugins = with pkgs.vimPlugins; [
+      {
+        plugin = lazy-nvim;
+        type = "lua";
+        config = ''
+          require("core")
 
-            require("lazy").setup({ { import = "plugins" } }, {
-              install = {
-                colorscheme = { "dracula" },
-              },
-              checker = {
-                enabled = true,
-                notify = false,
-              },
-              change_detection = {
-                notify = false,
-              },
-              ui = {
-                border = "rounded"
-              },
-            })
-          '';
-        }
-      ];
+          require("lazy").setup({ { import = "plugins" } }, {
+            install = {
+              colorscheme = { "dracula" },
+            },
+            checker = {
+              enabled = true,
+              notify = false,
+            },
+            change_detection = {
+              notify = false,
+            },
+            ui = {
+              border = "rounded"
+            },
+          })
+        '';
+      }
+    ];
 
+    extraPackages = with pkgs; [
+      # NodeJS
+      nodejs
 
-      extraPackages = with pkgs; [
-        # NodeJS
-        nodejs
+      # Treesitter
+      cmake
+      gcc
+      tree-sitter
 
-        # Treesitter
-        cmake
-        gcc
-        tree-sitter
+      # Formatters and Linters
+      selene
+      shfmt
+      nufmt
+      stylua
+      nixfmt-rfc-style
 
-        # Formatters and Linters
-        selene
-        shfmt
-        nufmt
-        stylua
-        nixfmt-rfc-style
-
-        # LSPs
-        ansible-language-server
-        gopls
-        helm-ls
-        jdt-language-server
-        # kotlin-language-server
-        pyright
-        nodePackages_latest.eslint
-        eslint_d
-        nodePackages_latest.prettier
-        prettierd
-        ruff
-        nodePackages.vscode-langservers-extracted
-        nodePackages.yaml-language-server
-        nodePackages.dockerfile-language-server-nodejs
-        nodePackages.bash-language-server
-        nodePackages_latest.typescript-language-server
-        sumneko-lua-language-server
-        nixd
-        terraform-ls
-      ];
-    };
+      # LSPs
+      ansible-language-server
+      gopls
+      helm-ls
+      jdt-language-server
+      # kotlin-language-server
+      pyright
+      nodePackages_latest.eslint
+      eslint_d
+      nodePackages_latest.prettier
+      prettierd
+      ruff
+      nodePackages.vscode-langservers-extracted
+      nodePackages.yaml-language-server
+      nodePackages.dockerfile-language-server-nodejs
+      nodePackages.bash-language-server
+      nodePackages_latest.typescript-language-server
+      sumneko-lua-language-server
+      nixd
+      terraform-ls
+    ];
+  };
 }
-

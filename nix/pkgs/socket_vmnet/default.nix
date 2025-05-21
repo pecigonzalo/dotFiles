@@ -1,8 +1,9 @@
-{ stdenv
-, makeWrapper
-, fetchFromGitHub
-, lib
-, vmnet
+{
+  stdenv,
+  makeWrapper,
+  fetchFromGitHub,
+  lib,
+  vmnet,
 }:
 stdenv.mkDerivation rec {
   pname = "socket_vmnet";

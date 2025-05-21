@@ -6,7 +6,7 @@
   };
 
   programs.zsh = {
-    initContent  = ''
+    initContent = ''
       source "${pkgs.wezterm}/etc/profile.d/wezterm.sh"
     '';
   };

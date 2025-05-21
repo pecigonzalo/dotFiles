@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   environment.systemPath = [
     config.homebrew.brewPrefix
@@ -27,7 +32,7 @@
       # Browsers
       "microsoft-edge"
       "firefox"
-      "zen-browser"
+      # "zen-browser"
       # "google-chrome"
       # Remoting
       "windows-app"

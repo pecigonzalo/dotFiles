@@ -1,9 +1,13 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 with lib;
 let
   cfg = config.my.git;
-  isSillicon = pkgs.stdenv.hostPlatform.isDarwin
-    && pkgs.stdenv.hostPlatform.isAarch64;
+  isSillicon = pkgs.stdenv.hostPlatform.isDarwin && pkgs.stdenv.hostPlatform.isAarch64;
 in
 {
   options.my.git = {
@@ -19,7 +23,7 @@ in
       act
     ];
 
-    home.shellAliases = mkIf (! isSillicon) {
+    home.shellAliases = mkIf (!isSillicon) {
       # gitg remove console output
       "gitg" = "${pkgs.gitg}/bin/gitg >> /dev/null 2>&1";
     };
@@ -109,7 +113,9 @@ in
           untrackedCache = true;
         };
 
-        help = { autocorrect = 20; };
+        help = {
+          autocorrect = 20;
+        };
 
         status = {
           showUntrackedFiles = "all";
@@ -135,7 +141,9 @@ in
           default = "simple";
           autoSetupMerge = true;
         };
-        pull = { rebase = true; };
+        pull = {
+          rebase = true;
+        };
         fetch = {
           prune = true;
           all = true;

@@ -1,9 +1,13 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 with lib;
 let
   cfg = config.my.terraform;
-  isSillicon = pkgs.stdenv.hostPlatform.isDarwin
-    && pkgs.stdenv.hostPlatform.isAarch64;
+  isSillicon = pkgs.stdenv.hostPlatform.isDarwin && pkgs.stdenv.hostPlatform.isAarch64;
 in
 {
   options.my.terraform = {
@@ -19,8 +23,8 @@ in
       GODEBUG = "asyncpreemptoff=1";
     };
     home.file.".terraformrc".text = ''
-       plugin_cache_dir   = "${config.xdg.cacheHome}/terraform/plugin-cache"
-       disable_checkpoint = true
+      plugin_cache_dir   = "${config.xdg.cacheHome}/terraform/plugin-cache"
+      disable_checkpoint = true
     '';
     home.packages = with pkgs; [
       terraform
