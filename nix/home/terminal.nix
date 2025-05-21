@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 {
   programs.wezterm = {
     enable = true;
@@ -6,7 +6,7 @@
   };
 
   programs.zsh = {
-    initExtra = ''
+    initContent  = ''
       source "${pkgs.wezterm}/etc/profile.d/wezterm.sh"
     '';
   };

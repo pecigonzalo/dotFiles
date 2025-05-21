@@ -44,7 +44,7 @@ in
       ];
     };
     programs.zsh = {
-      initExtra = ''
+      initContent = ''
         ## Others
         _fzf_compgen_path() {
           fd --hidden --follow --exclude ".git" . "$1"

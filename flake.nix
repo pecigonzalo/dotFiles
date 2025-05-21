@@ -139,6 +139,7 @@
             nixpkgs = nixpkgsConfig;
             # home-manager config
             users.users.${user}.home = homeDirectory;
+            system.primaryUser = user;
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = false;

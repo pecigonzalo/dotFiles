@@ -103,6 +103,7 @@ in
         shfmt
         nufmt
         stylua
+        nixfmt-rfc-style
 
         # LSPs
         ansible-language-server
@@ -116,7 +117,6 @@ in
         nodePackages_latest.prettier
         prettierd
         ruff
-        ruff-lsp
         nodePackages.vscode-langservers-extracted
         nodePackages.yaml-language-server
         nodePackages.dockerfile-language-server-nodejs

@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 with lib;
 let
   cfg = config.my.shell;
@@ -6,41 +11,57 @@ let
   homeDir = config.home.homeDirectory;
   dotFilesDir = "${homeDir}/dotFiles";
   isDarwin = pkgs.stdenv.hostPlatform.isDarwin;
-  isSillicon = pkgs.stdenv.hostPlatform.isDarwin
-    && pkgs.stdenv.hostPlatform.isAarch64;
+  isSillicon = pkgs.stdenv.hostPlatform.isDarwin && pkgs.stdenv.hostPlatform.isAarch64;
 
   omzRev = "9114853500ea66cff7c803b0e951754833946f3d";
-  omzPlugin = { name, rev ? omzRev }: {
-    name = "ohmyzsh-plugin-${name}";
-    src = builtins.fetchGit {
-      inherit rev;
-      url = "https://github.com/ohmyzsh/ohmyzsh";
+  omzPlugin =
+    {
+      name,
+      rev ? omzRev,
+    }:
+    {
+      name = "ohmyzsh-plugin-${name}";
+      src = builtins.fetchGit {
+        inherit rev;
+        url = "https://github.com/ohmyzsh/ohmyzsh";
+      };
+      file = "plugins/${name}/${name}.plugin.zsh";
     };
-    file = "plugins/${name}/${name}.plugin.zsh";
-  };
-  omzLib = { name, rev ? omzRev }: {
-    name = "ohmyzsh-lib-${name}";
-    src = builtins.fetchGit {
-      inherit rev;
-      url = "https://github.com/ohmyzsh/ohmyzsh";
+  omzLib =
+    {
+      name,
+      rev ? omzRev,
+    }:
+    {
+      name = "ohmyzsh-lib-${name}";
+      src = builtins.fetchGit {
+        inherit rev;
+        url = "https://github.com/ohmyzsh/ohmyzsh";
+      };
+      file = "lib/${name}.zsh";
     };
-    file = "lib/${name}.zsh";
-  };
-  gitHubPlugin = { name, owner, rev, file ? null }: {
-    inherit name;
-    file = if file == null then "${name}.plugin.zsh" else file;
-    src = builtins.fetchGit {
-      inherit rev;
-      url = "https://github.com/${owner}/${name}";
+  gitHubPlugin =
+    {
+      name,
+      owner,
+      rev,
+      file ? null,
+    }:
+    {
+      inherit name;
+      file = if file == null then "${name}.plugin.zsh" else file;
+      src = builtins.fetchGit {
+        inherit rev;
+        url = "https://github.com/${owner}/${name}";
+      };
     };
-  };
 in
 {
   options.my.shell = {
     enable = mkEnableOption "Super Shell";
     gitHubPlugins = mkOption {
-      type = types.listOf
-        (types.submodule {
+      type = types.listOf (
+        types.submodule {
           options = {
             name = mkOption {
               type = types.str;
@@ -56,35 +77,40 @@ in
               default = null;
             };
           };
-        });
+        }
+      );
       default = [ ];
     };
     omzLibs = mkOption {
-      type = types.listOf (types.submodule {
-        options = {
-          name = mkOption {
-            type = types.str;
+      type = types.listOf (
+        types.submodule {
+          options = {
+            name = mkOption {
+              type = types.str;
+            };
+            rev = mkOption {
+              type = types.str;
+              default = omzRev;
+            };
           };
-          rev = mkOption {
-            type = types.str;
-            default = omzRev;
-          };
-        };
-      });
+        }
+      );
       default = [ ];
     };
     omzPlugins = mkOption {
-      type = types.listOf (types.submodule {
-        options = {
-          name = mkOption {
-            type = types.str;
+      type = types.listOf (
+        types.submodule {
+          options = {
+            name = mkOption {
+              type = types.str;
+            };
+            rev = mkOption {
+              type = types.str;
+              default = omzRev;
+            };
           };
-          rev = mkOption {
-            type = types.str;
-            default = omzRev;
-          };
-        };
-      });
+        }
+      );
       default = [ ];
     };
   };
@@ -126,47 +152,56 @@ in
 
       dotDir = ".config/zsh";
 
-      initExtraFirst = ''
-        zmodload zsh/zprof
+      initContent = lib.mkMerge [
+        (lib.mkBefore ''
+          zmodload zsh/zprof
 
-        ## SSH
-        zstyle :omz:plugins:ssh-agent identities pecigonzalo_ed25519 pecigonzalo_rsa
-      '' + pkgs.lib.optionalString
-        isDarwin "zstyle :omz:plugins:ssh-agent ssh-add-args --apple-use-keychain # NOTE: OSX Only";
+          ## SSH
+          zstyle :omz:plugins:ssh-agent identities pecigonzalo_ed25519 pecigonzalo_rsa
+        '')
+        (pkgs.lib.optionalString isDarwin lib.mkBefore ''
+          zstyle :omz:plugins:ssh-agent ssh-add-args --apple-use-keychain # NOTE: OSX Only
+        '')
 
+        ''
+          # ZSH profiling
+          autoload -U colors && colors
 
-      initExtra = ''
-        # ZSH profiling
-        autoload -U colors && colors
+          # Load env
+          source "${dotFilesDir}/zsh/env.zsh"
 
-        # Load env
-        source "${dotFilesDir}/zsh/env.zsh"
+          # Get funtions
+          source "${dotFilesDir}/zsh/functions.zsh"
 
-        # Get funtions
-        source "${dotFilesDir}/zsh/functions.zsh"
+          # If on WSL, load
+          if [[ -n "$WSL_DISTRO_NAME" ]]; then
+            source "${dotFilesDir}/wsl/wslrc.zsh"
+          fi
+        ''
 
-        # If on WSL, load
-        if [[ -n "$WSL_DISTRO_NAME" ]]; then
-          source "${dotFilesDir}/wsl/wslrc.zsh"
-        fi
-      '' + pkgs.lib.optionalString isDarwin ''
-        source "${dotFilesDir}/macOS/macosrc.zsh"
-      '' + ''
-        # Set ZSH opts
-        source "${dotFilesDir}/zsh/opts.zsh"
+        (pkgs.lib.optionalString isDarwin ''
+          source "${dotFilesDir}/macOS/macosrc.zsh"
+        '')
 
-        # Set ZSH zstyle
-        source "${dotFilesDir}/zsh/zstyle.zsh"
+        ''
+          # Set ZSH opts
+          source "${dotFilesDir}/zsh/opts.zsh"
 
-        # Set Keyboard
-        source "${dotFilesDir}/zsh/keyboard.zsh"
+          # Set ZSH zstyle
+          source "${dotFilesDir}/zsh/zstyle.zsh"
 
-        # Set Local
-        source "${dotFilesDir}/zsh/local.zsh"
-      '' + ''
-        # ZSH profiling save
-        zprof >/tmp/zprof
-      '';
+          # Set Keyboard
+          source "${dotFilesDir}/zsh/keyboard.zsh"
+
+          # Set Local
+          source "${dotFilesDir}/zsh/local.zsh"
+        ''
+
+        (lib.mkAfter ''
+          # ZSH profiling save
+          zprof >/tmp/zprof
+        '')
+      ];
 
       history = {
         size = 5000000;
@@ -240,6 +275,9 @@ in
           ZSHZ_TILDE = 1;
           ZSHZ_TRAILING_SLASH = 1;
           ZSHZ_UNCOMMON = 1;
+
+          # Faster vim change
+          KEYTIMEOUT = 1;
         };
 
       plugins =
@@ -248,9 +286,9 @@ in
           "key-bindings"
           "clipboard"
           "termsupport"
-        ]) ++
-        (map omzLib cfg.omzLibs) ++
-        (map (name: omzPlugin { name = name; }) [
+        ])
+        ++ (map omzLib cfg.omzLibs)
+        ++ (map (name: omzPlugin { name = name; }) [
           "aws"
           "common-aliases"
           "docker-compose"
@@ -258,13 +296,14 @@ in
           "ssh-agent"
           "urltools"
           "vscode"
-        ]) ++
-        (map omzPlugin cfg.omzPlugins) ++
-        [
+          "vi-mode"
+        ])
+        ++ (map omzPlugin cfg.omzPlugins)
+        ++ [
           (gitHubPlugin {
             name = "zsh-z";
             owner = "agkozak";
-            rev = "afaf2965b41fdc6ca66066e09382726aa0b6aa04";
+            rev = "cf9225feebfae55e557e103e95ce20eca5eff270";
           })
           (gitHubPlugin {
             name = "jq-zsh-plugin";
@@ -272,14 +311,8 @@ in
             rev = "ded47a1e51303fb2cb331288e134e18f637274a6";
             file = "jq.plugin.zsh";
           })
-          # (gitHubPlugin {
-          #   name = "tipz";
-          #   owner = "molovo";
-          #   rev = "594eab4642cc6dcfe063ecd51d76478bd84e2878";
-          #   file = "tipz.zsh";
-          # })
-        ] ++
-        (map gitHubPlugin cfg.gitHubPlugins);
+        ]
+        ++ (map gitHubPlugin cfg.gitHubPlugins);
     };
   };
 }
