@@ -8,3 +8,5 @@ bindkey '^[^?' backward-kill-word-match
 
 zstyle :zle:backward-kill-word-match word-style standard
 zstyle :zle:backward-kill-word-match word-chars ''
+
+bindkey '^o' edit-command-line
