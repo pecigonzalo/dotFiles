@@ -114,7 +114,7 @@ in
     programs.zsh = {
       enable = true;
 
-      defaultKeymap = "emacs";
+      defaultKeymap = "viins";
 
       # This is taken care of by zinit
       enableCompletion = true;
@@ -174,7 +174,7 @@ in
         path = "${homeDir}/.histfile";
         ignorePatterns = [
           "ls"
-          "cd"
+          "cd *"
           "cd -"
           "pwd"
           "exit"
@@ -182,7 +182,9 @@ in
           "* --help"
           "man *"
           "zstyle *"
-          "gcmsg"
+          "chamber *"
+          "rm *"
+          "pkill *"
         ];
       };
 
