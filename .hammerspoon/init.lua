@@ -1,6 +1,6 @@
 hs.alert("Loading the Hammer")
 -- Generate annotations
-hs.loadSpoon("EmmyLua")
+-- hs.loadSpoon("EmmyLua")
 
 -- Configure the grid
 require("grid")
@@ -16,9 +16,7 @@ end
 
 -- Application Launcher
 for key, app in pairs(keymap.applications) do
-  hs.hotkey.bind(hyper, key, function()
-    hs.application.launchOrFocus(app)
-  end)
+  hs.hotkey.bind(hyper, key, function() hs.application.launchOrFocus(app) end)
 end
 
 hs.hotkey.bind(hyper, "tab", function()
