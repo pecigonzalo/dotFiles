@@ -1,9 +1,10 @@
-apiVersion: k3d.io/v1alpha4
+apiVersion: k3d.io/v1alpha5
 kind: Simple
 metadata:
   name: default
 servers: 1
 agents: 3
+image: rancher/k3s:v1.33.1-k3s1
 ports:
   - port: 80:80
     nodeFilters:
@@ -20,7 +21,7 @@ registries:
   create:
     name: registry.localhost
     host: "0.0.0.0"
-    hostPort: "5000"
+    hostPort: "5050"
 options:
   k3d:
     wait: true
