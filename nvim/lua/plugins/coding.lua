@@ -1,4 +1,9 @@
 return {
+  -- split joins
+  -- {
+  --   "echasnovski/mini.splitjoin",
+  --   event = "VeryLazy",
+  -- },
   -- auto pairs
   {
     "echasnovski/mini.pairs",

@@ -135,7 +135,10 @@ return {
     lazy = false,
     opts = {
       input = { enabled = true },
-      notifier = { enabled = true },
+      notifier = {
+        enabled = true,
+        timeout = 1500,
+      },
       picker = {
         enabled = true,
         matcher = { frecency = true },
@@ -153,6 +156,7 @@ return {
         { "<leader>,", function() snacks.picker.buffers() end, desc = "Buffers" },
         { "<leader>/", function() snacks.picker.grep() end, desc = "Grep" },
         { "<leader>n", function() snacks.picker.grep() end, desc = "Notifications" },
+        { "<leader>un", function() snacks.notifier.hide() end, desc = "Dismiss All Notifications" },
 
         -- find
         { "<leader>fb", function() snacks.picker.buffers() end, desc = "Find Buffers" },
@@ -162,6 +166,8 @@ return {
         { "<leader>sb", function() snacks.picker.lines() end, desc = "Buffer Lines" },
         { "<leader>sB", function() snacks.picker.grep_buffers() end, desc = "Grep Open Buffers" },
         { "<leader>sg", function() snacks.picker.grep() end, desc = "Grep" },
+        { "<leader>sq", function() snacks.picker.qflist() end, desc = "Quickfix List" },
+
         {
           "<leader>sw",
           function() snacks.picker.grep_word() end,
@@ -203,7 +209,16 @@ return {
           desc = "Todo/Fix/Fixme",
         },
 
+        -- Buffers
+        { "<leader>bd", function() snacks.bufdelete() end, desc = "Delete Buffer" },
+        { "<leader>bD", function() snacks.bufdelete.other() end, desc = "Delete All Buffer" },
+
         -- Explorer
+        {
+          "<leader>e",
+          function() snacks.explorer() end,
+          desc = "Open Explorer",
+        },
         {
           "<C-\\>",
           function() snacks.explorer() end,
