@@ -140,16 +140,35 @@ return {
         enabled = true,
         matcher = { frecency = true },
       },
+      explorer = {
+        replace_netrw = true,
+      },
     },
     keys = function()
       local snacks = require("snacks")
       return {
         -- vim
         { "<leader>:", function() snacks.picker.command_history() end, desc = "Command History" },
-        { "<leader><space>", function() snacks.picker.buffers() end, desc = "Buffers" },
+        { "<leader><space>", function() snacks.picker.smart() end, desc = "Smart Find Files" },
+        { "<leader>,", function() snacks.picker.buffers() end, desc = "Buffers" },
+        { "<leader>/", function() snacks.picker.grep() end, desc = "Grep" },
+        { "<leader>n", function() snacks.picker.grep() end, desc = "Notifications" },
+
         -- find
-        { "<leader>fg", function() snacks.picker.grep() end, desc = "Grep" },
+        { "<leader>fb", function() snacks.picker.buffers() end, desc = "Find Buffers" },
         { "<leader>ff", function() snacks.picker.files() end, desc = "Find Files" },
+
+        -- grep
+        { "<leader>sb", function() snacks.picker.lines() end, desc = "Buffer Lines" },
+        { "<leader>sB", function() snacks.picker.grep_buffers() end, desc = "Grep Open Buffers" },
+        { "<leader>sg", function() snacks.picker.grep() end, desc = "Grep" },
+        {
+          "<leader>sw",
+          function() snacks.picker.grep_word() end,
+          desc = "Visual selection or word",
+          mode = { "n", "x" },
+        },
+
         -- search
         { "<leader>sh", function() snacks.picker.help() end, desc = "Help Pages" },
         {
@@ -162,24 +181,33 @@ return {
         { "<leader>sc", function() snacks.picker.commands() end, desc = "Commands" },
         { "<leader>sd", function() snacks.picker.diagnostics() end, desc = "Diagnostics" },
         { "<leader>sq", function() snacks.picker.qflist() end, desc = "Quickfix List" },
-        -- grep
-        { "<leader>/", function() snacks.picker.grep_buffers() end, desc = "Grep Open Buffers" },
-        { "<leader>sb", function() snacks.picker.lines() end, desc = "Buffer Lines" },
+        { "<leader>su", function() snacks.picker.undo() end, desc = "Undo History" },
+
         -- git
         { "<leader>gl", function() snacks.picker.git_log() end, desc = "Git Log" },
         { "<leader>gs", function() snacks.picker.git_status() end, desc = "Git Status" },
+        { "<leader>gb", function() snacks.picker.git_branches() end, desc = "Git Branches" },
+
         -- LSP
         { "gd", function() snacks.picker.lsp_definitions() end, desc = "Goto Definition" },
         { "gr", function() snacks.picker.lsp_references() end, nowait = true, desc = "References" },
         { "gI", function() snacks.picker.lsp_implementations() end, desc = "Goto Implementation" },
         { "gD", function() snacks.picker.lsp_type_definitions() end, desc = "Goto T[y]pe Definition" },
         { "<leader>ss", function() snacks.picker.lsp_symbols() end, desc = "LSP Symbols" },
+
         -- TODO
         { "<leader>st", function() snacks.picker.todo_comments() end, desc = "Todo" },
         {
           "<leader>sT",
           function() snacks.picker.todo_comments({ keywords = { "TODO", "FIX", "FIXME" } }) end,
           desc = "Todo/Fix/Fixme",
+        },
+
+        -- Explorer
+        {
+          "<C-\\>",
+          function() snacks.explorer() end,
+          desc = "Open Explorer",
         },
       }
     end,
