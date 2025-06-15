@@ -154,7 +154,9 @@ in
 
       initContent = lib.mkMerge [
         (lib.mkBefore ''
-          zmodload zsh/zprof
+          if [[ -n "$ZSH_DEBUG_RC" ]]; then
+            zmodload zsh/zprof
+          fi
 
           ## SSH
           zstyle :omz:plugins:ssh-agent identities pecigonzalo_ed25519 pecigonzalo_rsa
@@ -199,7 +201,9 @@ in
 
         (lib.mkAfter ''
           # ZSH profiling save
-          zprof >/tmp/zprof
+          if [[ -n "$ZSH_DEBUG_RC" ]]; then
+            zprof >/tmp/zprof
+          fi
         '')
       ];
 
