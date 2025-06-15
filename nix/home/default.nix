@@ -316,6 +316,12 @@ in
     reftools
     gomplate
 
+    # Graph
+    graphviz
+
+    # Debug
+    pprof
+
     # Java
     jdk17_headless
     # gradle

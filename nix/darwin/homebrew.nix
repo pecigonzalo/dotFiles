@@ -35,7 +35,7 @@
       # "zen-browser"
       # "google-chrome"
       # Remoting
-      "windows-app"
+      # "windows-app"
       "parsec"
       "moonlight"
       # Communication
