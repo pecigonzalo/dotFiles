@@ -150,8 +150,6 @@ in
       syntaxHighlighting.enable = true;
       envExtra = "skip_global_compinit=1";
 
-      dotDir = ".config/zsh";
-
       initContent = lib.mkMerge [
         (lib.mkBefore ''
           if [[ -n "$ZSH_DEBUG_RC" ]]; then

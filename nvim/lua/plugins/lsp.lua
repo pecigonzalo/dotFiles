@@ -59,7 +59,6 @@ return {
               local opts = {
                 focusable = false,
                 close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
-                border = "rounded",
                 source = "always",
                 prefix = " ",
                 scope = "cursor",
@@ -179,28 +178,32 @@ return {
               },
             },
           },
-          ansiblels = {},
-          bashls = {},
           cssls = {},
           clangd = {},
+          gleam = {},
+          html = {},
+          htmx = {},
+          nixd = {},
+          -- tailwindcss = {},
+          -- Infra
+          bashls = {},
+          ansiblels = {},
+          helm_ls = {},
+          terraformls = {},
+          dockerls = {},
+          -- JVM
+          java_language_server = {},
+          kotlin_language_server = {},
+          -- TS
           denols = {
             root_dir = lspconfig.util.root_pattern("deno.json"),
           },
           ts_ls = {
+            eslint = {},
             -- root_dir = nvim_lsp.util.root_pattern("package.json"),
           },
-          dockerls = {},
-          eslint = {},
-          gleam = {},
-          html = {},
-          htmx = {},
-          java_language_server = {},
-          kotlin_language_server = {},
+          -- Python
           pyright = {},
-          terraformls = {},
-          nixd = {},
-          -- tailwindcss = {},
-          helm_ls = {},
           ruff = {
             on_attach = function(client, _) client.server_capabilities.hoverProvider = false end,
           },

@@ -5,7 +5,7 @@ return {
   {
     "folke/flash.nvim",
     event = "VeryLazy",
-    vscode = true,
+    cond = vim.g.vscode,
     ---@type Flash.Config
     opts = {},
     keys = {

@@ -74,6 +74,11 @@ in
           require("core")
 
           require("lazy").setup({ { import = "plugins" } }, {
+            defaults = {
+              cond = function()
+                return not vim.g.vscode
+              end,
+            },
             install = {
               colorscheme = { "dracula" },
             },

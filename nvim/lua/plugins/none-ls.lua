@@ -35,7 +35,7 @@ return {
         null_ls.builtins.formatting.ktlint,
 
         -- Python
-        null_ls.builtins.diagnostics.mypy,
+        -- null_ls.builtins.diagnostics.mypy,
         -- null_ls.builtins.diagnostics.pylint,
         require("none-ls.diagnostics.ruff"),
         require("none-ls.formatting.ruff"),

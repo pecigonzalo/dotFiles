@@ -31,6 +31,7 @@ in
       terraform-ls
       terraform-docs
       tflint
+      tfsec
       # nodePackages.cdktf-cli
     ];
   };

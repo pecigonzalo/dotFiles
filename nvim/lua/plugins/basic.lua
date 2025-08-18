@@ -4,6 +4,7 @@ return {
     version = "*",
     lazy = false,
     priority = 1000,
+    cond = vim.g.vscode,
     init = function()
       vim.opt.listchars = {
         tab = "→ ",
@@ -20,7 +21,7 @@ return {
         -- Extra UI features ('winblend', 'cmdheight=0', ...)
         extra_ui = true,
         -- Presets for window borders ('single', 'double', ...)
-        win_borders = "default",
+        win_borders = "rounded",
       },
 
       -- Mappings. Set to `false` to disable.
@@ -40,7 +41,6 @@ return {
       autocommands = {
         -- Basic autocommands (highlight on yank, start Insert in terminal, ...)
         basic = true,
-
         -- Set 'relativenumber' only in linewise and blockwise Visual mode
         relnum_in_visual_mode = true,
       },

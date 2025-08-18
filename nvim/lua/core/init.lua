@@ -20,27 +20,7 @@ o.cursorline = false -- Disable highlighting of the current line
 o.number = true
 o.relativenumber = true
 o.fillchars = o.fillchars .. "diff:╱"
-
--- Dynamic number
-local numbertoggle_group = augroup("numbertoggle", { clear = true })
-aucmd({ "BufEnter", "FocusGained", "InsertLeave", "CmdlineLeave", "WinEnter" }, {
-  pattern = "*",
-  group = numbertoggle_group,
-  callback = function()
-    if vim.o.nu and vim.api.nvim_get_mode().mode ~= "i" then vim.opt.relativenumber = true end
-  end,
-})
-
-aucmd({ "BufLeave", "FocusLost", "InsertEnter", "CmdlineEnter", "WinLeave" }, {
-  pattern = "*",
-  group = numbertoggle_group,
-  callback = function()
-    if vim.o.nu then
-      vim.opt.relativenumber = false
-      vim.cmd("redraw")
-    end
-  end,
-})
+o.winborder = "rounded"
 
 -- Search config
 o.hlsearch = false -- Disable highlights the results of the previous search
@@ -110,7 +90,6 @@ vim.diagnostic.config({
   float = {
     focusable = true,
     style = "minimal",
-    border = "rounded",
     source = "always", -- Show source
   },
   virtual_text = {
@@ -133,12 +112,6 @@ aucmd("FileType", {
   group = user_group,
   pattern = { "help", "man" },
   command = "nnoremap <buffer> q <cmd>quit<cr>",
-})
-
-aucmd("TextYankPost", {
-  desc = "Highlight on yank",
-  group = augroup("highlightyank", { clear = true }),
-  callback = function() vim.highlight.on_yank({ higroup = "Visual", timeout = 500 }) end,
 })
 
 -- Restore cursor to file position in previous editing session

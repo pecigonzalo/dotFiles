@@ -1,6 +1,8 @@
 return {
   {
     "zbirenbaum/copilot.lua",
+    build = ":Copilot auth",
+    event = "BufReadPost",
     opts = {
       -- filetypes = { ["*"] = true },
       suggestion = { enabled = false },
@@ -9,6 +11,9 @@ return {
   },
   {
     "zbirenbaum/copilot-cmp",
-    config = function() require("copilot_cmp").setup() end,
+    config = function(_, opts)
+      local copilot_cmp = require("copilot_cmp")
+      copilot_cmp.setup(opts)
+    end,
   },
 }

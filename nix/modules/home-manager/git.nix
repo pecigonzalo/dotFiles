@@ -18,6 +18,7 @@ in
     home.packages = with pkgs; [
       pre-commit
       git-filter-repo
+      lefthook
 
       # GitHub
       act

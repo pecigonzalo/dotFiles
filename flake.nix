@@ -3,8 +3,8 @@
   inputs = {
     # Package sets
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    nixpkgs-24-05.url = "github:nixos/nixpkgs/nixos-24.11";
-    nixpkgs-23-11.url = "github:nixos/nixpkgs/nixos-23.11";
+    nixpkgs-25-05.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs-24-11.url = "github:nixos/nixpkgs/nixos-24.11";
 
     # Environment/system management
     darwin = {
@@ -52,20 +52,20 @@
               inherit system;
               inherit (nixpkgsConfig) config;
             };
-            pkgs-x86-stable = pkgs-x86-24-05;
-            pkgs-x86-23-11 = import inputs.nixpkgs-23-11 {
+            pkgs-x86-stable = pkgs-x86-25-05;
+            pkgs-x86-25-05 = import inputs.nixpkgs-25-05 {
               inherit system;
               inherit (nixpkgsConfig) config;
             };
-            pkgs-x86-24-05 = import inputs.nixpkgs-24-05 {
+            pkgs-x86-24-11 = import inputs.nixpkgs-24-11 {
               inherit system;
               inherit (nixpkgsConfig) config;
             };
           };
 
         stable = final: prev: rec {
-          pkgs-stable = pkgs-24-05;
-          pkgs-24-05 = import inputs.nixpkgs-24-05 {
+          pkgs-stable = pkgs-25-05;
+          pkgs-25-05 = import inputs.nixpkgs-25-05 {
             inherit (prev.stdenv) system;
             inherit (nixpkgsConfig) config;
           };
@@ -124,14 +124,14 @@
         nix = {
           registry = {
             nixpkgs.flake = nixpkgs;
-            nixpkgs-24-05.flake = inputs.nixpkgs-24-05;
-            nixpkgs-23-11.flake = inputs.nixpkgs-23-11;
+            nixpkgs-25-05.flake = inputs.nixpkgs-25-05;
+            nixpkgs-24-11.flake = inputs.nixpkgs-24-11;
           };
 
           nixPath = [
             "nixpkgs=${inputs.nixpkgs}"
-            "nixpkgs-24-05=${inputs.nixpkgs-24-05}"
-            "nixpkgs-23-11=${inputs.nixpkgs-23-11}"
+            "nixpkgs-25-05=${inputs.nixpkgs-25-05}"
+            "nixpkgs-24-11=${inputs.nixpkgs-24-11}"
             "darwin=${inputs.darwin}"
             "home-manager=${inputs.home-manager}"
           ];
