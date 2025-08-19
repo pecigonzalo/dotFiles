@@ -8,7 +8,6 @@ return {
   {
     "echasnovski/mini.pairs",
     event = "VeryLazy",
-    cond = vim.g.vscode,
     opts = {
       modes = { insert = true, command = true, terminal = false },
       -- skip autopair when next character is one of these
@@ -43,7 +42,6 @@ return {
   -- and more.
   {
     "echasnovski/mini.surround",
-    cond = vim.g.vscode,
     opts = {
       mappings = {
         add = "gsa", -- Add surrounding in Normal and Visual modes
@@ -61,7 +59,6 @@ return {
   {
     "JoosepAlviste/nvim-ts-context-commentstring",
     lazy = true,
-    cond = vim.g.vscode,
     init = function() vim.g.skip_ts_context_commentstring_module = true end,
     opts = {
       enable_autocmd = false,
@@ -70,7 +67,6 @@ return {
   {
     "echasnovski/mini.comment",
     event = "VeryLazy",
-    cond = vim.g.vscode,
     init = function()
       vim.api.nvim_create_autocmd("FileType", {
         pattern = { "hcl", "terraform" },
@@ -93,7 +89,6 @@ return {
       "folke/which-key.nvim",
     },
     event = "VeryLazy",
-    cond = vim.g.vscode,
     opts = function()
       local ai = require("mini.ai")
       return {

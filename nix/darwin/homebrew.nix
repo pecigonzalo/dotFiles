@@ -28,7 +28,7 @@
       # Security
       # "1password"
       # "wireshark"
-      "tailscale"
+      "tailscale-app"
       # Browsers
       "microsoft-edge"
       "firefox"

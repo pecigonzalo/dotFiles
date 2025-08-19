@@ -4,7 +4,6 @@ return {
     version = "*",
     lazy = false,
     priority = 1000,
-    cond = vim.g.vscode,
     init = function()
       vim.opt.listchars = {
         tab = "→ ",
