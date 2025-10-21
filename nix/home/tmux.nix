@@ -41,7 +41,7 @@
       unbind %
 
       # open new panes in current path
-      bind c new-window -c ' #{pane_current_path}'
+      bind c new-window -c '#{pane_current_path}'
 
       # Use Alt-arrow keys WITHOUT PREFIX KEY to switch panes
       bind -n M-Left select-pane -L

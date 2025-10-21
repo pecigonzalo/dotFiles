@@ -104,7 +104,7 @@ in
           gpgsign = true;
         };
 
-        tab = {
+        tag = {
           gpgsign = true;
         };
 
@@ -120,7 +120,7 @@ in
 
         status = {
           showUntrackedFiles = "all";
-          submoduleSumary = true;
+          submoduleSummary = true;
         };
 
         branch = {

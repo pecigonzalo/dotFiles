@@ -287,7 +287,7 @@ in
     dive
 
     # K8s
-    kube3d # k3d
+    k3d # k3d
     kind
     krew
     k9s

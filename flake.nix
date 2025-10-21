@@ -43,28 +43,12 @@
 
       namedOverlays = attrValues {
         # Overlay useful on Macs with Apple Silicon
-        apple-silicon =
-          final: prev:
-          optionalAttrs (prev.stdenv.system == "aarch64-darwin") rec {
-            # Add access to x86 packages system is running Apple Silicon
-            system = "x86_64-darwin";
-            pkgs-x86 = import inputs.nixpkgs {
-              inherit system;
-              inherit (nixpkgsConfig) config;
-            };
-            pkgs-x86-stable = pkgs-x86-25-05;
-            pkgs-x86-25-05 = import inputs.nixpkgs-25-05 {
-              inherit system;
-              inherit (nixpkgsConfig) config;
-            };
-            pkgs-x86-24-11 = import inputs.nixpkgs-24-11 {
-              inherit system;
-              inherit (nixpkgsConfig) config;
-            };
-          };
-
         stable = final: prev: rec {
           pkgs-stable = pkgs-25-05;
+          pkgs-24-11 = import inputs.nixpkgs-24-11 {
+            inherit (prev.stdenv) system;
+            inherit (nixpkgsConfig) config;
+          };
           pkgs-25-05 = import inputs.nixpkgs-25-05 {
             inherit (prev.stdenv) system;
             inherit (nixpkgsConfig) config;
@@ -184,10 +168,7 @@
               {
                 networking.hostName = "runner";
                 homebrew.enable = lib.mkForce false;
-                nix.useDaemon = lib.mkForce false;
-                services.nix-daemon.enable = lib.mkForce false;
-                services.nix-daemon.enableSocketListener = lib.mkForce false;
-                users.nix.configureBuildUsers = lib.mkForce false;
+                nix.enable = lib.mkForce false;
               }
             )
           ];
@@ -255,7 +236,7 @@
         (map (system: {
           name = system;
           value = {
-            pecigonzalo = self.darwinConfigurations.githubCI.system;
+            pecigonzalo = self.darwinConfigurations.githubCI.config.system.build.toplevel;
           };
         }) nixpkgs.lib.platforms.darwin)
         ++
