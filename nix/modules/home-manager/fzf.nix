@@ -38,14 +38,14 @@ in
 
       # fileWidgetCommand = "";
       fileWidgetOptions = [
-        "--preview '(bat --style=numbers --color=always --line-range :500 {} || exa --tree --level=4 {}) 2> /dev/null'"
+        "--preview '(bat --style=numbers --color=always --line-range :500 {} || eza --tree --level=4 {}) 2> /dev/null'"
         "--select-1"
         "--exit-0"
       ];
 
       changeDirWidgetCommand = "fd --type directory --color=always . ${homeDir}";
       changeDirWidgetOptions = [
-        "--preview 'exa --tree --level=4 {} | head -200'"
+        "--preview 'eza --tree --level=4 {} | head -200'"
       ];
     };
     programs.zsh = {

@@ -41,14 +41,14 @@ in
       # Follow tail
       "tailf" = "tail -f";
 
-      # exa
-      "exa" = "exa --icons --color=always";
-      "ls" = "exa";
-      "tree" = "exa --tree";
-      "l" = "exa -lFh";
-      "la" = "exa -la";
-      "ll" = "exa -l";
-      "lS" = "exa -1";
+      # eza
+      "exa" = "eza --icons --color=always";
+      "ls" = "eza";
+      "tree" = "eza --tree";
+      "l" = "eza -lFh";
+      "la" = "eza -la";
+      "ll" = "eza -l";
+      "lS" = "eza -1";
       "lt" = "tree --level=2";
 
       # bat

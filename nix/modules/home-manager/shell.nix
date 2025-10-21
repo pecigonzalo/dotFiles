@@ -159,9 +159,9 @@ in
           ## SSH
           zstyle :omz:plugins:ssh-agent identities pecigonzalo_ed25519 pecigonzalo_rsa
         '')
-        (pkgs.lib.optionalString isDarwin lib.mkBefore ''
+        (lib.mkBefore (optionalString isDarwin ''
           zstyle :omz:plugins:ssh-agent ssh-add-args --apple-use-keychain # NOTE: OSX Only
-        '')
+        ''))
 
         ''
           # ZSH profiling
