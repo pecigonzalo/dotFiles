@@ -151,26 +151,22 @@
     {
       darwinConfigurations = rec {
         # Mininal configurations to bootstrap systems
-        bootstrap-x86 = makeOverridable darwinSystem {
-          system = "x86_64-darwin";
+        bootstrap-arm = makeOverridable darwinSystem {
+          system = "aarch64-darwin";
           modules = [
             ./nix/darwin/bootstrap.nix
             { nixpkgs = nixpkgsConfig; }
           ];
         };
-        bootstrap-arm = bootstrap-x86.override { system = "aarch64-darwin"; };
 
         githubCI = darwinSystem {
           system = "aarch64-darwin";
           modules = commonDarwinConfig ++ [
-            (
-              { lib, ... }:
-              {
-                networking.hostName = "runner";
-                homebrew.enable = lib.mkForce false;
-                nix.enable = lib.mkForce false;
-              }
-            )
+            {
+              networking.hostName = "runner";
+              homebrew.enable = lib.mkForce false;
+              nix.enable = lib.mkForce false;
+            }
           ];
         };
 
