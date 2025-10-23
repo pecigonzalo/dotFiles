@@ -166,8 +166,6 @@ return {
         { "<leader>sb", function() snacks.picker.lines() end, desc = "Buffer Lines" },
         { "<leader>sB", function() snacks.picker.grep_buffers() end, desc = "Grep Open Buffers" },
         { "<leader>sg", function() snacks.picker.grep() end, desc = "Grep" },
-        { "<leader>sq", function() snacks.picker.qflist() end, desc = "Quickfix List" },
-
         {
           "<leader>sw",
           function() snacks.picker.grep_word() end,
@@ -177,12 +175,6 @@ return {
 
         -- search
         { "<leader>sh", function() snacks.picker.help() end, desc = "Help Pages" },
-        {
-          "<leader>sw",
-          function() snacks.picker.grep_word() end,
-          desc = "Visual selection or word",
-          mode = { "n", "x" },
-        },
         { "<leader>sa", function() snacks.picker.autocmds() end, desc = "Autocmds" },
         { "<leader>sc", function() snacks.picker.commands() end, desc = "Commands" },
         { "<leader>sd", function() snacks.picker.diagnostics() end, desc = "Diagnostics" },

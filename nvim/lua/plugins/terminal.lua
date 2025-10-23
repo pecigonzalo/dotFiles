@@ -16,8 +16,10 @@ return {
       {
         "willothy/wezterm.nvim",
         init = function()
-          -- TODO: Remove once we upgrade to Neovim 0.10
-          vim.system = require("gitsigns.system.compat")
+          -- Backfill `vim.system` only when running on legacy Neovim releases
+          if type(vim.system) ~= "function" then
+            vim.system = require("gitsigns.system.compat")
+          end
         end,
       },
     },
@@ -27,6 +29,7 @@ return {
     opts = function()
       ---@type Terminal?
       local saved_terminal
+      local cleanup_group = vim.api.nvim_create_augroup("flatten_commit_cleanup", { clear = false })
 
       return {
         window = {
@@ -89,6 +92,7 @@ return {
             -- If you just want the toggleable terminal integration, ignore this bit
             if ft == "gitcommit" or ft == "gitrebase" then
               vim.api.nvim_create_autocmd("BufWritePost", {
+                group = cleanup_group,
                 buffer = bufnr,
                 once = true,
                 callback = vim.schedule_wrap(function() vim.api.nvim_buf_delete(bufnr, {}) end),

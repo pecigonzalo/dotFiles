@@ -19,42 +19,76 @@ return {
     },
     init = function()
       vim.filetype.add({ extension = { templ = "templ" } })
-      -- Autoformat
-      vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-        pattern = "*",
-        callback = function() vim.lsp.buf.format({ timeout_ms = 10000 }) end,
+      local format_group = vim.api.nvim_create_augroup("lsp_format_on_save", { clear = true })
+      local function has_formatter(bufnr)
+        local clients = vim.lsp.get_clients and vim.lsp.get_clients({ bufnr = bufnr })
+        if not clients then return false end
+        for _, client in ipairs(clients) do
+          if client.supports_method and client:supports_method("textDocument/formatting") then return true end
+          if client.server_capabilities and client.server_capabilities.documentFormattingProvider then return true end
+        end
+        return false
+      end
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        group = format_group,
+        callback = function(event)
+          if not has_formatter(event.buf) then return end
+          local ok, err = pcall(function()
+            vim.lsp.buf.format({
+              bufnr = event.buf,
+              async = false,
+              timeout_ms = 10000,
+            })
+          end)
+          if not ok then vim.notify(("LSP: format failed (%s)"):format(err), vim.log.levels.WARN) end
+        end,
       })
 
-      -- Configure LSP bindings
+      local hover_group = vim.api.nvim_create_augroup("lsp_hover_diagnostics", { clear = true })
+      local function map_buffer_keys(bufnr)
+        local function nmap(keys, func, desc)
+          if desc then desc = "LSP: " .. desc end
+          vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc })
+        end
+        nmap("<leader>rn", vim.lsp.buf.rename, "Rename")
+        nmap("<leader>ca", vim.lsp.buf.code_action, "Code Action")
+        nmap("K", vim.lsp.buf.hover, "Hover Documentation")
+        nmap("<C-k>", vim.lsp.buf.signature_help, "Signature Documentation")
+        nmap("gD", vim.lsp.buf.declaration, "Go to Declaration")
+        nmap("<leader>D", vim.lsp.buf.type_definition, "Type Definition")
+        nmap("<leader>wa", vim.lsp.buf.add_workspace_folder, "Add Workspace Folder")
+        nmap("<leader>wr", vim.lsp.buf.remove_workspace_folder, "Remove Workspace Folder")
+        nmap(
+          "<leader>wl",
+          function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end,
+          "List Workspace Folders"
+        )
+      end
+      local function enable_inlay_hints(client, bufnr)
+        if not client or not client.server_capabilities or not client.server_capabilities.inlayHintProvider then
+          return
+        end
+        local ih = vim.lsp.inlay_hint
+        local enable = type(ih) == "table" and ih.enable or ih
+        if type(enable) == "function" then
+          if vim.fn.has("nvim-0.11") == 1 then
+            enable(true, { bufnr = bufnr })
+          else
+            enable(bufnr, true)
+          end
+        end
+      end
       vim.api.nvim_create_autocmd("LspAttach", {
         desc = "LSP actions",
-        callback = function()
-          local nmap = function(keys, func, desc)
-            if desc then desc = "LSP: " .. desc end
-            vim.keymap.set("n", keys, func, { buffer = true, desc = desc })
-          end
-
-          nmap("<leader>rn", vim.lsp.buf.rename, "Rename")
-          nmap("<leader>ca", vim.lsp.buf.code_action, "Code Action")
-
-          -- See `:help K` for why this keymap
-          nmap("K", vim.lsp.buf.hover, "Hover Documentation")
-          nmap("<C-k>", vim.lsp.buf.signature_help, "Signature Documentation")
-
-          -- Lesser used LSP functionality
-          nmap("gD", vim.lsp.buf.declaration, "Go to Declaration")
-          nmap("<leader>D", vim.lsp.buf.type_definition, "Type Definition")
-          nmap("<leader>wa", vim.lsp.buf.add_workspace_folder, "Add Workspace Folder")
-          nmap("<leader>wr", vim.lsp.buf.remove_workspace_folder, "Remove Workspace Folder")
-          nmap(
-            "<leader>wl",
-            function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end,
-            "List Workspace Folders"
-          )
-
-          -- Show hints on hold
+        callback = function(event)
+          local bufnr = event.buf
+          local client = vim.lsp.get_client_by_id(event.data.client_id)
+          map_buffer_keys(bufnr)
+          enable_inlay_hints(client, bufnr)
+          vim.api.nvim_clear_autocmds({ group = hover_group, buffer = bufnr })
           vim.api.nvim_create_autocmd("CursorHold", {
-            buffer = vim.api.nvim_get_current_buf(),
+            group = hover_group,
+            buffer = bufnr,
             callback = function()
               local opts = {
                 focusable = false,
@@ -63,29 +97,24 @@ return {
                 prefix = " ",
                 scope = "cursor",
               }
-              vim.diagnostic.open_float(nil, opts)
+              vim.diagnostic.open_float(bufnr, opts)
             end,
           })
         end,
       })
     end,
     opts = function()
-      local lspconfig = require("lspconfig")
-      local configs = require("lspconfig.configs")
-      if not configs.cluepls then
-        configs.cuepls = {
-          default_config = {
-            cmd = { "cuepls" },
-            root_dir = lspconfig.util.root_pattern(".git"),
-            filetypes = { "cue" },
-          },
-        }
-      end
+      local util = require("lspconfig.util")
+      local root_pattern = util.root_pattern
       return {
         -- LSP Server Settings
         ---@type lspconfig.options
         servers = {
-          cuepls = {},
+          cuepls = {
+            cmd = { "cuepls" },
+            root_dir = root_pattern(".git"),
+            filetypes = { "cue" },
+          },
           lua_ls = {
             settings = {
               Lua = {
@@ -188,7 +217,10 @@ return {
           -- Infra
           bashls = {},
           ansiblels = {},
-          helm_ls = {},
+          helm_ls = {
+            filetypes = { "gotmpl" },
+            root_dir = root_pattern("Chart.yaml"),
+          },
           terraformls = {},
           dockerls = {},
           -- JVM
@@ -196,11 +228,13 @@ return {
           kotlin_language_server = {},
           -- TS
           denols = {
-            root_dir = lspconfig.util.root_pattern("deno.json"),
+            root_dir = root_pattern("deno.json", "deno.jsonc", "deno.lock"),
+            workspace_required = true,
           },
           ts_ls = {
             eslint = {},
-            -- root_dir = nvim_lsp.util.root_pattern("package.json"),
+            root_dir = root_pattern("tsconfig.json", "package.json", "jsconfig.json"),
+            workspace_required = true,
           },
           -- Python
           pyright = {},
@@ -212,49 +246,44 @@ return {
       }
     end,
     config = function(_, opts)
-      local configs = require("lspconfig.configs")
-      local util = require("lspconfig.util")
-
-      if not configs.helm_ls then
-        configs.helm_ls = {
-          default_config = {
-            cmd = { "helm_ls", "serve" },
-            filetypes = { "gotmpl" },
-            root_dir = function(fname) return util.root_pattern("Chart.yaml")(fname) end,
-          },
-        }
-      end
-
-      -- Init servers
-      local servers = opts.servers
+      local servers = opts.servers or {}
 
       local has_cmp, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
 
       local capabilities = vim.tbl_deep_extend(
         "force",
-        {},
         vim.lsp.protocol.make_client_capabilities(),
         has_cmp and cmp_nvim_lsp.default_capabilities() or {},
         opts.capabilities or {}
       )
 
-      vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
+      capabilities.textDocument = capabilities.textDocument or {}
+      capabilities.textDocument.foldingRange = {
+        dynamicRegistration = false,
+        lineFoldingOnly = true,
+      }
 
-      local function setup(server)
-        local server_opts = vim.tbl_deep_extend("force", {
-          capabilities = vim.deepcopy(capabilities),
-        }, servers[server] or {})
+      capabilities.workspace = capabilities.workspace or {}
+      capabilities.workspace.didChangeWatchedFiles = capabilities.workspace.didChangeWatchedFiles or {}
+      capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
 
-        if opts.setup[server] then
-          if opts.setup[server](server, server_opts) then return end
-        elseif opts.setup["*"] then
-          if opts.setup["*"](server, server_opts) then return end
-        end
-        require("lspconfig")[server].setup(server_opts)
+      if opts.diagnostics then vim.diagnostic.config(vim.deepcopy(opts.diagnostics)) end
+
+      local setup_handlers = opts.setup or {}
+
+      local function setup(server, server_opts)
+        local config = vim.tbl_deep_extend("force", {}, server_opts or {})
+        config.capabilities = vim.tbl_deep_extend("force", vim.deepcopy(capabilities), config.capabilities or {})
+
+        local handler = setup_handlers[server] or setup_handlers["*"]
+        if handler and handler(server, config) then return end
+
+        vim.lsp.config(server, config)
+        vim.lsp.enable(server)
       end
 
       for server, server_opts in pairs(servers) do
-        if server_opts then setup(server) end
+        if server_opts then setup(server, server_opts) end
       end
     end,
   },

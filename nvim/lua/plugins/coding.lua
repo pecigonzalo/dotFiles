@@ -26,9 +26,9 @@ return {
         function()
           vim.g.minipairs_disable = not vim.g.minipairs_disable
           if vim.g.minipairs_disable then
-            vim.notify("Disabled auto pairs", "info", { title = "Option" })
+            vim.notify("Disabled auto pairs", vim.log.levels.INFO, { title = "Option" })
           else
-            vim.notify("Enabled auto pairs", "info", { title = "Option" })
+            vim.notify("Enabled auto pairs", vim.log.levels.INFO, { title = "Option" })
           end
         end,
         desc = "Toggle auto pairs",
@@ -68,16 +68,30 @@ return {
     "echasnovski/mini.comment",
     event = "VeryLazy",
     init = function()
-      vim.api.nvim_create_autocmd("FileType", {
-        pattern = { "hcl", "terraform" },
-        desc = "Terraform/HCL commentstring configuration",
-        command = "setlocal commentstring=#\\ %s",
-      })
-      vim.api.nvim_create_autocmd("FileType", {
-        pattern = { "nix" },
-        desc = "Nix commentstring configuration",
-        command = "setlocal commentstring=#\\ %s",
-      })
+      local comment_group = vim.api.nvim_create_augroup("commentstring_overrides", { clear = true })
+      local overrides = {
+        {
+          pattern = { "hcl", "terraform" },
+          desc = "Terraform/HCL commentstring configuration",
+          value = "# %s",
+        },
+        {
+          pattern = { "nix" },
+          desc = "Nix commentstring configuration",
+          value = "# %s",
+        },
+      }
+
+      for _, override in ipairs(overrides) do
+        vim.api.nvim_create_autocmd("FileType", {
+          group = comment_group,
+          pattern = override.pattern,
+          desc = override.desc,
+          callback = function(args)
+            vim.bo[args.buf].commentstring = override.value
+          end,
+        })
+      end
     end,
     config = true,
   },
@@ -159,12 +173,12 @@ return {
 
       for name, prefix in pairs(mappings) do
         name = name:gsub("^around_", ""):gsub("^inside_", "")
-        ret[#ret + 1] = { prefix, group = name }
-        for _, obj in ipairs(objects) do
-          local desc = obj.desc
-          if prefix:sub(1, 1) == "i" then desc = desc:gsub(" with ws", "") end
-          ret[#ret + 1] = { prefix .. obj[1], desc = obj.desc }
-        end
+          ret[#ret + 1] = { prefix, group = name }
+          for _, obj in ipairs(objects) do
+            local desc = obj.desc
+            if prefix:sub(1, 1) == "i" then desc = desc:gsub(" with ws", "") end
+            ret[#ret + 1] = { prefix .. obj[1], desc = desc }
+          end
       end
       require("which-key").add(ret, { notify = false })
     end,
@@ -287,17 +301,17 @@ return {
         }),
         -- sources for autocompletion
         sources = cmp.config.sources({
-          -- Group 1
-          { name = "nvim_lsp_signature_help" },
-          { name = "nvim_lsp" },
-          { name = "luasnip", keyword_lenght = 2, options = { show_autosnippets = true } }, -- snippets
-          { name = "path" }, -- file system paths
-          { name = "copilot" }, -- Github Copilot
-        }, {
-          -- Group 2
-          { name = "emoji" },
-          { name = "buffer", keyword_lenght = 3 }, -- text within current buffer
-        }),
+        -- Group 1
+        { name = "nvim_lsp_signature_help" },
+        { name = "nvim_lsp" },
+        { name = "luasnip", keyword_length = 2, options = { show_autosnippets = true } }, -- snippets
+        { name = "path" }, -- file system paths
+        { name = "copilot" }, -- Github Copilot
+      }, {
+        -- Group 2
+        { name = "emoji" },
+        { name = "buffer", keyword_length = 3 }, -- text within current buffer
+      }),
         formatting = {
           format = function(entry, item)
             item.kind = string.format("%s %s", kind_icons[item.kind], item.kind) -- This concatonates the icons with the name of the item kind

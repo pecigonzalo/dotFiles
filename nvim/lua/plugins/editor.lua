@@ -23,16 +23,21 @@ return {
       }
 
       local hooks = require("ibl.hooks")
+      local rainbow_colors = {
+        RainbowRed = "#E06C75",
+        RainbowYellow = "#E5C07B",
+        RainbowBlue = "#61AFEF",
+        RainbowOrange = "#D19A66",
+        RainbowGreen = "#98C379",
+        RainbowViolet = "#C678DD",
+        RainbowCyan = "#56B6C2",
+      }
       -- create the highlight groups in the highlight setup hook, so they are reset
       -- every time the colorscheme changes
       hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
-        vim.api.nvim_set_hl(0, "RainbowRed", { fg = "#E06C75" })
-        vim.api.nvim_set_hl(0, "RainbowYellow", { fg = "#E5C07B" })
-        vim.api.nvim_set_hl(0, "RainbowBlue", { fg = "#61AFEF" })
-        vim.api.nvim_set_hl(0, "RainbowOrange", { fg = "#D19A66" })
-        vim.api.nvim_set_hl(0, "RainbowGreen", { fg = "#98C379" })
-        vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#C678DD" })
-        vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })
+        for group, color in pairs(rainbow_colors) do
+          vim.api.nvim_set_hl(0, group, { fg = color })
+        end
       end)
 
       require("ibl").setup({
@@ -77,7 +82,17 @@ return {
       options = { try_as_border = true },
     },
     init = function()
+      local highlight_group = vim.api.nvim_create_augroup("mini_indentscope_highlight", { clear = true })
+      local disable_group = vim.api.nvim_create_augroup("mini_indentscope_disable", { clear = true })
+      local function set_scope_highlight() vim.api.nvim_set_hl(0, "MiniIndentscopeSymbol", { fg = "#FF5555" }) end
+      set_scope_highlight()
+      vim.api.nvim_create_autocmd("ColorScheme", {
+        group = highlight_group,
+        callback = set_scope_highlight,
+      })
+
       vim.api.nvim_create_autocmd("FileType", {
+        group = disable_group,
         pattern = {
           "help",
           "alpha",
@@ -93,7 +108,6 @@ return {
         },
         callback = function() vim.b.miniindentscope_disable = true end,
       })
-      vim.api.nvim_set_hl(0, "MiniIndentscopeSymbol", { fg = "#FF5555" })
     end,
   },
   -- Finds and lists all of the TODO, HACK, BUG, etc comment
