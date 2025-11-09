@@ -13,19 +13,13 @@ return {
   {
     "willothy/flatten.nvim",
     dependencies = {
-      {
-        "willothy/wezterm.nvim",
-        init = function()
-          -- Backfill `vim.system` only when running on legacy Neovim releases
-          if type(vim.system) ~= "function" then
-            vim.system = require("gitsigns.system.compat")
-          end
-        end,
-      },
+      "willothy/wezterm.nvim",
     },
     -- Ensure that it runs first to minimize delay when opening file from terminal
     lazy = false,
     priority = 1001,
+    -- Temporarily disable due to API incompatibility with Neovim 0.11
+    enabled = false,
     opts = function()
       ---@type Terminal?
       local saved_terminal

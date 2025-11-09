@@ -2,7 +2,7 @@ return {
   {
     "zbirenbaum/copilot.lua",
     build = ":Copilot auth",
-    event = "BufReadPost",
+    event = "InsertEnter",
     opts = {
       -- filetypes = { ["*"] = true },
       suggestion = { enabled = false },
