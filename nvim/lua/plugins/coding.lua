@@ -57,16 +57,18 @@ return {
 
   -- Comments
   {
-    "JoosepAlviste/nvim-ts-context-commentstring",
-    lazy = true,
-    init = function() vim.g.skip_ts_context_commentstring_module = true end,
-    opts = {
-      enable_autocmd = false,
-    },
-  },
-  {
     "echasnovski/mini.comment",
     event = "VeryLazy",
+    dependencies = {
+      "JoosepAlviste/nvim-ts-context-commentstring",
+    },
+    opts = {
+      options = {
+        custom_commentstring = function()
+          return require("ts_context_commentstring.internal").calculate_commentstring() or vim.bo.commentstring
+        end,
+      },
+    },
     init = function()
       local comment_group = vim.api.nvim_create_augroup("commentstring_overrides", { clear = true })
       local overrides = {
@@ -173,8 +175,8 @@ return {
 
       for name, prefix in pairs(mappings) do
         name = name:gsub("^around_", ""):gsub("^inside_", "")
-          ret[#ret + 1] = { prefix, group = name }
-          for _, obj in ipairs(objects) do
+        ret[#ret + 1] = { prefix, group = name }
+        for _, obj in ipairs(objects) do
             local desc = obj.desc
             if prefix:sub(1, 1) == "i" then desc = desc:gsub(" with ws", "") end
             ret[#ret + 1] = { prefix .. obj[1], desc = desc }
@@ -204,9 +206,9 @@ return {
         end,
         expr = true,
         silent = true,
-        mode = "i",
+        mode = { "i" },
       },
-      { "<tab>",   function() require("luasnip").jump(1) end,  mode = "s" },
+      { "<tab>",   function() require("luasnip").jump(1) end,  mode = { "s" } },
       { "<s-tab>", function() require("luasnip").jump(-1) end, mode = { "i", "s" } },
     },
   },
