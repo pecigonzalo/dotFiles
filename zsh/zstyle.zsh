@@ -21,8 +21,8 @@ zstyle ':completion:*:users' ignored-patterns '_*'
 # Ignore completion functions
 zstyle ':completion:*:functions' ignored-patterns '_*'
 
-# Preview directory's content with exa when completing cd
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
+# Preview directory contents with eza when completing cd
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
 # A prefix for fzf-tab completions
 zstyle ':fzf-tab:*' prefix ''
 # Show the color and name of the header for single groups

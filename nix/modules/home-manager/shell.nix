@@ -136,6 +136,8 @@ in
           max_results = 200;
         };
       };
+      # Override aliases
+      shellAliases = lib.mkForce { };
     };
     programs.zsh = {
       enable = true;
@@ -159,9 +161,11 @@ in
           ## SSH
           zstyle :omz:plugins:ssh-agent identities pecigonzalo_ed25519 pecigonzalo_rsa
         '')
-        (lib.mkBefore (optionalString isDarwin ''
-          zstyle :omz:plugins:ssh-agent ssh-add-args --apple-use-keychain # NOTE: OSX Only
-        ''))
+        (lib.mkBefore (
+          optionalString isDarwin ''
+            zstyle :omz:plugins:ssh-agent ssh-add-args --apple-use-keychain # NOTE: OSX Only
+          ''
+        ))
 
         ''
           # ZSH profiling

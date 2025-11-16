@@ -1,7 +1,7 @@
 {
   config,
-  lib,
   pkgs,
+  inputs,
   ...
 }:
 let
@@ -157,6 +157,7 @@ in
     nixd
     cachix
     nixfmt-rfc-style
+    inputs.agenix.packages.${pkgs.stdenv.system}.agenix
 
     # Common
     htop

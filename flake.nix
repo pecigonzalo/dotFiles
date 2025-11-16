@@ -27,6 +27,9 @@
 
     # Neovim
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+
+    # Agenix
+    agenix.url = "github:ryantm/agenix";
   };
   outputs =
     {
@@ -164,8 +167,8 @@
           modules = commonDarwinConfig ++ [
             {
               networking.hostName = "runner";
-              homebrew.enable = lib.mkForce false;
-              nix.enable = lib.mkForce false;
+              homebrew.enable = false;
+              nix.enable = false;
             }
           ];
         };

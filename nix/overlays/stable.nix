@@ -1,5 +1,5 @@
 final: prev: {
-  inherit (final.pkgs-stable)
+  inherit (final.pkgs-24-11)
     wezterm
     ;
 }
