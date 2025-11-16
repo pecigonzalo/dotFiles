@@ -142,6 +142,11 @@ return {
       picker = {
         enabled = true,
         matcher = { frecency = true },
+        sources = {
+          explorer = {
+            hidden = true,
+          },
+        },
       },
       explorer = {
         replace_netrw = true,

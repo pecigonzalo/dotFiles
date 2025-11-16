@@ -6,12 +6,12 @@ return {
     keys = {
       {
         "<leader>xx",
-        function() require("trouble").toggle("document_diagnostics") end,
+        function() require("trouble").toggle({ mode = "diagnostics", filter = { buf = 0 } }) end,
         desc = ": " .. "Document Diagnostics (Trouble)",
       },
       {
         "<leader>xX",
-        function() require("trouble").toggle("workspace_diagnostics") end,
+        function() require("trouble").toggle({ mode = "diagnostics" }) end,
         desc = ": " .. "Workspace Diagnostics (Trouble)",
       },
       {

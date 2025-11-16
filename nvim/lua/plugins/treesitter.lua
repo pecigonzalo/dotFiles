@@ -283,7 +283,7 @@ return {
   {
     "nvim-treesitter/nvim-treesitter-context",
     event = { "BufReadPost", "BufNewFile", "BufWritePre" },
-    enabled = true,
+    enabled = false,
     opts = { mode = "cursor" },
   },
   -- Toggle and configure injections
