@@ -184,7 +184,7 @@ in
         ''
 
         (pkgs.lib.optionalString isDarwin ''
-          source "${dotFilesDir}/macOS/macosrc.zsh"
+          source "${dotFilesDir}/zsh/macosrc.zsh"
         '')
 
         ''
