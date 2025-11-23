@@ -2,68 +2,9 @@ local window = require("window")
 
 local M = {}
 
-local function Set(list)
-  local set = {}
-  for _, l in ipairs(list) do
-    set[l] = true
-  end
-  return set
-end
-
-local function isCurrentApp(apps)
-  local appSet = Set(apps)
-  local currentApp = hs.application.frontmostApplication():name()
-
-  print("Current App: " .. currentApp)
-
-  if appSet[currentApp] then
-    return true
-  end
-  return false
-end
-
--- local function isRemote()
---   return isCurrentApp({ "Parsec" })
--- end
---
--- local function isInTerminal()
---   return isCurrentApp({ "iTerm2", "Terminal", "WezTerm" })
--- end
---
--- local function isEditor()
---   return isCurrentApp({ "Code" })
--- end
-
-local general = {}
-for _, key in ipairs({ "w", "n", "t", "c", "x", "z", "v", "f", "a" }) do
-  table.insert(general, {
-    { { "ctrl" }, key },
-    { { "cmd" }, key },
-    function()
-      return not isCurrentApp({
-        "Code",
-        "WezTerm",
-        "Terminal",
-        "iTerm2",
-        "IntelliJ IDEA",
-        "Fleet",
-      })
-    end,
-  })
-end
-
-M.remap = {
-  table.unpack(general),
-  {
-    { { "ctrl", "shift" }, "v" },
-    { { "cmd" }, "v" },
-    nil,
-  },
-}
-
 M.applications = {
-  t = "WezTerm",
-  c = "Slack",
+  T = "WezTerm",
+  C = "Slack",
 }
 
 M.hyper = {
@@ -72,9 +13,7 @@ M.hyper = {
   -- Expose
   {
     "e",
-    function()
-      hs.expose.new(nil, { showThumbnails = true }):toggleShow()
-    end,
+    function() hs.expose.new(nil, { showThumbnails = true }):toggleShow() end,
   },
 
   -- Grid

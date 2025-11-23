@@ -23,6 +23,7 @@ in
     ./starship.nix
     ./terminal.nix
     ./fonts.nix
+    ./karabiner.nix
   ];
 
   xdg.enable = true;

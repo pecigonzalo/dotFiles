@@ -16,7 +16,11 @@ end
 
 -- Application Launcher
 for key, app in pairs(keymap.applications) do
-  hs.hotkey.bind(hyper, key, function() hs.application.launchOrFocus(app) end)
+  print("binding=" .. key .. " app=" .. app)
+  hs.hotkey.bind(hyper, key, function()
+    print("Launching App: " .. app)
+    hs.application.launchOrFocus(app)
+  end)
 end
 
 hs.hotkey.bind(hyper, "tab", function()
@@ -24,21 +28,3 @@ hs.hotkey.bind(hyper, "tab", function()
   local nextScreen = win:screen():next()
   win:moveToScreen(nextScreen)
 end)
-
--- Remaps
--- for _, value in ipairs(keymap.remap) do
---   local from, to, shouldEnable = table.unpack(value)
---
---   local fromMod, fromKey = table.unpack(from)
---   local toMod, toKey = table.unpack(to)
---
---   local function wrapper()
---     if shouldEnable and shouldEnable() then
---       keymap.keyPress(toMod, toKey)
---     else
---       keymap.keyPress(fromMod, fromKey)
---     end
---   end
---
---   hs.hotkey.bind(fromMod, fromKey, nil, wrapper)
---w end
