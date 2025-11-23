@@ -1,63 +1,38 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ ... }:
 
 let
   # Terminal emulators and apps where Ctrl should NOT be remapped
   excludedApps = [
     "^org\\.vmware\\.fusion$"
-    "^org\\.virtualbox\\.app\\.VirtualBoxVM$"
-    "^org\\.gnu\\.emacs$"
-    "^net\\.sf\\.cord$"
-    "^net\\.kovidgoyal\\.kitty$"
-    "^io\\.alacritty$"
-    "^com\\.github\\.wez\\.wezterm$"
-    "^Fleet\\.app$"
     "^com\\.vmware\\.view$"
     "^com\\.vmware\\.proxyApp\\."
     "^com\\.vmware\\.horizon$"
+    "^org\\.virtualbox\\.app\\.VirtualBoxVM$"
+    "^com\\.apple\\.Terminal$"
+    "^com\\.github\\.wez\\.wezterm$"
+    "^com\\.googlecode\\.iterm2$"
+    "^io\\.alacritty$"
+    "^net\\.kovidgoyal\\.kitty$"
     "^com\\.thinomenon\\.RemoteDesktopConnection$"
-    "^tv\\.parsec\\.www$"
-    "^com\\.teamviewer\\.TeamViewer$"
-    "^com\\.sublimetext\\.3$"
     "^com\\.parallels\\.winapp\\."
     "^com\\.parallels\\.vm$"
     "^com\\.parallels\\.desktop$"
     "^com\\.parallels\\.desktop\\.console$"
-    "^com\\.p5sys\\.jump\\.mac\\.viewer$"
-    "^com\\.p5sys\\.jump\\.mac\\.viewer\\."
-    "^com\\.nulana\\.remotixmac$"
     "^com\\.microsoft\\.VSCode$"
     "^com\\.microsoft\\.rdc$"
     "^com\\.microsoft\\.rdc\\.macos$"
     "^com\\.microsoft\\.rdc\\."
-    "^com\\.jetbrains\\.rider$"
-    "^com\\.jetbrains\\.pycharm$"
-    "^com\\.jetbrains\\.PhpStorm$"
-    "^com\\.jetbrains\\.intellij\\.ce$"
-    "^com\\.jetbrains\\.intellij"
-    "^com\\.itap-mobile\\.qmote$"
-    "^com\\.googlecode\\.iterm2$"
-    "^com\\.citrix\\.XenAppViewer$"
-    "^com\\.apple\\.Terminal$"
-    "^com\\.2X\\.Client\\.Mac$"
-    "^co\\.zeit\\.hyperterm$"
-    "^co\\.zeit\\.hyper$"
+    "^com\\.jetbrains.*$"
+    "^tv\\.parsec\\.www$"
   ];
 
   # Terminal emulators only (for Ctrl+Shift remaps)
   terminalApps = [
-    "^net\\.kovidgoyal\\.kitty$"
-    "^io\\.alacritty$"
-    "^com\\.github\\.wez\\.wezterm$"
-    "^Fleet\\.app$"
-    "^com\\.googlecode\\.iterm2$"
     "^com\\.apple\\.Terminal$"
-    "^co\\.zeit\\.hyperterm$"
-    "^co\\.zeit\\.hyper$"
+    "^com\\.github\\.wez\\.wezterm$"
+    "^com\\.googlecode\\.iterm2$"
+    "^io\\.alacritty$"
+    "^net\\.kovidgoyal\\.kitty$"
   ];
 
   # Keys to remap from Ctrl to Cmd
