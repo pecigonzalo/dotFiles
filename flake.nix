@@ -146,6 +146,7 @@
               verbose = false;
               users.${user} = commonHomeManagerConfig;
               extraSpecialArgs = { inherit inputs; };
+              backupFileExtension = "nix-bkp";
             };
           }
         ];

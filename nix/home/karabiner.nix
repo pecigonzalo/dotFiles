@@ -8,11 +8,6 @@ let
     "^com\\.vmware\\.proxyApp\\."
     "^com\\.vmware\\.horizon$"
     "^org\\.virtualbox\\.app\\.VirtualBoxVM$"
-    "^com\\.apple\\.Terminal$"
-    "^com\\.github\\.wez\\.wezterm$"
-    "^com\\.googlecode\\.iterm2$"
-    "^io\\.alacritty$"
-    "^net\\.kovidgoyal\\.kitty$"
     "^com\\.thinomenon\\.RemoteDesktopConnection$"
     "^com\\.parallels\\.winapp\\."
     "^com\\.parallels\\.vm$"
@@ -51,6 +46,17 @@ let
   # Generate manipulator for Ctrl → Cmd
   mkCtrlManipulator = key: {
     type = "basic";
+    conditions = [
+      {
+        type = "frontmost_application_unless";
+        bundle_identifiers = excludedApps ++ terminalApps;
+      }
+      {
+        type = "variable_if";
+        name = "hyper_mode";
+        value = 0;
+      }
+    ];
     from = {
       key_code = key;
       modifiers = {
@@ -117,17 +123,6 @@ let
             # Consolidated Ctrl → Cmd remapping
             {
               description = "Ctrl → Cmd (disabled during Hyper)";
-              conditions = [
-                {
-                  type = "frontmost_application_unless";
-                  bundle_identifiers = excludedApps;
-                }
-                {
-                  type = "variable_if";
-                  name = "hyper_mode";
-                  value = 0;
-                }
-              ];
               manipulators =
                 # Basic Ctrl → Cmd for all keys
                 (map mkCtrlManipulator ctrlKeys)
