@@ -1,4 +1,6 @@
-std="vim"
+std="lua52"
+
+lua_versions = ["luajit"]
 
 [lints]
 mixed_table = "allow"

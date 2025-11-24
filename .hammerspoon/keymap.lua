@@ -5,6 +5,11 @@ local M = {}
 M.applications = {
   T = "WezTerm",
   C = "Slack",
+  P = "Microsoft Edge",
+  B = "Google Chrome",
+  E = "Google Calendar",
+  M = "Google Mail",
+  G = "ChatGPT",
 }
 
 M.hyper = {
