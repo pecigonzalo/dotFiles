@@ -13,6 +13,13 @@
 
   programs.nix-index.enable = true;
 
+  fonts.packages = with pkgs; [
+    fira-code
+    fira-mono
+    nerd-fonts.fira-code
+    nerd-fonts.fira-mono
+  ];
+
   environment.pathsToLink = [
     # "/sbin"
     "/lib"

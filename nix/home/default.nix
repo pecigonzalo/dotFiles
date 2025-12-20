@@ -277,6 +277,7 @@ in
     nodePackages_latest.prettier
     prettierd
 
+    vtsls
     # Deno
     deno
     # Bun

@@ -3,13 +3,14 @@ local window = require("window")
 local M = {}
 
 M.applications = {
-  T = "WezTerm",
-  C = "Slack",
+  T = "/Users/pecigonzalo/Applications/Home Manager Apps/WezTerm.app",
+  S = "Slack",
   P = "Microsoft Edge",
   B = "Google Chrome",
-  E = "Google Calendar",
+  C = "Google Calendar",
   M = "Google Mail",
   G = "ChatGPT",
+  W = "WhatsApp Web",
 }
 
 M.hyper = {
@@ -18,7 +19,7 @@ M.hyper = {
   -- Expose
   {
     "e",
-    function() hs.expose.new(nil, { showThumbnails = true }):toggleShow() end,
+    function() hs.expose.new(nil, { showThumbnails = false }):toggleShow() end,
   },
 
   -- Grid

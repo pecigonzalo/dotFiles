@@ -33,13 +33,15 @@ return {
         group = format_group,
         callback = function(event)
           if not has_formatter(event.buf) then return end
-          local ok, err = pcall(function()
-            vim.lsp.buf.format({
-              bufnr = event.buf,
-              async = false,
-              timeout_ms = 10000,
-            })
-          end)
+          local ok, err = pcall(
+            function()
+              vim.lsp.buf.format({
+                bufnr = event.buf,
+                async = false,
+                timeout_ms = 10000,
+              })
+            end
+          )
           if not ok then vim.notify(("LSP: format failed (%s)"):format(err), vim.log.levels.WARN) end
         end,
       })
@@ -227,15 +229,16 @@ return {
           java_language_server = {},
           kotlin_language_server = {},
           -- TS
-          denols = {
-            root_dir = root_pattern("deno.json", "deno.jsonc", "deno.lock"),
-            workspace_required = true,
-          },
-          ts_ls = {
-            eslint = {},
-            root_dir = root_pattern("tsconfig.json", "package.json", "jsconfig.json"),
-            workspace_required = true,
-          },
+          -- denols = {
+          --   root_dir = root_pattern("deno.json", "deno.jsonc", "deno.lock"),
+          --   workspace_required = true,
+          -- },
+          vtsls = {},
+          -- ts_ls = {
+          --   eslint = {},
+          --   root_dir = root_pattern("tsconfig.json", "package.json", "jsconfig.json"),
+          --   workspace_required = true,
+          -- },
           -- Python
           pyright = {},
           ruff = {

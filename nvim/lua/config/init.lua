@@ -1,48 +1,55 @@
-local o = vim.o
 local augroup = vim.api.nvim_create_augroup
 local aucmd = vim.api.nvim_create_autocmd
 
+-- General
+vim.o.mouse = "a" -- Enable mouse
+vim.o.switchbuf = "usetab" -- Open new buffer in existing window if possible
+vim.o.undofile = true -- Enable persistent undo
+vim.o.swapfile = false -- Disable use of swapfile for the buffer
+vim.o.errorbells = false
+
+-- Enable all filetype plugins and syntax (if not enabled, for better startup)
+vim.cmd("filetype plugin indent on")
+if vim.fn.exists("syntax_on") ~= 1 then vim.cmd("syntax enable") end
+
 -- Display settings
-o.title = true -- Show file in titlebar
-o.termguicolors = true -- Truecolor
-o.scrolloff = 5 -- Lines above/below cursor when scrolling
-o.showmatch = true -- Show matching bracket (briefly jump)
-o.matchtime = 2 -- Show matching bracket for 0.2 seconds
-o.wrap = true -- Wrap long lines
-o.linebreak = true -- Wrap long lines at characters in breakat
-o.breakindent = true -- Preserve the indentation of a virtual line. These "virtual lines" are the ones only visible when wrap is enabled.
-o.cursorline = false -- Disable highlighting of the current line
--- opt.showcmd = true
--- opt.cmdheight = 0
--- opt.laststatus = 3 -- Use a global statusbar
---
--- Set relative numbers in NORMAL but switch to absolute in INSERT
-o.number = true
-o.relativenumber = true
-o.fillchars = o.fillchars .. "diff:╱"
-o.winborder = "rounded"
+vim.o.title = true -- Show file in titlebar
+vim.o.termguicolors = true -- Truecolor
+vim.o.winborder = "rounded"
+vim.o.scrolloff = 5 -- Lines above/below cursor when scrolling
+vim.o.signcolumn = "yes" -- Always show signcolumn
+vim.o.relativenumber = true
+vim.o.ruler = false -- Disable ruler
+vim.o.list = true -- Show some invisible characters
+
+vim.o.showmatch = true -- Show matching bracket (briefly jump)
+vim.o.matchtime = 2 -- Show matching bracket for 0.2 seconds
+
+vim.o.cursorline = true -- Highlight the current line
+vim.o.cursorlineopt = "screenline,number" -- Highlight the whole line, and number
+
+vim.o.wrap = false -- Wrap long lines
+vim.o.linebreak = true -- Wrap long lines at characters in breakat
+vim.o.breakindent = true -- Preserve the indentation of a virtual line. These "virtual lines" are the ones only visible when wrap is enabled.
+vim.o.breakindentopt = "list:-1" -- Add padding for list when wrapped
+
+-- Special UI symbols. More is set via 'mini.basics' later.
+vim.o.fillchars = "eob: ,fold:╌"
+vim.o.listchars = "extends:…,nbsp:␣,precedes:…,tab:> "
 
 -- Search config
-o.hlsearch = false -- Disable highlights the results of the previous search
+vim.o.hlsearch = false -- Disable highlights the results of the previous search
 
 -- Default Indentation
-o.tabstop = 2
-o.shiftwidth = 2
-o.softtabstop = 2
-o.expandtab = true
-
--- No noise
-o.errorbells = false
-
--- Misc
-o.swapfile = false -- Disable use of swapfile for the buffer
+vim.o.autoindent = true
+vim.o.smartindent = true
+vim.o.tabstop = 2
+vim.o.shiftwidth = 2
+vim.o.softtabstop = 2
+vim.o.expandtab = true
 
 -- Decrease update time
-o.updatetime = 250
-
--- -- Copy/Paste
--- opt.preserveindent = true -- Preserve indent structure as much as possible
--- opt.copyindent = true     -- Copy the previous indentation on autoindenting
+vim.o.updatetime = 250
 
 -- Keybindings
 -- NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
@@ -101,7 +108,7 @@ vim.diagnostic.config({
 })
 
 -- Syntax
-o.syntax = "enable" -- Syntax highlight
+vim.o.syntax = "enable" -- Syntax highlight
 vim.g.editorconfig = true -- Enable EditorConfig support
 
 -- User commands
