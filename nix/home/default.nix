@@ -220,7 +220,7 @@ in
     # httpie # curl
     curlie # curl
     tealdeer # TLDR
-    du-dust # du
+    dust # du
     htop # top
     procs # ps
     dogdns # dig
@@ -246,7 +246,7 @@ in
 
     # Python
     python-with-env
-    poetry
+    # poetry
     pipenv
     ruff
     rye

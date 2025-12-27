@@ -2,14 +2,17 @@
 {
   programs.ssh = {
     enable = true;
+    enableDefaultConfig = false;
+    matchBlocks."*" = {
+      compression = true;
 
-    compression = true;
+      serverAliveInterval = 60;
 
-    serverAliveInterval = 60;
+      controlMaster = "no";
+      controlPersist = "1m";
+      controlPath = "~/.ssh/control/%C.control";
 
-    controlMaster = "no";
-    controlPersist = "1m";
-    controlPath = "~/.ssh/control/%C.control";
+    };
 
     includes = [
       "*.config"

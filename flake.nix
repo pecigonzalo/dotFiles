@@ -2,13 +2,15 @@
   description = "Gonzalo's darwin configuration";
   inputs = {
     # Package sets
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    nixpkgs-25-05.url = "github:nixos/nixpkgs/nixos-25.05";
-    nixpkgs-24-11.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1";
+    nixpkgs-stable.url = "https://flakehub.com/f/NixOS/nixpkgs/0";
+
+    # Determinate
+    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/0.1";
 
     # Environment/system management
     darwin = {
-      url = "github:lnl7/nix-darwin";
+      url = "https://flakehub.com/f/nix-darwin/nix-darwin/0.1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
@@ -18,12 +20,6 @@
 
     # Flake Utils
     flake-utils.url = "github:numtide/flake-utils";
-
-    # Link macOS apps
-    mkalias = {
-      url = "github:reckenrode/mkalias";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     # Neovim
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
@@ -41,18 +37,13 @@
     }@inputs:
     let
       inherit (darwin.lib) darwinSystem;
-      inherit (nixpkgs.lib) attrValues makeOverridable optionalAttrs;
+      inherit (nixpkgs.lib) attrValues makeOverridable;
       inherit (builtins) listToAttrs;
 
       namedOverlays = attrValues {
         # Overlay useful on Macs with Apple Silicon
         stable = final: prev: rec {
-          pkgs-stable = pkgs-25-05;
-          pkgs-24-11 = import inputs.nixpkgs-24-11 {
-            inherit (prev.stdenv) system;
-            inherit (nixpkgsConfig) config;
-          };
-          pkgs-25-05 = import inputs.nixpkgs-25-05 {
+          pkgs-stable = import inputs.nixpkgs-stable {
             inherit (prev.stdenv) system;
             inherit (nixpkgsConfig) config;
           };
@@ -87,16 +78,11 @@
           namedOverlays
           ++ dynamicOverlays
           ++ [
-            (final: prev: {
-              mkalias = inputs.mkalias.outputs.apps.${prev.stdenv.system}.default.program;
-            })
-          ]
-          ++ [
             # inputs.neovim-nightly-overlay.overlays.default
           ];
       };
 
-      homeManagerStateVersion = "23.05";
+      homeManagerStateVersion = "25.11";
       commonHomeManagerConfig = {
         imports = [
           ./nix/modules/home-manager
@@ -111,14 +97,12 @@
         nix = {
           registry = {
             nixpkgs.flake = nixpkgs;
-            nixpkgs-25-05.flake = inputs.nixpkgs-25-05;
-            nixpkgs-24-11.flake = inputs.nixpkgs-24-11;
+            nixpkgs-stable.flake = inputs.nixpkgs-stable;
           };
 
           nixPath = [
             "nixpkgs=${inputs.nixpkgs}"
-            "nixpkgs-25-05=${inputs.nixpkgs-25-05}"
-            "nixpkgs-24-11=${inputs.nixpkgs-24-11}"
+            "nixpkgs-stable=${inputs.nixpkgs-stable}"
             "darwin=${inputs.darwin}"
             "home-manager=${inputs.home-manager}"
           ];
@@ -153,7 +137,7 @@
 
     in
     {
-      darwinConfigurations = rec {
+      darwinConfigurations = {
         # Mininal configurations to bootstrap systems
         bootstrap-arm = makeOverridable darwinSystem {
           system = "aarch64-darwin";

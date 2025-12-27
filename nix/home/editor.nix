@@ -94,7 +94,6 @@ in
       nixfmt-rfc-style
 
       # LSPs
-      ansible-language-server
       gopls
       helm-ls
       jdt-language-server
@@ -107,10 +106,10 @@ in
       ruff
       nodePackages.vscode-langservers-extracted
       nodePackages.yaml-language-server
-      nodePackages.dockerfile-language-server-nodejs
+      dockerfile-language-server
       nodePackages.bash-language-server
       nodePackages_latest.typescript-language-server
-      sumneko-lua-language-server
+      lua-language-server
       nixd
       terraform-ls
     ];
