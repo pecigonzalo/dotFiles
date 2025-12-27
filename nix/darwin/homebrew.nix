@@ -26,8 +26,7 @@
 
     casks = [
       # Security
-      # "1password"
-      # "wireshark"
+      "1password"
       "tailscale-app"
       # Browsers
       "microsoft-edge"
@@ -35,14 +34,14 @@
       # "zen-browser"
       # "google-chrome"
       # Remoting
-      # "windows-app"
+      "windows-app"
       "parsec"
       "moonlight"
       # Communication
       # "slack"
       # "discord"
       # macOS Tooling
-      # "dozer"
+      "jordanbaird-ice"
       "hammerspoon"
       "kap"
       "karabiner-elements"
@@ -52,7 +51,7 @@
       # "obsidian"
       # "notion"
       # Media
-      # "spotify"
+      "spotify"
       # Editor
       "visual-studio-code"
       # Files
