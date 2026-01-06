@@ -184,26 +184,33 @@
             nixGlobal
             nixos-wsl.nixosModules.default
             home-manager.nixosModules.home-manager
+            ./nix/common
             {
               system.stateVersion = "25.05";
               wsl.enable = true;
+              wsl.defaultUser = "pecigonzalo";
               fileSystems."/home" = {
                 label = "vhdx-home";
                 fsType = "ext4";
               };
               nixpkgs = nixpkgsConfig;
             }
-            {
-              users = {
-                users.pecigonzalo = {
-                  isNormalUser = true;
-                  home = "/home/pecigonzalo";
-                  group = "pecigonzalo";
-                  extraGroups = [ "wheel" ];
+            (
+              { pkgs, ... }:
+              {
+                users = {
+                  users.pecigonzalo = {
+                    isNormalUser = true;
+                    shell = pkgs.zsh;
+                    home = "/home/pecigonzalo";
+                    group = "pecigonzalo";
+                    extraGroups = [ "wheel" ];
+                  };
+                  groups.pecigonzalo = { };
                 };
-                groups.pecigonzalo = { };
-              };
-            }
+                programs.zsh.enable = true;
+              }
+            )
             {
               home-manager = {
                 useGlobalPkgs = true;
