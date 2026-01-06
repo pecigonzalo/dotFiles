@@ -21,6 +21,15 @@
     # Flake Utils
     flake-utils.url = "github:numtide/flake-utils";
 
+    # Link macOS apps
+    mkalias = {
+      url = "github:reckenrode/mkalias";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # WSL
+    nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
+
     # Neovim
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
 
@@ -33,6 +42,7 @@
       nixpkgs,
       darwin,
       home-manager,
+      nixos-wsl,
       ...
     }@inputs:
     let
@@ -163,6 +173,45 @@
           system = "aarch64-darwin";
           modules = commonDarwinConfig ++ [
             { networking.hostName = "pecigonzalo"; }
+          ];
+        };
+      };
+
+      nixosConfigurations = {
+        wsl = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            nixGlobal
+            nixos-wsl.nixosModules.default
+            home-manager.nixosModules.home-manager
+            {
+              system.stateVersion = "25.05";
+              wsl.enable = true;
+              fileSystems."/home" = {
+                label = "vhdx-home";
+                fsType = "ext4";
+              };
+              nixpkgs = nixpkgsConfig;
+            }
+            {
+              users = {
+                users.pecigonzalo = {
+                  isNormalUser = true;
+                  home = "/home/pecigonzalo";
+                  group = "pecigonzalo";
+                  extraGroups = [ "wheel" ];
+                };
+                groups.pecigonzalo = { };
+              };
+            }
+            {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                users.pecigonzalo = commonHomeManagerConfig;
+                extraSpecialArgs = { inherit inputs; };
+              };
+            }
           ];
         };
       };
