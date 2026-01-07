@@ -17,8 +17,8 @@
       julia.symbol = " ";
       kotlin.symbol = " ";
       lua.symbol = " ";
-      nodejs.symbol = " ";
-      package.symbol = " ";
+      nodejs.symbol = "󰎙 ";
+      package.symbol = "󰏗 ";
       python.symbol = " ";
       ruby.symbol = " ";
       terraform.symbol = "󱁢 ";
