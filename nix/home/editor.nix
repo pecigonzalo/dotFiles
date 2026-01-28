@@ -91,7 +91,7 @@ in
       shfmt
       nufmt
       stylua
-      nixfmt-rfc-style
+      nixfmt
 
       # LSPs
       gopls

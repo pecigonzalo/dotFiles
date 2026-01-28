@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, ... }:
 {
   environment.systemPath = [
     config.homebrew.brewPrefix

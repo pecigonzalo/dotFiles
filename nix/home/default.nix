@@ -157,7 +157,7 @@ in
     # Nix
     nixd
     cachix
-    nixfmt-rfc-style
+    nixfmt
     inputs.agenix.packages.${pkgs.stdenv.system}.agenix
 
     # Common

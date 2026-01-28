@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ ... }:
 {
   security.pam.services.sudo_local = {
     text = "auth sufficient pam_tid.so.2";

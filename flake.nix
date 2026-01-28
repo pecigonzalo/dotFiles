@@ -52,7 +52,7 @@
 
       namedOverlays = attrValues {
         # Overlay useful on Macs with Apple Silicon
-        stable = final: prev: rec {
+        stable = final: prev: {
           pkgs-stable = import inputs.nixpkgs-stable {
             inherit (prev.stdenv) system;
             inherit (nixpkgsConfig) config;
@@ -73,7 +73,7 @@
           ) (attrNames (readDir path))
         );
 
-      nixpkgsConfig = with inputs; {
+      nixpkgsConfig = {
         config = {
           allowUnfree = true;
           allowInsecure = false;
