@@ -2,13 +2,15 @@
   description = "Gonzalo's darwin configuration";
   inputs = {
     # Package sets
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    nixpkgs-25-05.url = "github:nixos/nixpkgs/nixos-25.05";
-    nixpkgs-24-11.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1";
+    nixpkgs-stable.url = "https://flakehub.com/f/NixOS/nixpkgs/0";
+
+    # Determinate
+    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/0.1";
 
     # Environment/system management
     darwin = {
-      url = "github:lnl7/nix-darwin";
+      url = "https://flakehub.com/f/nix-darwin/nix-darwin/0.1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
@@ -25,6 +27,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # WSL
+    nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
+
     # Neovim
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
 
@@ -37,22 +42,18 @@
       nixpkgs,
       darwin,
       home-manager,
+      nixos-wsl,
       ...
     }@inputs:
     let
       inherit (darwin.lib) darwinSystem;
-      inherit (nixpkgs.lib) attrValues makeOverridable optionalAttrs;
+      inherit (nixpkgs.lib) attrValues makeOverridable;
       inherit (builtins) listToAttrs;
 
       namedOverlays = attrValues {
         # Overlay useful on Macs with Apple Silicon
         stable = final: prev: rec {
-          pkgs-stable = pkgs-25-05;
-          pkgs-24-11 = import inputs.nixpkgs-24-11 {
-            inherit (prev.stdenv) system;
-            inherit (nixpkgsConfig) config;
-          };
-          pkgs-25-05 = import inputs.nixpkgs-25-05 {
+          pkgs-stable = import inputs.nixpkgs-stable {
             inherit (prev.stdenv) system;
             inherit (nixpkgsConfig) config;
           };
@@ -87,16 +88,11 @@
           namedOverlays
           ++ dynamicOverlays
           ++ [
-            (final: prev: {
-              mkalias = inputs.mkalias.outputs.apps.${prev.stdenv.system}.default.program;
-            })
-          ]
-          ++ [
             # inputs.neovim-nightly-overlay.overlays.default
           ];
       };
 
-      homeManagerStateVersion = "23.05";
+      homeManagerStateVersion = "25.11";
       commonHomeManagerConfig = {
         imports = [
           ./nix/modules/home-manager
@@ -111,14 +107,12 @@
         nix = {
           registry = {
             nixpkgs.flake = nixpkgs;
-            nixpkgs-25-05.flake = inputs.nixpkgs-25-05;
-            nixpkgs-24-11.flake = inputs.nixpkgs-24-11;
+            nixpkgs-stable.flake = inputs.nixpkgs-stable;
           };
 
           nixPath = [
             "nixpkgs=${inputs.nixpkgs}"
-            "nixpkgs-25-05=${inputs.nixpkgs-25-05}"
-            "nixpkgs-24-11=${inputs.nixpkgs-24-11}"
+            "nixpkgs-stable=${inputs.nixpkgs-stable}"
             "darwin=${inputs.darwin}"
             "home-manager=${inputs.home-manager}"
           ];
@@ -153,7 +147,7 @@
 
     in
     {
-      darwinConfigurations = rec {
+      darwinConfigurations = {
         # Mininal configurations to bootstrap systems
         bootstrap-arm = makeOverridable darwinSystem {
           system = "aarch64-darwin";
@@ -179,6 +173,52 @@
           system = "aarch64-darwin";
           modules = commonDarwinConfig ++ [
             { networking.hostName = "pecigonzalo"; }
+          ];
+        };
+      };
+
+      nixosConfigurations = {
+        wsl = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            nixGlobal
+            nixos-wsl.nixosModules.default
+            home-manager.nixosModules.home-manager
+            ./nix/common
+            {
+              system.stateVersion = "25.05";
+              wsl.enable = true;
+              wsl.defaultUser = "pecigonzalo";
+              fileSystems."/home" = {
+                label = "vhdx-home";
+                fsType = "ext4";
+              };
+              nixpkgs = nixpkgsConfig;
+            }
+            (
+              { pkgs, ... }:
+              {
+                users = {
+                  users.pecigonzalo = {
+                    isNormalUser = true;
+                    shell = pkgs.zsh;
+                    home = "/home/pecigonzalo";
+                    group = "pecigonzalo";
+                    extraGroups = [ "wheel" ];
+                  };
+                  groups.pecigonzalo = { };
+                };
+                programs.zsh.enable = true;
+              }
+            )
+            {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                users.pecigonzalo = commonHomeManagerConfig;
+                extraSpecialArgs = { inherit inputs; };
+              };
+            }
           ];
         };
       };

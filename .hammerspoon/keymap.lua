@@ -3,14 +3,14 @@ local window = require("window")
 local M = {}
 
 M.applications = {
-  T = "/Users/pecigonzalo/Applications/Home Manager Apps/WezTerm.app",
+  T = "WezTerm.app",
   S = "Slack",
-  P = "Microsoft Edge",
-  B = "Google Chrome",
-  C = "Google Calendar",
-  M = "Google Mail",
-  G = "ChatGPT",
-  W = "WhatsApp Web",
+  P = "Microsoft Edge.app",
+  B = "Google Chrome.app",
+  C = "Google Calendar.app",
+  E = "Google Mail.app",
+  M = "Spotify.app",
+  W = "WhatsApp Web.app",
 }
 
 M.hyper = {

@@ -17,12 +17,12 @@ return {
       {
         "<leader>xL",
         function() require("trouble").toggle("loclist") end,
-        desc = ": " .. "Location List (Trouble)",
+        desc = "Location List (Trouble)",
       },
       {
         "<leader>xQ",
         function() require("trouble").toggle("quickfix") end,
-        desc = ": " .. "Quickfix List (Trouble)",
+        desc = "Quickfix List (Trouble)",
       },
       {
         "[q",
@@ -34,7 +34,7 @@ return {
             if not ok then vim.notify(err, vim.log.levels.ERROR) end
           end
         end,
-        desc = ": " .. "Previous trouble/quickfix item",
+        desc = "Previous Trouble/Quickfix Item",
       },
       {
         "]q",
@@ -46,7 +46,7 @@ return {
             if not ok then vim.notify(err, vim.log.levels.ERROR) end
           end
         end,
-        desc = ": " .. "Next trouble/quickfix item",
+        desc = "Next Trouble/Quickfix Item",
       },
     },
   },

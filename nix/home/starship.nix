@@ -17,15 +17,15 @@
       julia.symbol = " ";
       kotlin.symbol = " ";
       lua.symbol = " ";
-      nodejs.symbol = " ";
-      package.symbol = " ";
+      nodejs.symbol = "󰎙 ";
+      package.symbol = "󰏗 ";
       python.symbol = " ";
       ruby.symbol = " ";
       terraform.symbol = "󱁢 ";
       vagrant.symbol = "𝗩 ";
 
       directory = {
-        read_only = " ";
+        read_only = " ";
         style = "fg:blue";
         truncation_length = 3;
         truncation_symbol = "…/";

@@ -56,20 +56,23 @@ in
       };
     };
 
+    programs.delta = {
+      enable = true;
+      options = {
+        side-by-side = false;
+      };
+    };
+
     programs.git = {
       enable = true;
 
-      userName = "Gonzalo Peci";
-      userEmail = "pecigonzalo@users.noreply.github.com";
-
-      delta = {
-        enable = true;
-        options = {
-          side-by-side = false;
-        };
+      settings = {
+        user.name = "Gonzalo Peci";
+        user.signingkey = "~/.ssh/pecigonzalo_ed25519.pub";
+        user.email = "pecigonzalo@users.noreply.github.com";
       };
 
-      extraConfig = {
+      settings = {
         init = {
           templatedir = "~/dotFiles/.git_template/template";
           defaultBranch = "main";
@@ -94,10 +97,6 @@ in
 
         gpg = {
           format = "ssh";
-        };
-
-        user = {
-          signingkey = "~/.ssh/pecigonzalo_ed25519.pub";
         };
 
         commit = {
@@ -197,7 +196,7 @@ in
         };
       };
 
-      aliases = {
+      settings.aliases = {
         unstage = "reset HEAD";
         gist = "log --graph --oneline --all --decorate --date-order";
         find = "log --graph --oneline --all --decorate --date-order --regexp-ignore-case --extended-regexp --grep";

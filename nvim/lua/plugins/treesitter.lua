@@ -5,13 +5,13 @@ return {
     dependencies = {
       "nvim-treesitter/nvim-treesitter-textobjects",
     },
-    event = { "BufReadPre", "BufNewFile", "VeryLazy" },
+    event = { "BufReadPost", "BufNewFile" },
     cmd = { "TSUpdateSync", "TSUpdate", "TSInstall" },
     build = ":TSUpdate",
     vscode = true,
     keys = {
       { "<c-space>", desc = "Increment selection" },
-      { "<bs>", desc = "Decrement selection", mode = "x" },
+      { "<bs>", desc = "Decrement selection", mode = { "x" } },
     },
     init = function(plugin)
       require("lazy.core.loader").add_to_rtp(plugin)
@@ -22,10 +22,6 @@ return {
       highlight = { enable = true },
       -- enable indentation
       indent = { enable = true },
-      -- enable context comment string
-      context_commentstring = {
-        enable = true,
-      },
       -- ensure these language parsers are installed
       ensure_installed = {
         "bash",

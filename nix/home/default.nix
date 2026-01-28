@@ -46,7 +46,7 @@ in
       "exa" = "eza --icons --color=always";
       "ls" = "eza";
       "tree" = "eza --tree";
-      "l" = "eza -lFh";
+      "l" = "eza -lh";
       "la" = "eza -la";
       "ll" = "eza -l";
       "lS" = "eza -1";
@@ -220,10 +220,10 @@ in
     # httpie # curl
     curlie # curl
     tealdeer # TLDR
-    du-dust # du
+    dust # du
     htop # top
     procs # ps
-    dogdns # dig
+    doggo # dig
     gping # ping with a graph
     sad # CLI search and replace | Space Age seD
     glow # Markdown reader
@@ -246,7 +246,7 @@ in
 
     # Python
     python-with-env
-    poetry
+    # poetry
     pipenv
     ruff
     rye

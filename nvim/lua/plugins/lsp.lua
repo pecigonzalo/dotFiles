@@ -2,7 +2,7 @@ return {
   -- LSP Config
   {
     "neovim/nvim-lspconfig",
-    event = { "BufReadPost", "BufNewFile", "BufWritePre" },
+    event = { "BufReadPre", "BufNewFile" },
     dependencies = {
       "b0o/schemastore.nvim",
       {
@@ -70,15 +70,8 @@ return {
         if not client or not client.server_capabilities or not client.server_capabilities.inlayHintProvider then
           return
         end
-        local ih = vim.lsp.inlay_hint
-        local enable = type(ih) == "table" and ih.enable or ih
-        if type(enable) == "function" then
-          if vim.fn.has("nvim-0.11") == 1 then
-            enable(true, { bufnr = bufnr })
-          else
-            enable(bufnr, true)
-          end
-        end
+        -- Neovim 0.11+ has simplified inlay hint API
+        vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
       end
       vim.api.nvim_create_autocmd("LspAttach", {
         desc = "LSP actions",

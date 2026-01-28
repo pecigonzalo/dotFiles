@@ -11,7 +11,6 @@ let
   homeDir = config.home.homeDirectory;
   dotFilesDir = "${homeDir}/dotFiles";
   isDarwin = pkgs.stdenv.hostPlatform.isDarwin;
-  isSillicon = pkgs.stdenv.hostPlatform.isDarwin && pkgs.stdenv.hostPlatform.isAarch64;
 
   omzRev = "9114853500ea66cff7c803b0e951754833946f3d";
   omzPlugin =
@@ -141,6 +140,7 @@ in
     };
     programs.zsh = {
       enable = true;
+      dotDir = "${config.xdg.configHome}/zsh";
 
       defaultKeymap = "viins";
 
