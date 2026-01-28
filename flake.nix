@@ -227,6 +227,7 @@
         pecigonzalo = wslfish; # Alias
         wslfish = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          extraSpecialArgs = { inherit inputs; };
           modules = [
             {
               home = {
@@ -242,6 +243,7 @@
 
         devel = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.aarch64-linux;
+          extraSpecialArgs = { inherit inputs; };
           modules = [
             {
               home = {
@@ -257,6 +259,7 @@
 
         revel = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          extraSpecialArgs = { inherit inputs; };
           modules = [
             {
               home = {

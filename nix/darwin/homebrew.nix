@@ -1,10 +1,10 @@
-{ config, ... }:
+{ config, lib, ... }:
 {
   environment.systemPath = [
     config.homebrew.brewPrefix
   ];
   homebrew = {
-    enable = true;
+    enable = lib.mkDefault true;
     onActivation = {
       upgrade = true;
       autoUpdate = true;
