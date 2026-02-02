@@ -7,10 +7,14 @@
 with lib;
 let
   cfg = config.my.shell;
+  userCfg = config.my.user;
 
   homeDir = config.home.homeDirectory;
   dotFilesDir = "${homeDir}/dotFiles";
   isDarwin = pkgs.stdenv.hostPlatform.isDarwin;
+
+  # Generate SSH agent identities from user config
+  sshIdentities = builtins.concatStringsSep " " (map (key: key.name) userCfg.sshKeys);
 
   omzRev = "9114853500ea66cff7c803b0e951754833946f3d";
   omzPlugin =
@@ -159,7 +163,7 @@ in
           fi
 
           ## SSH
-          zstyle :omz:plugins:ssh-agent identities pecigonzalo_ed25519 pecigonzalo_rsa
+          zstyle :omz:plugins:ssh-agent identities ${sshIdentities}
         '')
         (lib.mkBefore (
           optionalString isDarwin ''

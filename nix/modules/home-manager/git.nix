@@ -7,6 +7,7 @@
 with lib;
 let
   cfg = config.my.git;
+  userCfg = config.my.user;
   isSillicon = pkgs.stdenv.hostPlatform.isDarwin && pkgs.stdenv.hostPlatform.isAarch64;
 in
 {
@@ -51,7 +52,7 @@ in
         aliases = {
           co = "pr checkout";
           pv = "pr view";
-          prs = "pr list -A pecigonzalo";
+          prs = "pr list -A ${userCfg.githubUsername}";
         };
       };
     };
@@ -67,9 +68,9 @@ in
       enable = true;
 
       settings = {
-        user.name = "Gonzalo Peci";
-        user.signingkey = "~/.ssh/pecigonzalo_ed25519.pub";
-        user.email = "pecigonzalo@users.noreply.github.com";
+        user.name = userCfg.name;
+        user.signingkey = userCfg.signingKey;
+        user.email = userCfg.email;
       };
 
       settings = {

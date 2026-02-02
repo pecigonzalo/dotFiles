@@ -6,7 +6,6 @@
 }:
 let
   inherit (config.lib.file) mkOutOfStoreSymlink;
-  tomlFormat = pkgs.formats.toml { };
 
   homeDir = config.home.homeDirectory;
   dotFilesDir = "${homeDir}/dotFiles";
@@ -18,9 +17,6 @@ in
 
   imports = [
     ./ssh.nix
-    ./editor.nix
-    ./tmux.nix
-    ./starship.nix
     ./terminal.nix
     ./fonts.nix
     ./karabiner.nix
@@ -28,6 +24,9 @@ in
 
   xdg.enable = true;
   my = {
+    neovim.enable = true;
+    tmux.enable = true;
+    starship.enable = true;
     terraform.enable = true;
     aws.enable = true;
     gcp.enable = true;
@@ -35,6 +34,11 @@ in
     shell.enable = true;
     direnv.enable = true;
     fzf.enable = true;
+    kubernetes.enable = true;
+    python.enable = true;
+    nodejs.enable = true;
+    golang.enable = true;
+    nix-tools.enable = true;
   };
 
   home = {
@@ -54,9 +58,6 @@ in
 
       # bat
       "cat" = "bat -p";
-
-      # Kubectl
-      "k" = "kubectl";
     };
 
     sessionVariables = {
@@ -67,14 +68,6 @@ in
       # Pager
       PAGER = "less";
       LESS = "-FRSX";
-
-      # Go
-      GOPATH = "${homeDir}/Workspace/go";
-
-      # Disable virtualenv in prompt autoconfig
-      VIRTUAL_ENV_DISABLE_PROMPT = 1;
-      # Pipenv
-      PIPENV_VENV_IN_PROJECT = "true";
 
       # Docker
       DOCKER_BUILDKIT = 1;
@@ -89,9 +82,6 @@ in
 
       # github.com/oz/tz
       TZ_LIST = "Europe/Madrid;Home,US/Pacific;PDT";
-
-      # Kubeconfig
-      KUBECONFIG = "${homeDir}/.kube/config:${homeDir}/.kube/direct-config";
     };
   };
 
@@ -100,29 +90,11 @@ in
     ".tool-versions".source = mkOutOfStoreSymlink "${dotFilesDir}/.tool-versions";
     ".gemrc".source = mkOutOfStoreSymlink "${dotFilesDir}/.gemrc";
 
-    ".numpy-site.cfg".text = ''
-      [ALL]
-      library_dirs = ${homeDir}/.nix-profile/lib
-      include_dirs = ${homeDir}/.nix-profile/include
-
-      [DEFAULT]
-      library_dirs = ${homeDir}/.nix-profile/lib
-      include_dirs = ${homeDir}/.nix-profile/include
-    '';
-
     ".asdfrc".text = ''
       legacy_version_file = yes
     '';
 
     ".parallel/will-cite".text = ""; # Stop `parallel` from displaying citation warning
-  };
-
-  xdg.configFile = {
-    "pypoetry/config.toml".source = tomlFormat.generate "config.toml" {
-      virtualenvs = {
-        in-project = true;
-      };
-    };
   };
 
   programs.bash.enable = true;
@@ -154,12 +126,6 @@ in
   };
 
   home.packages = with pkgs; [
-    # Nix
-    nixd
-    cachix
-    nixfmt
-    inputs.agenix.packages.${pkgs.stdenv.system}.agenix
-
     # Common
     htop
     nano
@@ -244,14 +210,6 @@ in
     vegeta
     hyperfine # CLI benchmarking
 
-    # Python
-    python-with-env
-    # poetry
-    pipenv
-    ruff
-    rye
-    uv
-
     # Local
     jl # JSON structured logs parser
     loro
@@ -266,59 +224,16 @@ in
     # vagrant
     packer
 
-    # Node
-    nodejs
-    yarn
-    nodePackages.typescript
-    nodePackages.vscode-json-languageserver
-    nodePackages_latest.typescript-language-server
-    nodePackages_latest.eslint
-    eslint_d
-    nodePackages_latest.prettier
-    prettierd
-
-    vtsls
-    # Deno
-    deno
-    # Bun
-    bun
-
     # Docker
     docker
     docker-compose
     podman
     dive
 
-    # K8s
-    k3d # k3d
-    kind
-    krew
-    k9s
-    kubectl
-    kustomize
-    minikube
-    skaffold
-    kubeval
-    kubernetes-helm
-
     # DB tools
     postgresql
     redis
     duckdb
-
-    # Go
-    go
-    ginkgo
-    go-mockery
-    golangci-lint
-    gomodifytags
-    gopls
-    goreleaser
-    gotools
-    iferr
-    impl
-    reftools
-    gomplate
 
     # Graph
     graphviz

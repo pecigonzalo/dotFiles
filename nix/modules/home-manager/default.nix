@@ -1,5 +1,10 @@
 {
   imports = [
+    ./paths.nix
+    ./user.nix
+    ./neovim.nix
+    ./tmux.nix
+    ./starship.nix
     ./terraform.nix
     ./aws.nix
     ./gcp.nix
@@ -8,5 +13,10 @@
     ./direnv.nix
     ./fzf.nix
     ./darwin.nix
+    ./kubernetes.nix
+    ./python.nix
+    ./nodejs.nix
+    ./golang.nix
+    ./nix-tools.nix
   ];
 }
