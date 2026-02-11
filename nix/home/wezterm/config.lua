@@ -71,8 +71,9 @@ local keys = {
   { key = "Enter", mods = "CTRL", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
   { key = "Enter", mods = "CTRL|SHIFT", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
   { key = "l", mods = "CTRL|SHIFT", action = act.ShowDebugOverlay },
+  { key = "k", mods = "SUPER", action = act.ActivateCommandPalette },
   {
-    key = "p",
+    key = "o",
     mods = "CTRL|SHIFT",
     action = act({
       QuickSelectArgs = {
