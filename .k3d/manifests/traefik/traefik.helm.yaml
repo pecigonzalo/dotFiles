@@ -6,10 +6,16 @@ metadata:
 spec:
   chart: traefik
   repo: https://helm.traefik.io/traefik
-  set:
-    logs.general.level: "INFO"
-    logs.access.enabled: "true"
-    ingressRoute.dashboard.entryPoints[0]: "web"
-    ingressRoute.dashboard.entryPoints[1]: "traefik"
-    globalArguments[0]: "--global.checknewversion=false"
-    globalArguments[1]: "--global.sendanonymoususage=false"
+  valuesContent: |-
+    logs:
+      level: "INFO"
+      access:
+        enabled: true
+    ingressRoute:
+      dashboard:
+        entryPoints:
+          - web
+          - traefik
+    global:
+      checkNewVersion: false
+      sendAnonymousUsage: false

@@ -1,0 +1,10 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: headlamp-trailingslash
+  namespace: headlamp
+spec:
+  redirectRegex:
+    regex: ^(https?://[^/]+/headlamp)$
+    replacement: ${1}/
+    permanent: false

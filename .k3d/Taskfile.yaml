@@ -1,0 +1,18 @@
+version: "3"
+
+tasks:
+  create:
+    desc: Create k3d cluster
+    cmd: k3d cluster create --config k3d.yaml
+
+  remove:
+    desc: Delete all k3d clusters
+    cmd: k3d cluster delete --all
+
+  clean:
+    desc: Remove k3d local storage
+    cmd: sudo rm -rf ~/.k3d/storage/*
+
+  get-token:
+    desc: Get headlamp service account token
+    cmd: kubectl -n headlamp create token headlamp --duration=48h

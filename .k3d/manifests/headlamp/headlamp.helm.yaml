@@ -1,0 +1,24 @@
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: headlamp
+  namespace: kube-system
+spec:
+  chart: headlamp
+  repo: https://kubernetes-sigs.github.io/headlamp/
+  targetNamespace: headlamp
+  createNamespace: true
+  valuesContent: |-
+    fullnameOverride: headlamp
+    config:
+      baseURL: "/headlamp"
+    ingress:
+      enabled: true
+      annotations:
+        traefik.ingress.kubernetes.io/router.entrypoints: web
+        traefik.ingress.kubernetes.io/router.middlewares: headlamp-headlamp-trailingslash@kubernetescrd
+      hosts:
+        - host: ""
+          paths:
+            - path: /headlamp
+              type: Prefix
