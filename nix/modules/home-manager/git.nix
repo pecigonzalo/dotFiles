@@ -111,7 +111,6 @@ in
 
         core = {
           whitespace = "trailing-space,space-before-tab";
-          fsmonitor = true;
           untrackedCache = true;
         };
 
