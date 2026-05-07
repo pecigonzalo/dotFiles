@@ -5,6 +5,14 @@ tasks:
     desc: Create k3d cluster
     cmd: k3d cluster create --config k3d.yaml
 
+  start:
+    desc: Start existing k3d cluster
+    cmd: k3d cluster start default
+
+  stop:
+    desc: Stop k3d cluster without deleting it
+    cmd: k3d cluster stop default
+
   remove:
     desc: Delete all k3d clusters
     cmd: k3d cluster delete --all
