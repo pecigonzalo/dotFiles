@@ -217,6 +217,14 @@ in
         size = 5000000;
         save = 5000000;
         path = "${homeDir}/.histfile";
+        append = true; # Allow multiple terminal sessions to all append to one zsh command history
+        extended = true; # Save timestamp of command and duration
+        share = true; # Import new commands and append typed commands to history
+        expireDuplicatesFirst = true; # When trimming history, lose oldest duplicates first
+        ignoreDups = true; # Do not write events to history that are duplicates of previous events
+        ignoreAllDups = true; # Delete old recorded entry if new entry is a duplicate
+        ignoreSpace = true; # Remove command line from history list when first character is a space
+        findNoDups = true; # When searching history don't display results already cycled through twice
         ignorePatterns = [
           "ls"
           "cd *"
