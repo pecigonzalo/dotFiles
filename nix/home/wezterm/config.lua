@@ -1,7 +1,62 @@
 local wezterm = require("wezterm")
 local act = wezterm.action
 
-local hyper_mods = "SUPER|ALT|CTRL|SHIFT"
+local config = wezterm.config_builder and wezterm.config_builder() or {}
+local FONT_SIZE = 14
+local HYPER_MODS = "SUPER|ALT|CTRL|SHIFT"
+local URL_QUICK_SELECT_PATTERN = "https?://[^\\s<>\"]+[^\\s<>\",.)]"
+
+local function get_process_name(path)
+  if not path or path == "" then
+    return ""
+  end
+
+  return path:match("([^/\\]+)$") or path
+end
+
+local function get_tab_title(tab)
+  if tab.tab_title and tab.tab_title ~= "" then
+    return tab.tab_title
+  end
+
+  if tab.active_pane and tab.active_pane.title then
+    return tab.active_pane.title
+  end
+
+  return ""
+end
+
+local function is_vim(pane)
+  local process_name = get_process_name(pane:get_foreground_process_name())
+  return process_name == "vim" or process_name == "nvim"
+end
+
+local function open_selected_url(window, pane)
+  local url = window:get_selection_text_for_pane(pane)
+  if url == "" then
+    return
+  end
+
+  wezterm.log_info("opening: " .. url)
+  wezterm.open_with(url)
+  window:perform_action(act.ClearSelection, pane)
+end
+
+wezterm.on("format-tab-title", function(tab, _, _, _, _, max_width)
+  local title = " " .. get_tab_title(tab)
+
+  if tab.active_pane and tab.active_pane.is_zoomed then
+    title = title .. " [Z]"
+  end
+
+  title = title .. " "
+
+  if max_width and wezterm.truncate_right then
+    title = wezterm.truncate_right(title, max_width)
+  end
+
+  return title
+end)
 
 local key_tables = {
   neovim = {
@@ -40,8 +95,7 @@ local keys = {
     key = "w",
     mods = "CTRL",
     action = wezterm.action_callback(function(window, pane)
-      local isVim = pane:get_foreground_process_name():find("n?vim") ~= nil
-      if isVim then
+      if is_vim(pane) then
         window:perform_action(act.SendKey({ key = "w", mods = "CTRL" }), pane)
       else
         window:perform_action(
@@ -79,53 +133,54 @@ local keys = {
     action = act({
       QuickSelectArgs = {
         patterns = {
-          "https?://\\S+",
+          URL_QUICK_SELECT_PATTERN,
         },
-        action = wezterm.action_callback(function(window, pane)
-          local url = window:get_selection_text_for_pane(pane)
-          wezterm.log_info("opening: " .. url)
-          wezterm.open_with(url)
-        end),
+        action = wezterm.action_callback(open_selected_url),
       },
     }),
   },
-  { key = "z", mods = hyper_mods, action = act.TogglePaneZoomState },
+  { key = "z", mods = HYPER_MODS, action = act.TogglePaneZoomState },
 }
 
 local quick_select_patterns = {
   "sha256-[0-9a-zA-Z+=]{44}",
 }
 
-local main_font = wezterm.font({ family = "FiraCode Nerd Font" })
+local MAIN_FONT = wezterm.font({ family = "FiraCode Nerd Font" })
 
-return {
-  color_scheme = "Dracula (Official)",
-  font = main_font,
-  font_size = 14,
-  scrollback_lines = 100000,
-  keys = keys,
-  key_tables = key_tables,
-  -- Window options
-  adjust_window_size_when_changing_font_size = false,
+config.color_scheme = "Dracula (Official)"
+config.font = MAIN_FONT
+config.font_size = FONT_SIZE
+config.scrollback_lines = 100000
+config.keys = keys
+config.key_tables = key_tables
 
-  use_fancy_tab_bar = true,
-  tab_max_width = 24,
-  tab_bar_at_bottom = false,
-
-  window_frame = {
-    font = main_font,
-    font_size = 14,
-  },
-  window_decorations = "RESIZE",
-  animation_fps = 60,
-  max_fps = 120,
-
-  window_padding = {
-    left = 0,
-    right = 0,
-    top = 0,
-    bottom = 0,
-  },
-
-  quick_select_patterns = quick_select_patterns,
+-- Window options
+config.adjust_window_size_when_changing_font_size = false
+config.window_decorations = "RESIZE"
+config.animation_fps = 60
+config.max_fps = 120
+config.inactive_pane_hsb = {
+  saturation = 0.9,
+  brightness = 0.75,
 }
+config.audible_bell = "Disabled"
+config.window_padding = {
+  left = 0,
+  right = 0,
+  top = 0,
+  bottom = 0,
+}
+config.window_frame = {
+  font = MAIN_FONT,
+  font_size = FONT_SIZE,
+}
+
+-- Tab bar options
+config.use_fancy_tab_bar = true
+config.tab_max_width = 24
+config.tab_bar_at_bottom = false
+
+config.quick_select_patterns = quick_select_patterns
+
+return config
