@@ -1,7 +1,10 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
+let
+  brewPrefix = if pkgs.stdenv.hostPlatform.isAarch64 then "/opt/homebrew" else "/usr/local";
+in
 {
-  environment.systemPath = [
-    config.homebrew.brewPrefix
+  environment.systemPath = lib.optionals config.homebrew.enable [
+    "${brewPrefix}/bin"
   ];
   homebrew = {
     enable = lib.mkDefault true;
