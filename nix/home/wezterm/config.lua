@@ -4,24 +4,18 @@ local act = wezterm.action
 local config = wezterm.config_builder and wezterm.config_builder() or {}
 local FONT_SIZE = 14
 local HYPER_MODS = "SUPER|ALT|CTRL|SHIFT"
-local URL_QUICK_SELECT_PATTERN = "https?://[^\\s<>\"]+[^\\s<>\",.)]"
+local URL_QUICK_SELECT_PATTERN = 'https?://[^\\s<>"]+[^\\s<>",.)]'
 
 local function get_process_name(path)
-  if not path or path == "" then
-    return ""
-  end
+  if not path or path == "" then return "" end
 
   return path:match("([^/\\]+)$") or path
 end
 
 local function get_tab_title(tab)
-  if tab.tab_title and tab.tab_title ~= "" then
-    return tab.tab_title
-  end
+  if tab.tab_title and tab.tab_title ~= "" then return tab.tab_title end
 
-  if tab.active_pane and tab.active_pane.title then
-    return tab.active_pane.title
-  end
+  if tab.active_pane and tab.active_pane.title then return tab.active_pane.title end
 
   return ""
 end
@@ -33,9 +27,7 @@ end
 
 local function open_selected_url(window, pane)
   local url = window:get_selection_text_for_pane(pane)
-  if url == "" then
-    return
-  end
+  if url == "" then return end
 
   wezterm.log_info("opening: " .. url)
   wezterm.open_with(url)
@@ -45,15 +37,11 @@ end
 wezterm.on("format-tab-title", function(tab, _, _, _, _, max_width)
   local title = " " .. get_tab_title(tab)
 
-  if tab.active_pane and tab.active_pane.is_zoomed then
-    title = title .. " [Z]"
-  end
+  if tab.active_pane and tab.active_pane.is_zoomed then title = title .. " [Z]" end
 
   title = title .. " "
 
-  if max_width and wezterm.truncate_right then
-    title = wezterm.truncate_right(title, max_width)
-  end
+  if max_width and wezterm.truncate_right then title = wezterm.truncate_right(title, max_width) end
 
   return title
 end)
