@@ -1,4 +1,4 @@
-{ ... }:
+{ config, ... }:
 {
   security.pam.services.sudo_local = {
     text = "auth sufficient pam_tid.so.2";
@@ -57,6 +57,6 @@
 
   system.activationScripts.postActivation.text = ''
     # Stop iTunes from responding to the keyboard media keys
-    launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist 2>/dev/null
+    sudo -u "${config.system.primaryUser}" launchctl bootout "gui/$(id -u "${config.system.primaryUser}")/com.apple.rcd" 2>/dev/null
   '';
 }
