@@ -144,6 +144,9 @@ return {
           explorer = {
             hidden = true,
           },
+          smart = {
+            filter = { cwd = true }, -- only search files in current working directory
+          },
         },
       },
       explorer = {
