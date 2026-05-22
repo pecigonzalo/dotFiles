@@ -11,6 +11,7 @@ let
 
   homeDir = config.home.homeDirectory;
   dotFilesDir = "${homeDir}/dotFiles";
+  mkDotFileLink = path: config.lib.file.mkOutOfStoreSymlink "${dotFilesDir}/${path}";
   isDarwin = pkgs.stdenv.hostPlatform.isDarwin;
 
   # Generate SSH agent identities from user config
@@ -126,6 +127,12 @@ in
     programs.fish = {
       enable = true;
     };
+    home.file = {
+      ".config/nushell/aliases.nu".source = mkDotFileLink "nushell/aliases.nu";
+      ".config/nushell/functions.nu".source = mkDotFileLink "nushell/functions.nu";
+      ".config/nushell/completions.nu".source = mkDotFileLink "nushell/completions.nu";
+    };
+
     programs.nushell = {
       enable = true;
       plugins = with pkgs.nushellPlugins; [
@@ -134,11 +141,29 @@ in
       ];
       settings = {
         show_banner = false;
-        completions.external = {
-          enable = true;
-          max_results = 200;
+        history = {
+          file_format = "sqlite";
+          max_size = 5000000;
+          sync_on_enter = true;
+          isolation = false;
+        };
+        completions = {
+          algorithm = "fuzzy";
+          case_sensitive = false;
+          quick = false;
+          partial = true;
+          use_ls_colors = true;
+          external = {
+            enable = true;
+            max_results = 200;
+          };
         };
       };
+      extraConfig = ''
+        source ${config.xdg.configHome}/nushell/completions.nu
+        source ${config.xdg.configHome}/nushell/functions.nu
+        source ${config.xdg.configHome}/nushell/aliases.nu
+      '';
       # Override aliases
       shellAliases = lib.mkForce { };
     };

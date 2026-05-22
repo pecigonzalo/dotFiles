@@ -265,6 +265,40 @@ userinstall() {
   fi
 }
 
+pi() {
+  local version="0.75.1"
+  local -a args=()
+
+  while (( $# > 0 )); do
+    case "$1" in
+      --)
+        shift
+        args+=("$@")
+        break
+        ;;
+      --version)
+        if (( $# < 2 )); then
+          echo "pi: --version requires a version value" >&2
+          return 1
+        fi
+        version="${2#v}"
+        shift 2
+        ;;
+      --version=*)
+        version="${1#--version=}"
+        version="${version#v}"
+        shift
+        ;;
+      *)
+        args+=("$1")
+        shift
+        ;;
+    esac
+  done
+
+  bunx "@earendil-works/pi-coding-agent@v${version}" "${args[@]}"
+}
+
 config() {
   git --git-dir=$HOME/.cfg/ --work-tree=$HOME $@
 }
