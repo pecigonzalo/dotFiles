@@ -9,6 +9,13 @@ let
 
   homeDir = config.home.homeDirectory;
   dotFilesDir = "${homeDir}/dotFiles";
+
+  treeSitterGrammarSources = pkgs.linkFarm "tree-sitter-grammar-sources" (
+    pkgs.lib.mapAttrsToList (name: grammar: {
+      inherit name;
+      path = grammar.src;
+    }) pkgs.tree-sitter.grammars
+  );
 in
 {
   news.display = "silent";
@@ -23,6 +30,9 @@ in
   ];
 
   xdg.enable = true;
+  xdg.configFile."tree-sitter/config.json".text = builtins.toJSON {
+    parser-directories = [ "${treeSitterGrammarSources}" ];
+  };
   my = {
     neovim.enable = true;
     tmux.enable = true;
