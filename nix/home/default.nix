@@ -144,6 +144,7 @@ in
     pkg-config
     autoconf
     coreutils
+    tree-sitter
     findutils
     diffutils
     binutils
