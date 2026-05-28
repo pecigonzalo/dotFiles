@@ -40,6 +40,13 @@ in
     overrideDevices = false;
     overrideFolders = false;
     settings.options.urAccepted = -1;
+    settings.options = {
+      globalAnnounceEnabled = false;
+      localAnnounceEnabled = false;
+      relaysEnabled = false;
+      natEnabled = false;
+    };
+
   };
 
   my = {
