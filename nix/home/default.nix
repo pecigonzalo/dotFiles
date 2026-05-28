@@ -2,6 +2,7 @@
   config,
   pkgs,
   inputs,
+  lib,
   ...
 }:
 let
@@ -33,6 +34,14 @@ in
   xdg.configFile."tree-sitter/config.json".text = builtins.toJSON {
     parser-directories = [ "${treeSitterGrammarSources}" ];
   };
+
+  services.syncthing = lib.mkIf pkgs.stdenv.isDarwin {
+    enable = true;
+    overrideDevices = false;
+    overrideFolders = false;
+    settings.options.urAccepted = -1;
+  };
+
   my = {
     neovim.enable = true;
     tmux.enable = true;
