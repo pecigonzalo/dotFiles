@@ -35,94 +35,18 @@
     }@inputs:
     let
       inherit (darwin.lib) darwinSystem;
-      inherit (nixpkgs.lib) attrValues makeOverridable;
-      inherit (builtins) listToAttrs;
+      inherit (nixpkgs.lib) makeOverridable;
+      inherit (builtins) mapAttrs;
 
-      supportedSystems = [
-        "aarch64-darwin"
-        "x86_64-linux"
-        "aarch64-linux"
-      ];
+      systems = import ./nix/flake/systems.nix;
+      inherit (systems) forAllSystems;
 
-      forAllSystems =
-        function:
-        listToAttrs (
-          map (system: {
-            name = system;
-            value = function system;
-          }) supportedSystems
-        );
-
-      namedOverlays = attrValues {
-        # Overlay useful on Macs with Apple Silicon
-        stable = _final: prev: {
-          pkgs-stable = import inputs.nixpkgs-stable {
-            inherit (prev.stdenv) system;
-            inherit (nixpkgsConfig) config;
-          };
-        };
-
-        packages = import ./nix/pkgs;
-      };
-
-      dynamicOverlays =
-        let
-          path = ./nix/overlays;
-        in
-        with builtins;
-        map (overlay: import (path + ("/" + overlay))) (
-          filter (
-            overlay: match ".*\\.nix" overlay != null || pathExists (path + ("/" + overlay + "/default.nix"))
-          ) (attrNames (readDir path))
-        );
-
-      nixpkgsConfig = {
-        config = {
-          allowUnfree = true;
-          allowInsecure = false;
-          allowUnsupportedSystem = true;
-          # NOTE: Fixes unfree problem, remove when
-          # https://github.com/nix-community/home-manager/issues/2942
-          allowUnfreePredicate = _pkg: true;
-          allowBroken = false;
-        };
-        # Dynamic list of overlays
-        overlays = namedOverlays ++ dynamicOverlays;
-      };
-
-      pkgsFor =
-        system:
-        import nixpkgs {
-          inherit system;
-          inherit (nixpkgsConfig) config overlays;
-        };
-
-      mkDevShell =
-        system:
-        let
-          pkgs = pkgsFor system;
-        in
-        pkgs.mkShell {
-          packages =
-            with pkgs;
-            [
-              cachix
-              git
-              deadnix
-              lefthook
-              nixd
-              nixfmt
-              statix
-            ]
-            ++ lib.optionals stdenv.hostPlatform.isDarwin [
-              inputs.darwin.packages.${system}.darwin-rebuild
-            ]
-            ++ lib.optionals stdenv.hostPlatform.isLinux [
-              inputs.home-manager.packages.${system}.home-manager
-            ];
-        };
+      pkgsLib = import ./nix/flake/pkgs.nix { inherit inputs nixpkgs; };
+      inherit (pkgsLib) nixpkgsConfig pkgsFor mkDevShell;
 
       homeManagerStateVersion = "25.11";
+      homeTargets = import ./nix/flake/home-targets.nix;
+
       commonHomeManagerConfig = {
         imports = [
           ./nix/modules/home-manager
@@ -207,6 +131,28 @@
           }
         ];
 
+      mkHomeConfiguration =
+        {
+          system,
+          username,
+          homeDirectory,
+        }:
+        home-manager.lib.homeManagerConfiguration {
+          pkgs = pkgsFor system;
+          extraSpecialArgs = { inherit inputs; };
+          modules = [
+            {
+              home = {
+                inherit username homeDirectory;
+                stateVersion = homeManagerStateVersion;
+              };
+              nixpkgs = nixpkgsConfig;
+            }
+            commonHomeManagerConfig
+          ];
+        };
+
+      homeConfigurationsBase = mapAttrs (_name: mkHomeConfiguration) homeTargets;
     in
     {
       darwinConfigurations = {
@@ -285,55 +231,8 @@
         };
       };
 
-      homeConfigurations = rec {
-        pecigonzalo = wslfish; # Alias
-        wslfish = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.x86_64-linux;
-          extraSpecialArgs = { inherit inputs; };
-          modules = [
-            {
-              home = {
-                username = "pecigonzalo";
-                homeDirectory = "/home/pecigonzalo";
-                stateVersion = homeManagerStateVersion;
-              };
-              nixpkgs = nixpkgsConfig;
-            }
-            commonHomeManagerConfig
-          ];
-        };
-
-        devel = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.aarch64-linux;
-          extraSpecialArgs = { inherit inputs; };
-          modules = [
-            {
-              home = {
-                username = "devel";
-                homeDirectory = "/home/devel";
-                stateVersion = homeManagerStateVersion;
-              };
-              nixpkgs = nixpkgsConfig;
-            }
-            commonHomeManagerConfig
-          ];
-        };
-
-        revel = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.x86_64-linux;
-          extraSpecialArgs = { inherit inputs; };
-          modules = [
-            {
-              home = {
-                username = "ubuntu";
-                homeDirectory = "/home/ubuntu";
-                stateVersion = homeManagerStateVersion;
-              };
-              nixpkgs = nixpkgsConfig;
-            }
-            commonHomeManagerConfig
-          ];
-        };
+      homeConfigurations = homeConfigurationsBase // {
+        pecigonzalo = homeConfigurationsBase.wslfish;
       };
 
       devShells = forAllSystems (system: {
