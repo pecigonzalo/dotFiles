@@ -18,16 +18,42 @@ let
   sshIdentities = builtins.concatStringsSep " " (map (key: key.name) userCfg.sshKeys);
 
   omzRev = "9114853500ea66cff7c803b0e951754833946f3d";
+  omzHash = "sha256-7DtTbWI+MCapMhdK25MBDHJrK/zzrBl/jFjlZJhkn7k=";
+
+  fetchGitHubRev =
+    {
+      owner,
+      repo,
+      rev,
+      hash ? null,
+    }:
+    if hash == null then
+      builtins.fetchGit {
+        inherit rev;
+        url = "https://github.com/${owner}/${repo}";
+      }
+    else
+      pkgs.fetchFromGitHub {
+        inherit
+          owner
+          repo
+          rev
+          hash
+          ;
+      };
+
   omzPlugin =
     {
       name,
       rev ? omzRev,
+      hash ? if rev == omzRev then omzHash else null,
     }:
     {
       name = "ohmyzsh-plugin-${name}";
-      src = builtins.fetchGit {
-        inherit rev;
-        url = "https://github.com/ohmyzsh/ohmyzsh";
+      src = fetchGitHubRev {
+        owner = "ohmyzsh";
+        repo = "ohmyzsh";
+        inherit rev hash;
       };
       file = "plugins/${name}/${name}.plugin.zsh";
     };
@@ -35,12 +61,14 @@ let
     {
       name,
       rev ? omzRev,
+      hash ? if rev == omzRev then omzHash else null,
     }:
     {
       name = "ohmyzsh-lib-${name}";
-      src = builtins.fetchGit {
-        inherit rev;
-        url = "https://github.com/ohmyzsh/ohmyzsh";
+      src = fetchGitHubRev {
+        owner = "ohmyzsh";
+        repo = "ohmyzsh";
+        inherit rev hash;
       };
       file = "lib/${name}.zsh";
     };
@@ -50,13 +78,14 @@ let
       owner,
       rev,
       file ? null,
+      hash ? null,
     }:
     {
       inherit name;
       file = if file == null then "${name}.plugin.zsh" else file;
-      src = builtins.fetchGit {
-        inherit rev;
-        url = "https://github.com/${owner}/${name}";
+      src = fetchGitHubRev {
+        repo = name;
+        inherit owner rev hash;
       };
     };
 in
@@ -79,6 +108,11 @@ in
             file = mkOption {
               type = types.nullOr types.str;
               default = null;
+            };
+            hash = mkOption {
+              type = types.nullOr types.str;
+              default = null;
+              description = "Fixed-output hash for the plugin source.";
             };
           };
         }
@@ -347,12 +381,14 @@ in
             name = "zsh-z";
             owner = "agkozak";
             rev = "cf9225feebfae55e557e103e95ce20eca5eff270";
+            hash = "sha256-C79eSOaWNHSJiUGmHzu9d0zO0NdW+dktK21a2niPZm0=";
           })
           (gitHubPlugin {
             name = "jq-zsh-plugin";
             owner = "reegnz";
             rev = "ded47a1e51303fb2cb331288e134e18f637274a6";
             file = "jq.plugin.zsh";
+            hash = "sha256-XYDIDThQbnr9O9cOIFPz9qqSFjxovcCqb4j6LFVlL5w=";
           })
         ]
         ++ (map gitHubPlugin cfg.gitHubPlugins);

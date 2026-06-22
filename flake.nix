@@ -41,6 +41,7 @@
       self,
       nixpkgs,
       darwin,
+      determinate,
       home-manager,
       nixos-wsl,
       ...
@@ -49,6 +50,21 @@
       inherit (darwin.lib) darwinSystem;
       inherit (nixpkgs.lib) attrValues makeOverridable;
       inherit (builtins) listToAttrs;
+
+      supportedSystems = [
+        "aarch64-darwin"
+        "x86_64-linux"
+        "aarch64-linux"
+      ];
+
+      forAllSystems =
+        function:
+        listToAttrs (
+          map (system: {
+            name = system;
+            value = function system;
+          }) supportedSystems
+        );
 
       namedOverlays = attrValues {
         # Overlay useful on Macs with Apple Silicon
@@ -84,13 +100,37 @@
           allowBroken = false;
         };
         # Dynamic list of overlays
-        overlays =
-          namedOverlays
-          ++ dynamicOverlays
-          ++ [
-            # inputs.neovim-nightly-overlay.overlays.default
-          ];
+        overlays = namedOverlays ++ dynamicOverlays;
       };
+
+      pkgsFor =
+        system:
+        import nixpkgs {
+          inherit system;
+          inherit (nixpkgsConfig) config overlays;
+        };
+
+      mkDevShell =
+        system:
+        let
+          pkgs = pkgsFor system;
+        in
+        pkgs.mkShell {
+          packages =
+            with pkgs;
+            [
+              cachix
+              git
+              nixd
+              nixfmt
+            ]
+            ++ lib.optionals stdenv.hostPlatform.isDarwin [
+              inputs.darwin.packages.${system}.darwin-rebuild
+            ]
+            ++ lib.optionals stdenv.hostPlatform.isLinux [
+              inputs.home-manager.packages.${system}.home-manager
+            ];
+        };
 
       homeManagerStateVersion = "25.11";
       commonHomeManagerConfig = {
@@ -274,22 +314,27 @@
         };
       };
 
-      checks = listToAttrs (
-        # darwin checks
-        (map (system: {
-          name = system;
-          value = {
-            pecigonzalo = self.darwinConfigurations.githubCI.config.system.build.toplevel;
-          };
-        }) nixpkgs.lib.platforms.darwin)
-        ++
-          # linux checks
-          (map (system: {
-            name = system;
-            value = {
-              wslfish = self.homeConfigurations.wslfish.activationPackage;
-            };
-          }) nixpkgs.lib.platforms.linux)
-      );
+      devShells = forAllSystems (system: {
+        default = mkDevShell system;
+      });
+
+      formatter = forAllSystems (system: (pkgsFor system).nixfmt);
+
+      checks = {
+        aarch64-darwin = {
+          githubCI = self.darwinConfigurations.githubCI.config.system.build.toplevel;
+          pecigonzalo = self.darwinConfigurations.pecigonzalo.config.system.build.toplevel;
+        };
+
+        x86_64-linux = {
+          wsl = self.nixosConfigurations.wsl.config.system.build.toplevel;
+          wslfish = self.homeConfigurations.wslfish.activationPackage;
+          revel = self.homeConfigurations.revel.activationPackage;
+        };
+
+        aarch64-linux = {
+          devel = self.homeConfigurations.devel.activationPackage;
+        };
+      };
     };
 }

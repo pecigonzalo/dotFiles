@@ -151,150 +151,150 @@ in
     ];
   };
 
-  home.packages = with pkgs; [
-    # Common
-    htop
-    nano
-    nmap
-    ngrep
-    neofetch
-    netcat-gnu
-    wget
-    curl
-    which
-    ldns
-    dnsutils
-    unixtools.watch
+  home.packages =
+    with pkgs;
+    [
+      # Common
+      htop
+      nano
+      nmap
+      ngrep
+      fastfetch
+      netcat-gnu
+      wget
+      curl
+      which
+      ldns
+      dnsutils
+      unixtools.watch
 
-    # Build tools
-    pkg-config
-    autoconf
-    coreutils
-    tree-sitter
-    findutils
-    diffutils
-    binutils
-    gnumake
-    gnugrep
-    gnused
-    gnutar
-    gnupg
-    gawk
+      # Build tools
+      pkg-config
+      autoconf
+      coreutils
+      tree-sitter
+      findutils
+      diffutils
+      binutils
+      gnumake
+      gnugrep
+      gnused
+      gnutar
+      gnupg
+      gawk
 
-    # Misc
-    goaccess # Access log analyzer
-    parallel
-    jq
-    yq-go
-    mkcert
-    rclone
-    restic
-    sshuttle
-    socat
-    watchman
-    go-task # taskfile.dev
-    dos2unix
-    pandoc
-    vale # Prose linter
-    zsh-completions
+      # Misc
+      goaccess # Access log analyzer
+      parallel
+      jq
+      yq-go
+      mkcert
+      rclone
+      restic
+      sshuttle
+      socat
+      watchman
+      go-task # taskfile.dev
+      dos2unix
+      pandoc
+      vale # Prose linter
+      zsh-completions
 
-    # Compression
-    m4
-    xz
-    unrar
-    zstd
-    gzip
+      # Compression
+      m4
+      xz
+      unrar
+      zstd
+      gzip
 
-    # CLI Replacements
-    bat # cat
-    ripgrep # grep
-    eza # ls
-    fd # find
-    # httpie # curl
-    curlie # curl
-    tealdeer # TLDR
-    dust # du
-    htop # top
-    procs # ps
-    doggo # dig
-    gping # ping with a graph
-    sad # CLI search and replace | Space Age seD
-    glow # Markdown reader
-    jo # JSON objects made easy https://github.com/jpmens/jo
+      # CLI Replacements
+      bat # cat
+      ripgrep # grep
+      eza # ls
+      fd # find
+      # httpie # curl
+      curlie # curl
+      tealdeer # TLDR
+      dust # du
+      htop # top
+      procs # ps
+      doggo # dig
+      gping # ping with a graph
+      sad # CLI search and replace | Space Age seD
+      glow # Markdown reader
+      jo # JSON objects made easy https://github.com/jpmens/jo
 
-    # Package managers
-    asdf-vm
-    devbox
+      # Package managers
+      asdf-vm
+      devbox
 
-    # Elm
-    elmPackages.elm
+      # Elm
+      elmPackages.elm
 
-    # Dhall
-    dhall
+      # Dhall
+      dhall
 
-    # Load testing / Benchmarking
-    k6
-    vegeta
-    hyperfine # CLI benchmarking
+      # Load testing / Benchmarking
+      k6
+      vegeta
+      hyperfine # CLI benchmarking
 
-    # Local
-    jl # JSON structured logs parser
-    loro
-    iamlive
-    # shell-functools # a collection of functional programming tools for the shell
+      # Local
+      jl # JSON structured logs parser
+      loro
+      iamlive
+      # shell-functools # a collection of functional programming tools for the shell
 
-    # Bash
-    shellcheck
-    shfmt
+      # Bash
+      shellcheck
+      shfmt
 
-    # Hashi
-    # vagrant
-    packer
+      # Hashi
+      # vagrant
+      packer
 
-    # Docker
-    docker
-    docker-compose
-    podman
-    dive
+      # Docker
+      docker
+      docker-compose
+      podman
+      dive
 
-    # DB tools
-    postgresql
-    redis
-    duckdb
+      # DB tools
+      postgresql
+      redis
+      duckdb
 
-    # Graph
-    graphviz
+      # Graph
+      graphviz
 
-    # Debug
-    pprof
+      # Debug
+      pprof
 
-    # Java
-    jdk17_headless
-    # gradle
-    # gradle-completion
+      # Java
+      jdk17_headless
+      # gradle
+      # gradle-completion
 
-    # Markdown
-    glow
+      # Markdown
+      glow
 
-    # Ansible
-    ansible
-    # ansible-lint
+      # Ansible
+      ansible
+      # ansible-lint
 
-    # Other CLIs
-    _1password-cli
+      # Other CLIs
+      _1password-cli
 
-    # Container runtimes
-    lima
-    colima
+      # Container runtimes
+      lima
+      colima
 
-    # WSL
-    wslu
-
-    # Security
-    # nodePackages.snyk # Snyk CLI
-    cilium-cli
-    hubble
-    cloudflared
-    teleport
-  ];
+      # Security
+      # nodePackages.snyk # Snyk CLI
+      cilium-cli
+      hubble
+      cloudflared
+      teleport
+    ]
+    ++ lib.optionals pkgs.stdenv.isLinux [ wsl-open ];
 }

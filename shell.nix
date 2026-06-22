@@ -1,7 +1,12 @@
-{ pkgs }:
-let
+{
+  pkgs ? import <nixpkgs> { },
+}:
 
-in
 pkgs.mkShell {
-  buildInputs = [ pkgs.nixFlakes ];
+  packages = with pkgs; [
+    cachix
+    git
+    nixd
+    nixfmt
+  ];
 }

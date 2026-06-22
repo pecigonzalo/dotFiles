@@ -69,26 +69,26 @@ in
         if cfg.packageManager == "all" then
           [
             yarn
-            nodePackages.pnpm
+            pnpm
           ]
         else if cfg.packageManager == "yarn" then
           [ yarn ]
         else if cfg.packageManager == "pnpm" then
-          [ nodePackages.pnpm ]
+          [ pnpm ]
         else
           [ ] # npm is included with nodejs
       )
       ++ optionals cfg.includeTypeScript [
-        nodePackages.typescript
-        nodePackages_latest.typescript-language-server
+        typescript
+        typescript-language-server
         vtsls
       ]
       ++ optional cfg.includeDeno deno
       ++ optional cfg.includeBun bun
       ++ optionals cfg.includeLinters [
-        nodePackages_latest.eslint
+        eslint
         eslint_d
-        nodePackages_latest.prettier
+        prettier
         prettierd
       ];
 
@@ -103,18 +103,18 @@ in
     my.neovim.extraPackages = mkIf neovimCfg.enable (
       with pkgs;
       optionals cfg.includeTypeScript [
-        nodePackages_latest.typescript-language-server
+        typescript-language-server
         vtsls
       ]
       ++ optionals cfg.includeLinters [
-        nodePackages_latest.eslint
+        eslint
         eslint_d
-        nodePackages_latest.prettier
+        prettier
         prettierd
       ]
       ++ [
         # Additional language servers
-        nodePackages.vscode-json-languageserver
+        vscode-json-languageserver
       ]
     );
   };

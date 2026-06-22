@@ -31,14 +31,10 @@ in
     };
 
     programs.ssh = {
-      matchBlocks = {
-        "github.com" = {
-          serverAliveInterval = 60;
-          extraOptions = {
-            ControlMaster = "auto";
-            ControlPersist = "yes";
-          };
-        };
+      settings."github.com" = {
+        ServerAliveInterval = 60;
+        ControlMaster = "auto";
+        ControlPersist = "yes";
       };
     };
 
@@ -302,6 +298,7 @@ in
           name = "forgit";
           owner = "wfxr";
           rev = "eed197948cc58b5bc388c1ebb1559431898a6221";
+          hash = "sha256-BTrLIAOVTyUOgOMJEZhd55UlPKUwsTpTXoaVYsfoQuQ=";
         }
       ];
       omzLibs = [

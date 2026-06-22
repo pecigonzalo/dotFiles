@@ -1,11 +1,27 @@
 # Gonzalo's dotFiles
 
-Magic dotFiles containing my personal development and productivity config, mostly in Nix+HomeManager. While most of the config is supported for Linux, WSL2, macOS, the installer and some parameters are not yet set to automatically detect the configs for each.
+Personal development and productivity configuration, mostly managed with Nix and Home Manager. The flake supports this macOS machine, WSL2, and standalone Linux Home Manager targets.
 
 ![](https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExNWUwMG1wczdxeHJycHVrOGdmZnZ3M2hoM2V6dXgwYXcwbHE1eXp6ayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/9r75ILTJtiDACKOKoY/giphy.gif)
 
-## Install
+## Development
 
+```sh
+nix develop
+nix flake check --all-systems --no-build
 ```
-nix --extra-experimental-features nix-command --extra-experimental-features flakes develop
+
+## Apply configurations
+
+```sh
+# macOS
+sudo darwin-rebuild switch --flake .#pecigonzalo
+
+# WSL2 NixOS
+sudo nixos-rebuild switch --flake .#wsl
+
+# Standalone Home Manager targets
+home-manager switch --flake .#wslfish
+home-manager switch --flake .#revel
+home-manager switch --flake .#devel
 ```

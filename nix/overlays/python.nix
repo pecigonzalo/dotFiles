@@ -21,7 +21,6 @@ in
 
       ipython
 
-      pipx
     ]
   );
 }

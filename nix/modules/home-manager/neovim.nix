@@ -88,6 +88,7 @@ in
       vimdiffAlias = true;
       withNodeJs = cfg.withNodeJs;
       withPython3 = cfg.withPython3;
+      withRuby = true;
 
       plugins = with pkgs.vimPlugins; [
         {
@@ -120,10 +121,10 @@ in
           # LSPs
           jdt-language-server
           # kotlin-language-server
-          nodePackages.vscode-langservers-extracted
-          nodePackages.yaml-language-server
+          vscode-langservers-extracted
+          yaml-language-server
           dockerfile-language-server
-          nodePackages.bash-language-server
+          bash-language-server
           lua-language-server
         ]
         ++ cfg.extraPackages;
