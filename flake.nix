@@ -44,6 +44,7 @@
       pkgsLib = import ./nix/flake/pkgs.nix { inherit inputs nixpkgs; };
       inherit (pkgsLib) nixpkgsConfig pkgsFor mkDevShell;
 
+      # State versions control migration defaults; do not bump just because inputs update.
       homeManagerStateVersion = "25.11";
       homeTargets = import ./nix/flake/home-targets.nix;
 
@@ -194,6 +195,7 @@
             home-manager.nixosModules.home-manager
             ./nix/common
             {
+              # State versions control migration defaults; do not bump just because inputs update.
               system.stateVersion = "25.05";
               wsl.enable = true;
               wsl.defaultUser = "pecigonzalo";
