@@ -8,6 +8,7 @@ Personal development and productivity configuration, mostly managed with Nix and
 
 ```sh
 nix develop
+lefthook install
 nix flake check --all-systems --no-build
 ```
 

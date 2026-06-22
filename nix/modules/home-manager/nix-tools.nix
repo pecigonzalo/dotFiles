@@ -34,6 +34,12 @@ in
       description = "Include cachix for binary caching";
     };
 
+    includeLinters = mkOption {
+      type = types.bool;
+      default = true;
+      description = "Include Nix linters (deadnix and statix)";
+    };
+
     includeAgenix = mkOption {
       type = types.bool;
       default = true;
@@ -48,6 +54,10 @@ in
       ++ optional cfg.includeLSP nixd
       ++ optional cfg.includeFormatter nixfmt
       ++ optional cfg.includeCachix cachix
+      ++ optionals cfg.includeLinters [
+        deadnix
+        statix
+      ]
       ++ optional cfg.includeAgenix inputs.agenix.packages.${pkgs.stdenv.system}.agenix;
 
     # Add nixd and nixfmt to neovim if enabled

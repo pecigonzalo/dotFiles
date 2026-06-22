@@ -41,7 +41,6 @@
       self,
       nixpkgs,
       darwin,
-      determinate,
       home-manager,
       nixos-wsl,
       ...
@@ -68,7 +67,7 @@
 
       namedOverlays = attrValues {
         # Overlay useful on Macs with Apple Silicon
-        stable = final: prev: {
+        stable = _final: prev: {
           pkgs-stable = import inputs.nixpkgs-stable {
             inherit (prev.stdenv) system;
             inherit (nixpkgsConfig) config;
@@ -96,7 +95,7 @@
           allowUnsupportedSystem = true;
           # NOTE: Fixes unfree problem, remove when
           # https://github.com/nix-community/home-manager/issues/2942
-          allowUnfreePredicate = (pkg: true);
+          allowUnfreePredicate = _pkg: true;
           allowBroken = false;
         };
         # Dynamic list of overlays
@@ -121,8 +120,11 @@
             [
               cachix
               git
+              deadnix
+              lefthook
               nixd
               nixfmt
+              statix
             ]
             ++ lib.optionals stdenv.hostPlatform.isDarwin [
               inputs.darwin.packages.${system}.darwin-rebuild

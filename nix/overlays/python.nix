@@ -1,4 +1,4 @@
-final: prev:
+_final: prev:
 
 let
   stable = prev.pkgs-stable;

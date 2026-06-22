@@ -1,4 +1,4 @@
-final: prev:
+_final: prev:
 let
   inherit (prev) lib;
   callPackage = lib.callPackageWith (prev // prev.python3.pkgs);

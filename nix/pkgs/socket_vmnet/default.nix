@@ -18,7 +18,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     makeWrapper
-  ] ++ lib.optionals stdenv.isDarwin [ vmnet ];
+  ]
+  ++ lib.optionals stdenv.isDarwin [ vmnet ];
 
   buildPhase = ''
     runHook preBuild

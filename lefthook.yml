@@ -1,0 +1,12 @@
+pre-commit:
+  parallel: true
+  commands:
+    deadnix:
+      glob: "*.nix"
+      run: deadnix --fail {staged_files}
+    statix:
+      glob: "*.nix"
+      run: statix check .
+    nixfmt:
+      glob: "*.nix"
+      run: nixfmt --check {staged_files}

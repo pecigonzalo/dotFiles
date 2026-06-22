@@ -7,7 +7,6 @@
 with lib;
 let
   cfg = config.my.tmux;
-  shellCfg = config.my.shell;
 in
 {
   options.my.tmux = {
