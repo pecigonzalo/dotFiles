@@ -36,5 +36,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/lima-vm/socket_vmnet";
     description = "vmnet.framework support for unmodified rootless QEMU (no dependency on VDE)";
+    license = licenses.asl20;
+    mainProgram = "socket_vmnet";
+    platforms = platforms.darwin;
   };
 }

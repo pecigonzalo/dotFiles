@@ -18,5 +18,6 @@ buildPythonApplication {
     homepage = "https://github.com/sharkdp/shell-functools";
     description = "A collection of functional programming tools for the shell.";
     license = licenses.mit;
+    mainProgram = "ft";
   };
 }

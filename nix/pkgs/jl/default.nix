@@ -1,4 +1,5 @@
 {
+  lib,
   buildGoModule,
   fetchFromGitHub,
   installShellFiles,
@@ -29,4 +30,11 @@ buildGoModule rec {
   installCheckPhase = ''
     $out/bin/jl --version 2>&1 | grep ${version} > /dev/null
   '';
+
+  meta = with lib; {
+    homepage = "https://github.com/koenbollen/jl";
+    description = "JSON logs command line viewer";
+    license = licenses.mit;
+    mainProgram = "jl";
+  };
 }

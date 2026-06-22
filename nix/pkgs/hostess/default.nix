@@ -20,5 +20,6 @@ buildGoModule rec {
     homepage = "https://github.com/cbednarski/hostess";
     description = "An idempotent command-line utility for managing your /etc/hosts file.";
     license = licenses.mit;
+    mainProgram = "hostess";
   };
 }

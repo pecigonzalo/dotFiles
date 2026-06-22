@@ -1,4 +1,5 @@
 {
+  lib,
   buildGoModule,
   fetchFromGitHub,
   installShellFiles,
@@ -36,4 +37,11 @@ buildGoModule rec {
   installCheckPhase = ''
     $out/bin/loro --version 2>&1 | grep ${version} > /dev/null
   '';
+
+  meta = with lib; {
+    homepage = "https://github.com/pecigonzalo/loro";
+    description = "Terminal log rotator";
+    license = licenses.mit;
+    mainProgram = "loro";
+  };
 }

@@ -20,5 +20,6 @@ buildGoModule rec {
     homepage = "https://github.com/iann0036/iamlive";
     description = "Generate an IAM policy from AWS calls using client-side monitoring (CSM) or embedded proxy";
     license = licenses.mit;
+    mainProgram = "iamlive";
   };
 }
