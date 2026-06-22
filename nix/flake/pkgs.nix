@@ -10,7 +10,7 @@ let
   dynamicOverlays =
     let
       path = ../overlays;
-      stableOverlay = "stable-packages.nix";
+      stableOverlay = "pkgs-stable.nix";
       isOverlay =
         overlay:
         builtins.match ".*\\.nix" overlay != null
