@@ -167,11 +167,43 @@
           homeDirectory = "/Users/${user}";
         in
         [
+          inputs.determinate.darwinModules.default
           home-manager.darwinModules.home-manager
           nixGlobal
           ./nix/common
           ./nix/darwin
           {
+            determinateNix = {
+              enable = true;
+              registry = {
+                nixpkgs.flake = nixpkgs;
+                nixpkgs-stable.flake = inputs.nixpkgs-stable;
+              };
+              customSettings = {
+                experimental-features = [
+                  "nix-command"
+                  "flakes"
+                ];
+                substituters = [
+                  "https://cache.nixos.org/"
+                  "https://pecigonzalo.cachix.org"
+                  "https://nix-community.cachix.org"
+                ];
+                trusted-public-keys = [
+                  "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+                  "pecigonzalo.cachix.org-1:KIojNF24XoRSCGsQu+fwzY/fJhEtANoxKB1Tu45hid8="
+                  "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+                ];
+                trusted-users = [ "@admin" ];
+                extra-platforms = [
+                  "aarch64-darwin"
+                  "x86_64-darwin"
+                ];
+                keep-outputs = true;
+                keep-derivations = true;
+                auto-optimise-store = false;
+              };
+            };
             nixpkgs = nixpkgsConfig;
             # home-manager config
             users.users.${user}.home = homeDirectory;
