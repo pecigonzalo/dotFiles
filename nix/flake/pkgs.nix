@@ -3,29 +3,26 @@
   nixpkgs,
 }:
 let
-  inherit (nixpkgs.lib) attrValues;
-
-  namedOverlays = attrValues {
-    stable = _final: prev: {
-      pkgs-stable = import inputs.nixpkgs-stable {
-        inherit (prev.stdenv) system;
-        inherit (nixpkgsConfig) config;
-      };
-    };
-
-    packages = import ../pkgs;
-  };
+  namedOverlays = [
+    (import ../pkgs)
+  ];
 
   dynamicOverlays =
     let
       path = ../overlays;
+      stableOverlay = "stable-packages.nix";
+      isOverlay =
+        overlay:
+        builtins.match ".*\\.nix" overlay != null
+        || builtins.pathExists (path + ("/" + overlay + "/default.nix"));
+      overlayNames = builtins.filter isOverlay (builtins.attrNames (builtins.readDir path));
+      orderedOverlayNames =
+        builtins.filter (overlay: overlay == stableOverlay) overlayNames
+        ++ builtins.filter (overlay: overlay != stableOverlay) overlayNames;
     in
-    with builtins;
-    map (overlay: import (path + ("/" + overlay))) (
-      filter (
-        overlay: match ".*\\.nix" overlay != null || pathExists (path + ("/" + overlay + "/default.nix"))
-      ) (attrNames (readDir path))
-    );
+    map (
+      overlay: import (path + ("/" + overlay)) { inherit inputs nixpkgsConfig; }
+    ) orderedOverlayNames;
 
   nixpkgsConfig = {
     config = {
