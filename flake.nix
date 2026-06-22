@@ -18,20 +18,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Flake Utils
-    flake-utils.url = "github:numtide/flake-utils";
-
-    # Link macOS apps
-    mkalias = {
-      url = "github:reckenrode/mkalias";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # WSL
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
-
-    # Neovim
-    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
 
     # Agenix
     agenix.url = "github:ryantm/agenix";

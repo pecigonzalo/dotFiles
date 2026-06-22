@@ -25,22 +25,16 @@ let
       owner,
       repo,
       rev,
-      hash ? null,
+      hash,
     }:
-    if hash == null then
-      builtins.fetchGit {
-        inherit rev;
-        url = "https://github.com/${owner}/${repo}";
-      }
-    else
-      pkgs.fetchFromGitHub {
-        inherit
-          owner
-          repo
-          rev
-          hash
-          ;
-      };
+    pkgs.fetchFromGitHub {
+      inherit
+        owner
+        repo
+        rev
+        hash
+        ;
+    };
 
   omzPlugin =
     {
@@ -78,7 +72,7 @@ let
       owner,
       rev,
       file ? null,
-      hash ? null,
+      hash,
     }:
     {
       inherit name;
@@ -110,8 +104,7 @@ in
               default = null;
             };
             hash = mkOption {
-              type = types.nullOr types.str;
-              default = null;
+              type = types.str;
               description = "Fixed-output hash for the plugin source.";
             };
           };
@@ -130,6 +123,11 @@ in
               type = types.str;
               default = omzRev;
             };
+            hash = mkOption {
+              type = types.str;
+              default = omzHash;
+              description = "Fixed-output hash for the Oh My Zsh source.";
+            };
           };
         }
       );
@@ -145,6 +143,11 @@ in
             rev = mkOption {
               type = types.str;
               default = omzRev;
+            };
+            hash = mkOption {
+              type = types.str;
+              default = omzHash;
+              description = "Fixed-output hash for the Oh My Zsh source.";
             };
           };
         }
