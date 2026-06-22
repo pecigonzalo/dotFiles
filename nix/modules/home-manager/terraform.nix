@@ -14,20 +14,22 @@ in
   };
 
   config = mkIf cfg.enable {
-    home.shellAliases = {
-      "tf" = "terraform";
+    home = {
+      shellAliases = {
+        "tf" = "terraform";
+      };
+      file.".terraformrc".text = ''
+        plugin_cache_dir   = "${config.xdg.cacheHome}/terraform/plugin-cache"
+        disable_checkpoint = true
+      '';
+      packages = with pkgs; [
+        terraform
+        terraform-ls
+        terraform-docs
+        tflint
+        tfsec
+        # nodePackages.cdktf-cli
+      ];
     };
-    home.file.".terraformrc".text = ''
-      plugin_cache_dir   = "${config.xdg.cacheHome}/terraform/plugin-cache"
-      disable_checkpoint = true
-    '';
-    home.packages = with pkgs; [
-      terraform
-      terraform-ls
-      terraform-docs
-      tflint
-      tfsec
-      # nodePackages.cdktf-cli
-    ];
   };
 }

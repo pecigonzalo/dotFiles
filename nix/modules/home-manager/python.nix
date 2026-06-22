@@ -65,22 +65,33 @@ in
   };
 
   config = mkIf cfg.enable {
-    home.sessionVariables = {
-      # Disable virtualenv in prompt autoconfig
-      VIRTUAL_ENV_DISABLE_PROMPT = 1;
-      # Pipenv - create venv in project directory
-      PIPENV_VENV_IN_PROJECT = "true";
+    home = {
+      sessionVariables = {
+        # Disable virtualenv in prompt autoconfig
+        VIRTUAL_ENV_DISABLE_PROMPT = 1;
+        # Pipenv - create venv in project directory
+        PIPENV_VENV_IN_PROJECT = "true";
+      };
+
+      file.".numpy-site.cfg".text = ''
+        [ALL]
+        library_dirs = ${config.my.paths.homeDir}/.nix-profile/lib
+        include_dirs = ${config.my.paths.homeDir}/.nix-profile/include
+
+        [DEFAULT]
+        library_dirs = ${config.my.paths.homeDir}/.nix-profile/lib
+        include_dirs = ${config.my.paths.homeDir}/.nix-profile/include
+      '';
+
+      packages =
+        with pkgs;
+        [
+          # Python interpreter
+          (if cfg.version == "python3" then python-with-env else pkgs.${cfg.version})
+        ]
+        ++ packageManagerPackages
+        ++ optionals cfg.includeLinters [ ruff ];
     };
-
-    home.file.".numpy-site.cfg".text = ''
-      [ALL]
-      library_dirs = ${config.my.paths.homeDir}/.nix-profile/lib
-      include_dirs = ${config.my.paths.homeDir}/.nix-profile/include
-
-      [DEFAULT]
-      library_dirs = ${config.my.paths.homeDir}/.nix-profile/lib
-      include_dirs = ${config.my.paths.homeDir}/.nix-profile/include
-    '';
 
     # Create poetry config if poetry is selected
     xdg.configFile."pypoetry/config.toml" =
@@ -92,15 +103,6 @@ in
             };
           };
         };
-
-    home.packages =
-      with pkgs;
-      [
-        # Python interpreter
-        (if cfg.version == "python3" then python-with-env else pkgs.${cfg.version})
-      ]
-      ++ packageManagerPackages
-      ++ optionals cfg.includeLinters [ ruff ];
 
     # Add python/pip OMZ plugins if shell is enabled
     my.shell.omzPlugins = mkIf shellCfg.enable [

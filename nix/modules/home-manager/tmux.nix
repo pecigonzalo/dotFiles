@@ -45,7 +45,7 @@ in
 
       terminal = "screen-256color";
 
-      prefix = cfg.prefix;
+      inherit (cfg) prefix;
       shortcut = builtins.replaceStrings [ "C-" ] [ "" ] cfg.prefix;
 
       shell = if cfg.shell != null then cfg.shell else "${pkgs.zsh}/bin/zsh";
@@ -57,7 +57,7 @@ in
       secureSocket = true;
 
       sensibleOnTop = true;
-      plugins = cfg.plugins;
+      inherit (cfg) plugins;
 
       extraConfig = ''
         # Enable mouse mode

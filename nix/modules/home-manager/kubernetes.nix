@@ -42,35 +42,37 @@ in
   };
 
   config = mkIf cfg.enable {
-    home.shellAliases = {
-      k = "kubectl";
-      kctx = "kubectl config use-context";
-      kns = "kubectl config set-context --current --namespace";
-    };
+    home = {
+      shellAliases = {
+        k = "kubectl";
+        kctx = "kubectl config use-context";
+        kns = "kubectl config set-context --current --namespace";
+      };
 
-    home.sessionVariables = {
-      # Multi-config support
-      KUBECONFIG = "${config.my.paths.homeDir}/.kube/config:${config.my.paths.homeDir}/.kube/direct-config";
-    };
+      sessionVariables = {
+        # Multi-config support
+        KUBECONFIG = "${config.my.paths.homeDir}/.kube/config:${config.my.paths.homeDir}/.kube/direct-config";
+      };
 
-    home.packages =
-      with pkgs;
-      [
-        # Core tools
-        kubectl
-        kustomize
-        kubeval
-        krew
-        skaffold
-      ]
-      ++ optionals cfg.includeLocalClusters [
-        k3d
-        kind
-        minikube
-      ]
-      ++ optional cfg.includeHelm kubernetes-helm
-      ++ optional cfg.includeK9s k9s
-      ++ cfg.extraPackages;
+      packages =
+        with pkgs;
+        [
+          # Core tools
+          kubectl
+          kustomize
+          kubeval
+          krew
+          skaffold
+        ]
+        ++ optionals cfg.includeLocalClusters [
+          k3d
+          kind
+          minikube
+        ]
+        ++ optional cfg.includeHelm kubernetes-helm
+        ++ optional cfg.includeK9s k9s
+        ++ cfg.extraPackages;
+    };
 
     # Add kubectl OMZ plugin if shell is enabled
     my.shell.omzPlugins = mkIf shellCfg.enable [

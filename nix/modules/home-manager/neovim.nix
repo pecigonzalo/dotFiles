@@ -86,8 +86,7 @@ in
       viAlias = true;
       vimAlias = true;
       vimdiffAlias = true;
-      withNodeJs = cfg.withNodeJs;
-      withPython3 = cfg.withPython3;
+      inherit (cfg) withNodeJs withPython3;
       withRuby = true;
 
       plugins = with pkgs.vimPlugins; [

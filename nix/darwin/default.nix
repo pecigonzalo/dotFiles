@@ -11,7 +11,24 @@
     ./cachix.nix
   ];
 
-  programs.nix-index.enable = true;
+  programs = {
+    nix-index.enable = true;
+
+    bash.enable = true;
+    zsh = {
+      enable = true;
+      promptInit = ""; # Disable default theme, we use a custom one
+      enableCompletion = false;
+      enableBashCompletion = false;
+    };
+
+    tmux = {
+      enable = true;
+      enableFzf = true;
+      enableMouse = true;
+      enableSensible = true;
+    };
+  };
 
   fonts.packages = with pkgs; [
     fira-code
@@ -29,19 +46,4 @@
     "/share/bash-completion"
     "/share/zsh"
   ];
-
-  programs.bash.enable = true;
-  programs.zsh = {
-    enable = true;
-    promptInit = ""; # Disable default theme, we use a custom one
-    enableCompletion = false;
-    enableBashCompletion = false;
-  };
-
-  programs.tmux = {
-    enable = true;
-    enableFzf = true;
-    enableMouse = true;
-    enableSensible = true;
-  };
 }

@@ -157,244 +157,251 @@ in
   };
 
   config = mkIf cfg.enable {
-    home.shell.enableZshIntegration = true;
-    home.shell.enableFishIntegration = true;
-    home.shell.enableNushellIntegration = true;
-
-    programs.fish = {
-      enable = true;
-    };
-    home.file = {
-      ".config/nushell/aliases.nu".source = mkDotFileLink "nushell/aliases.nu";
-      ".config/nushell/functions.nu".source = mkDotFileLink "nushell/functions.nu";
-      ".config/nushell/completions.nu".source = mkDotFileLink "nushell/completions.nu";
-    };
-
-    programs.nushell = {
-      enable = true;
-      plugins = with pkgs.nushellPlugins; [
-        formats
-        query
-      ];
-      settings = {
-        show_banner = false;
-        history = {
-          file_format = "sqlite";
-          max_size = 5000000;
-          sync_on_enter = true;
-          isolation = false;
-        };
-        completions = {
-          algorithm = "fuzzy";
-          case_sensitive = false;
-          quick = false;
-          partial = true;
-          use_ls_colors = true;
-          external = {
-            enable = true;
-            max_results = 200;
-          };
-        };
+    home = {
+      shell = {
+        enableZshIntegration = true;
+        enableFishIntegration = true;
+        enableNushellIntegration = true;
       };
-      extraConfig = ''
-        source ${config.xdg.configHome}/nushell/completions.nu
-        source ${config.xdg.configHome}/nushell/functions.nu
-        source ${config.xdg.configHome}/nushell/aliases.nu
-      '';
-      # Override aliases
-      shellAliases = lib.mkForce { };
+
+      file = {
+        ".config/nushell/aliases.nu".source = mkDotFileLink "nushell/aliases.nu";
+        ".config/nushell/functions.nu".source = mkDotFileLink "nushell/functions.nu";
+        ".config/nushell/completions.nu".source = mkDotFileLink "nushell/completions.nu";
+      };
     };
-    programs.zsh = {
-      enable = true;
-      dotDir = "${config.xdg.configHome}/zsh";
 
-      defaultKeymap = "viins";
-
-      # This is taken care of by zinit
-      enableCompletion = true;
-      autosuggestion = {
+    programs = {
+      fish = {
         enable = true;
       };
-      syntaxHighlighting.enable = true;
-      envExtra = "skip_global_compinit=1";
 
-      initContent = lib.mkMerge [
-        (lib.mkBefore ''
-          if [[ -n "$ZSH_DEBUG_RC" ]]; then
-            zmodload zsh/zprof
-          fi
-
-          ## SSH
-          zstyle :omz:plugins:ssh-agent identities ${sshIdentities}
-        '')
-        (lib.mkBefore (
-          optionalString isDarwin ''
-            zstyle :omz:plugins:ssh-agent ssh-add-args --apple-use-keychain # NOTE: OSX Only
-          ''
-        ))
-
-        ''
-          # ZSH profiling
-          autoload -U colors && colors
-
-          # Load env
-          source "${dotFilesDir}/zsh/env.zsh"
-
-          # Get funtions
-          source "${dotFilesDir}/zsh/functions.zsh"
-
-          # If on WSL, load
-          if [[ -n "$WSL_DISTRO_NAME" ]]; then
-            source "${dotFilesDir}/wsl/wslrc.zsh"
-          fi
-        ''
-
-        (pkgs.lib.optionalString isDarwin ''
-          source "${dotFilesDir}/zsh/macosrc.zsh"
-        '')
-
-        ''
-          # Set ZSH opts
-          source "${dotFilesDir}/zsh/opts.zsh"
-
-          # Set ZSH zstyle
-          source "${dotFilesDir}/zsh/zstyle.zsh"
-
-          # Set Keyboard
-          source "${dotFilesDir}/zsh/keyboard.zsh"
-
-          # Set Local
-          source "${dotFilesDir}/zsh/local.zsh"
-        ''
-
-        (lib.mkAfter ''
-          # ZSH profiling save
-          if [[ -n "$ZSH_DEBUG_RC" ]]; then
-            zprof >/tmp/zprof
-          fi
-        '')
-      ];
-
-      history = {
-        size = 5000000;
-        save = 5000000;
-        path = "${homeDir}/.histfile";
-        append = true; # Allow multiple terminal sessions to all append to one zsh command history
-        extended = true; # Save timestamp of command and duration
-        share = true; # Import new commands and append typed commands to history
-        expireDuplicatesFirst = true; # When trimming history, lose oldest duplicates first
-        ignoreDups = true; # Do not write events to history that are duplicates of previous events
-        ignoreAllDups = true; # Delete old recorded entry if new entry is a duplicate
-        ignoreSpace = true; # Remove command line from history list when first character is a space
-        findNoDups = true; # When searching history don't display results already cycled through twice
-        ignorePatterns = [
-          "ls"
-          "cd *"
-          "cd -"
-          "pwd"
-          "exit"
-          "date"
-          "* --help"
-          "man *"
-          "zstyle *"
-          "chamber *"
-          "rm *"
-          "pkill *"
+      nushell = {
+        enable = true;
+        plugins = with pkgs.nushellPlugins; [
+          formats
+          query
         ];
+        settings = {
+          show_banner = false;
+          history = {
+            file_format = "sqlite";
+            max_size = 5000000;
+            sync_on_enter = true;
+            isolation = false;
+          };
+          completions = {
+            algorithm = "fuzzy";
+            case_sensitive = false;
+            quick = false;
+            partial = true;
+            use_ls_colors = true;
+            external = {
+              enable = true;
+              max_results = 200;
+            };
+          };
+        };
+        extraConfig = ''
+          source ${config.xdg.configHome}/nushell/completions.nu
+          source ${config.xdg.configHome}/nushell/functions.nu
+          source ${config.xdg.configHome}/nushell/aliases.nu
+        '';
+        # Override aliases
+        shellAliases = lib.mkForce { };
       };
+      zsh = {
+        enable = true;
+        dotDir = "${config.xdg.configHome}/zsh";
 
-      shellAliases = {
-        # Reload
-        "reshell!" = "exec $SHELL -l";
-      };
+        defaultKeymap = "viins";
 
-      sessionVariables =
-        let
-          preSessionPath = [
-            "${homeDir}/.local/bin"
-            # Go
-            "${homeDir}/Workspace/go/bin"
-            # K8s Krew
-            "${homeDir}/.krew/bin"
-            # Snowflake SnowSQL
-            "/Applications/SnowSQL.app/Contents/MacOS"
-            # Brew
-            "/opt/homebrew/bin"
-            # System
-            "$PATH"
+        # This is taken care of by zinit
+        enableCompletion = true;
+        autosuggestion = {
+          enable = true;
+        };
+        syntaxHighlighting.enable = true;
+        envExtra = "skip_global_compinit=1";
+
+        initContent = lib.mkMerge [
+          (lib.mkBefore ''
+            if [[ -n "$ZSH_DEBUG_RC" ]]; then
+              zmodload zsh/zprof
+            fi
+
+            ## SSH
+            zstyle :omz:plugins:ssh-agent identities ${sshIdentities}
+          '')
+          (lib.mkBefore (
+            optionalString isDarwin ''
+              zstyle :omz:plugins:ssh-agent ssh-add-args --apple-use-keychain # NOTE: OSX Only
+            ''
+          ))
+
+          ''
+            # ZSH profiling
+            autoload -U colors && colors
+
+            # Load env
+            source "${dotFilesDir}/zsh/env.zsh"
+
+            # Get funtions
+            source "${dotFilesDir}/zsh/functions.zsh"
+
+            # If on WSL, load
+            if [[ -n "$WSL_DISTRO_NAME" ]]; then
+              source "${dotFilesDir}/wsl/wslrc.zsh"
+            fi
+          ''
+
+          (pkgs.lib.optionalString isDarwin ''
+            source "${dotFilesDir}/zsh/macosrc.zsh"
+          '')
+
+          ''
+            # Set ZSH opts
+            source "${dotFilesDir}/zsh/opts.zsh"
+
+            # Set ZSH zstyle
+            source "${dotFilesDir}/zsh/zstyle.zsh"
+
+            # Set Keyboard
+            source "${dotFilesDir}/zsh/keyboard.zsh"
+
+            # Set Local
+            source "${dotFilesDir}/zsh/local.zsh"
+          ''
+
+          (lib.mkAfter ''
+            # ZSH profiling save
+            if [[ -n "$ZSH_DEBUG_RC" ]]; then
+              zprof >/tmp/zprof
+            fi
+          '')
+        ];
+
+        history = {
+          size = 5000000;
+          save = 5000000;
+          path = "${homeDir}/.histfile";
+          append = true; # Allow multiple terminal sessions to all append to one zsh command history
+          extended = true; # Save timestamp of command and duration
+          share = true; # Import new commands and append typed commands to history
+          expireDuplicatesFirst = true; # When trimming history, lose oldest duplicates first
+          ignoreDups = true; # Do not write events to history that are duplicates of previous events
+          ignoreAllDups = true; # Delete old recorded entry if new entry is a duplicate
+          ignoreSpace = true; # Remove command line from history list when first character is a space
+          findNoDups = true; # When searching history don't display results already cycled through twice
+          ignorePatterns = [
+            "ls"
+            "cd *"
+            "cd -"
+            "pwd"
+            "exit"
+            "date"
+            "* --help"
+            "man *"
+            "zstyle *"
+            "chamber *"
+            "rm *"
+            "pkill *"
           ];
-          userPath = builtins.concatStringsSep ":" preSessionPath;
-        in
-        {
-          # Path
-          PATH = userPath;
-
-          # Correction settings
-          CORRECT_IGNORE = "_*";
-          CORRECT_IGNORE_FILE = ".*";
-
-          # Uncomment the following line if you want to disable marking untracked files
-          # under VCS as dirty. This makes repository status check for large repositories
-          # much, much faster.
-          DISABLE_UNTRACKED_FILES_DIRTY = "true";
-
-          # OMZ
-          DISABLE_UPDATE_PROMPT = "true";
-          DISABLE_AUTO_UPDATE = "true";
-          SHOW_AWS_PROMPT = "false"; # Disable OMZ prompt
-
-          # Tipz
-          TIPZ_TEXT = "💡";
-
-          # zsh-autosuggestions
-          ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE = 20;
-          ZSH_AUTOSUGGEST_USE_ASYNC = "true";
-
-          # zsh-z, fz
-          ZSHZ_NO_RESOLVE_SYMLINKS = 1;
-          ZSHZ_TILDE = 1;
-          ZSHZ_TRAILING_SLASH = 1;
-          ZSHZ_UNCOMMON = 1;
-
-          # Faster vim change
-          KEYTIMEOUT = 1;
         };
 
-      plugins =
-        (map (name: omzLib { name = name; }) [
-          "functions"
-          "key-bindings"
-          "clipboard"
-          "termsupport"
-        ])
-        ++ (map omzLib cfg.omzLibs)
-        ++ (map (name: omzPlugin { name = name; }) [
-          "aws"
-          "common-aliases"
-          "docker-compose"
-          "rsync"
-          "ssh-agent"
-          "urltools"
-          "vscode"
-          "vi-mode"
-        ])
-        ++ (map omzPlugin cfg.omzPlugins)
-        ++ [
-          (gitHubPlugin {
-            name = "zsh-z";
-            owner = "agkozak";
-            rev = "cf9225feebfae55e557e103e95ce20eca5eff270";
-            hash = "sha256-C79eSOaWNHSJiUGmHzu9d0zO0NdW+dktK21a2niPZm0=";
-          })
-          (gitHubPlugin {
-            name = "jq-zsh-plugin";
-            owner = "reegnz";
-            rev = "ded47a1e51303fb2cb331288e134e18f637274a6";
-            file = "jq.plugin.zsh";
-            hash = "sha256-XYDIDThQbnr9O9cOIFPz9qqSFjxovcCqb4j6LFVlL5w=";
-          })
-        ]
-        ++ (map gitHubPlugin cfg.gitHubPlugins);
+        shellAliases = {
+          # Reload
+          "reshell!" = "exec $SHELL -l";
+        };
+
+        sessionVariables =
+          let
+            preSessionPath = [
+              "${homeDir}/.local/bin"
+              # Go
+              "${homeDir}/Workspace/go/bin"
+              # K8s Krew
+              "${homeDir}/.krew/bin"
+              # Snowflake SnowSQL
+              "/Applications/SnowSQL.app/Contents/MacOS"
+              # Brew
+              "/opt/homebrew/bin"
+              # System
+              "$PATH"
+            ];
+            userPath = builtins.concatStringsSep ":" preSessionPath;
+          in
+          {
+            # Path
+            PATH = userPath;
+
+            # Correction settings
+            CORRECT_IGNORE = "_*";
+            CORRECT_IGNORE_FILE = ".*";
+
+            # Uncomment the following line if you want to disable marking untracked files
+            # under VCS as dirty. This makes repository status check for large repositories
+            # much, much faster.
+            DISABLE_UNTRACKED_FILES_DIRTY = "true";
+
+            # OMZ
+            DISABLE_UPDATE_PROMPT = "true";
+            DISABLE_AUTO_UPDATE = "true";
+            SHOW_AWS_PROMPT = "false"; # Disable OMZ prompt
+
+            # Tipz
+            TIPZ_TEXT = "💡";
+
+            # zsh-autosuggestions
+            ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE = 20;
+            ZSH_AUTOSUGGEST_USE_ASYNC = "true";
+
+            # zsh-z, fz
+            ZSHZ_NO_RESOLVE_SYMLINKS = 1;
+            ZSHZ_TILDE = 1;
+            ZSHZ_TRAILING_SLASH = 1;
+            ZSHZ_UNCOMMON = 1;
+
+            # Faster vim change
+            KEYTIMEOUT = 1;
+          };
+
+        plugins =
+          (map (name: omzLib { inherit name; }) [
+            "functions"
+            "key-bindings"
+            "clipboard"
+            "termsupport"
+          ])
+          ++ (map omzLib cfg.omzLibs)
+          ++ (map (name: omzPlugin { inherit name; }) [
+            "aws"
+            "common-aliases"
+            "docker-compose"
+            "rsync"
+            "ssh-agent"
+            "urltools"
+            "vscode"
+            "vi-mode"
+          ])
+          ++ (map omzPlugin cfg.omzPlugins)
+          ++ [
+            (gitHubPlugin {
+              name = "zsh-z";
+              owner = "agkozak";
+              rev = "cf9225feebfae55e557e103e95ce20eca5eff270";
+              hash = "sha256-C79eSOaWNHSJiUGmHzu9d0zO0NdW+dktK21a2niPZm0=";
+            })
+            (gitHubPlugin {
+              name = "jq-zsh-plugin";
+              owner = "reegnz";
+              rev = "ded47a1e51303fb2cb331288e134e18f637274a6";
+              file = "jq.plugin.zsh";
+              hash = "sha256-XYDIDThQbnr9O9cOIFPz9qqSFjxovcCqb4j6LFVlL5w=";
+            })
+          ]
+          ++ (map gitHubPlugin cfg.gitHubPlugins);
+      };
     };
   };
 }

@@ -50,8 +50,7 @@ in
   config = mkIf cfg.enable {
     home.packages =
       with pkgs;
-      [ ]
-      ++ optional cfg.includeLSP nixd
+      optional cfg.includeLSP nixd
       ++ optional cfg.includeFormatter nixfmt
       ++ optional cfg.includeCachix cachix
       ++ optionals cfg.includeLinters [

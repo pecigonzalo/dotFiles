@@ -31,34 +31,36 @@ in
   };
 
   config = mkIf cfg.enable {
-    home.sessionVariables = {
-      # GOPATH using workspace directory
-      GOPATH = "${pathsCfg.workspaceDir}/go";
-    };
+    home = {
+      sessionVariables = {
+        # GOPATH using workspace directory
+        GOPATH = "${pathsCfg.workspaceDir}/go";
+      };
 
-    home.sessionPath = [
-      "${pathsCfg.workspaceDir}/go/bin"
-    ];
-
-    home.packages =
-      with pkgs;
-      [
-        # Go
-        cfg.package
-        gopls
-      ]
-      ++ optionals cfg.includeTools [
-        ginkgo
-        go-mockery
-        golangci-lint
-        gomodifytags
-        goreleaser
-        gotools
-        iferr
-        impl
-        reftools
-        gomplate
+      sessionPath = [
+        "${pathsCfg.workspaceDir}/go/bin"
       ];
+
+      packages =
+        with pkgs;
+        [
+          # Go
+          cfg.package
+          gopls
+        ]
+        ++ optionals cfg.includeTools [
+          ginkgo
+          go-mockery
+          golangci-lint
+          gomodifytags
+          goreleaser
+          gotools
+          iferr
+          impl
+          reftools
+          gomplate
+        ];
+    };
 
     # Add golang OMZ plugin if shell is enabled
     my.shell.omzPlugins = mkIf shellCfg.enable [

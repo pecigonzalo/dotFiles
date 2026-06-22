@@ -19,8 +19,6 @@ let
 in
 {
   news.display = "silent";
-  # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
 
   imports = [
     ./ssh.nix
@@ -109,45 +107,50 @@ in
       # github.com/oz/tz
       TZ_LIST = "Europe/Madrid;Home,US/Pacific;PDT";
     };
-  };
 
-  home.file = {
-    ".xprofile".source = mkOutOfStoreSymlink "${dotFilesDir}/.xprofile";
-    ".tool-versions".source = mkOutOfStoreSymlink "${dotFilesDir}/.tool-versions";
-    ".gemrc".source = mkOutOfStoreSymlink "${dotFilesDir}/.gemrc";
+    file = {
+      ".xprofile".source = mkOutOfStoreSymlink "${dotFilesDir}/.xprofile";
+      ".tool-versions".source = mkOutOfStoreSymlink "${dotFilesDir}/.tool-versions";
+      ".gemrc".source = mkOutOfStoreSymlink "${dotFilesDir}/.gemrc";
 
-    ".asdfrc".text = ''
-      legacy_version_file = yes
-    '';
+      ".asdfrc".text = ''
+        legacy_version_file = yes
+      '';
 
-    ".parallel/will-cite".text = ""; # Stop `parallel` from displaying citation warning
-  };
-
-  programs.bash.enable = true;
-
-  programs.htop = {
-    enable = true;
-    settings.show_program_path = true;
-  };
-
-  programs.bat = {
-    enable = true;
-    config = {
-      theme = "Dracula";
+      ".parallel/will-cite".text = ""; # Stop `parallel` from displaying citation warning
     };
-    extraPackages = with pkgs.bat-extras; [
-      batdiff
-      batman
-      batgrep
-      batwatch
-    ];
   };
 
-  programs.ripgrep = {
-    enable = true;
-    arguments = [
-      "--smart-case"
-      "--follow"
-    ];
+  programs = {
+    # Let Home Manager install and manage itself.
+    home-manager.enable = true;
+
+    bash.enable = true;
+
+    htop = {
+      enable = true;
+      settings.show_program_path = true;
+    };
+
+    bat = {
+      enable = true;
+      config = {
+        theme = "Dracula";
+      };
+      extraPackages = with pkgs.bat-extras; [
+        batdiff
+        batman
+        batgrep
+        batwatch
+      ];
+    };
+
+    ripgrep = {
+      enable = true;
+      arguments = [
+        "--smart-case"
+        "--follow"
+      ];
+    };
   };
 }

@@ -1,4 +1,4 @@
-{ ... }:
+_:
 
 let
   # Terminal emulators and apps where Ctrl should NOT be remapped
