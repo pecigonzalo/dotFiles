@@ -18,4 +18,5 @@ export LESS_TERMCAP_us=$'\E[01;32m'
 
 # zsh-syntax-highlighting
 export ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
+export DOCKER_CLI_HINTS=false
 
