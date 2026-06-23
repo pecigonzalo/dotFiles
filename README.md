@@ -15,8 +15,8 @@ nix flake check --all-systems --no-build
 ## Apply configurations
 
 ```sh
-# macOS
-sudo darwin-rebuild switch --flake .#pecigonzalo
+# macOS, including bootstrap before darwin-rebuild is installed
+nix run .#darwin -- switch
 
 # WSL2 NixOS
 sudo nixos-rebuild switch --flake .#wsl

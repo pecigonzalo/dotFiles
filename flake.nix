@@ -155,6 +155,64 @@
         };
 
       homeConfigurationsBase = mapAttrs (_name: mkHomeConfiguration) homeTargets;
+
+      mkDarwinApp =
+        system:
+        let
+          pkgs = pkgsFor system;
+          darwinRebuild = inputs.darwin.packages.${system}.darwin-rebuild;
+          darwinApp = pkgs.writeShellApplication {
+            name = "darwin";
+            text = ''
+              if [ "$#" -eq 0 ]; then
+                set -- switch
+              fi
+
+              if [ -n "''${DARWIN_FLAKE:-}" ]; then
+                flake_ref="$DARWIN_FLAKE"
+              elif [ -e "$PWD/flake.nix" ]; then
+                flake_ref="$PWD#pecigonzalo"
+              else
+                flake_ref="${self.outPath}#pecigonzalo"
+              fi
+
+              for arg in "$@"; do
+                case "$arg" in
+                  --help|-h)
+                    exec ${darwinRebuild}/bin/darwin-rebuild "$@"
+                    ;;
+                esac
+              done
+
+              if [ "$(/usr/bin/id -u)" -ne 0 ]; then
+                exec /usr/bin/sudo -H env "DARWIN_FLAKE=$flake_ref" "$0" "$@"
+              fi
+
+              has_flake=0
+              for arg in "$@"; do
+                case "$arg" in
+                  --flake|--flake=*)
+                    has_flake=1
+                    ;;
+                esac
+              done
+
+              if [ "$has_flake" -eq 0 ]; then
+                set -- "$@" --flake "$flake_ref"
+              fi
+
+              exec ${darwinRebuild}/bin/darwin-rebuild "$@"
+            '';
+          };
+          app = {
+            type = "app";
+            program = "${darwinApp}/bin/darwin";
+          };
+        in
+        {
+          darwin = app;
+          default = app;
+        };
     in
     {
       darwinConfigurations = {
@@ -241,6 +299,14 @@
       devShells = forAllSystems (system: {
         default = mkDevShell system;
       });
+
+      apps = forAllSystems (
+        system:
+        let
+          pkgs = pkgsFor system;
+        in
+        nixpkgs.lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin (mkDarwinApp system)
+      );
 
       formatter = forAllSystems (system: (pkgsFor system).nixfmt);
 
