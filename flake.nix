@@ -115,6 +115,7 @@
                 keep-outputs = true;
                 keep-derivations = true;
                 auto-optimise-store = false;
+                lazy-trees = true;
               };
             };
             nixpkgs = nixpkgsConfig;

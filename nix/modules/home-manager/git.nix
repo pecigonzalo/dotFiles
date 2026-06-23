@@ -69,9 +69,8 @@ in
 
         settings = {
           user = {
-            name = userCfg.name;
+            inherit (userCfg) name email;
             signingkey = userCfg.signingKey;
-            email = userCfg.email;
           };
           init = {
             templatedir = "~/dotFiles/.git_template/template";
