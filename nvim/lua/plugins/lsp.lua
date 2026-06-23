@@ -18,7 +18,7 @@ return {
       },
     },
     init = function()
-      vim.filetype.add({ extension = { templ = "templ" } })
+      vim.filetype.add({ extension = { templ = "templ", zon = "zig" } })
       local format_group = vim.api.nvim_create_augroup("lsp_format_on_save", { clear = true })
       local function has_formatter(bufnr)
         local clients = vim.lsp.get_clients and vim.lsp.get_clients({ bufnr = bufnr })
@@ -205,6 +205,7 @@ return {
           cssls = {},
           clangd = {},
           gleam = {},
+          zls = {},
           html = {},
           htmx = {},
           nixd = {},

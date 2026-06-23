@@ -67,6 +67,10 @@ in
           indent_size = 4;
           trim_trailing_spaces = true;
         };
+        "*.{zig,zon}" = {
+          indent_style = "space";
+          indent_size = 4;
+        };
       };
     };
 

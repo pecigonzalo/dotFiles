@@ -62,6 +62,7 @@ in
     python.enable = true;
     nodejs.enable = true;
     golang.enable = true;
+    zig.enable = true;
     nix-tools.enable = true;
   };
 

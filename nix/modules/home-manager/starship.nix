@@ -45,6 +45,7 @@ in
           ruby.symbol = " ";
           terraform.symbol = "󱁢 ";
           vagrant.symbol = "𝗩 ";
+          zig.symbol = "↯ ";
 
           directory = {
             read_only = " ";
@@ -119,6 +120,7 @@ in
             "$python"
             "$ruby"
             "$rust"
+            "$zig"
             "$kubernetes"
             "$terraform"
             "$pulumi"

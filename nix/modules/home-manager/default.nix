@@ -17,6 +17,7 @@
     ./python.nix
     ./nodejs.nix
     ./golang.nix
+    ./zig.nix
     ./nix-tools.nix
   ];
 }
