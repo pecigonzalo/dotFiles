@@ -59,6 +59,7 @@ return {
         "rego",
         "rust",
         "sql",
+        "svelte",
         "terraform",
         "toml",
         "tsx",

@@ -28,8 +28,6 @@ in
     ];
 
     brews = [
-      # AI
-      "anomalyco/tap/opencode"
     ];
 
     casks = [
@@ -56,14 +54,14 @@ in
       "keycastr"
       "scroll-reverser"
       # Notes
-      # "obsidian"
+      "obsidian"
       # "notion"
       # Media
       "spotify"
       # Editor
       "visual-studio-code"
       # Files
-      # "google-drive"
+      "google-drive"
     ];
   };
 }

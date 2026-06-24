@@ -81,6 +81,7 @@ in
       ++ optionals cfg.includeTypeScript [
         typescript
         typescript-language-server
+        svelte-language-server
         vtsls
       ]
       ++ optional cfg.includeDeno deno
@@ -104,6 +105,7 @@ in
       with pkgs;
       optionals cfg.includeTypeScript [
         typescript-language-server
+        svelte-language-server
         vtsls
       ]
       ++ optionals cfg.includeLinters [

@@ -209,6 +209,7 @@ return {
           html = {},
           htmx = {},
           nixd = {},
+          svelte = {},
           -- tailwindcss = {},
           -- Infra
           bashls = {},
