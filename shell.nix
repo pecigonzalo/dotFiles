@@ -7,9 +7,11 @@ pkgs.mkShell {
     cachix
     deadnix
     git
+    hyperfine
     lefthook
     nixd
     nixfmt
     statix
+    stylua
   ];
 }

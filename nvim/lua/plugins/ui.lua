@@ -43,6 +43,7 @@ return {
   -- Winbar
   {
     "Bekaboo/dropbar.nvim",
+    event = { "BufReadPost", "BufNewFile" },
   },
 
   -- Bottom line

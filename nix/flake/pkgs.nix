@@ -57,10 +57,12 @@ let
           cachix
           git
           deadnix
+          hyperfine
           lefthook
           nixd
           nixfmt
           statix
+          stylua
         ]
         ++ lib.optionals stdenv.hostPlatform.isDarwin [
           inputs.darwin.packages.${system}.darwin-rebuild

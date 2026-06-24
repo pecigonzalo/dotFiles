@@ -6,7 +6,11 @@ return {
     config = true,
   },
   -- Highlight word under cursor
-  { "echasnovski/mini.cursorword", config = true },
+  {
+    "echasnovski/mini.cursorword",
+    event = { "BufReadPost", "BufNewFile" },
+    config = true,
+  },
   -- Indent line
   {
     "lukas-reineke/indent-blankline.nvim",

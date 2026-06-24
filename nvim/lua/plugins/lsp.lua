@@ -6,14 +6,13 @@ return {
     dependencies = {
       "b0o/schemastore.nvim",
       {
-        "folke/neodev.nvim",
+        "folke/lazydev.nvim",
+        ft = "lua",
         opts = {
-          override = function(root_dir, library)
-            if root_dir:match("dotFiles") then
-              library.enabled = true
-              library.plugins = true
-            end
-          end,
+          library = {
+            { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+            { path = vim.fn.expand("$HOME/.hammerspoon/Spoons/EmmyLua.spoon/annotations"), words = { "hs" } },
+          },
         },
       },
     },
@@ -119,10 +118,6 @@ return {
                 workspace = {
                   ignoreSubmodules = true,
                   checkThirdParty = false,
-                  library = {
-                    vim.fn.expand("$VIMRUNTIME/lua"),
-                    vim.fn.expand("$HOME/.hammerspoon/Spoons/EmmyLua.spoon/annotations"),
-                  },
                 },
                 completion = {
                   callSnippet = "Replace",

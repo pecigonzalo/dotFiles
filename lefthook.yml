@@ -10,3 +10,6 @@ pre-commit:
     nixfmt:
       glob: "*.nix"
       run: nixfmt --check {staged_files}
+    stylua:
+      glob: "*.lua"
+      run: stylua --check {staged_files}

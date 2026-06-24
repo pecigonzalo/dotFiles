@@ -11,6 +11,11 @@ return {
   },
   {
     "zbirenbaum/copilot-cmp",
+    event = "InsertEnter",
+    dependencies = {
+      "hrsh7th/nvim-cmp",
+      "zbirenbaum/copilot.lua",
+    },
     config = function(_, opts)
       local copilot_cmp = require("copilot_cmp")
       copilot_cmp.setup(opts)
@@ -18,6 +23,12 @@ return {
   },
   {
     "NickvanDyke/opencode.nvim",
+    keys = {
+      { "<C-a>", mode = { "n", "x" }, desc = "Ask opencode…" },
+      { "<C-.>", mode = { "n", "t" }, desc = "Toggle opencode" },
+      { "<S-C-u>", mode = "n", desc = "Scroll opencode up" },
+      { "<S-C-d>", mode = "n", desc = "Scroll opencode down" },
+    },
     dependencies = {
       -- Recommended for `ask()` and `select()`.
       -- Required for `snacks` provider.

@@ -10,15 +10,17 @@ return {
     event = "VeryLazy",
     opts = {
       modes = { insert = true, command = true, terminal = false },
-      -- skip autopair when next character is one of these
-      skip_next = [=[[%w%%%'%[%"%.%`%$]]=],
-      -- skip autopair when the cursor is inside these treesitter nodes
-      skip_ts = { "string" },
-      -- skip autopair when next character is closing pair
-      -- and there are more closing pairs than opening pairs
-      skip_unbalanced = true,
-      -- better deal with markdown code blocks
-      markdown = true,
+      mappings = {
+        -- Only insert pairs when both adjacent characters are whitespace or line
+        -- boundaries. This prevents autopairs while editing next to text, like
+        -- `foo|`, `|foo`, or `foo|bar`.
+        ["("] = { action = "open", pair = "()", neigh_pattern = "%s%s" },
+        ["["] = { action = "open", pair = "[]", neigh_pattern = "%s%s" },
+        ["{"] = { action = "open", pair = "{}", neigh_pattern = "%s%s" },
+        ['"'] = { action = "closeopen", pair = '""', neigh_pattern = "%s%s", register = { cr = false } },
+        ["'"] = { action = "closeopen", pair = "''", neigh_pattern = "%s%s", register = { cr = false } },
+        ["`"] = { action = "closeopen", pair = "``", neigh_pattern = "%s%s", register = { cr = false } },
+      },
     },
     keys = {
       {
@@ -42,6 +44,7 @@ return {
   -- and more.
   {
     "echasnovski/mini.surround",
+    event = "VeryLazy",
     opts = {
       mappings = {
         add = "gsa", -- Add surrounding in Normal and Visual modes
@@ -89,9 +92,7 @@ return {
           group = comment_group,
           pattern = override.pattern,
           desc = override.desc,
-          callback = function(args)
-            vim.bo[args.buf].commentstring = override.value
-          end,
+          callback = function(args) vim.bo[args.buf].commentstring = override.value end,
         })
       end
     end,
@@ -177,10 +178,10 @@ return {
         name = name:gsub("^around_", ""):gsub("^inside_", "")
         ret[#ret + 1] = { prefix, group = name }
         for _, obj in ipairs(objects) do
-            local desc = obj.desc
-            if prefix:sub(1, 1) == "i" then desc = desc:gsub(" with ws", "") end
-            ret[#ret + 1] = { prefix .. obj[1], desc = desc }
-          end
+          local desc = obj.desc
+          if prefix:sub(1, 1) == "i" then desc = desc:gsub(" with ws", "") end
+          ret[#ret + 1] = { prefix .. obj[1], desc = desc }
+        end
       end
       require("which-key").add(ret, { notify = false })
     end,
@@ -303,17 +304,18 @@ return {
         }),
         -- sources for autocompletion
         sources = cmp.config.sources({
-        -- Group 1
-        { name = "nvim_lsp_signature_help" },
-        { name = "nvim_lsp" },
-        { name = "luasnip", keyword_length = 2, options = { show_autosnippets = true } }, -- snippets
-        { name = "path" }, -- file system paths
-        { name = "copilot" }, -- Github Copilot
-      }, {
-        -- Group 2
-        { name = "emoji" },
-        { name = "buffer", keyword_length = 3 }, -- text within current buffer
-      }),
+          -- Group 1
+          { name = "nvim_lsp_signature_help" },
+          { name = "lazydev", group_index = 0 },
+          { name = "nvim_lsp" },
+          { name = "luasnip", keyword_length = 2, options = { show_autosnippets = true } }, -- snippets
+          { name = "path" }, -- file system paths
+          { name = "copilot" }, -- Github Copilot
+        }, {
+          -- Group 2
+          { name = "emoji" },
+          { name = "buffer", keyword_length = 3 }, -- text within current buffer
+        }),
         formatting = {
           format = function(entry, item)
             item.kind = string.format("%s %s", kind_icons[item.kind], item.kind) -- This concatonates the icons with the name of the item kind
