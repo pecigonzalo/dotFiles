@@ -12,6 +12,8 @@ let
 
   tomlFormat = pkgs.formats.toml { };
 
+  minimumPackageAge = "P${toString cfg.minimumPackageAgeDays}D";
+
   packageManagerPackages =
     if cfg.packageManager == "all" then
       [
@@ -62,6 +64,12 @@ in
       default = true;
       description = "Include linters and formatters (ruff)";
     };
+
+    minimumPackageAgeDays = mkOption {
+      type = types.ints.positive;
+      default = 1;
+      description = "Minimum Python package upload age to configure user-wide, in days";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -93,16 +101,20 @@ in
         ++ optionals cfg.includeLinters [ ruff ];
     };
 
-    # Create poetry config if poetry is selected
-    xdg.configFile."pypoetry/config.toml" =
-      mkIf (cfg.packageManager == "poetry" || cfg.packageManager == "all")
-        {
-          source = tomlFormat.generate "config.toml" {
-            virtualenvs = {
-              in-project = true;
-            };
+    xdg.configFile = {
+      "uv/uv.toml".source = tomlFormat.generate "uv.toml" {
+        exclude-newer = minimumPackageAge;
+        pip.exclude-newer = minimumPackageAge;
+      };
+
+      "pypoetry/config.toml" = mkIf (cfg.packageManager == "poetry" || cfg.packageManager == "all") {
+        source = tomlFormat.generate "config.toml" {
+          virtualenvs = {
+            in-project = true;
           };
         };
+      };
+    };
 
     # Add python/pip OMZ plugins if shell is enabled
     my.shell.omzPlugins = mkIf shellCfg.enable [

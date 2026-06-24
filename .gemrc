@@ -9,9 +9,8 @@ update: --no-ri --no-rdoc --platform ruby
 :update_sources: true
 :bulk_threshold: 1000
 :backtrace: false
-:sources: 
-- http://gems.rubyforge.org/
-- http://rubygems.org/
+:sources:
+- https://rubygems.org/
 
 # HTTP Proxy options
 # # http-proxy: http://example.com:80

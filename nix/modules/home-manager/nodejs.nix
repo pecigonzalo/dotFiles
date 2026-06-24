@@ -9,6 +9,10 @@ let
   cfg = config.my.nodejs;
   neovimCfg = config.my.neovim;
   shellCfg = config.my.shell;
+
+  minimumReleaseAgeDays = cfg.minimumReleaseAgeDays;
+  minimumReleaseAgeMinutes = minimumReleaseAgeDays * 24 * 60;
+  minimumReleaseAgeSeconds = minimumReleaseAgeMinutes * 60;
 in
 {
   options.my.nodejs = {
@@ -56,6 +60,12 @@ in
       default = true;
       description = "Include ESLint and Prettier";
     };
+
+    minimumReleaseAgeDays = mkOption {
+      type = types.ints.positive;
+      default = 1;
+      description = "Minimum npm package release age to configure user-wide, in days";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -92,6 +102,26 @@ in
         prettier
         prettierd
       ];
+
+    home.file = {
+      # Shared by npm and Deno (2.8+) for npm registry installs.
+      ".npmrc".text = ''
+        min-release-age=${toString minimumReleaseAgeDays}
+      '';
+
+      ".yarnrc.yml".text = ''
+        npmMinimalAgeGate: ${toString minimumReleaseAgeMinutes}
+      '';
+
+      ".bunfig.toml".text = ''
+        [install]
+        minimumReleaseAge = ${toString minimumReleaseAgeSeconds}
+      '';
+    };
+
+    xdg.configFile."pnpm/config.yaml".text = ''
+      minimumReleaseAge: ${toString minimumReleaseAgeMinutes}
+    '';
 
     # Add node/npm/yarn OMZ plugins if shell is enabled
     my.shell.omzPlugins = mkIf shellCfg.enable (
