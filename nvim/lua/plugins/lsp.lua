@@ -53,9 +53,7 @@ return {
         end
         nmap("<leader>rn", vim.lsp.buf.rename, "Rename")
         nmap("<leader>ca", vim.lsp.buf.code_action, "Code Action")
-        nmap("K", vim.lsp.buf.hover, "Hover Documentation")
         nmap("<C-k>", vim.lsp.buf.signature_help, "Signature Documentation")
-        nmap("gD", vim.lsp.buf.declaration, "Go to Declaration")
         nmap("<leader>D", vim.lsp.buf.type_definition, "Type Definition")
         nmap("<leader>wa", vim.lsp.buf.add_workspace_folder, "Add Workspace Folder")
         nmap("<leader>wr", vim.lsp.buf.remove_workspace_folder, "Remove Workspace Folder")
@@ -263,10 +261,33 @@ return {
       if opts.diagnostics then vim.diagnostic.config(vim.deepcopy(opts.diagnostics)) end
 
       local setup_handlers = opts.setup or {}
+      local lsp_configs = require("lspconfig.configs")
+
+      local function server_executable(server, server_opts)
+        local cmd = server_opts.cmd
+        if cmd == nil and lsp_configs[server] and lsp_configs[server].default_config then
+          cmd = lsp_configs[server].default_config.cmd
+        end
+        if type(cmd) == "string" then return cmd end
+        if type(cmd) == "table" then return cmd[1] end
+      end
+
+      local function is_executable(cmd)
+        if cmd == nil or cmd == "" then return true end
+        return vim.fn.executable(cmd) == 1
+      end
 
       local function setup(server, server_opts)
         local config = vim.tbl_deep_extend("force", {}, server_opts or {})
         config.capabilities = vim.tbl_deep_extend("force", vim.deepcopy(capabilities), config.capabilities or {})
+
+        local executable = server_executable(server, config)
+        if not is_executable(executable) then
+          if vim.g.lsp_notify_skipped_servers then
+            vim.notify(("LSP: skipping %s, executable not found: %s"):format(server, executable), vim.log.levels.INFO)
+          end
+          return
+        end
 
         local handler = setup_handlers[server] or setup_handlers["*"]
         if handler and handler(server, config) then return end

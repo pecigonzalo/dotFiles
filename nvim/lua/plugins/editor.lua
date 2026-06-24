@@ -133,8 +133,6 @@ return {
       { "[t",         function() require("todo-comments").jump_prev() end, desc = "Previous todo comment" },
       { "<leader>xt", "<cmd>TodoTrouble<cr>",                              desc = "Todo (Trouble)" },
       { "<leader>xT", "<cmd>TodoTrouble keywords=TODO,FIX,FIXME<cr>",      desc = "Todo/Fix/Fixme (Trouble)" },
-      { "<leader>st", "<cmd>TodoTelescope<cr>",                            desc = "Todo" },
-      { "<leader>sT", "<cmd>TodoTelescope keywords=TODO,FIX,FIXME<cr>",    desc = "Todo/Fix/Fixme" },
     },
   },
   -- Folding
@@ -227,11 +225,11 @@ return {
       { "zR", function() require("ufo").openAllFolds() end },
       { "zM", function() require("ufo").closeAllFolds() end },
       { "K", function()
-        local winid = require('ufo').peekFoldedLinesUnderCursor()
+        local winid = require("ufo").peekFoldedLinesUnderCursor()
         if not winid then
           vim.lsp.buf.hover()
         end
-      end }
+      end, desc = "Peek Fold or Hover" }
     },
   },
 }
