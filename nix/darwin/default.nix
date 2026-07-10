@@ -11,29 +11,8 @@ in
     # Other nix-darwin configuration
     ./homebrew.nix
     ./system.nix
-    ./spotlight.nix
     ./cachix.nix
   ];
-
-  custom.spotlight = {
-    enable = true;
-    exclusions = [
-      "/Library/Developer"
-      "${userHome}/.bun"
-      "${userHome}/.cache"
-      "${userHome}/.cargo"
-      "${userHome}/.gradle"
-      "${userHome}/.local"
-      "${userHome}/.m2"
-      "${userHome}/.npm"
-      "${userHome}/.pnpm-store"
-      "${userHome}/.rustup"
-      "${userHome}/Library/Caches"
-      "${userHome}/Library/Developer"
-      "${userHome}/Workspace"
-      "${userHome}/dotFiles"
-    ];
-  };
 
   programs = {
     nix-index.enable = true;
