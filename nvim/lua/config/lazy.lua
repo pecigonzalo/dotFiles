@@ -8,7 +8,6 @@ local vscodeEnabledPlugins = {
   "nvim-treesitter-textobjects",
   "nvim-ts-context-commentstring",
   "snacks.nvim",
-  "ts-comments.nvim",
   "flash.nvim",
 }
 

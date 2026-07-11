@@ -110,8 +110,6 @@ vim.diagnostic.config({
   severity_sort = true,
 })
 
--- Syntax
-vim.o.syntax = "enable" -- Syntax highlight
 vim.g.editorconfig = true -- Enable EditorConfig support
 
 -- User commands

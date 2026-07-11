@@ -2,7 +2,6 @@ return {
   "nvimtools/none-ls.nvim",
   dependencies = {
     "nvim-lua/plenary.nvim",
-    "gpanders/editorconfig.nvim",
     "nvimtools/none-ls-extras.nvim",
     "gbprod/none-ls-shellcheck.nvim",
   },
