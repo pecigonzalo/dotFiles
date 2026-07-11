@@ -8,6 +8,61 @@ with lib;
 let
   cfg = config.my.neovim;
   pathsCfg = config.my.paths;
+  treeSitterLanguages = [
+    "bash"
+    "comment"
+    "css"
+    "cue"
+    "dockerfile"
+    "fish"
+    "gitignore"
+    "go"
+    "gomod"
+    "gotmpl"
+    "graphql"
+    "gleam"
+    "templ"
+    "hcl"
+    "hjson"
+    "html"
+    "http"
+    "java"
+    "javascript"
+    "json"
+    "json5"
+    "jsonnet"
+    "kotlin"
+    "lua"
+    "make"
+    "markdown"
+    "markdown_inline"
+    "nu"
+    "nix"
+    "python"
+    "query"
+    "regex"
+    "rego"
+    "rust"
+    "sql"
+    "svelte"
+    "terraform"
+    "toml"
+    "tsx"
+    "typescript"
+    "vim"
+    "yaml"
+    "zig"
+  ];
+  treeSitterPlugins =
+    let
+      inherit (pkgs.vimPlugins.nvim-treesitter) grammarPlugins queries;
+    in
+    lib.unique (
+      lib.concatMap (language: [
+        grammarPlugins.${language}
+        queries.${language}
+      ]) treeSitterLanguages
+    );
 in
 {
   options.my.neovim = {
@@ -84,6 +139,17 @@ in
       source = pathsCfg.mkDotFileLink "nvim/lazy-lock.json";
       recursive = true;
     };
+    xdg.configFile."nvim/queries" = {
+      source = pathsCfg.mkDotFileLink "nvim/queries";
+      recursive = true;
+    };
+
+    assertions = [
+      {
+        assertion = lib.versionAtLeast pkgs.neovim.version "0.12";
+        message = "Native Tree-sitter configuration requires Neovim 0.12 or later.";
+      }
+    ];
 
     programs.neovim = {
       enable = true;
@@ -93,27 +159,24 @@ in
       inherit (cfg) withNodeJs withPython3;
       withRuby = true;
 
-      plugins = with pkgs.vimPlugins; [
-        {
-          plugin = lazy-nvim;
-          type = "lua";
-          config = ''
-            require("config")
-            require("config.lazy")
-          '';
-        }
-      ];
+      plugins =
+        treeSitterPlugins
+        ++ (with pkgs.vimPlugins; [
+          {
+            plugin = lazy-nvim;
+            type = "lua";
+            config = ''
+              require("config")
+              require("config.lazy")
+            '';
+          }
+        ]);
 
       extraPackages =
         with pkgs;
         [
           # NodeJS (for plugins)
           nodejs
-
-          # Treesitter
-          cmake
-          gcc
-          tree-sitter
 
           # Formatters and Linters
           selene

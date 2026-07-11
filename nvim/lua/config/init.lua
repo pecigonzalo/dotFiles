@@ -1,6 +1,8 @@
 local augroup = vim.api.nvim_create_augroup
 local aucmd = vim.api.nvim_create_autocmd
 
+require("config.treesitter")
+
 -- General
 vim.o.mouse = "a" -- Enable mouse
 vim.o.switchbuf = "usetab" -- Open new buffer in existing window if possible
