@@ -15,6 +15,24 @@ return {
     },
   },
   {
+    "willothy/flatten.nvim",
+    branch = "main",
+    lazy = false,
+    priority = 1001,
+    opts = {
+      window = {
+        open = "alternate",
+      },
+      integrations = {
+        wezterm = true,
+      },
+      nest_if_no_args = true,
+      hooks = {
+        should_block = function(argv) return vim.tbl_contains(argv, "-b") end,
+      },
+    },
+  },
+  {
     "numToStr/Navigator.nvim",
     opts = {
       disable_on_zoom = true,
