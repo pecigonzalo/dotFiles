@@ -1,6 +1,7 @@
 local augroup = vim.api.nvim_create_augroup
 local aucmd = vim.api.nvim_create_autocmd
 
+require("config.lsp-log")
 require("config.treesitter")
 
 -- General
