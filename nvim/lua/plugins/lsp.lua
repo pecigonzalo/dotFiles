@@ -200,7 +200,6 @@ return {
           gleam = {},
           zls = {},
           html = {},
-          htmx = {},
           nixd = {},
           svelte = {},
           -- tailwindcss = {},

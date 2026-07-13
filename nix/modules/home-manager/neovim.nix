@@ -192,7 +192,6 @@ in
           dockerfile-language-server
           bash-language-server
           lua-language-server
-          htmx-lsp
         ]
         ++ cfg.extraPackages;
     };
