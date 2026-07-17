@@ -107,7 +107,7 @@ def --env mkt [] {
 
 def --wrapped pi [--version: string = "0.80.10", ...args] {
   let version = ($version | str trim --left --char "v")
-  ^bunx $"@earendil-works/pi-coding-agent@v($version)" ...$args
+  ^bunx --bun $"@earendil-works/pi-coding-agent@v($version)" ...$args
 }
 
 def --wrapped cfg [...args] {

@@ -296,7 +296,7 @@ pi() {
     esac
   done
 
-  bunx "@earendil-works/pi-coding-agent@v${version}" "${args[@]}"
+  bunx --bun "@earendil-works/pi-coding-agent@v${version}" "${args[@]}"
 }
 
 config() {
