@@ -266,7 +266,7 @@ userinstall() {
 }
 
 pi() {
-  local version="0.80.10"
+  local version="0.82.0"
   local -a args=()
 
   while (( $# > 0 )); do
