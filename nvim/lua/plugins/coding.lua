@@ -68,7 +68,15 @@ return {
     opts = {
       options = {
         custom_commentstring = function()
-          return require("ts_context_commentstring.internal").calculate_commentstring() or vim.bo.commentstring
+          -- ts_context_commentstring's is_treesitter_active() assumes vim.treesitter.get_parser
+          -- throws when no parser exists; on current Neovim it returns nil, err instead, so the
+          -- plugin crashes on CursorHold for buffers without a treesitter parser (e.g. .env files).
+          -- Not fixed upstream yet: https://github.com/JoosepAlviste/nvim-ts-context-commentstring/pull/130
+          local ok, commentstring = pcall(function()
+            return require("ts_context_commentstring.internal").calculate_commentstring()
+          end)
+          if ok and commentstring then return commentstring end
+          return vim.bo.commentstring
         end,
       },
     },
