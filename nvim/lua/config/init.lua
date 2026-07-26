@@ -69,11 +69,14 @@ local keymap = function(mode, keys, func, desc)
   vim.keymap.set(mode, keys, func, opts)
 end
 
+keymap({ "n", "x" }, "cy", '"+y') -- Copy to clipboard
+keymap({ "n", "x" }, "cp", '"+p') -- Paste from clipboard
 keymap({ "n", "x", "o" }, "<leader>h", "^") -- Quick jump to start
 keymap({ "n", "x", "o" }, "<leader>l", "g_") -- Quick jump to end
 keymap({ "n", "x" }, "x", '"_x') -- Disable yank on delete
 keymap("n", "<leader>a", ":keepjumps normal! ggVG<cr>", "Select All") -- Select all text in buffer
 keymap("n", "<leader>w", vim.cmd.write, "Write Buffer") -- Write buffer
+keymap("n", "<leader>bq", vim.cmd.bdelete, "Delete Buffer") -- Delete buffer
 keymap("n", "<leader>bl", function() vim.cmd.buffer("#") end, "Last Buffer") -- Go to last buffer
 
 -- Keep selection on indent
