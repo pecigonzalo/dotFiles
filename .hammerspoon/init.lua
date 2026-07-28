@@ -25,6 +25,8 @@ end
 
 hs.hotkey.bind(hyper, "tab", function()
   local win = hs.window.focusedWindow()
+  if not win then return end
+
   local nextScreen = win:screen():next()
   win:moveToScreen(nextScreen)
 end)

@@ -1,6 +1,7 @@
 local window = require("window")
 
 local M = {}
+local expose = hs.expose.new(nil, { showThumbnails = true, includeOtherSpaces = false })
 
 M.applications = {
   T = "WezTerm.app",
@@ -18,8 +19,8 @@ M.hyper = {
 
   -- Expose
   {
-    "e",
-    function() hs.expose.new(nil, { showThumbnails = false }):toggleShow() end,
+    "Return",
+    function() expose:toggleShow() end,
   },
 
   -- Grid
@@ -30,18 +31,20 @@ M.hyper = {
     "Left",
     function()
       local win = hs.window.focusedWindow()
+      if not win then return end
+
       local f = win:frame()
 
-      if f == window.up(win) then
+      if window.isFrame(f, window.up(win)) then
         win:setFrame(window.upLeft(win))
         return
-      elseif f == window.upRight(win) then
+      elseif window.isFrame(f, window.upRight(win)) then
         win:setFrame(window.up(win))
         return
-      elseif f == window.down(win) then
+      elseif window.isFrame(f, window.down(win)) then
         win:setFrame(window.downLeft(win))
         return
-      elseif f == window.downRight(win) then
+      elseif window.isFrame(f, window.downRight(win)) then
         win:setFrame(window.down(win))
         return
       end
@@ -54,18 +57,20 @@ M.hyper = {
     "Right",
     function()
       local win = hs.window.focusedWindow()
+      if not win then return end
+
       local f = win:frame()
 
-      if f == window.up(win) then
+      if window.isFrame(f, window.up(win)) then
         win:setFrame(window.upRight(win))
         return
-      elseif f == window.upLeft(win) then
+      elseif window.isFrame(f, window.upLeft(win)) then
         win:setFrame(window.up(win))
         return
-      elseif f == window.down(win) then
+      elseif window.isFrame(f, window.down(win)) then
         win:setFrame(window.downRight(win))
         return
-      elseif f == window.downLeft(win) then
+      elseif window.isFrame(f, window.downLeft(win)) then
         win:setFrame(window.down(win))
         return
       end
@@ -78,21 +83,23 @@ M.hyper = {
     "Up",
     function()
       local win = hs.window.focusedWindow()
+      if not win then return end
+
       local f = win:frame()
 
-      if f == window.up(win) then
-        window.maximize(win)
+      if window.isFrame(f, window.up(win)) then
+        win:maximize()
         return
-      elseif f == window.left(win) then
+      elseif window.isFrame(f, window.left(win)) then
         win:setFrame(window.upLeft(win))
         return
-      elseif f == window.right(win) then
+      elseif window.isFrame(f, window.right(win)) then
         win:setFrame(window.upRight(win))
         return
-      elseif f == window.downRight(win) then
+      elseif window.isFrame(f, window.downRight(win)) then
         win:setFrame(window.right(win))
         return
-      elseif f == window.downLeft(win) then
+      elseif window.isFrame(f, window.downLeft(win)) then
         win:setFrame(window.left(win))
         return
       end
@@ -105,18 +112,20 @@ M.hyper = {
     "Down",
     function()
       local win = hs.window.focusedWindow()
+      if not win then return end
+
       local f = win:frame()
 
-      if f == window.left(win) then
+      if window.isFrame(f, window.left(win)) then
         win:setFrame(window.downLeft(win))
         return
-      elseif f == window.right(win) then
+      elseif window.isFrame(f, window.right(win)) then
         win:setFrame(window.downRight(win))
         return
-      elseif f == window.upRight(win) then
+      elseif window.isFrame(f, window.upRight(win)) then
         win:setFrame(window.right(win))
         return
-      elseif f == window.upLeft(win) then
+      elseif window.isFrame(f, window.upLeft(win)) then
         win:setFrame(window.left(win))
         return
       end
@@ -130,6 +139,7 @@ M.hyper = {
     "`",
     function()
       local win = hs.window.focusedWindow()
+      if not win then return end
 
       print("x: " .. win:frame().x)
       print("y: " .. win:frame().y)
