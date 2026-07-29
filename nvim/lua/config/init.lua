@@ -2,7 +2,6 @@ local augroup = vim.api.nvim_create_augroup
 local aucmd = vim.api.nvim_create_autocmd
 
 require("config.lsp-log")
-require("config.treesitter")
 
 -- General
 vim.o.mouse = "a" -- Enable mouse
@@ -131,3 +130,6 @@ aucmd("BufReadPost", {
     if mark[1] > 0 and mark[1] <= line_count then vim.cmd('normal! g`"zz') end
   end,
 })
+
+-- Configure TS
+require("config.treesitter")

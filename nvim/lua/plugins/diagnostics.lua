@@ -5,6 +5,11 @@ return {
     opts = { use_diagnostic_signs = true },
     keys = {
       {
+        "<leader>xs",
+        function() require("trouble").toggle({ mode = "lsp" }) end,
+        desc = "LSP references/definitions/...",
+      },
+      {
         "<leader>xx",
         function() require("trouble").toggle({ mode = "diagnostics", filter = { buf = 0 } }) end,
         desc = ": " .. "Document Diagnostics (Trouble)",
