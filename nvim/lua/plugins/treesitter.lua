@@ -1,8 +1,42 @@
 return {
   {
+    "nvim-treesitter/nvim-treesitter",
+    branch = "main",
+    lazy = false,
+    build = ":TSUpdate",
+    cmd = { "TSUpdate", "TSInstall" },
+    init = function()
+      require("nvim-treesitter").install({
+        "bash",
+        "c",
+        "go",
+        "gomod",
+        "gotmpl",
+        "hcl",
+        "html",
+        "javascript",
+        "json",
+        "lua",
+        "make",
+        "markdown",
+        "markdown_inline",
+        "python",
+        "rust",
+        "terraform",
+        "toml",
+        "tsx",
+        "typescript",
+        "vim",
+        "vimdoc",
+        "yaml",
+      })
+    end,
+  },
+  {
     "nvim-treesitter/nvim-treesitter-textobjects",
     branch = "main",
     event = "VeryLazy",
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
     opts = {
       move = {
         enable = true,
