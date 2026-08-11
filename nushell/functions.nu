@@ -105,7 +105,7 @@ def --env mkt [] {
   cd ((^mktemp -d) | str trim)
 }
 
-def --wrapped pi [--version: string = "0.82.0", ...args] {
+def --wrapped pi [--version: string = "0.84.1", ...args] {
   let version = ($version | str trim --left --char "v")
   ^bunx --bun $"@earendil-works/pi-coding-agent@v($version)" ...$args
 }
