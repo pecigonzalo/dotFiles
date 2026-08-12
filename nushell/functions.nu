@@ -105,10 +105,7 @@ def --env mkt [] {
   cd ((^mktemp -d) | str trim)
 }
 
-def --wrapped pi [--version: string = "0.84.1", ...args] {
-  let version = ($version | str trim --left --char "v")
-  ^bunx --bun $"@earendil-works/pi-coding-agent@v($version)" ...$args
-}
+# pi is now a standalone script in ~/.local/bin
 
 def --wrapped cfg [...args] {
   ^git $"--git-dir=($env.HOME | path join '.cfg')" $"--work-tree=($env.HOME)" ...$args

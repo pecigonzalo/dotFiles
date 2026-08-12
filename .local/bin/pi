@@ -1,0 +1,40 @@
+#!/bin/bash
+#
+# Run the Pi coding agent via bunx, pinned to a configurable version.
+# Replaces the pi() shell functions previously defined in zsh and nushell.
+
+set -euo pipefail
+
+readonly DEFAULT_VERSION="0.84.1"
+
+version="${DEFAULT_VERSION}"
+args=()
+
+while (( $# > 0 )); do
+  case "$1" in
+    --)
+      shift
+      args+=("$@")
+      break
+      ;;
+    --version)
+      if (( $# < 2 )); then
+        echo "pi: --version requires a value" >&2
+        exit 1
+      fi
+      version="${2#v}"
+      shift 2
+      ;;
+    --version=*)
+      version="${1#--version=}"
+      version="${version#v}"
+      shift
+      ;;
+    *)
+      args+=("$1")
+      shift
+      ;;
+  esac
+done
+
+exec bunx --bun "@earendil-works/pi-coding-agent@v${version}" ${args[@]+"${args[@]}"}

@@ -168,6 +168,7 @@ in
         ".config/nushell/aliases.nu".source = mkDotFileLink "nushell/aliases.nu";
         ".config/nushell/functions.nu".source = mkDotFileLink "nushell/functions.nu";
         ".config/nushell/completions.nu".source = mkDotFileLink "nushell/completions.nu";
+        ".local/bin/pi".source = mkDotFileLink ".local/bin/pi";
       };
     };
 
