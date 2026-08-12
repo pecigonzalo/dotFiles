@@ -67,7 +67,13 @@ in
         ++ optionals cfg.includeLocalClusters [
           k3d
           kind
-          minikube
+          # nixpkgs minikube installs a kubectl symlink into its output, which
+          # conflicts with the standalone kubectl package in the same buildEnv.
+          (minikube.overrideAttrs (old: {
+            postInstall = (old.postInstall or "") + ''
+              rm -f $out/bin/kubectl
+            '';
+          }))
         ]
         ++ optional cfg.includeHelm kubernetes-helm
         ++ optional cfg.includeK9s k9s
