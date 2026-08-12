@@ -30,21 +30,21 @@ in
         "--color=bg:-1,fg:-1,prompt:1,info:3,hl:2,hl+:2"
       ];
 
-      historyWidgetOptions = [
+      historyWidget.options = [
         "--preview 'echo {}'"
         "--preview-window down:3:hidden:wrap"
         "--bind '?:toggle-preview'"
       ];
 
-      # fileWidgetCommand = "";
-      fileWidgetOptions = [
+      # fileWidget.command = "";
+      fileWidget.options = [
         "--preview '(bat --style=numbers --color=always --line-range :500 {} || eza --tree --level=4 {}) 2> /dev/null'"
         "--select-1"
         "--exit-0"
       ];
 
-      changeDirWidgetCommand = "fd --type directory --color=always . ${homeDir}";
-      changeDirWidgetOptions = [
+      changeDirWidget.command = "fd --type directory --color=always . ${homeDir}";
+      changeDirWidget.options = [
         "--preview 'eza --tree --level=4 {} | head -200'"
       ];
     };
