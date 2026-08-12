@@ -9,6 +9,8 @@ return {
       require("nvim-treesitter").install({
         "bash",
         "c",
+        "c_sharp",
+        "fsharp",
         "go",
         "gomod",
         "gotmpl",

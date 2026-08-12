@@ -17,7 +17,7 @@ return {
       },
     },
     init = function()
-      vim.filetype.add({ extension = { templ = "templ", zon = "zig" } })
+      vim.filetype.add({ extension = { templ = "templ", zon = "zig", fs = "fsharp", fsx = "fsharp", fsi = "fsharp" } })
       local format_group = vim.api.nvim_create_augroup("lsp_format_on_save", { clear = true })
       local function has_formatter(bufnr)
         local clients = vim.lsp.get_clients and vim.lsp.get_clients({ bufnr = bufnr })
@@ -214,6 +214,34 @@ return {
           -- JVM
           java_language_server = {},
           kotlin_language_server = {},
+          -- .NET
+          fsautocomplete = {
+            on_attach = function(client, _)
+              -- fsautocomplete 0.83.0 returns invalid semantic token data that
+              -- spins nvim's offset conversion at 100% CPU (ionide/FsAutoComplete#1534)
+              client.server_capabilities.semanticTokensProvider = nil
+            end,
+            settings = {
+              FSharp = {
+                keywordsAutocomplete = true,
+                ExternalAutocomplete = false,
+                Linter = true,
+                UnionCaseStubGeneration = true,
+                UnionCaseStubGenerationBody = 'failwith "Not Implemented"',
+                RecordStubGeneration = true,
+                RecordStubGenerationBody = 'failwith "Not Implemented"',
+                InterfaceStubGeneration = true,
+                InterfaceStubGenerationObjectIdentifier = "this",
+                InterfaceStubGenerationMethodBody = 'failwith "Not Implemented"',
+                UnusedOpensAnalyzer = true,
+                UnusedDeclarationsAnalyzer = true,
+                UseSdkScripts = true,
+                SimplifyNameAnalyzer = true,
+                ResolveNamespaces = true,
+                EnableReferenceCodeLens = true,
+              },
+            },
+          },
           -- TS
           -- denols = {
           --   root_dir = root_pattern("deno.json", "deno.jsonc", "deno.lock"),

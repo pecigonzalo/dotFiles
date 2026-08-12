@@ -33,6 +33,9 @@ return {
         null_ls.builtins.diagnostics.ktlint,
         null_ls.builtins.formatting.ktlint,
 
+        -- .NET
+        null_ls.builtins.formatting.fantomas,
+
         -- Python
         -- null_ls.builtins.diagnostics.mypy,
         -- null_ls.builtins.diagnostics.pylint,
