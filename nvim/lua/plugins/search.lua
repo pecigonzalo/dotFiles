@@ -38,6 +38,20 @@ return {
         desc = "Toggle Flash Search",
         mode = { "c" },
       },
+      -- Simulate nvim-treesitter incremental selection (LazyVim)
+      {
+        "<c-space>",
+        function()
+          require("flash").treesitter({
+            actions = {
+              ["<c-space>"] = "next",
+              ["<BS>"] = "prev",
+            },
+          })
+        end,
+        desc = "Treesitter Incremental Selection",
+        mode = { "n", "o", "x" },
+      },
     },
   },
 }

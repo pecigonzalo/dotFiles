@@ -5,12 +5,6 @@ return {
     event = { "BufReadPre", "BufNewFile" },
     config = true,
   },
-  -- Highlight word under cursor
-  {
-    "echasnovski/mini.cursorword",
-    event = { "BufReadPost", "BufNewFile" },
-    config = true,
-  },
   -- Indent line
   {
     "lukas-reineke/indent-blankline.nvim",

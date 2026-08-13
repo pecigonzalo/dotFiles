@@ -208,40 +208,29 @@ return {
     },
     -- stylua: ignore
     keys = {
-      {
-        "<tab>",
-        function()
-          return require("luasnip").jumpable(1) and "<Plug>luasnip-jump-next" or "<tab>"
-        end,
-        expr = true,
-        silent = true,
-        mode = { "i" },
-      },
+      -- <Tab>/<S-Tab> snippet jumps in insert mode are handled by blink.cmp
       { "<tab>",   function() require("luasnip").jump(1) end,  mode = { "s" } },
-      { "<s-tab>", function() require("luasnip").jump(-1) end, mode = { "i", "s" } },
+      { "<s-tab>", function() require("luasnip").jump(-1) end, mode = { "s" } },
     },
   },
   -- Autocompletion
   {
-    "hrsh7th/nvim-cmp",
-    version = false,
-    event = "InsertEnter",
+    "saghen/blink.cmp",
+    version = "*",
+    event = { "InsertEnter", "CmdlineEnter" },
     dependencies = {
-      "hrsh7th/cmp-buffer", -- source for text in buffer
-      "hrsh7th/cmp-path", -- source for file system paths
-      "hrsh7th/cmp-cmdline", -- source for cmdline
-      "hrsh7th/cmp-nvim-lsp", -- source for LSP
-      "hrsh7th/cmp-nvim-lsp-signature-help", -- source for signatures from LSP
-      "b0o/schemastore.nvim", -- source for JSON schemas
-      "hrsh7th/cmp-emoji", -- source for Emoji
       "L3MON4D3/LuaSnip", -- snippet engine
-      "saadparwaiz1/cmp_luasnip", -- for autocompletion
       "rafamadriz/friendly-snippets", -- useful snippets
+      "fang2hou/blink-copilot", -- copilot source (only enabled when vim.g.ai_cmp is true)
+      {
+        "saghen/blink.compat", -- reuse nvim-cmp sources (e.g. cmp-emoji)
+        version = "2.*",
+        lazy = true,
+        opts = {},
+      },
+      "hrsh7th/cmp-emoji", -- source for Emoji
     },
     opts = function()
-      local cmp = require("cmp")
-      local defaults = require("cmp.config.default")()
-
       local kind_icons = {
         Text = "",
         Method = "󰆧",
@@ -271,85 +260,100 @@ return {
         Copilot = "",
       }
 
-      local menu_icon = {
-        nvim_lsp_signature_help = "󰇽",
-        nvim_lsp = "λ",
-        luasnip = "⋗",
-        buffer = "Ω",
-        path = "",
-        copilot = "",
+      local default_sources = { "lsp", "path", "snippets", "buffer" }
+      local providers = {
+        lsp = { name = "λ", module = "blink.cmp.sources.lsp" },
+        path = { name = "", module = "blink.cmp.sources.path" },
+        snippets = { name = "⋗", module = "blink.cmp.sources.snippets", min_keyword_length = 2 },
+        buffer = { name = "Ω", module = "blink.cmp.sources.buffer", min_keyword_length = 3 },
+        lazydev = { name = "LazyDev", module = "lazydev.integrations.blink", score_offset = 100 },
       }
+      if vim.g.ai_cmp then
+        -- copilot suggestions come from the completion menu (fang2hou/blink-copilot)
+        table.insert(default_sources, 1, "copilot")
+        providers.copilot = {
+          name = "copilot",
+          module = "blink-copilot",
+          score_offset = 100,
+          async = true,
+          opts = { kind_icon = "" }, -- match the Copilot icon used in kind_icons
+        }
+      end
 
-      cmp.setup({
-        completion = { completeopt = "menu,menuone,noinsert", keyword_length = 1 },
-        snippet = {
-          expand = function(args) require("luasnip").lsp_expand(args.body) end,
+      return {
+        appearance = {
+          nerd_font_variant = "mono",
+          kind_icons = kind_icons,
         },
-        window = {
-          completion = cmp.config.window.bordered(),
-          documentation = cmp.config.window.bordered(),
+        snippets = { preset = "luasnip" },
+        completion = {
+          accept = { auto_brackets = { enabled = true } },
+          menu = { draw = { treesitter = { "lsp" } } },
+          documentation = { auto_show = true, auto_show_delay_ms = 200 },
+          ghost_text = { enabled = vim.g.ai_cmp },
+          list = { selection = { preselect = true, auto_insert = false } },
         },
-        mapping = cmp.mapping.preset.insert({
-          ["<C-Space>"] = cmp.mapping.complete(), -- show completion suggestions
-
-          ["<C-j>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-          ["<C-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-
-          ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-          ["<C-f>"] = cmp.mapping.scroll_docs(4),
-
-          ["<C-e>"] = cmp.mapping.abort(), -- close completion window
-
-          ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-          ["<S-CR>"] = cmp.mapping.confirm({
-            behavior = cmp.ConfirmBehavior.Replace,
-            select = true,
-          }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-          ["<C-CR>"] = function(fallback)
-            cmp.abort()
-            fallback()
-          end,
-        }),
-        -- sources for autocompletion
-        sources = cmp.config.sources({
-          -- Group 1
-          { name = "nvim_lsp_signature_help" },
-          { name = "lazydev", group_index = 0 },
-          { name = "nvim_lsp" },
-          { name = "luasnip", keyword_length = 2, options = { show_autosnippets = true } }, -- snippets
-          { name = "path" }, -- file system paths
-          { name = "copilot" }, -- Github Copilot
-        }, {
-          -- Group 2
-          { name = "emoji" },
-          { name = "buffer", keyword_length = 3 }, -- text within current buffer
-        }),
-        formatting = {
-          format = function(entry, item)
-            item.kind = string.format("%s %s", kind_icons[item.kind], item.kind) -- This concatonates the icons with the name of the item kind
-            item.menu = menu_icon[entry.source.name]
-            return item
-          end,
+        signature = { enabled = true },
+        cmdline = {
+          enabled = true,
+          keymap = { preset = "cmdline" },
+          completion = {
+            list = { selection = { preselect = false } },
+            menu = { auto_show = function() return vim.fn.getcmdtype() == ":" end },
+          },
         },
-        sorting = defaults.sorting,
-      })
+        keymap = {
+          preset = "enter",
+          ["<C-Space>"] = { "show", "show_documentation", "hide_documentation" },
+          ["<C-j>"] = { function(cmp) return cmp.select_next({ auto_insert = true }) end, "fallback" },
+          ["<C-k>"] = { function(cmp) return cmp.select_prev({ auto_insert = true }) end, "fallback" },
+          ["<C-b>"] = { "scroll_documentation_up", "fallback" },
+          ["<C-f>"] = { "scroll_documentation_down", "fallback" },
+          ["<C-e>"] = { "hide", "fallback" },
+          ["<S-CR>"] = { "select_and_accept", "fallback" },
+          ["<C-CR>"] = { "cancel", "fallback" },
+          ["<Tab>"] = {
+            "snippet_forward",
+            function()
+              -- accept copilot ghost text if visible (ghost text mode, ai_cmp = false)
+              if not vim.g.ai_cmp then
+                local ok, suggestion = pcall(require, "copilot.suggestion")
+                if ok and suggestion.is_visible() then
+                  suggestion.accept()
+                  return true
+                end
+              end
+            end,
+            "fallback",
+          },
+        },
+        sources = {
+          compat = { "emoji" },
+          default = default_sources,
+          providers = providers,
+          per_filetype = {
+            lua = { inherit_defaults = true, "lazydev" },
+          },
+        },
+      }
+    end,
+    config = function(_, opts)
+      -- wire up nvim-cmp sources listed in opts.sources.compat via blink.compat
+      local enabled = opts.sources.default
+      for _, source in ipairs(opts.sources.compat or {}) do
+        opts.sources.providers[source] = vim.tbl_deep_extend(
+          "force",
+          { name = source, module = "blink.compat.source" },
+          opts.sources.providers[source] or {}
+        )
+        if type(enabled) == "table" and not vim.tbl_contains(enabled, source) then
+          table.insert(enabled, source)
+        end
+      end
+      -- unset custom prop to pass blink.cmp validation
+      opts.sources.compat = nil
 
-      -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
-      cmp.setup.cmdline({ "/", "?" }, {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = cmp.config.sources({
-          { name = "buffer" },
-        }),
-      })
-
-      -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-      cmp.setup.cmdline(":", {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = cmp.config.sources({
-          { name = "path" },
-          { name = "cmdline" },
-        }),
-      })
+      require("blink.cmp").setup(opts)
     end,
   },
 

@@ -5,6 +5,8 @@ return {
     opts = {
       numhl = true, -- Highlight line numbers for git
       word_diff = false, -- Show per-word diff
+      watch_gitdir = { interval = 1000, follow_files = true },
+      current_line_blame_opts = { virt_text_pos = "right_align", delay = 700 },
 
       preview_config = {
         border = "rounded",
@@ -54,6 +56,16 @@ return {
       "DiffviewOpen",
       "DiffviewRefresh",
       "DiffviewToggleFiles",
+    },
+    opts = {
+      enhanced_diff_hl = true,
+      view = { default = { layout = "diff2_horizontal" } },
+      views = { file_history = { layout = "diff2_horizontal" } },
+      file_panel = { width = 35 },
+    },
+    keys = {
+      { "<leader>gd", "<Cmd>DiffviewOpen<CR>", desc = "Diffview Open" },
+      { "<leader>gD", "<Cmd>DiffviewFileHistory %<CR>", desc = "Diffview File History" },
     },
   },
 }

@@ -3,6 +3,11 @@ local aucmd = vim.api.nvim_create_autocmd
 
 require("config.lsp-log")
 
+-- Copilot completion mode
+-- true:  copilot suggestions in the completion menu (blink-copilot source)
+-- false: copilot.lua native ghost text, accepted with <Tab>
+vim.g.ai_cmp = vim.g.ai_cmp == nil and true or vim.g.ai_cmp
+
 -- General
 vim.o.mouse = "a" -- Enable mouse
 vim.o.switchbuf = "usetab" -- Open new buffer in existing window if possible

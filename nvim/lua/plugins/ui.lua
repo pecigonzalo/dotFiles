@@ -10,6 +10,15 @@ return {
     keys = {
       { "<leader>bp", "<Cmd>BufferLineTogglePin<CR>", desc = "Toggle pin" },
       { "<leader>bP", "<Cmd>BufferLineGroupClose ungrouped<CR>", desc = "Delete non-pinned buffers" },
+      { "<S-h>", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev Buffer" },
+      { "<S-l>", "<cmd>BufferLineCycleNext<cr>", desc = "Next Buffer" },
+      { "[b", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev Buffer" },
+      { "]b", "<cmd>BufferLineCycleNext<cr>", desc = "Next Buffer" },
+      { "[B", "<cmd>BufferLineMovePrev<cr>", desc = "Move buffer prev" },
+      { "]B", "<cmd>BufferLineMoveNext<cr>", desc = "Move buffer next" },
+      { "<leader>bj", "<Cmd>BufferLinePick<CR>", desc = "Pick Buffer" },
+      { "<leader>br", "<Cmd>BufferLineCloseRight<CR>", desc = "Delete Buffers to the Right" },
+      { "<leader>bl", "<Cmd>BufferLineCloseLeft<CR>", desc = "Delete Buffers to the Left" },
     },
     opts = function()
       return {
@@ -21,12 +30,18 @@ return {
           always_show_bufferline = false,
           offsets = {
             {
-              filetype = "NvimTree",
+              filetype = "snacks_explorer",
               text = "File Explorer",
               text_align = "left",
               separator = true,
             },
           },
+          diagnostics_indicator = function(_, _, diag)
+            local icons = { error = "", warn = "", info = "", hint = "" }
+            local ret = (diag.error and icons.error .. diag.error .. " " or "")
+              .. (diag.warning and icons.warn .. diag.warning or "")
+            return vim.trim(ret)
+          end,
         },
         highlights = {
           buffer_selected = {
@@ -81,7 +96,33 @@ return {
             { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
             { "filename", path = 1, padding = { left = 0, right = 1 } },
           },
-          lualine_x = {},
+          lualine_x = {
+            -- Copilot status (only when the copilot LSP client is attached)
+            {
+              function()
+                local ok, status = pcall(require, "copilot.status")
+                if not ok then return "" end
+                local state = status.data.status
+                return (state == "InProgress" and "pending") or (state == "Warning" and "warning") or "ok"
+              end,
+              cond = function()
+                local ok = pcall(require, "copilot.status")
+                return ok and #vim.lsp.get_clients({ name = "copilot", bufnr = 0 }) > 0
+              end,
+              color = function()
+                local colors = { InProgress = "#6A9955", Warning = "#dcaa4b", Error = "#dd4b39" }
+                return { fg = colors[require("copilot.status").data.status] or "#6A9955" }
+              end,
+              padding = { left = 1, right = 1 },
+            },
+            -- Pending plugin updates
+            {
+              require("lazy.status").updates,
+              cond = require("lazy.status").has_updates,
+              color = { fg = "#DCA561" },
+              padding = { left = 1, right = 1 },
+            },
+          },
           lualine_y = {
             { "progress", separator = " ", padding = { left = 1, right = 0 } },
             { "location", padding = { left = 0, right = 1 } },
@@ -152,6 +193,28 @@ return {
       },
       explorer = {
         replace_netrw = true,
+      },
+      bigfile = { enabled = true, notify = false },
+      words = { enabled = true },
+      dashboard = {
+        header = [[
+  ███╗   ██╗██╗   ██╗██╗███╗   ███╗
+  ████╗  ██║██║   ██║██║████╗ ████║
+  ██╔██╗ ██║██║   ██║██║██╔████╔██║
+  ██║╚██╗██║╚██╗ ██╔╝██║██║╚██╔╝██║
+  ██║ ╚████║ ╚████╔╝ ██║██║ ╚═╝ ██║
+  ╚═╝  ╚═══╝  ╚═══╝  ╚═╝╚═╝     ╚═╝
+]],
+        keys = {
+          { icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
+          { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
+          { icon = " ", key = "g", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
+          { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
+          { icon = " ", key = "c", desc = "Config", action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})" },
+          { icon = " ", key = "s", desc = "Restore Session", section = "session" },
+          { icon = "󰒲 ", key = "l", desc = "Lazy", action = ":Lazy" },
+          { icon = " ", key = "q", desc = "Quit", action = ":qa" },
+        },
       },
     },
     keys = function()
@@ -224,6 +287,16 @@ return {
           function() snacks.explorer() end,
           desc = "Open Explorer",
         },
+
+        -- Rename File (capital R: file-level, see <leader>rn for symbols)
+        { "<leader>cR", function() snacks.rename.rename_file() end, desc = "Rename File" },
+
+        -- Git browse: open current file/range on the git remote in the browser
+        { "<leader>gB", function() snacks.gitbrowse.open() end, desc = "Git Browse" },
+
+        -- Word references navigation (snacks.words)
+        { "<a-n>", function() snacks.words.jump(vim.v.count1, true) end, desc = "Next Reference" },
+        { "<a-p>", function() snacks.words.jump(-vim.v.count1, true) end, desc = "Prev Reference" },
       }
     end,
   },
@@ -245,7 +318,6 @@ return {
         override = {
           ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
           ["vim.lsp.util.stylize_markdown"] = true,
-          ["cmp.entry.get_documentation"] = true,
         },
       },
       routes = {
@@ -275,6 +347,15 @@ return {
         inc_rename = true,
         lsp_doc_border = true,
       },
+    },
+    -- stylua: ignore
+    keys = {
+      { "<leader>sn", "", desc = "+noice" },
+      { "<S-Enter>", function() require("noice").redirect(vim.fn.getcmdline()) end, mode = "c", desc = "Redirect Cmdline" },
+      { "<leader>snl", function() require("noice").cmd("last") end, desc = "Noice Last Message" },
+      { "<leader>snh", function() require("noice").cmd("history") end, desc = "Noice History" },
+      { "<leader>sna", function() require("noice").cmd("all") end, desc = "Noice All" },
+      { "<leader>snd", function() require("noice").cmd("dismiss") end, desc = "Dismiss All" },
     },
   },
 }

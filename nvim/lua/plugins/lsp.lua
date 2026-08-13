@@ -265,12 +265,11 @@ return {
     config = function(_, opts)
       local servers = opts.servers or {}
 
-      local has_cmp, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
-
+      -- Nvim 0.12's make_client_capabilities() already includes what completion
+      -- engines need (snippetSupport, insertReplaceSupport, resolveSupport).
       local capabilities = vim.tbl_deep_extend(
         "force",
         vim.lsp.protocol.make_client_capabilities(),
-        has_cmp and cmp_nvim_lsp.default_capabilities() or {},
         opts.capabilities or {}
       )
 

@@ -30,6 +30,11 @@ return {
         desc = "Quickfix List (Trouble)",
       },
       {
+        "<leader>xS",
+        function() require("trouble").toggle({ mode = "symbols" }) end,
+        desc = "Symbols (Trouble)",
+      },
+      {
         "[q",
         function()
           if require("trouble").is_open() then
