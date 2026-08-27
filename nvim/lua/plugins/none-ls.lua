@@ -47,7 +47,7 @@ return {
         null_ls.builtins.formatting.prettier,
 
         -- Lua
-        null_ls.builtins.diagnostics.selene,
+        -- null_ls.builtins.diagnostics.selene, -- crashes on empty output (vim.split(nil)); see lua_ls diagnostics
         null_ls.builtins.formatting.stylua,
       },
     }

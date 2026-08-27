@@ -24,6 +24,7 @@ return {
         "markdown_inline",
         "python",
         "rust",
+        "svelte",
         "terraform",
         "toml",
         "tsx",
