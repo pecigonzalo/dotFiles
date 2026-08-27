@@ -44,8 +44,8 @@ in
       "parsec"
       "moonlight"
       # Communication
-      # "slack"
-      # "discord"
+      "slack"
+      "discord"
       # macOS Tooling
       "jordanbaird-ice"
       "hammerspoon"
@@ -55,13 +55,15 @@ in
       "scroll-reverser"
       # Notes
       "obsidian"
-      # "notion"
       # Media
       "spotify"
       # Editor
       "visual-studio-code"
       # Files
       "google-drive"
+      # 3D
+      "bambu-studio"
+      "openscad@snapshot"
     ];
   };
 }
