@@ -1,7 +1,4 @@
-{ config, pkgs, ... }:
-let
-  userHome = "/Users/${config.system.primaryUser}";
-in
+{ pkgs, ... }:
 {
   imports = [
     # Minimal config of Nix related options and shells
