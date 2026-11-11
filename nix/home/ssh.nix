@@ -9,7 +9,10 @@ let
   isDarwin = pkgs.stdenv.hostPlatform.isDarwin;
 
   # EC2 Instance Connect needs a public key to authorise on the instance.
-  ec2Key = lib.findFirst (key: key.type == "ed25519") (builtins.head userCfg.sshKeys) userCfg.sshKeys;
+  # Prefer ed25519, fall back to the first declared key; null when none are declared.
+  ec2Key = lib.findFirst (key: key.type == "ed25519") (lib.head (
+    userCfg.sshKeys ++ [ null ]
+  )) userCfg.sshKeys;
 
   # `Host *.ssm` carries the instance id in the first label, e.g. `i-0123456789abcdef0.ssm`.
   instanceId = "$(echo %h | rev | cut -d . -f 2- | rev)";
@@ -44,8 +47,9 @@ in
       // lib.optionalAttrs isDarwin {
         UseKeychain = true;
       };
-
-      # SSH through AWS Systems Manager, `<instance-id>.ssm`.
+    }
+    // lib.optionalAttrs (ec2Key != null) {
+      # SSH through AWS Systems Manager, `<instance-id>.ssm`. Needs a declared key.
       "*.ssm" = {
         User = "ssm-user";
         ProxyCommand = ssmProxyCommand;
