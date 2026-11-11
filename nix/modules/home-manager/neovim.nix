@@ -131,19 +131,21 @@ in
       };
     };
 
-    # Link NVIM lua config
-    xdg.configFile."nvim/lua" = {
-      source = pathsCfg.mkDotFileLink "nvim/lua";
-      recursive = true;
-    };
-    # Link lock file
-    xdg.configFile."nvim/lazy-lock.json" = {
-      source = pathsCfg.mkDotFileLink "nvim/lazy-lock.json";
-      recursive = true;
-    };
-    xdg.configFile."nvim/queries" = {
-      source = pathsCfg.mkDotFileLink "nvim/queries";
-      recursive = true;
+    xdg.configFile = {
+      # Link NVIM lua config
+      "nvim/lua" = {
+        source = pathsCfg.mkDotFileLink "nvim/lua";
+        recursive = true;
+      };
+      # Link lock file
+      "nvim/lazy-lock.json" = {
+        source = pathsCfg.mkDotFileLink "nvim/lazy-lock.json";
+        recursive = true;
+      };
+      "nvim/queries" = {
+        source = pathsCfg.mkDotFileLink "nvim/queries";
+        recursive = true;
+      };
     };
 
     assertions = [

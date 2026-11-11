@@ -10,7 +10,7 @@ let
   neovimCfg = config.my.neovim;
   shellCfg = config.my.shell;
 
-  minimumReleaseAgeDays = cfg.minimumReleaseAgeDays;
+  inherit (cfg) minimumReleaseAgeDays;
   minimumReleaseAgeMinutes = minimumReleaseAgeDays * 24 * 60;
   minimumReleaseAgeSeconds = minimumReleaseAgeMinutes * 60;
 in

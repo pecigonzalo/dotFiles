@@ -6,8 +6,6 @@ let
 in
 lib.mkIf pkgs.stdenv.isDarwin {
   xdg.configFile."colima/default/colima.yaml" = {
-    # Replace the hand-written file Colima generated on first start.
-    force = true;
     source = yaml.generate "colima.yaml" {
       cpu = 6;
       memory = 8;
