@@ -1,11 +1,9 @@
-#!/usr/bin/zsh
+#!/usr/bin/env zsh
 
-# Set LS_COLORS
-eval $(dircolors)
-
-# ssh-agent SOCK
-# export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}/ssh-agent.socket"
-# export SSH_ASKPASS="/usr/bin/ksshaskpass"
+# Set LS_COLORS (GNU coreutils only; absent on stock macOS)
+if (( $+commands[dircolors] )); then
+  eval "$(dircolors)"
+fi
 
 # LESS man page colors (makes Man pages more readable).
 export LESS_TERMCAP_mb=$'\E[01;31m'
