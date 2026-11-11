@@ -124,6 +124,11 @@ with pkgs;
 
   # Markdown
   glow
+  (textlint.withPackages [
+    # Rules referenced by ~/.textlintrc. `en-capitalization` and `rousseau` are not packaged in nixpkgs.
+    textlint-rule-common-misspellings
+    textlint-rule-write-good
+  ])
 
   # Ansible
   ansible

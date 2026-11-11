@@ -1,18 +1,7 @@
 {
   "rules": {
-    "en-capitalization": true,
     "common-misspellings": {
       "ignore": []
-    },
-    "rousseau": {
-      "showLevels": [
-        "warning",
-        "error"
-      ],
-      "ignoreTypes": [
-        "passive",
-        "sentence:uppercase"
-      ]
     },
     "write-good": {
       "passive": false

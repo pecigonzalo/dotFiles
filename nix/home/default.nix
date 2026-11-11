@@ -111,21 +111,17 @@ in
       ".tool-versions".source = mkDotFileLink ".tool-versions";
       ".gemrc".source = mkDotFileLink ".gemrc";
 
-      ".psqlrc".text = ''
-        \set PROMPT1 '%[%033[1;34m%]%n@%/%[%033[0m%] in %m \n%R%#%x%[%033[1;32m%]❯%[%033[0m%] '
-        \set PROMPT2 '%[%033[1;34m%]%n@%/%[%033[0m%] in %m \n%R%#%[%033[1;34m%]❯%[%033[0m%] '
-
-        \set VERBOSITY verbose
-
-        \set HISTCONTROL ignoreboth
-        \set COMP_KEYWORD_CASE upper
-      '';
+      ".psqlrc".source = mkDotFileLink ".psqlrc";
+      ".textlintrc".source = mkDotFileLink ".textlintrc";
 
       ".asdfrc".text = ''
         legacy_version_file = yes
       '';
 
       ".parallel/will-cite".text = ""; # Stop `parallel` from displaying citation warning
+    }
+    // lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin {
+      ".hammerspoon".source = mkDotFileLink ".hammerspoon";
     };
   };
 
