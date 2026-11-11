@@ -140,7 +140,6 @@ with pkgs;
   _1password-cli
 
   # Container runtimes
-  lima
   colima
 
   # Security
