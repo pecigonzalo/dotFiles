@@ -5,10 +5,7 @@
   ...
 }:
 let
-  inherit (config.lib.file) mkOutOfStoreSymlink;
-
-  homeDir = config.home.homeDirectory;
-  dotFilesDir = "${homeDir}/dotFiles";
+  inherit (config.my.paths) mkDotFileLink;
 
   treeSitterGrammarSources = pkgs.linkFarm "tree-sitter-grammar-sources" (
     pkgs.lib.mapAttrsToList (name: grammar: {
@@ -111,9 +108,18 @@ in
     };
 
     file = {
-      ".xprofile".source = mkOutOfStoreSymlink "${dotFilesDir}/.xprofile";
-      ".tool-versions".source = mkOutOfStoreSymlink "${dotFilesDir}/.tool-versions";
-      ".gemrc".source = mkOutOfStoreSymlink "${dotFilesDir}/.gemrc";
+      ".tool-versions".source = mkDotFileLink ".tool-versions";
+      ".gemrc".source = mkDotFileLink ".gemrc";
+
+      ".psqlrc".text = ''
+        \set PROMPT1 '%[%033[1;34m%]%n@%/%[%033[0m%] in %m \n%R%#%x%[%033[1;32m%]❯%[%033[0m%] '
+        \set PROMPT2 '%[%033[1;34m%]%n@%/%[%033[0m%] in %m \n%R%#%[%033[1;34m%]❯%[%033[0m%] '
+
+        \set VERBOSITY verbose
+
+        \set HISTCONTROL ignoreboth
+        \set COMP_KEYWORD_CASE upper
+      '';
 
       ".asdfrc".text = ''
         legacy_version_file = yes

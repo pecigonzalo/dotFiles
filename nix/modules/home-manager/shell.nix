@@ -9,9 +9,7 @@ let
   cfg = config.my.shell;
   userCfg = config.my.user;
 
-  homeDir = config.home.homeDirectory;
-  dotFilesDir = "${homeDir}/dotFiles";
-  mkDotFileLink = path: config.lib.file.mkOutOfStoreSymlink "${dotFilesDir}/${path}";
+  inherit (config.my.paths) homeDir dotFilesDir mkDotFileLink;
   isDarwin = pkgs.stdenv.hostPlatform.isDarwin;
 
   # Generate SSH agent identities from user config
