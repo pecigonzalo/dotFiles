@@ -12,4 +12,8 @@ in
   #   inherit (prev.darwin.apple_sdk.frameworks) vmnet;
   # };
   xo = callPackage ./xo { };
+  inherit (callPackage ./textlint-rules { })
+    textlint-rule-rousseau
+    textlint-rule-en-capitalization
+    ;
 }

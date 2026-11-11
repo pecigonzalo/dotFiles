@@ -125,8 +125,10 @@ with pkgs;
   # Markdown
   glow
   (textlint.withPackages [
-    # Rules referenced by ~/.textlintrc. `en-capitalization` and `rousseau` are not packaged in nixpkgs.
+    # Rules referenced by ~/.textlintrc
     textlint-rule-common-misspellings
+    textlint-rule-en-capitalization
+    textlint-rule-rousseau
     textlint-rule-write-good
   ])
 
