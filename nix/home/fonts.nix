@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   xdg.configFile.fontconfig = {
-    source = ../../.config/fontconfig;
+    source = ../../config/fontconfig;
     recursive = true;
   };
   fonts.fontconfig.enable = true;

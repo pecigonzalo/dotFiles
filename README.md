@@ -26,3 +26,23 @@ home-manager switch --flake .#wslfish
 home-manager switch --flake .#revel
 home-manager switch --flake .#devel
 ```
+
+## Layout
+
+```
+flake.nix, flake.lock    Flake entry point
+nix/                     Nix code: flake helpers, modules, home, darwin, pkgs, overlays
+config/                  Files edited live and symlinked into $HOME (via `my.paths.mkDotFileLink`)
+  home/                  Home-directory dotfiles (gemrc, psqlrc, textlintrc, tool-versions)
+  nvim/ zsh/ nushell/    Shell and editor config
+  hammerspoon/ wezterm/  macOS and terminal config
+  fontconfig/            Linked on every platform
+  linux/ wsl/            Linux and WSL specific files
+  k3d/ vscode/           Local cluster and editor settings
+  git_template/          Git template directory (hooks)
+  chrome-color-helper/   Browser extension used by the AWS console helpers
+bin/                     Scripts linked into ~/.local/bin
+stylua.toml, selene.toml, vim.toml, lefthook.yml   Linter and hook config (must stay at the root)
+```
+
+`config/` is symlinked out-of-store, so edits apply immediately without a rebuild. Everything under `nix/` needs a switch.

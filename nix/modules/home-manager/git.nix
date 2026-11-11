@@ -73,7 +73,7 @@ in
             signingkey = userCfg.signingKey;
           };
           init = {
-            templatedir = "~/dotFiles/.git_template/template";
+            templatedir = "~/dotFiles/config/git_template/template";
             defaultBranch = "main";
           };
 

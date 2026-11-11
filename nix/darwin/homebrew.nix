@@ -64,6 +64,8 @@ in
       # 3D
       "bambu-studio"
       "openscad@snapshot"
+      # AI
+      "claude"
     ];
   };
 }

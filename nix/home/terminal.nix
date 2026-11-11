@@ -1,10 +1,6 @@
-{
-  config,
-  ...
-}:
+{ config, ... }:
 let
-  inherit (config.lib.file) mkOutOfStoreSymlink;
-  dotFilesDir = "${config.home.homeDirectory}/dotFiles";
+  inherit (config.my.paths) mkDotFileLink;
 in
 {
   programs.wezterm = {
@@ -12,6 +8,5 @@ in
   };
 
   # Symlink wezterm config to dotfiles for dynamic reloading
-  home.file.".config/wezterm/wezterm.lua".source =
-    mkOutOfStoreSymlink "${dotFilesDir}/nix/home/wezterm/config.lua";
+  xdg.configFile."wezterm/wezterm.lua".source = mkDotFileLink "config/wezterm/config.lua";
 }

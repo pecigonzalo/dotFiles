@@ -134,16 +134,16 @@ in
     xdg.configFile = {
       # Link NVIM lua config
       "nvim/lua" = {
-        source = pathsCfg.mkDotFileLink "nvim/lua";
+        source = pathsCfg.mkDotFileLink "config/nvim/lua";
         recursive = true;
       };
       # Link lock file
       "nvim/lazy-lock.json" = {
-        source = pathsCfg.mkDotFileLink "nvim/lazy-lock.json";
+        source = pathsCfg.mkDotFileLink "config/nvim/lazy-lock.json";
         recursive = true;
       };
       "nvim/queries" = {
-        source = pathsCfg.mkDotFileLink "nvim/queries";
+        source = pathsCfg.mkDotFileLink "config/nvim/queries";
         recursive = true;
       };
     };

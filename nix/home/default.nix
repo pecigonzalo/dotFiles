@@ -109,11 +109,11 @@ in
     };
 
     file = {
-      ".tool-versions".source = mkDotFileLink ".tool-versions";
-      ".gemrc".source = mkDotFileLink ".gemrc";
+      ".tool-versions".source = mkDotFileLink "config/home/tool-versions";
+      ".gemrc".source = mkDotFileLink "config/home/gemrc";
 
-      ".psqlrc".source = mkDotFileLink ".psqlrc";
-      ".textlintrc".source = mkDotFileLink ".textlintrc";
+      ".psqlrc".source = mkDotFileLink "config/home/psqlrc";
+      ".textlintrc".source = mkDotFileLink "config/home/textlintrc";
 
       ".asdfrc".text = ''
         legacy_version_file = yes
@@ -122,7 +122,7 @@ in
       ".parallel/will-cite".text = ""; # Stop `parallel` from displaying citation warning
     }
     // lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin {
-      ".hammerspoon".source = mkDotFileLink ".hammerspoon";
+      ".hammerspoon".source = mkDotFileLink "config/hammerspoon";
     };
   };
 

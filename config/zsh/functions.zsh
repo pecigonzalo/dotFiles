@@ -102,7 +102,7 @@ awsvl() {
     open -na "Google Chrome" --args \
       --no-first-run \
       --user-data-dir="$data" \
-      --load-extension='~/dotFiles/.aws/chrome-color-helper/' \
+      --load-extension='~/dotFiles/config/chrome-color-helper/' \
       $TOKEN
     rm -rf "$data"
   else

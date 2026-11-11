@@ -163,10 +163,10 @@ in
       };
 
       file = {
-        ".config/nushell/aliases.nu".source = mkDotFileLink "nushell/aliases.nu";
-        ".config/nushell/functions.nu".source = mkDotFileLink "nushell/functions.nu";
-        ".config/nushell/completions.nu".source = mkDotFileLink "nushell/completions.nu";
-        ".local/bin/pi".source = mkDotFileLink ".local/bin/pi";
+        ".config/nushell/aliases.nu".source = mkDotFileLink "config/nushell/aliases.nu";
+        ".config/nushell/functions.nu".source = mkDotFileLink "config/nushell/functions.nu";
+        ".config/nushell/completions.nu".source = mkDotFileLink "config/nushell/completions.nu";
+        ".local/bin/pi".source = mkDotFileLink "bin/pi";
       };
     };
 
@@ -243,33 +243,33 @@ in
             autoload -U colors && colors
 
             # Load env
-            source "${dotFilesDir}/zsh/env.zsh"
+            source "${dotFilesDir}/config/zsh/env.zsh"
 
             # Get funtions
-            source "${dotFilesDir}/zsh/functions.zsh"
+            source "${dotFilesDir}/config/zsh/functions.zsh"
 
             # If on WSL, load
             if [[ -n "$WSL_DISTRO_NAME" ]]; then
-              source "${dotFilesDir}/wsl/wslrc.zsh"
+              source "${dotFilesDir}/config/wsl/wslrc.zsh"
             fi
           ''
 
           (pkgs.lib.optionalString isDarwin ''
-            source "${dotFilesDir}/zsh/macosrc.zsh"
+            source "${dotFilesDir}/config/zsh/macosrc.zsh"
           '')
 
           ''
             # Set ZSH opts
-            source "${dotFilesDir}/zsh/opts.zsh"
+            source "${dotFilesDir}/config/zsh/opts.zsh"
 
             # Set ZSH zstyle
-            source "${dotFilesDir}/zsh/zstyle.zsh"
+            source "${dotFilesDir}/config/zsh/zstyle.zsh"
 
             # Set Keyboard
-            source "${dotFilesDir}/zsh/keyboard.zsh"
+            source "${dotFilesDir}/config/zsh/keyboard.zsh"
 
             # Set Local
-            source "${dotFilesDir}/zsh/local.zsh"
+            source "${dotFilesDir}/config/zsh/local.zsh"
           ''
 
           (lib.mkAfter ''
