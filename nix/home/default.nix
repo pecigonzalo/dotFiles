@@ -40,7 +40,7 @@ in
     settings.options.urAccepted = -1;
     settings.options = {
       globalAnnounceEnabled = false;
-      localAnnounceEnabled = false;
+      localAnnounceEnabled = true;
       relaysEnabled = false;
       natEnabled = false;
     };

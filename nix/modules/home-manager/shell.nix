@@ -403,6 +403,26 @@ in
           ]
           ++ (map gitHubPlugin cfg.gitHubPlugins);
       };
+      atuin = {
+        enable = false;
+        daemon.enable = false;
+        flags = [
+          "--disable-up-arrow"
+        ];
+        settings = {
+          dotfiles.enabled = false;
+          enter_accept = false;
+          style = "compact";
+          history_filter = [
+            "^ls$"
+            "^cd "
+            "--password"
+          ];
+          cwd_filter = [
+            "^/tmp"
+          ];
+        };
+      };
     };
   };
 }
