@@ -22,6 +22,7 @@ in
     ./terminal.nix
     ./fonts.nix
     ./karabiner.nix
+    ./colima.nix
     ./packages
   ];
 
