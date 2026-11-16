@@ -4,7 +4,7 @@
 let
   yaml = pkgs.formats.yaml { };
 in
-lib.mkIf pkgs.stdenv.isDarwin {
+lib.mkIf (pkgs.stdenv.isDarwin && false) {
   xdg.configFile."colima/default/colima.yaml" = {
     source = yaml.generate "colima.yaml" {
       cpu = 6;
