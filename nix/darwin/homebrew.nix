@@ -47,7 +47,7 @@ in
       "slack"
       "discord"
       # macOS Tooling
-      "jordanbaird-ice"
+      "hiddenbar"
       "hammerspoon"
       "kap"
       "karabiner-elements"
