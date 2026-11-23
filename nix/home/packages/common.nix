@@ -148,4 +148,7 @@ with pkgs;
   hubble
   cloudflared
   teleport
+
+  # AI
+  pi
 ]

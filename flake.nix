@@ -23,6 +23,12 @@
 
     # Agenix
     agenix.url = "github:ryantm/agenix";
+
+    # Pi
+    pi = {
+      url = "github:earendil-works/pi/stable";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs =
     {
