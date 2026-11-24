@@ -63,7 +63,7 @@ in
 
     minimumReleaseAgeDays = mkOption {
       type = types.ints.positive;
-      default = 1;
+      default = 7;
       description = "Minimum npm package release age to configure user-wide, in days";
     };
   };

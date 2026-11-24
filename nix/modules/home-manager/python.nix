@@ -67,7 +67,7 @@ in
 
     minimumPackageAgeDays = mkOption {
       type = types.ints.positive;
-      default = 1;
+      default = 7;
       description = "Minimum Python package upload age to configure user-wide, in days";
     };
   };
